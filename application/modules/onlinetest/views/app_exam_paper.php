@@ -1,0 +1,1 @@
+<?php echo $oe_question[0]->question; ?>
