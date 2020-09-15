@@ -37,7 +37,7 @@ class Cart_model extends CI_Model{
 
 		function getCartItems($cart_id)
 	{
-		$this->db->select('*');
+		$this->db->select('id,cart_id,product_id,quantity,price,type,offline,modules_item_id,image_name,image_src,item_id,dt_created,dt_modified,start_time,end_time,end_date,status');
 		$this->db->from('cmscart_items');
 		$this->db->where('cart_id', $cart_id); 
 		$query = $this->db->get();

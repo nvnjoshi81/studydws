@@ -13,7 +13,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getChapters($limit = 0, $start = 0, $ordercol = 'name', $order = 'asc') {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         if ($limit > 0) {
             $this->db->limit($limit, $start);
@@ -24,7 +24,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getChapterDetails($id=0) {
-        $this->db->select('*');
+        $this->db->select('cmschapters.id,cmschapters.name,cmschapters.slug,cmschapters.order,cmschapters.created,cmschapters.description,cmschapters.keywords,cmschapters.tagline,cmschapter_details.id as cdi,cmschapter_details.sortorder,cmschapter_details.chapter_id,cmschapter_details.class_id,cmschapter_details.subject_id');
         $this->db->from('cmschapters');
         $this->db->join('cmschapter_details', 'cmschapter_details.chapter_id=cmschapters.id');
         if($id>0){
@@ -63,7 +63,7 @@ class Chapters_model extends CI_Model {
 	
 
     public function getChapter($id) {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -80,7 +80,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getClassInfo($id) {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -109,7 +109,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getChapterByExamSubject($exam_id, $subject_id) {
-        $this->db->select('*');
+        $this->db->select('cmschapters.id,cmschapters.name,cmschapters.slug,cmschapters.order,cmschapters.created,cmschapters.description,cmschapters.keywords,cmschapters.tagline,cmschapter_details.id as cdi,cmschapter_details.sortorder,cmschapter_details.chapter_id,cmschapter_details.class_id,cmschapter_details.subject_id');
         $this->db->from('cmschapters');
         $this->db->join('cmschapter_details', 'cmschapter_details.chapter_id=cmschapters.id');
         $this->db->where('cmschapter_details.class_id', $exam_id);
@@ -121,7 +121,7 @@ class Chapters_model extends CI_Model {
 
     public function getChapterByExamSubject_multiple($exam_id, $subject_id) {
 
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->join('cmschapter_details', 'cmschapter_details.chapter_id=cmschapters.id');
         $this->db->where_in('cmschapter_details.class_id', str_replace('-', ',', $exam_id));
@@ -132,7 +132,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getChapterByName($name) {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->like('name', $name);
         $query = $this->db->get();
@@ -140,7 +140,7 @@ class Chapters_model extends CI_Model {
     }
     
      public function getChapterById($id) {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->like('id', $id);
         $query = $this->db->get();
@@ -148,7 +148,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getChapterBySlug($slug) {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->like('slug', $slug);
         $query = $this->db->get();
@@ -157,7 +157,7 @@ class Chapters_model extends CI_Model {
     }
 
     public function getList() {
-        $this->db->select('*');
+        $this->db->select('id,name,slug,order,created,description,keywords,tagline');
         $this->db->from('cmschapters');
         $this->db->where('slug', null);
         $query = $this->db->get();
