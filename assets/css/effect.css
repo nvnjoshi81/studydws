@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.pur_course {
+	display:block;	
+	transition: all 1000ms ease 5ms;
+	-webkit-transition: all 1000ms ease 5ms;
+	-moz-transition: all 1000ms ease 5ms;
+	-ms-transition: all 1000ms ease 5ms;
+	-o-transition: all 1000ms ease 5ms;
+	}
+	
+.pur_course:hover {
+	transform:scale(125%,125%);
+	-webkit-transform:scale(125%,125%);
+	-moz-transform:scale(125%,125%);
+	-ms-transform:scale(125%,125%);
+	-o-transform:scale(125%,125%);
+	transition: all 1000ms ease 5ms;
+	-webkit-transition: all 1000ms ease 5ms;
+	-moz-transition: all 1000ms ease 5ms;
+	-ms-transition: all 1000ms ease 5ms;
+	-o-transition: all 1000ms ease 5ms;
+	}
