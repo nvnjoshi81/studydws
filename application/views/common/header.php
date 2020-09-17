@@ -367,7 +367,7 @@ Institutes
       </div>
       <!-- /.container -->
   </nav>
-  <header>
+  <header class="wow slideInDown" data-wow-duration="1s" data-wow-delay="0s">
     <!-- Header Carousel -->
     <div class="container header-top_box">    
       <div class="col-lg-2 col-md-2 nopadding mob_no">
@@ -457,16 +457,15 @@ Search.....
           </div>
 
 
-  
-         <div class="col-xs-12 col-sm-12 col-lg-offset-3 col-lg-3 col-md-3 mainpadding  hidden-xs text-center">
-     <a target="_blank" title="Purchase Courses" href="<?php echo base_url('purchase-courses') ?>">
+           <div class="col-xs-12 col-sm-12 col-lg-offset-3 col-lg-3 col-md-3 mainpadding  hidden-xs text-center">
+     <a class="pur_course" target="_blank" title="Purchase Courses" href="<?php echo base_url('purchase-courses') ?>">
      <img src="<?php echo base_url('/assets/images/discount.jpg')?>"></a>
      </div>    
       </div>
       <nav role="navigation" class="navbar mainnav notoggle navbar-full">
         <div class="container">      
           <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-           <div class="col-md-12 col-md-12 col-sm-12 col-xs-6"><ul class="nav navbar-nav toggle_nav">
+           <div class="col-md-12 col-md-12 col-sm-12 col-xs-6 wow slideInLeft" data-wow-delay="1s"><ul class="nav navbar-nav toggle_nav">
               <?php $exam_cnt=1;
               $ts_lable_array=array('btn-default','btn-primary','btn-success','btn-info','btn-warning','btn-danger');
               foreach($mainexamcategories as $ex){ 
@@ -504,5 +503,7 @@ Search.....
         <img src="<?php echo base_url('assets/frontend/images/msg-gif.GIF') ?>" alt="spinner"/>
         </span>
      </div>
+    <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/effect.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/frontend/css/shape-oppo.css');?>">
+     <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/animate.css');?>">
   </header>  
