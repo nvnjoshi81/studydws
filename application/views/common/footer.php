@@ -1680,6 +1680,15 @@ function addLikes(id,action,cid,ptyp) {
 }
 </script>
 
+<script src="<?php echo get_assets('assets/js/wow.min.js'); ?>" ></script> 
+<script>
+new WOW().init();
+</script>
+
+<script src="<?php echo get_assets('assets/js/wow.min.js'); ?>" ></script> 
+<script>
+new WOW().init();
+</script>
 <span class="subscribe animate hidden-xs">
     <div class="btn btn-raised btn-warning" id="vert">Free<br> Videos</div>
 </span>
