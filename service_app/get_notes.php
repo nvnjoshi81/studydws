@@ -40,19 +40,40 @@ if($get_api){
 	}
 	$result = mysqli_query($conn,$qry);
 }
-
+    if(mysqli_num_rows($result) > 0)
+    {
 	while($row = mysqli_fetch_array($result)) {
-	    
-
-
-	    
-
-
-		 $mar_id = $row['id'];
+	   $mar_id = $row['id'];
 		$job = array();
 		$job = getmarvelcategory($mar_id,$conn,$i);
 		$subTmp[] = $job;
 	}
+    }
+    else
+    {   //SELECT `postings`.`id` as `id`, `postings`.`title` as `title`, `relatedpostings`.`category_id`, `relatedpostings`.`subject_id`, `relatedpostings`.`chapter_id`, `categories`.`name` as `exam`, `cmssubjects`.`name` as `subject`, `cmschapters`.`name` as `chapter` FROM `postings` JOIN `relatedpostings` ON `relatedpostings`.`article_id`=`postings`.`id` LEFT JOIN `categories` ON `categories`.`id`=`relatedpostings`.`category_id` LEFT JOIN `cmssubjects` ON `cmssubjects`.`id`=`relatedpostings`.`subject_id` LEFT JOIN `cmschapters` ON `cmschapters`.`id`=`relatedpostings`.`chapter_id` WHERE `relatedpostings`.`category_id` = '$category' AND `relatedpostings`.`subject_id` = '$subject_id' AND `relatedpostings`.`chapter_id` = '$chapter_id' AND `relatedpostings`.`top_category_id` = '21' ORDER BY `relatedpostings`.`id` LIMIT 18
+        if($subject_id == "0" and $chapter_id == "0")
+	{
+	    $qry = "SELECT `postings`.`id` as `id`, `postings`.`title` as `title`, `relatedpostings`.`category_id`, `relatedpostings`.`subject_id`, `relatedpostings`.`chapter_id`, `categories`.`name` as `exam`, `cmssubjects`.`name` as `subject`, `cmschapters`.`name` as `chapter` FROM `postings` JOIN `relatedpostings` ON `relatedpostings`.`article_id`=`postings`.`id` LEFT JOIN `categories` ON `categories`.`id`=`relatedpostings`.`category_id` LEFT JOIN `cmssubjects` ON `cmssubjects`.`id`=`relatedpostings`.`subject_id` LEFT JOIN `cmschapters` ON `cmschapters`.`id`=`relatedpostings`.`chapter_id` WHERE `relatedpostings`.`category_id` = '$category' AND `relatedpostings`.`top_category_id` = '21' ORDER BY `relatedpostings`.`id` LIMIT 18";
+	}
+	else if($subject_id > "0" and $chapter_id == "0")
+	{
+	    $qry = "SELECT `postings`.`id` as `id`, `postings`.`title` as `title`, `relatedpostings`.`category_id`, `relatedpostings`.`subject_id`, `relatedpostings`.`chapter_id`, `categories`.`name` as `exam`, `cmssubjects`.`name` as `subject`, `cmschapters`.`name` as `chapter` FROM `postings` JOIN `relatedpostings` ON `relatedpostings`.`article_id`=`postings`.`id` LEFT JOIN `categories` ON `categories`.`id`=`relatedpostings`.`category_id` LEFT JOIN `cmssubjects` ON `cmssubjects`.`id`=`relatedpostings`.`subject_id` LEFT JOIN `cmschapters` ON `cmschapters`.`id`=`relatedpostings`.`chapter_id` WHERE `relatedpostings`.`category_id` = '$category' AND `relatedpostings`.`subject_id` = '$subject_id' AND `relatedpostings`.`top_category_id` = '21' ORDER BY `relatedpostings`.`id` LIMIT 18";
+	}
+	else if($subject_id > "0" and $chapter_id > "0")
+	{
+	    $qry = "SELECT `postings`.`id` as `id`, `postings`.`title` as `title`, `relatedpostings`.`category_id`, `relatedpostings`.`subject_id`, `relatedpostings`.`chapter_id`, `categories`.`name` as `exam`, `cmssubjects`.`name` as `subject`, `cmschapters`.`name` as `chapter` FROM `postings` JOIN `relatedpostings` ON `relatedpostings`.`article_id`=`postings`.`id` LEFT JOIN `categories` ON `categories`.`id`=`relatedpostings`.`category_id` LEFT JOIN `cmssubjects` ON `cmssubjects`.`id`=`relatedpostings`.`subject_id` LEFT JOIN `cmschapters` ON `cmschapters`.`id`=`relatedpostings`.`chapter_id` WHERE `relatedpostings`.`category_id` = '$category' AND `relatedpostings`.`subject_id` = '$subject_id' AND `relatedpostings`.`chapter_id` = '$chapter_id' AND `relatedpostings`.`top_category_id` = '21' ORDER BY `relatedpostings`.`id` LIMIT 18";
+	}
+	$result = mysqli_query($conn,$qry);
+    if(mysqli_num_rows($result) > 0)
+    {
+	while($row = mysqli_fetch_array($result)) {
+	   $mar_id = $row['id'];
+		$job = array();
+		$job = getmarvelcategory($mar_id,$conn,$i);
+		$subTmp[] = $job;
+	}
+    }
+    }
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "Invalid key";}
 	echo json_encode($tmp);

@@ -29,15 +29,20 @@ class Questions_model extends CI_Model
     }
 	
     public function update_answer_by_answerid($id,$a_data){
-    $this->db->update('cmsanswers',$a_data,array('id'=>$id));
+        $this->db->update('cmsanswers',$a_data,array('id'=>$id));
+      
     }   
+    
     public function delete_qus_ans_byid($id){
      //Delete from question and ans table
      $this->db->where('id', $id);
      $this->db->delete('cmsquestions');
+     
      $this->db->where('question_id', $id);
     //echo $this->db->last_query(); 
      $this->db->delete('cmsanswers');
+     
+     
      }
      public function getNext($tablename,$fieldname,$content_id,$question_id){
          $this->db->select('*');

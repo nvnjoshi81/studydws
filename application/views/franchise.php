@@ -14,21 +14,26 @@
                     <a class="btn btn-sm btn-success" href="<?php echo base_url('franchise_welcome'); ?>"><button  class="btn-success"><center>Apply For Franchise</center></button></a>
                     <a class="btn btn-sm btn-success" href="<?php echo base_url('assets/images/brochure_franchise.pdf#zoom=125'); ?>" target="_blank"><button class="btn-success"><center>Download Brochure</center></button></a>
     </div> 
-    </div>   
+         </div>   
+                  
     <div class="panel-group col-md-10 col-sm-12" id="faqAccordion">
-        <div class="panel panel-default">
+                 
+        <div class="panel panel-default ">
             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
-            <h4 class="panel-title">
-                <a href="#" class="ing">Zero Operational cost.</a>
-            </h4>
+                 <h4 class="panel-title">
+                    <a href="#" class="ing">Zero Operational cost.</a>
+              </h4>
+
             </div>
         </div>
+            
              <div class="panel panel-default ">
             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
-            <h4 class="panel-title">
+                 <h4 class="panel-title">
                     <a href="#" class="ing">No high qualifications are required for franchise.</a>
-            </h4>
-</div>
+              </h4>
+
+            </div>
         </div>
             
              <div class="panel panel-default ">

@@ -46,6 +46,9 @@ $response['count'] = count($return_filepath);
 //Either you can print value or you can send value to database
 echo json_encode($response);
     }
+    
+  
+    
 
 }
 ?>

@@ -21,7 +21,7 @@ error_reporting(0);
 		{
 			$mar_id = $row['id'];
 			$job = array();
-			$qryusrsrch = "SELECT * FROM cmsorders INNER JOIN cmsorder_details on cmsorders.id = cmsorder_details.order_id WHERE cmsorders.user_id = '$user_id' AND cmsorder_details.product_id = '$mar_id'";
+			$qryusrsrch = "SELECT * FROM cmsorders INNER JOIN cmsorder_details on cmsorders.id = cmsorder_details.order_id WHERE cmsorders.user_id = '$user_id' AND cmsorder_details.product_id = '$mar_id' AND cmsorders.status = '1'";
 			$result1 = mysqli_query($conn, $qryusrsrch);
 			$numr = mysqli_num_rows($result1);
 			if($numr < 1)

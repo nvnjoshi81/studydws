@@ -49,6 +49,14 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		
 			$returnValue['name'] = $row['title'];
 			$returnValue['video_source'] = $row['video_source'];
+			if($row['video_source'] == "youtube")
+			{
+			    $returnValue['display_image'] = "https://img.youtube.com/vi/".$row['video_url_code']."/0.jpg";
+			}
+			else
+			{
+			    $returnValue['display_image'] = "https://www.studyadda.com/assets/videoimages/thumbs/250_250_".$row['video_image'];
+			}
 			$returnValue['video_url_code'] = $row['video_url_code'];
 			$returnValue['video_file_name'] = $row['video_file_name'];
 			$returnValue['short_video'] = $row['short_video'];
@@ -67,7 +75,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			
 			 $las = $num%10;
 			 $imm = "http://dev.hybridinfotech.com/assets/frontend/images/0";
-	$returnValue['display_image'] = $imm.$las.".jpg";
+	         //$returnValue['display_image'] = $imm.$las.".jpg";
 	
 		$results = mysqli_query($conn,"SELECT * FROM cmsvideolist_details where videolist_id = '$mar_id'");
 		$returnValue['video_count'] = 	$coo = mysqli_num_rows($results);

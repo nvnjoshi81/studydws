@@ -58,15 +58,6 @@ Your browser does not support the video tag.
 </video><h3><?php	
 
 if(isset($video->video_duration)&&$video->video_duration!=''){
-	
-	$hours = floor($seconds / 3600);
-$mins = floor($seconds / 60 % 60);
-$secs = floor($seconds % 60);
-If you want to get time format:
-
-$timeFormat = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
-	
-	
 				?>
 			<font style="font-family:'Courier New';font-size:'initial'">Video Duration-<?php echo  gmdate("H:i:s", $video->video_duration); ?></font><?php 
 			}else if(isset($video->custom_video_duration)&&$video->custom_video_duration!=''){

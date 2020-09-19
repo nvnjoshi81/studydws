@@ -224,8 +224,9 @@ $this->load->view('common/product_list_testseries');
     
 ?>
     <div class="clearfix"></div>
-        
-        
+<?php 
+$advideo_show='no';
+if($advideo_show=='yes'){ ?>
         <div class="row our_free_video">
             <div class="col-lg-12">
                 <h2 class="page-header"><a href="<?php echo base_url('free-videos')?>">Our Free Videos</a></h2>
@@ -265,6 +266,8 @@ $this->load->view('common/product_list_testseries');
                 </video>
             </div>
         </div>
+
+      <?php  } ?>
 		  <!---728x90--->
                
     <?php
@@ -277,11 +280,11 @@ if($show_index_contant=='yes'){ ?>
 						<i class="glyphicon glyphicon-info-sign"></i>
 						</div>
 						<div class="col-md-10 serve-text">
-                                                <h3><a href="<?php echo base_url('notes')?>">Notes
-                                                </a></h3>
-						<p>Theory & Concepts Notes For All Government Exams & Classes</p>
-                                                <p>Short-Cuts & Formulae For SSC, UPSC, Banking, JEE & NEET</p> 
-                                                <p>All Notes In Easy To Understand Language</p>
+                                              <h3>
+                                    <a href="<?php echo base_url('notes')?>">Notes</a>
+                                              </h3>
+						<p>Theory, Short-Cuts, Formulae & Concepts Notes for Exams.</p>
+            <p>All Notes In Easy To Understand Language.</p>
 						</div>
 					     <div class="clearfix"> </div>	
 					 </div>
@@ -291,9 +294,8 @@ if($show_index_contant=='yes'){ ?>
 						</div>
 						<div class="col-md-10 serve-text">
 					     <h3><a href="<?php echo base_url('videos')?>">Video Lectures</a></h3>
-						 <p>More Than 3000 Video Lectures</p>
-                                                 <p>Video Lectures By Lalit Sardana Sir & Shweta Sardana Madam</p>
-                                                 <p>Videos For IIT, Medical & CBSE</p>
+                                                 <p>Live & Recorded Video Lectures By Experienced Eminent Faculties.</p>
+                                                 <p>More Than 20,000 Video Lectures.</p>
 
 						</div>
 					     <div class="clearfix"> </div>	
@@ -304,9 +306,8 @@ if($show_index_contant=='yes'){ ?>
 						</div>
 						<div class="col-md-10 serve-text">
 						 <h3><a href="<?php echo base_url('study-packages')?>">Study Packages</a></h3>
-						 <p>More Than 12000 Study Packages</p>
-                                                 <p>Study Packages Of 1.5 Lakh Pages</p>
-                                                 <p>For All Government Exams, Raliways, Banking, UPSC, SSC, CLAT, NTSE & School Level Classes</p>
+                                                 <p>More Than 50,000 Study Packages Covering Notes, Question Banks, Sample Papers, Solved Papers.</p>
+                                                 <p>Study Packages of More Than 5 Lakh Pages.</p>
 						</div>
 					     <div class="clearfix"> </div>	
 					 </div>
@@ -316,11 +317,8 @@ if($show_index_contant=='yes'){ ?>
 						</div>
 						<div class="col-md-10 serve-text">
 						 <h3><a href="<?php echo base_url('solved-papers')?>">Solved Papers</a></h3>
-						 <p>Solved Papers Of All Banking Exams, SSC, NEET, JEE, KVPY & Classes</p>
-                                                 
-                                                 <p>Solved papers Of More Than 50 Government Engineering & Medical Exams</p>
-                                                 <p>Also IIT-JEE & NEET Solved Papers</p>
-                                                 <p>Chapterwise, Topicwise & Yearwise Solved Papers</p>
+						 <p>Past Year Solved Papers Of All Exams.</p>
+                                                 <p>Chapter wise, Topic wise & Year wise Solved Papers.</p>
 						</div>
 					     <div class="clearfix"> </div>	
 					 </div>
@@ -330,10 +328,8 @@ if($show_index_contant=='yes'){ ?>
 						</div>
 						<div class="col-md-10 serve-text">
 						  <h3><a href="<?php echo base_url('online-test')?>">Online Tests</a></h3>
-						 <p>More Than 100 Online Tests Of Each Class & Exam</p>
-                                                 <p>Chapterwise, Topicwise & Subjectwise Tests</p>
-                                                 <p>Comprehensive Analytical Reports</p>
-                                                 <p>Topicwise & Conceptwise Online Tests</p>
+						 <p>More Than 5000 Online Tests Along with Comprehensive Analytical Reports.</p>
+                                                 <p>Chapter wise, Concept wise Topic wise & Subject wise Tests.</p>
 						</div>
 					     <div class="clearfix"> </div>	
 					 </div>
@@ -344,12 +340,11 @@ if($show_index_contant=='yes'){ ?>
 						  <i class="glyphicon glyphicon-book"></i>
 						</div>
 						<div class="col-md-10 serve-text">
-						<h3><a href="<?php echo base_url('ncert-solution')?>">NCERT Solutions</a></h3>
-						<p>NCERT Books Solutions & Summary For 6th To 12th</p>
-                                                <p>NCERT Answers By Renowned Experts</p>
-                                                <p>All NCERT Solutions Absolutely FREE</p>
-                                                <p>Also Includes NCERT Exemplar Solutions</p>
-                                                <p>All Subjects NCERT Solutions From 6th To 12th</p>
+						<h3><a href="<?php echo base_url('ncert-solution')?>">NCERT Corner</a></h3>
+						<p>NCERT & Exemplar Books Solutions & Summary.</p>
+                                                <p>NCERT Answers by Renowned Experts.</p>
+                                                <p>Olympiad Videos, Study Packages, Sample & Solved Papers.</p>
+                                                <p>Support For Each & Every Olympiad Held In India.</p>
                                                 </div>
 					     <div class="clearfix"> </div>	
 					 </div>
@@ -372,9 +367,8 @@ if($show_index_contant=='yes'){ ?>
 						</div>
 						<div class="col-md-10 serve-text">
 						  <h3><a href="<?php echo base_url('sample-papers')?>">Sample Papers</a></h3>
-						 <p>Sample Papers For All Banking Exams & Classes</p>
-                                                 <p>Mock Papers For UPSC, SSC, KVPY, NEET etc.</p>
-                                                 <p>Practice Papers For All School Level Classes</p>
+						 <p>Sample/ Mock / Guess / Practice Papers For All Exams.</p>
+                                                 <p>More Than 100 Practice Papers Of Many Exams.</p>                                                 
 						</div>
 					     <div class="clearfix"> </div>	
 					 </div>
@@ -384,10 +378,8 @@ if($show_index_contant=='yes'){ ?>
 						</div>
 						<div class="col-md-10 serve-text">
 						  <h3><a href="<?php echo base_url('question-bank')?>">Question Bank</a></h3>
-						 <p>More Than 5 Lakh Questions</p>
-                                                 <p>All Type Of Questions For All Exams & Classes</p>
-                                                 <p>Questions For School Level & Competitive Exams</p>
-                                                 <p>Topicwise & Conceptwise Questions</p>
+                                                 <p>More Than 20 Lakh Questions Of All Types.</p>
+                                                 <p>Also Includes Topic wise & Concept wise Questions</p>
 						</div>
 					     <div class="clearfix"> </div>	
 					 </div> 

@@ -123,7 +123,12 @@ class Twconnect extends TwitterOAuth {
 
 		// echo 'Get temporary credentials.';
 		$request_token = $this->getRequestToken(site_url($site_callback_path));
+		if(isset($request_token['oauth_token'])){
 		$token = $request_token['oauth_token'];
+}else{
+	$token = NULL;
+}
+		
 		$ci =& get_instance();
 
 		// echo 'Save temporary credentials to session.';

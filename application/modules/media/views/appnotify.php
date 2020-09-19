@@ -23,7 +23,7 @@
   if(isset($noti_list->date)&&$noti_list->date!=''){
 	  echo $noti_list->date;
   }else{
-	  echo  date("F j, Y");
+	  echo  date("F j, Y");;
   }	  ?></b></div>
   <div class="panel-body"><?php 	
   echo $noti_list->description;

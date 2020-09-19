@@ -17,15 +17,17 @@
 	  }
   }
   
+  
 	$tmp = array();
 	$subTmp = array();
 	$postStatusString = "publish";
 
+ 
 	$result = mysqli_query($conn,"SELECT * FROM cmsorders join cmsorder_details on cmsorders.id =  cmsorder_details.order_id join cmspricelist on cmspricelist.id=cmsorder_details.product_id  where  cmsorders.user_id = '$user_id' and cmsorders.status = '1' and cmspricelist.type='3' GROUP BY cmspricelist.modules_item_name ORDER BY cmsorders.id" );
 
 	
 	while($row = mysqli_fetch_array($result)) {
-		$mar_id = $row['product_id']; 
+		 $mar_id = $row['product_id']; 
 		$job = array();
 		$job = getmarvelcategoryn($mar_id,$conn);
 		$subTmp[] = $job;

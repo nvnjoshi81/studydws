@@ -1,4 +1,4 @@
-<?php 
+<?php
 $segmentURL=$this->uri->segment(1);
 $currentModuleName=$this->router->fetch_module();
 $currentSegment=$this->uri->segment(1);

@@ -15,6 +15,7 @@ class Livestream_model extends CI_Model
         return $query->result();
     }
     
+    
     public function createMedia($media_data)
          {
        $this->db->insert('cmslivestream',$media_data);

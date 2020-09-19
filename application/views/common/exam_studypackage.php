@@ -8,7 +8,7 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
 		     
     ?>
     <div class="col-xs-12 col-md-12 prod_list_exam">
-        <div class="col-md-12 text-center bavl"><h2> 
+        <div class="col-md-12 text-center bavl"><h2>
          <?php 
               $heading_video_exam='';
     $heading_studymaterial_exam='';
@@ -19,10 +19,12 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
                         if ($product_heading->type == '2') {
                             $heading_video_exam='Video Lectures';
                             $showAllUrl=base_url('videos/'.$this->uri->segment(2).'/'.$this->uri->segment(3));
+                            
                         }
                         if ($product_heading->type == '1') {
                             $heading_studymaterial_exam='Study Packages';
                             $showAllUrl=base_url('study-packages/'.$this->uri->segment(2).'/'.$this->uri->segment(3));
+                            
                         }
                        // echo $heading_video_exam.'---'.$heading_studymaterial_exam.'=='.$product_heading->type; die;
                         if($heading_video_exam!=''&&$heading_studymaterial_exam!=''){
@@ -78,6 +80,7 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
         <!-- Controls -->
 
         <!-- Wrapper for slides -->
+        
 <div class="Clearfix"></div> 
         <div class="row">
             <?php
@@ -89,8 +92,10 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
 				    $rcount=rand(0,15);
 					$pkgImage=$studypackageimage[$rcount];
 					if(isset($pkgImage)&&$pkgImage!=''){
+					    
 					$image = 'assets/frontend/images/'.$pkgImage;
 					}else{
+					    
                     $image = 'assets/frontend/images/01.jpg';
                     }
 					///if (isset($product->image) && $product->image != '') {
@@ -99,6 +104,7 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
 					$type = '';
                     if ($this->uri->segment(1) == 'exams') {
                         if ($product->type == '2') {
+                           
                             $type = strtolower('videos');
                         }
                         if ($product->type == '1') {
@@ -121,9 +127,10 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
                                 <a href="<?php echo getProductLink($product, $type,$this->uri->segment(3)); ?>">
                                     <?php if ($product->type == 1 && $product->item_id > 0) { ?>
                                     
-								
+							
 									<img src="<?php echo base_url($image); ?>" class="img-responsive lazy" title="<?php echo $pkgImage; ?>"/> <?php //echo base_url('upload/webreader/' . $product->filename . '/docs/' . $product->filename . '.pdf_1_thumb.jpg') ?>
                                     <?php } else { ?>
+                                    
                                         <img src="<?php echo base_url($image); ?>" data-original="<?php
                                         if ($product->image != '') {
                                            // echo  show_product_thumb($image, 300, 350);

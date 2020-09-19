@@ -224,13 +224,6 @@ if(count($user_spOrder)>0){
     
         
     public function androiddetails($qbname,$qbid){
-		$urlcust_array=explode('-encid-',$qbname);
-			if(isset($urlcust_array[1])){
-				$urlcustid=base64_decode($urlcust_array[1]);
-			}else{
-				$urlcustid=0;
-			}
-			
         $this->load->model('Questions_model');
         //update View Count
         $this->Pricelist_model->update_viewcount($qbid,'cmsquestionbank');
@@ -244,8 +237,7 @@ if(count($user_spOrder)>0){
         $this->data['relation']=$relation[0];
         $this->data['questiontypes']=$questiontypes;
         $this->data['questions']=$questions;
-        $this->data['content']='appquestions';		
-		$this->data['urlcustid']=$urlcustid;
+        $this->data['content']='appquestions';
         $this->data['loadMathJax']='YES';
 	$this->load->view('template_mid',$this->data);
     }
@@ -300,34 +292,14 @@ if(count($user_spOrder)>0){
             $this->data['linkurl']=base_url('question-bank/'.$qbname.'/'.$qbid);
             $this->data['qbdetails']=$qbdetails;
             $this->data['loadMathJax']='YES';
-				/*Only for display qcount*/
-
-                       $topicname=$this->uri->segment(2);
-                       if(isset($topicname)){
-                          $topicname_array = explode('_q', $topicname);
-                       } 
-					
-                        if(isset($topicname_array[1])&&$topicname_array[1]!=''){
-							
-							
-                          $topicname_array = explode('_', $topicname_array[1]);
-							
-                            $qcount=$topicname_array[0];
-                        
-                            $appcustid=$topicname_array[1];
-						}else{
-                            $qcount=1;
-							$appcustid=0;
-                        } 
-                    /*End qcount*/	
-			$this->data['qcount']=$qcount;
-			$this->data['appcustid']=$appcustid;
+			
+			
 			$spname_array=explode('_q',$qbname);
-			$spname_val=$spname_array[0];
-			if(isset($spname_val)&&count($spname_val)>0){
+			$spname_val=$spname_array[1];
+			if(isset($spname_val)&&$spname_val>=0){
 				$url_spname=$spname_array[0];
 			}else{
-				$url_spname=$qbname;
+				$url_spname=$spname;
 			}
 			
 				$appurl=substr($url_spname,-6);

@@ -6,7 +6,7 @@
       <div class="clearfix"></div>
       <section class="question_fluid"  data-js-module="filtering-demo">     
         <!-- fluid pandl -->
-        <div class="col-md-10 col-sm-10">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="panel panel-default">
  
         <div class="details_ques_ans panel-body">
@@ -44,10 +44,10 @@
                         <?php  $ac++; } ?>
                         <?php } ?>
                 </h1>
-                  <div class="mid_advertise">
             <!--Start Slider -->
-            <?php $showsm_slider='yes'; 
-            if(($showsm_slider=='yes')){  ?>   <div class="clearfix"></div>
+            <?php $showsm_slider='no'; 
+            if(($showsm_slider=='yes')){  ?>  
+                  <div class="mid_advertise"> <div class="clearfix"></div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -80,12 +80,12 @@
     <span class="sr-only">Next</span>
   </a>
 </div>   
-            <div class="clearfix"><br><br></div>
+            <div class="clearfix"><br><br></div>     </div>
         <?php } ?>    <!--End Slider -->
         <!--
         <img src="<?php echo base_url('');?>/assets/images/930adv.jpg" alt="dgd" />
             -->      
-                  </div>
+             
                   <?php if(count($answers) > 1){ ?>
                   <div class="col-md-12">
                   <p class="ans_panel"><strong class="text-success">Correct Answer: </strong>
@@ -197,9 +197,13 @@ if(isset($answer->description)){
 </ul>
         </div> 
         </div>
+        <?php 
+              $showVidAdd='no';
+    if($showVidAdd=='yes'){  ?>
   <!-- right panel -->
         <div class="col-md-2 col-sm-2">
             <?php 
+
 $url_array = explode('/', $_SERVER['REQUEST_URI']);
 if($url_array[1]=='ncert-solution'){            
             ?>
@@ -215,26 +219,23 @@ if($url_array[1]=='ncert-solution'){
             </div>
         </div>
             
-            <?php } ?>
-             <div class="btn-group-vertical ques_mate_panel filter-button-group button-group rht_sorting_panel">
+            <?php }?>
             <?php if(isset($linktostudypackage)){ ?>
+             <div class="btn-group-vertical ques_mate_panel filter-button-group button-group rht_sorting_panel">
                 <span class="pull-right"><a title="Download PDF" href="<?php echo $linktostudypackage;?>" style="text-decoration: none;color:#fff">
-                        
-                        <?php 
+                  <?php 
                         
              if (file_exists($filepath.$filename.'/docs/'.$filename.'.pdf_1_thumb.jpg')) {
                 $imagePath = base_url($filepath.$filename.'/docs/'.$filename.'.pdf_1_thumb.jpg');
                 }else{
                 $imagePath = base_url('assets/frontend/images/ebooks.png');  
                 }
-                ?>
-                        
+                ?>      
                 <img class="img-responsive" src="<?php echo $imagePath ; ?>">
-                        
-                        </a>
-                </span>
+                </a>
+                </span>  </div>
             <?php } ?>
-            </div>
+          
             <?php if(isset($allquesgrid)&&(count($allquesgrid)>0)){ ?>
             <div class="rightadvertisepanel">
                 <p class="btn btn-raised btn-success">More Questions</p>
@@ -242,17 +243,14 @@ if($url_array[1]=='ncert-solution'){
         $count=1;foreach($allquesgrid as $question){  ?>
               
                 <span class="badge" style="padding: 4px"><a class="" href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name.'_q'.$count,'-',TRUE).'/'.$soldetails->id.'/'.$question->id?>" ><?php echo $count;?></a>
-  </span><?php $count++;}
+  </span><?php $count++; }
             
             ?>
             </div>
             <?php } ?>
          <!-- adv rht panel -->
-        <div class="rightadvertisepanel"><br>
-        <img src="<?php echo base_url('');?>/assets/images/150adv.jpg" alt="adversite" />
-        </div>
       </div> 
-        
+          <?php } ?>
         <div class="clearfix"></div> 
         <!-- Related panel -->
         <!--<div class="panel panel-success relatedques">

@@ -96,7 +96,7 @@ if (!$result) {
 		}}	
 	}
 	/*End for product check final condition*/
-	$subTmp[] =array($playlistId,$exam_id,$subject_id,$chapter_id,$playlistname,$playtoggel,$vp[0]);
+	$subTmp[] =array($playlistId,$exam_id,$subject_id,$chapter_id,$playlistname,$playtoggel,$vp[0],2);
 	}
 	
 if($subTmp){
@@ -131,6 +131,7 @@ if($subTmp){
 			
                if(isset($getproduct_three)&&count($getproduct_three)>0){
 				 $mproducts[]=$getproduct_three;
+				
 			}
             
 	}

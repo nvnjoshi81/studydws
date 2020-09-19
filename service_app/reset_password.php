@@ -2,10 +2,10 @@
 error_reporting(0);
 include("config.php");
 
- $package = $_POST['package']; 
-  $ran_no = $_POST['ran_no'];
-   $user_id = $_POST['user_id'];
-    $password = $_POST['password'];
+ $package = $_REQUEST['package']; 
+  $ran_no = $_REQUEST['ran_no'];
+   $user_id = $_REQUEST['user_id'];
+    $password = $_REQUEST['password'];
 
 
   if($first > $ran_no  AND $last > $ran_no)
@@ -21,10 +21,10 @@ include("config.php");
   
 $array1=array();
 	{
-		if (!empty($_POST['password'])&&($_POST['user_id'])&&!empty($tes_id)) 
+		if (!empty($_REQUEST['password'])&&($_REQUEST['user_id'])) 
 		{
-    $user_id = $_POST['user_id'];
-	$password = md5($_POST['password']);
+    $user_id = $_REQUEST['user_id'];
+	$password = md5($_REQUEST['password']);
 	
      $sel = "select * from cmscustomers where id = '$user_id'";
 	$userchk = mysqli_query($conn, $sel);

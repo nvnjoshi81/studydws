@@ -143,12 +143,12 @@
                                         </a></h4>
                                 </div> 
                                 <div id="collapseThreeOne_<?php echo $i_cnt; ?>" class="panel-collapse collapse in">
-    <?php 
+                                     <?php 
      $examarray= explode('/',$href); 
      $examarray_count=count($examarray);
      $url_examid =$examarray[5];
      $url_examname =url_title($examarray[4]);  
-    foreach($purchased_data_array as $pkey=>$pvalue){
+                                 foreach($purchased_data_array as $pkey=>$pvalue){
      //$subjecturl = $href.'/'.url_title($pkey, '-', true).'/'.$pvalue['id'];
      $subjecturl=base_url('study-packages').'/'.$url_examname.'/'.$url_examid.'/'.url_title($pkey,'-',TRUE).'/'. $pvalue['id'];
      ?>

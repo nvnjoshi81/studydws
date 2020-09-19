@@ -1,16 +1,18 @@
 <style>
 .email_form{
- width:50%;
- }
+width:50%;
+}
 </style>
 <div id="wrapper">
     <div class="container">
         <div class="row">
-        <?php $this->load->view('common/breadcrumb');
-        if($this->session->flashdata('message')){
-        ?>
-        <div class="alert alert-success"> <?php echo $this->session->flashdata('message') ?> </div>
-        <?php 
+            <?php $this->load->view('common/breadcrumb');?>
+
+ <?php 
+         if($this->session->flashdata('message')){
+             ?>
+             <div class="alert alert-success"> <?php echo $this->session->flashdata('message') ?> </div>
+            <?php 
          }
 ?>      
 <!--
@@ -72,12 +74,10 @@ Email </label>
                                 </div>
                                 <div class="panel-body">
                                     <form action="" method="post" name="loginform" id="loginform">
-<?php
-if($redirect){
+                        <?php if($redirect){
 echo "<input type='hidden' name='redirect' value='1' id='redirect'>";
 echo "<input type='hidden' name='redirect_url' value='".$redirect_url."' id='redirect_url'>";
-} 
-?>
+} ?>
                                     <div class="alert alert-danger alert-dismissible" id="login_msg" role="alert" style="display:none">
                                     </div>
 

@@ -525,16 +525,16 @@ class PHPExcel_Calculation_Functions {
 			case 'float'	:
 			case 'integer'	:
 				return $value;
-				return false;
+				break;
 			case 'boolean'	:
 				return (integer) $value;
-				return false;
+				break;
 			case 'string'	:
 				//	Errors
 				if ((strlen($value) > 0) && ($value{0} == '#')) {
 					return $value;
 				}
-				return false;
+				break;
 		}
 		return 0;
 	}	//	function N()
@@ -578,7 +578,7 @@ class PHPExcel_Calculation_Functions {
 				return 4;
 		} elseif(is_array($value)) {
 				return 64;
-				return false;
+				break;
 		} elseif(is_string($value)) {
 			//	Errors
 			if ((strlen($value) > 0) && ($value{0} == '#')) {

@@ -208,12 +208,6 @@ class Welcome extends Modulecontroller {
     
     
     public function androiddetails($spname,$spid){
-		$urlcust_array=explode('-encid-',$spname);
-			if(isset($urlcust_array[1])){
-				$urlcustid=base64_decode($urlcust_array[1]);
-			}else{
-				$urlcustid=0;
-			}
         $segments = $this->uri->total_segments();
         //Start Get StudyPackageDetail
         $this->load->model('Mergesection_model');
@@ -305,9 +299,8 @@ class Welcome extends Modulecontroller {
         $this->data['spdetails']=$spdetails;
         $this->data['questiontypes']=$questiontypes;
         $this->data['questions']=$questions;
-		$this->data['urlcustid']=$urlcustid;
         $this->data['content']='appquestions';
-        $this->data['loadMathJax']='YES';	
+        $this->data['loadMathJax']='YES';
 	$this->load->view('template_mid',$this->data);
     }
     
@@ -442,33 +435,9 @@ class Welcome extends Modulecontroller {
             $this->data['loadMathJax']='YES';
             $this->data['linkurl']=base_url('solved-papers/'.$spname.'/'.$spid);
 			
-			
-				/*Only for display qcount*/
-
-                       $topicname=$this->uri->segment(2);
-                       if(isset($topicname)){
-                          $topicname_array = explode('_q', $topicname);
-                       } 
-					
-                        if(isset($topicname_array[1])&&$topicname_array[1]!=''){
-							
-							
-                          $topicname_array = explode('_', $topicname_array[1]);
-							
-                            $qcount=$topicname_array[0];
-                        
-                            $appcustid=$topicname_array[1];
-						}else{
-                            $qcount=1;
-							$appcustid=0;
-                        } 
-                    /*End qcount*/	
-			
-			$this->data['qcount']=$qcount;
-			$this->data['appcustid']=$appcustid;
 			$spname_array=explode('_q',$spname);
-			$spname_val=$spname_array[0];
-			if(isset($spname_val)&&count($spname_val)>0){
+			$spname_val=$spname_array[1];
+			if(isset($spname_val)&&$spname_val>=0){
 				$url_spname=$spname_array[0];
 			}else{
 				$url_spname=$spname;

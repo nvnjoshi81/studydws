@@ -43,14 +43,14 @@ error_reporting(0);
     while($row = mysqli_fetch_array($result)) {
 		 $mar_id = $row['item_id'];
 		$job = array();
-		$job = getmarvelcategory($mar_id,$conn,$user_id);
+		$job = getmarvelcategory($mar_id,$conn,$user_id,$category);
 		$subTmp[] = $job;
 	}
     if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 	else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
 	mysqli_close($conn);
-	function getmarvelcategory($mar_id,$conn,$user_id) {		
+	function getmarvelcategory($mar_id,$conn,$user_id,$category) {		
 		$returnValue = array();
 		$category = $_POST['category_id'];
     	$subject_id = $_POST['subject_id'];
@@ -68,13 +68,15 @@ error_reporting(0);
 		$imm = "http://dev.hybridinfotech.com/assets/frontend/images/0";
 	    $returnValue['image'] = "https://studyadda.com//upload/webreader/".$row['filename']."/docs/".$row['filename'].".pdf_1_thumb.jpg";
 		$tim = time();
-        $resultgd = "SELECT * FROM cmsorders join cmsorder_details on cmsorders.id=cmsorder_details.order_id where cmsorders.user_id = '$user_id' and cmsorder_details.product_id = '$pid'	and cmsorders.status = '2'";
+        $result1 = mysqli_query($conn,"SELECT * FROM cmsorders join cmsorder_details on cmsorders.id =  cmsorder_details.order_id join cmspricelist on cmspricelist.id=cmsorder_details.product_id  where  cmsorders.user_id = '$user_id' and cmsorders.status = '1' and cmspricelist.type='2' GROUP BY cmspricelist.modules_item_name ORDER BY cmsorders.id" );
+        if($rowg = mysqli_fetch_array($result1)){ $ss = $rowg['product_id']; 
+        $resultgd = "SELECT * FROM cmspricelist where id = '$ss' and type = '2' and exam_id='$category'";
         $myss = mysqli_query($conn, $resultgd);
 		$coo = mysqli_num_rows($myss);
 		if($coo > 0){
 		    
-		    	$returnValue['activate'] =  "yes active";
-		
+		    		
+		$returnValue['activate'] =  "yes active";
 		$rowg = ($rtt=mysqli_fetch_array($myss));
 		{
 		    	$returnValue['start_date'] =  $rowg['dt_created'];
@@ -83,11 +85,11 @@ error_reporting(0);
 		}
 		    }
 		    else {
-				$returnValue['activate'] =  "no active";
-					$returnValue['start_date'] =  "";
+		        $returnValue['activate'] =  "no active";
+								$returnValue['start_date'] =  "";
 		    	$returnValue['end_date'] =   "";
 		    }
-		
+        }
 		}
 		return $returnValue;
 	}

@@ -47,7 +47,7 @@ if (count($productslist) > 0) {
             echo ")</font>"; } ?> 
              <?php  }else{
                  ?>
-        Available test  <?php echo $this->uri->segment(1) == 'videos' ? 'Video Lectures' : 'Study Packages' ?>
+        Available <?php echo $this->uri->segment(1) == 'videos' ? 'Video Lectures' : 'Study Packages' ?>
 <?php
 } 
 ?>
@@ -58,7 +58,7 @@ if (count($productslist) > 0) {
 
         <!-- Wrapper for slides -->
 
-        <div class="row" style="margin:0;">
+        <div class="row">
             <?php
             if ((count($productslist) > 0) && ($productslist[0] != '')) {
                 $count = 0;

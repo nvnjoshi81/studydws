@@ -352,7 +352,8 @@ function getsearchOrders_byid($order_id) {
         return $orders_status_array;
     }
     public function update_orderdetail_price($id, $data) {
-    $this->db->update('cmsorder_details', $data, array('id' => $id));
+
+        $this->db->update('cmsorder_details', $data, array('id' => $id));
     }
     public function update_order_status($id, $data) {
 

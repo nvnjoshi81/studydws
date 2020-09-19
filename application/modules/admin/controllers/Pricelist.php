@@ -76,6 +76,7 @@ class Pricelist extends MY_Admincontroller {
            $subject_id  =  $this->input->post('subject');
            $chapter_id  =  $this->input->post('chapter');
            $price       =  $this->input->post('price');
+           
            $appimage       =  $this->input->post('appimage');
            $description =  $this->input->post('description');
            $offline_status =  $this->input->post('offline_status');

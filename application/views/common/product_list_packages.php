@@ -10,7 +10,7 @@ foreach($isProduct_array as $isProduct){
   <img src="<?php echo base_url('assets/frontend/product_images/studypackage_blank.png'); ?>" alt="studypackags" class="img-rounded img-responsive"> 
                                             </a>
         
-  <span style="position: absolute;top: 52%;left: 1%;padding-left: 8px;padding-right: 8px; /*transform: translate(-50%, -50%);*/ "><h3><?php 
+  <span style="position: absolute;top: 52%;left: 1%;padding-left: 8px;padding-right: 8px;/*transform: translate(-50%, -50%);*/ "><h3><?php 
 echo $isProduct->modules_item_name;
      ?></h3></span>
       </div>

@@ -1,11 +1,19 @@
 <?php
 include("config.php");
-error_reporting(0);
+error_reporting(0);$mobile_no;
 
 
  $package = $_POST['package']; 
   $ran_no = $_POST['ran_no'];
   $device_id= $_POST['device_id'];
+  if(isset($_POST['mobile_no']))
+  {
+  $mobile_no= $_POST['mobile_no'];
+  }
+  else
+  {
+  $mobile_no = "";   
+  }
 
 
   if($first > $ran_no  AND $last > $ran_no )
@@ -51,9 +59,10 @@ if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($tes_id))
   }
    $user_key = "SD".$api_no =   generate_random_password(10) ;
    $dtnow = strtotime("now");
-   $in = "INSERT INTO cmscustomers (firstname,email,device_id,user_key,subject_id,is_app_registered, created_dt) VALUES ('$name','$email','$device_id','$user_key','0','1','$dtnow')";
+   $in = "INSERT INTO cmscustomers (firstname,email,device_id,user_key,subject_id,is_app_registered, created_dt, usertype, is_social,mobile) VALUES ('$name','$email','$device_id','$user_key','0','1','$dtnow', 'student', '1','$mobile_no')";
              $ob = mysqli_query($conn,$in);
-            
+            if($ob)
+            {
               $se = "SELECT * FROM cmscustomers where email='$email' and firstname='$name'" ;
               $trt = mysqli_query($conn,$se);
                $row=mysqli_fetch_array($trt);
@@ -80,7 +89,13 @@ if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($tes_id))
             	$category_name = $str;
         		}        
                 $data = array("response"=>array("email" => $email,"mobile" => $mobile,"username" => $firstname,"user_id" => $re_id,"category" => $category, "category_name" => $category_name, "status" => "true","user_key" => $usrkey, "verified" => "1","device_id"=>$device_id, "msg" => "Sign up Successful"));  
-    } 
+                
+            }
+            else
+            {
+                $data = array("response"=>array("status" => "true", "msg" => "Something went wrong! Unable to Sign up."));
+            }
+            } 
     else
     {
     $userc =  mysqli_fetch_array($userchk) ;

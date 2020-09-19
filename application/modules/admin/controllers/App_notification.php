@@ -43,8 +43,8 @@ class App_notification extends MY_Admincontroller {
        
       public function add_notifications()
          {
-                    $title = $this->input->post('title');
-                    $description = $this->input->post('description');
+                    $title          = $this->input->post('title');
+                    $description    = $this->input->post('description');
                   
                    // echo $title." ==jk== ".$description; die();
                    
@@ -75,8 +75,7 @@ class App_notification extends MY_Admincontroller {
                                       
                                            $tokens = array($tokens);    
                                     
-                                        
-                                    $sub[] =  $this->mcm->push_notification_android($tokens,$title,$description,$id);
+                                 $sub[] =  $this->mcm->push_notification_android($tokens,$title,$description,$id);
                                 }
                                     
                               $dataTosend = ['status'=>false, 'msg' => 'Notification  insert successfully','body'=> $sub ];

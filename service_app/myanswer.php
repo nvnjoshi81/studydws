@@ -112,7 +112,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
 		if($rowssd = mysqli_fetch_array($resultsd)) 
 		{
 			$anspcd = $rowssd['answer'];
-			 $anspcd = utf8_encode($anspcd);
+			$anspcd = utf8_encode($anspcd);
         $anspcd = strip_tags($anspcd, '<img>,<table>,<td>,<tr>,<th>,<tbody>,<ul>,<li>'); 
         $anspcd = htmlentities($anspcd, ENT_QUOTES, "UTF-8");
         $anspcd = preg_replace("!\r?\n!", "", $anspcd);
@@ -123,8 +123,8 @@ if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
       	}
         
         
-		} }
-		else {
+		} 
+	}else{
 		    
 		      $returnValue['main_answerid'] = "";
 		         $returnValue['your_answer'] = "";

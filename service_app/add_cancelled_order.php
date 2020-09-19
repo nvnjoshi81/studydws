@@ -108,44 +108,39 @@ $prices = $ssrss['price'];
 	 function generate_random_password($length = 40) {
       $alphabets = range('a','z');
       $numbers = range('0','9');
-     // $additional_characters = array('_','.');
+      // $additional_characters = array('_','.');
       $final_array = array_merge($alphabets,$numbers);
-    $passwordnew = '';
+      $passwordnew = '';
       while($length--) {
-        $key = array_rand($final_array);
-        $passwordnew .= $final_array[$key];
+      $key = array_rand($final_array);
+      $passwordnew .= $final_array[$key];
       }return $passwordnew; }
-    $sessionid =   generate_random_password(40) ;
-		    
-		    
-		    	$query_req1s="INSERT INTO cmsorders (order_no,session_id,order_items,order_price,payment_mode,payment_status,status,final_amount,shipping_charges,created_dt,user_id,shipping_id,app_order)
-		    	VALUES ('$tim','$sessionid','$cart_qty','$cart_price','0','0','2','$cart_price','0','$tim','$user_id','4','1')"; 
-			 $obs = mysqli_query($conn, $query_req1s);
-			 
-			  $selp = "select * from cmsorders where user_id = '$user_id' ORDER BY id DESC LIMIT 1";
-$osdp = mysqli_query($conn, $selp);
-while($ssrp = mysqli_fetch_array($osdp))
-{  $ooip = $ssrp['id'];
-	}
-	
-	
-			 
-					     $selssp = "select * from cmscart_items where cart_id = '$cdid' ";
-$osdssp = mysqli_query($conn, $selssp);
-while($ssrssp = mysqli_fetch_array($osdssp))
-{ $cdid = $ssrssp['id'];
-$dproductid = $ssrssp['product_id'];
-$quantitys = $ssrssp['quantity'];
- $prices = $ssrssp['price'];
-
-	 $selspe = "select * from cmspricelist where id = '$dproductid'";
-$osdspe = mysqli_query($conn, $selspe);
-while($ssrspe = mysqli_fetch_array($osdspe))
-{ 
-    $ppdid = $ssrspe['id'];
- $typee = $ssrspe['type'];
-
-}
+      $sessionid =   generate_random_password(40) ;
+	  $query_req1s="INSERT INTO cmsorders (order_no,session_id,order_items,order_price,payment_mode,payment_status,status,final_amount,shipping_charges,created_dt,user_id,shipping_id,app_order)
+		VALUES ('$tim','$sessionid','$cart_qty','$cart_price','0','0','2','$cart_price','0','$tim','$user_id','4','1')"; 
+		$obs = mysqli_query($conn, $query_req1s);
+		$selp = "select * from cmsorders where user_id = '$user_id' ORDER BY id DESC LIMIT 1";
+        $osdp = mysqli_query($conn, $selp);
+        while($ssrp = mysqli_fetch_array($osdp))
+        {  
+            $ooip = $ssrp['id'];
+        }		 
+		$selssp = "select * from cmscart_items where cart_id = '$cdid' ";
+        $osdssp = mysqli_query($conn, $selssp);
+        while($ssrssp = mysqli_fetch_array($osdssp))
+        { $cdid = $ssrssp['id'];
+        $dproductid = $ssrssp['product_id'];
+        $quantitys = $ssrssp['quantity'];
+         $prices = $ssrssp['price'];
+        
+        	 $selspe = "select * from cmspricelist where id = '$dproductid'";
+        $osdspe = mysqli_query($conn, $selspe);
+        while($ssrspe = mysqli_fetch_array($osdspe))
+        { 
+            $ppdid = $ssrspe['id'];
+         $typee = $ssrspe['type'];
+        
+        }
              $query_req1s="INSERT INTO cmsorder_details (order_id,price,product_id,quantity,type,user_id,end_date) VALUES ('$ooip','$prices','$dproductid','$quantitys','$typee','$user_id',$tim)"; 
 			 $obs = mysqli_query($conn, $query_req1s);
 			 

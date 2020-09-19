@@ -247,7 +247,9 @@ class MY_Admincontroller extends CI_Controller {
                 }
             }
      }
+
 }
+
 class MY_Salescontroller extends CI_Controller { 
     public function __construct(){ 
         parent::__construct(); 
@@ -265,7 +267,7 @@ class MY_Salescontroller extends CI_Controller {
 		$redirect_active=1;
 			}
 if($redirect_active==0){			
-		redirect(base_url().$folder_admin.'/login');
+			redirect(base_url().$folder_admin.'/login');
 }		
 			
             $this->load->model('Menu_model');

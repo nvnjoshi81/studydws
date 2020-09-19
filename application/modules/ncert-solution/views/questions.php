@@ -118,12 +118,11 @@ function utf8replacer($captures) {
 		// str_rot13() example
 		
 		$showVidAdd='no';
-		if($showVidAdd=='yes'){ ?>
+		if($showVidAdd=='yes'){ 
+       $random_video_array= array(0=>base_url('assets/frontend/images/studyadda_adverd.mp4'),1=>base_url('assets/frontend/images/studyadda_adverd.mp4'));
+       $random_video_link =rand(0,1);
+      ?>
             <div class="btn-group-vertical ques_mate_panel filter-button-group button-group rht_sorting_panel">
-        <?php
-            $random_video_array= array(0=>base_url('assets/frontend/images/studyadda_adverd.mp4'),1=>base_url('assets/frontend/images/studyadda_adverd.mp4'));
-            $random_video_link =rand(0,1);
-            ?>
             <div class="our_vid_player" id="videoplayer_div">
                 <video width="100%" height="auto" autoplay="" controls="" id="videoplayer">
                     <source type="video/mp4" src="<?php echo $random_video_array[$random_video_link];  ?>"></source>
@@ -134,14 +133,17 @@ function utf8replacer($captures) {
         <div class="clearfix"></div>
             <?php 
 			//print_r($linktostudypackage);
+			
 			if(isset($linktostudypackage)){ ?> 
         <div class="col-xs-12 col-sm-12 col-md-12 rht_pdf_box">
 		<!--For loop product-->
 		<?php
+		
 			foreach($linktostudypackage as $dspkey=>$dispval){
 				$producturl=base_url('exams/'.$url_segments[2].'/'.$dispval[4]->exam_id);				
 				$productlist_id = $dispval[3]->product_id
 		?>
+		
             <div class="col-item <? echo $noexamcolumn; ?>">
               <div class="photo"> 
               <?php 
@@ -180,8 +182,11 @@ $customer_id=$this->session->userdata('customer_id');
 <?php
 }else{
 	?>
-	
-                    <a href="<?php echo $producturl;?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
+<!--
+  <a href="<?php //echo $producturl;?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
+-->
+
+                <a href="<?php echo base_url('purchase-courses'); ?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
 	<?php
 }
 }else{

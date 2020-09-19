@@ -1,6 +1,6 @@
 <?php 
 include('config.php');
-/*Type To be passedvideo,study_package,test_series,notes,solved_paper,sample_paper,question_bank,ncert_solution*/
+
   date_default_timezone_set("Asia/Kolkata");   //India time (GMT+5:30)
    $date = date('Y-m-d H:i:s');
 

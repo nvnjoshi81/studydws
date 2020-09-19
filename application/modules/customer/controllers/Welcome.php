@@ -58,7 +58,11 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') == 0){
     } 
     exit(0);
 }
+
+
+
 }
+
     public function logout() {
 		        $this->session->unset_userdata('logged_in');
                 $this->session->unset_userdata('customer_id');

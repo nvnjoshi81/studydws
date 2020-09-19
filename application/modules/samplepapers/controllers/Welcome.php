@@ -202,12 +202,6 @@ class Welcome extends Modulecontroller {
     }
     
     public function androiddetails($spname,$spid){
-		$urlcust_array=explode('-encid-',$spname);
-			if(isset($urlcust_array[1])){
-				$urlcustid=base64_decode($urlcust_array[1]);
-			}else{
-				$urlcustid=0;
-			}
         $segments = $this->uri->total_segments();
         $section=null;
         $chapter_id=null;
@@ -296,7 +290,6 @@ class Welcome extends Modulecontroller {
         $this->data['relation']=$relation[0];
         $questiontypes=  $this->Samplepapers_model->questionTypes($spid);
         $title=generateTitle('Sample papers for',$relation[0],$spdetails->name);
-		$this->data['urlcustid']=$urlcustid;
         $this->data['title']=$title;
         $this->data['spdetails']=$spdetails;
         $this->data['questiontypes']=$questiontypes;
@@ -438,36 +431,13 @@ class Welcome extends Modulecontroller {
             $this->data['answers']=$answers;
             $this->data['spdetails']=$spdetails;
             $this->data['loadMathJax']='YES';
-			/*Only for display qcount*/
-
-                       $topicname=$this->uri->segment(2);
-                       if(isset($topicname)){
-                          $topicname_array = explode('_q', $topicname);
-                       } 
-					
-                        if(isset($topicname_array[1])&&$topicname_array[1]!=''){
-							
-							
-                          $topicname_array = explode('_', $topicname_array[1]);
-							
-                            $qcount=$topicname_array[0];
-                        
-                            $appcustid=$topicname_array[1];
-						}else{
-                            $qcount=1;
-							$appcustid=0;
-                        } 
-                    /*End qcount*/	
-			
-			$this->data['qcount']=$qcount;
-			$this->data['appcustid']=$appcustid;
-			
-			
-			
             $this->data['linkurl']=base_url('sample-papers/'.$spname.'/'.$spid);
+			
+			
+			
 			$spname_array=explode('_q',$spname);
-			$spname_val=$spname_array[0];
-			if(isset($spname_val)&&count($spname_val)>0){
+			$spname_val=$spname_array[1];
+			if(isset($spname_val)&&$spname_val>=0){
 				$url_spname=$spname_array[0];
 			}else{
 				$url_spname=$spname;
