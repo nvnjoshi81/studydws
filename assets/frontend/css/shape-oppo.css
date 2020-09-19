@@ -33,7 +33,7 @@ padding: 10px 0;
 .offer{
 	background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
 }
-.offer:hover {
+/*.offer:hover {
     -webkit-transform: scale(1.1); 
     -moz-transform: scale(1.1); 
     -ms-transform: scale(1.1); 
@@ -43,7 +43,7 @@ padding: 10px 0;
 -moz-transition: all 0.4s ease-in-out; 
 -o-transition: all 0.4s ease-in-out;
 transition: all 0.4s ease-in-out;
-    }
+    }*/
 .offer-radius{
 	border-radius:7px;
 }
