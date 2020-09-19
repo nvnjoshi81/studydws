@@ -17,39 +17,39 @@ if($this->router->fetch_module() != 'customer') { ?>
     <div class="row bottom_vid_list">
         <div class="col-md-12">
             <?php //$this->load->view('common/homeproducts');?>
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1 wow slideInLeft" data-wow-delay="800ms">
                 <a href="<?php echo base_url('videos/jee-main-advanced/28') ?>" title="IIT JEE AIEEE Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/1.png') ?>">
                 </a>
             </div>
             
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1 wow slideInLeft" data-wow-delay="500ms">
                 <a href="<?php echo base_url('videos/neet/29') ?>" title="NEET Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/2.png') ?>">
                 </a>
             </div>
             
           
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1 wow slideInLeft">
                 <a href="<?php echo base_url('videos/12th-class/22') ?>" title="12th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/3.png') ?>">
                 </a>
             </div>
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1 wow slideInRight" data-wow-delay="800ms">
                 <a href="<?php echo base_url('videos/11th-class/23') ?>" title="11th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/4.png') ?>">
                 </a>
             </div>
             
            
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1 wow slideInRight" data-wow-delay="500ms">
                 <a href="<?php echo base_url('videos/10th-class/24') ?>" title="10th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/5.png') ?>">
                 </a>
             </div>
             
             
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1 wow slideInRight">
                 <a href="<?php echo base_url('videos/9th-class/30') ?>" title="9th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/6.png') ?>">
                 </a>
@@ -63,7 +63,7 @@ if($this->router->fetch_module() != 'customer') { ?>
         <div class="row" style="margin:0; padding:0;">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-2 wow rotateInDownLeft"  data-wow-duration="800ms" data-wow-delay="100ms">
                         <div class="widget">
                             <h5>
                                 Contact
@@ -115,7 +115,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                         </div>
                     </div>
 
-                    <div class="row col-md-10 foot_link">
+                    <div class="row col-md-10 foot_link  wow slideInLeft" data-wow-duration="1s" data-wow-delay="150ms">
                         <ul class="row col-xs-12  col-sm-4 col-md-2"><li><h5>JEE Main</h5></li>
                             <li><a href="<?php echo base_url('videos/jee-main-advanced/28') ?>" title="videos-jee-main-advanced">
                                     Videos
@@ -139,7 +139,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                         </ul>
 
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>NEET</h5></li><li> <a href="<?php echo base_url('videos/neet/29') ?>" title="videos-neet" >
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="250ms"><li><h5>NEET</h5></li><li> <a href="<?php echo base_url('videos/neet/29') ?>" title="videos-neet" >
                                     Videos
                                 </a></li>
                                 <li> <a href="<?php echo base_url('ncert-solution/neet/29'); ?>" title="ncert-solution-neet" >
@@ -161,7 +161,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                         </ul>
 
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>12th</h5></li><li> <a href="<?php echo base_url('videos/12th/22') ?>" title="videos-12th">
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="350ms"><li><h5>12th</h5></li><li> <a href="<?php echo base_url('videos/12th/22') ?>" title="videos-12th">
                                     Videos
                                 </a></li>
                                 <li><a href="<?php echo base_url('ncert-solution/12th/22'); ?>" title="ncert-solution-12th" >
@@ -184,7 +184,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                         </ul>
 
 
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>11th</h5></li><li><a href="<?php echo base_url('videos/11th/23') ?>" title="videos-11th" >
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="450ms"><li><h5>11th</h5></li><li><a href="<?php echo base_url('videos/11th/23') ?>" title="videos-11th" >
                                     Videos
                                 </a></li>
                                 <li><a href="<?php echo base_url('ncert-solution/11th/23'); ?>" title="ncert-solution-11th" >
@@ -207,7 +207,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                         </ul>
 
 
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>10th</h5></li><li><a href="<?php echo base_url('videos/10th/24') ?>" title="videos-10th" >
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="550ms"><li><h5>10th</h5></li><li><a href="<?php echo base_url('videos/10th/24') ?>" title="videos-10th" >
                                     Videos
                                 </a></li>
                                 <li><a href="<?php echo base_url('ncert-solution/10th/24'); ?>" title="ncert-solution-10th" >
@@ -228,7 +228,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                     Online Test
                                 </a></li>
                         </ul>
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>9th</h5></li><li><a href="<?php echo base_url('videos/9th-class/30') ?>" title="videos-9th" >Videos
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="650ms"><li><h5>9th</h5></li><li><a href="<?php echo base_url('videos/9th-class/30') ?>" title="videos-9th" >Videos
                                 </a></li>
                                 <li><a href="<?php echo base_url('ncert-solution/9th-class/30'); ?>" title="ncert-solution-9th" >Ncert Solutions
                                 </a></li>
@@ -244,7 +244,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                         </ul>    
                          
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>8th</h5></li>
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="750ms"><li><h5>8th</h5></li>
                                 <li><a href="<?php echo base_url('ncert-solution/8th/31'); ?>" title="studyadda"  title="ncert-solution-8th" >
                                     Ncert Solutions
                                 </a></li>
@@ -266,7 +266,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                         </ul>
                         
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>7th</h5></li>
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="150ms"><li><h5>7th</h5></li>
                                 <li><a href="<?php echo base_url('ncert-solution/7th-class/38'); ?>" title="studyadda"  title="ncert-solution-7th" >
                                     Ncert Solutions
                                 </a></li>
@@ -289,7 +289,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                         </ul>
                         
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>6th</h5></li>
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="250ms"><li><h5>6th</h5></li>
                                 <li><a href="<?php echo base_url('ncert-solution/6th-class/37'); ?>" title="studyadda"  title="ncert-solution-6th" >
                                     Ncert Solutions
                                 </a></li>
@@ -308,7 +308,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                         </ul>
                         
                         
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>5th</h5></li>
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="350ms"><li><h5>5th</h5></li>
                                 <li><a href="<?php echo base_url('question-bank/5th-class/36'); ?>" title="question-bank-5th" >
                                     Question Bank
                                 </a></li>
@@ -324,7 +324,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                     Online Test
                                 </a></li>
                         </ul>
-                         <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>4th</h5></li>
+                         <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="450ms"><li><h5>4th</h5></li>
                             
                                 <li><a href="<?php echo base_url('question-bank/4th-class/35'); ?>" title="question-bank-4th" >
                                     Question Bank
@@ -341,7 +341,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                            
                         </ul>
-                         <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>3rd</h5></li>                            
+                         <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="550ms"><li><h5>3rd</h5></li>                            
                                 <li><a href="<?php echo base_url('question-bank/3rd-class/34'); ?>" title="question-bank-3rd" >
                                     Question Bank
                                 </a></li>
@@ -360,7 +360,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li>
                         </ul>
                         
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>2nd</h5></li>                            
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="650ms"><li><h5>2nd</h5></li>                            
                                 <li><a href="<?php echo base_url('/question-bank/2nd-class/33'); ?>" title="question-bank-1st" >
                                     Question Bank
                                 </a></li>
@@ -376,7 +376,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                                 </a></li><li><a href="<?php echo base_url('online-test/2nd-class/33'); ?>" title="online-test-2nd" >
                                     Online Test
                                 </a></li></ul>
-                        <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>1st</h5></li>   
+                        <ul class="row col-xs-12 col-sm-4 col-md-2 wow slideInLeft" data-wow-duration="1s" data-wow-delay="750ms"><li><h5>1st</h5></li>   
                                 <li><a href="<?php echo base_url('question-bank/1st-class/32'); ?>" title="question-bank-1st" >
                                     Question Bank
                                 </a></li>
@@ -494,7 +494,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                 </div>
                 <hr>
                 <!-- Copyright info -->
-                <p class="copy">
+                <p class="copy wow rotateInDownRight"  data-wow-duration="2s" data-wow-delay="200ms">
                     Copyright &copy; 2007-2020 | 
 
                     <a href="<?php echo base_url() ?>">
@@ -528,7 +528,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
 
                 </p>
 
-                <p class="copy">
+                <p class="copy wow rotateInDownRight"  data-wow-duration="2s" data-wow-delay="200ms">
                     <a href="<?php echo base_url('contact-us') ?>" title="studyadda contact-us" >
                         Contact Us
                     </a>|                     
