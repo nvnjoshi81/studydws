@@ -998,9 +998,9 @@ i.pinterest {
 }
 
 .question_panel_lft ul li i {
-    color: #4caf50;
+    color: #0BA483 !important;
     font-size: 18px;
-    margin: 0 10px 0 0
+    margin: 0 10px 0 0;
 }
 
 .question_panel_lft ul li p {

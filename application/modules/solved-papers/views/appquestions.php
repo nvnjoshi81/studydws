@@ -14,9 +14,9 @@
           if($sections_cnt>1){
           foreach( $sections as $section){  
             $section_string = str_replace('&nbsp;','',trim($section->section_name)); ?>    
-             <button class="btn btn-raised btn-success" data-filter=".<?php echo url_title($section->section,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo $section_string;?></button>
+             <button class="btn app_btn" data-filter=".<?php echo url_title($section->section,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo $section_string;?></button>
           <?php } ?>
-             <button class="btn btn-raised btn-success " data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
+             <button class="btn app_btn" data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
           <?php } ?>
         </div>
        

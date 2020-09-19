@@ -42,13 +42,13 @@ function utf8replacer($captures) {
           ?> <!--btn-group-vertical-->
                   <div class="col-md-12 col-sm-12 "><div class="btn-group ques_mate_panel filter-button-group button-group rht_sorting_panel">
           <?php foreach($questiontypes as $qtype){   ?>
-             <button class="btn btn-raised btn-success" data-filter=".page_<?php echo url_title($qtype->typeid,'',TRUE)?>"><i class="material-icons">play_arrow</i>Page <?php echo $qtype->typeid;?></button>
+             <button class="btn app_btn" data-filter=".page_<?php echo url_title($qtype->typeid,'',TRUE)?>"><i class="material-icons">play_arrow</i>Page <?php echo $qtype->typeid;?></button>
           <?php } ?>
           <?php if(count($exmeplar_questions) > 1){ ?>
-             <button class="btn btn-raised btn-success " data-filter=".page_exemplar"><i class="material-icons">play_arrow</i>Exemplar</button> 
+             <button class="btn app_btn" data-filter=".page_exemplar"><i class="material-icons">play_arrow</i>Exemplar</button> 
           <?php } ?>
                <?php if(count($questiontypes) > 1){ ?>
-             <button class="btn btn-raised btn-success " data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
+             <button class="btn app_btn" data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
              <?php } ?>
                       </div></div>
           <?php } ?>

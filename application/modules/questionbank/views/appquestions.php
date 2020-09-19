@@ -48,9 +48,9 @@ function utf8replacer($captures) {
                   <div class="col-md-12 col-sm-12 ">  
         <div class="btn-group ques_mate_panel button-group  ">
           <?php foreach($questiontypes as $qtype){   ?>
-             <button class="btn btn-raised btn-success" data-filter=".<?php echo url_title($qtype->typename,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo ucwords($qtype->typename);?></button>
+             <button class="btn app_btn" data-filter=".<?php echo url_title($qtype->typename,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo ucwords($qtype->typename);?></button>
           <?php } ?>
-             <button class="btn btn-raised btn-success " data-filter=".element-item"><i class="material-icons">play_arrow</i>All..</button>
+             <button class="btn app_btn" data-filter=".element-item"><i class="material-icons">play_arrow</i>All..</button>
           
         </div>
         </div>

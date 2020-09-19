@@ -24,6 +24,7 @@
     <link href="<?php echo get_assets('assets/frontend/css/main.css');?>" rel="stylesheet">
     <link href="<?php echo get_assets('assets/frontend/css/toastr.min.css');?>" rel="stylesheet"/>
      <link href="<?php echo get_assets('assets/frontend/css/ol.range.css');?>" rel="stylesheet"/>
+     <link href="<?php echo get_assets('assets/css/effect.css');?>" rel="stylesheet" />
     <?php if(isset($styles) && count($styles) > 0){ 
         foreach($styles as $key=>$style){   
     ?>
