@@ -629,8 +629,10 @@ $this->load->helper('text');
         echo json_encode($chapters_array);
     }
 	
+	
 	 public function updateVideoAttr() {
 		/*videos/welcome/updateVideoAttr*/ 
+		 
         $allVideo = $this->Videos_model->getAllVideos();
 		require_once('getid3/getid3.php');
         $getID3 = new getID3();
@@ -638,7 +640,8 @@ $this->load->helper('text');
 foreach($allVideo as $vid=>$vinfo){
 	if(isset($vinfo->androidapp_link)&&$vinfo->androidapp_link!=''){
 	$vid_path = $_SERVER['DOCUMENT_ROOT'].'/upload_files/'.$vinfo->androidapp_link; //Replace here!
-    if(file_exists($vid_path)) {
+ if (file_exists($vid_path)) {
+	 
         $fileinfo = $getID3->analyze($vid_path);
         $width=$fileinfo['video']['resolution_x'];
         $height=$fileinfo['video']['resolution_y'];
@@ -665,7 +668,7 @@ foreach($allVideo as $vid=>$vinfo){
 	
 	if(isset($vinfo->video_duration)&&$vinfo->video_duration!=''){
 			//Nothing to do
-		echo $vid_path.' Duration Change.<br>';			
+		echo $vid_path.' Duration Cahnge.<br>';			
 	}else{
 		if($timeInMin>0){
 		$video_data['video_duration'] = $timeInMin;
@@ -681,7 +684,7 @@ foreach($allVideo as $vid=>$vinfo){
 if(isset($vinfo->video_size)&&$vinfo->video_size!=''){		
 	//Nothing to do
 	
-		echo $vid_path.' Size Change.<br>';
+		echo $vid_path.' Size Cahnge.<br>';
 	}else{
 		if($sizeInMb>0){
 		$video_data['video_size'] = $sizeInMb.'MB';

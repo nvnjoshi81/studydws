@@ -30,7 +30,7 @@ class Mergesection_model extends CI_Model {
     //              =   Postings ID    
     public function getRelatedModule($module_id,$module_type,$related_module_type=null,$related_module_id=null){
         
-        $this->db->select('*');
+        $this->db->select('id,module_id,module_type,module_item_id,related_module_id,related_module_type,related_file_id,created_at');
         $this->db->from('cmsmergesection');
         if($related_module_id){
             $this->db->where('related_module_id',$related_module_id);

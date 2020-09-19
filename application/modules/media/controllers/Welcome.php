@@ -20,7 +20,8 @@ class Welcome extends MY_Controller {
     public function index(){
         $total_rows=$this->Posting_model->count_post_by_parent(13);
         $config = array();
-        $config['per_page'] = 10;           
+        $config['per_page'] = 10;
+           
         $config['base_url'] = base_url().'media';
         $config['use_page_numbers'] = TRUE;
         $config['total_rows'] = $total_rows ;
@@ -41,7 +42,8 @@ class Welcome extends MY_Controller {
         $config['next_tag_open'] = '<li>';
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';        
+        $config['prev_tag_close'] = '</li>';
+        
         $page = $this->uri->segment(2);
         if(!$page) $page=1;
         $limit_end = ($page * $config['per_page']) - $config['per_page'];
@@ -49,14 +51,17 @@ class Welcome extends MY_Controller {
             $limit_end = 0;
         }
         $this->pagination->initialize($config);
+
         
-    $this->data['media_array'] = $this->Media_model->getmedia();        
-    //$products= $this->Categories_model->getProducts($ids,$config['per_page'],$limit_end,$pricefilter);
-    //$this->data['productslist']=$products;
-    $listings=$this->Posting_model->getListingsByParent(13,$config['per_page'],$limit_end);
-    //$this->data['styles']=array('study_css/stylegi.css');
-    $this->data['listings']=$listings;
-    $this->data['content']='welcome';               
+        $this->data['media_array'] = $this->Media_model->getmedia();
+        
+        //$products= $this->Categories_model->getProducts($ids,$config['per_page'],$limit_end,$pricefilter);
+        //$this->data['productslist']=$products;
+        $listings=$this->Posting_model->getListingsByParent(13,$config['per_page'],$limit_end);
+        //$this->data['styles']=array('study_css/stylegi.css');
+        $this->data['listings']=$listings;
+        $this->data['content']='welcome';
+               
 	$this->load->view('template',$this->data);
     }
     public function category($category_name,$category_id){
@@ -85,7 +90,8 @@ class Welcome extends MY_Controller {
         $config['next_tag_open'] = '<li>';
         $config['next_tag_close'] = '</li>';
         $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';        
+        $config['prev_tag_close'] = '</li>';
+        
         $page = $this->uri->segment(4);
         if(!$page) $page=1;
         $limit_end = ($page * $config['per_page']) - $config['per_page'];

@@ -216,6 +216,9 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
      <?php
           }
      ?>
+
+
+
                 </div>
             </div>
 			<br>

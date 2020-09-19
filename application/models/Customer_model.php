@@ -470,7 +470,8 @@ public function getSubscriber_bydate($start_date,$end_date){
             return false;
         }
     }
-	public function checkmobile($mobile){
+	
+	  public function checkmobile($mobile){
         $this->db->select('id,mobile');
         $this->db->from('cmscustomers');
         $this->db->where('mobile',$mobile);
@@ -797,9 +798,8 @@ if($agree_terms_value=='yes'){
         $this->db->join('cmsorders O','O.id=A.order_id');
 	$this->db->join('cmspricelist B','A.product_id=B.id');
 	$this->db->where('O.user_id',$customer_id);
-        $this->db->where('O.status',1);		
+        $this->db->where('O.status',1);
 	$order_details = $this->db->get();
-		//echo $this->db->last_query();
 	return $order_details->result();
     }
     public function verify($id,$email,$verification_code){

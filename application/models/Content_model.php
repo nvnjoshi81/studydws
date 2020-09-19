@@ -15,7 +15,7 @@ class Content_model extends CI_Model
     
     public function getContentType()
     {
-        $this->db->select('*');
+        $this->db->select('id,name,order,created_by,modified_by,dt_created,dt_modified');
         $this->db->from('content_type');
         $this->db->order_by('name');
         $query = $this->db->get();
@@ -24,7 +24,7 @@ class Content_model extends CI_Model
     
     
     public function getContentTypeLimit($limit,$start){
-        $this->db->select('*');
+        $this->db->select('id,name,order,created_by,modified_by,dt_created,dt_modified');
         $this->db->limit($limit,$start);
         $this->db->from('content_type');
         $this->db->order_by('name');
@@ -36,7 +36,7 @@ class Content_model extends CI_Model
     
         public function questions_type()
     {
-        $this->db->select('*');
+        $this->db->select('id,name');
         $this->db->from('cmsquestiontypes');
         $this->db->order_by('name');
         $query = $this->db->get();
@@ -89,7 +89,7 @@ class Content_model extends CI_Model
     
     public function getContentTypeDetail($id)
     {
-        $this->db->select('*');
+        $this->db->select('id,name,order,created_by,modified_by,dt_created,dt_modified');
         $this->db->from('content_type');
         $this->db->where('id', $id);
         $query = $this->db->get();

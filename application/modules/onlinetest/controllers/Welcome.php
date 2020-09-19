@@ -83,7 +83,8 @@ class Welcome extends Modulecontroller {
            $total=count($onlinetest_array);
          }else{
            $total=0;  
-         }               
+         }
+               
          $this->data['total']=$total;
          $config = array();
                 

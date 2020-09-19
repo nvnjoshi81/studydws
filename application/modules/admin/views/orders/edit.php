@@ -149,7 +149,7 @@
 		 <td><i class="fa fa-inr"></i> <?php 
                   echo get_orgprice($myorders->price,$myorders->discounted_price); ?></td>
 		 <td><?php echo $myorders->quantity; ?></td>
-		 <td><i class="fa fa-inr"></i>  <a target="_blank" href="<?php echo base_url(); ?>admin/orders/editOrdPrd/<?php echo $order->id.'/'.$order->user_id.'/'.$myorders->product_id;?>"><?php echo $myorders->product_price; ?></a>&nbsp;
+		 <td><i class="fa fa-inr"></i>  <a target="_blank" href="<?php echo base_url(); ?>admin/orders/editOrdPrd/<?php echo $order->id.'/'.$order->user_id.'/'.$myorders->product_id;?>"><?php echo $myorders->product_price;  ?></a>&nbsp;
 										 <a href="<?php echo base_url(); ?>admin/orders/deleteOrdPrd/<?php echo $order->id.'/'.$order->user_id.'/'.$myorders->product_id;?>">
                                             <i class="fa fa-trash cat-del"></i>
                                         </a><?php  ?></td>

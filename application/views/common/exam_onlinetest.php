@@ -25,19 +25,28 @@
 					</div>
 				</div>
                 <div>
-                <div class="offer-content">
-                <?php     
-				$prdname_cnt=strlen($qb->name);
+                               
+                                    <div class="offer-content">
+                                        
+                                        <?php     $prdname_cnt=strlen($qb->name);
+                 
                 $prdhead_cnt=$prdname_cnt;
-                                   if($prdhead_cnt>35){
-                                               $prdhead= substr($qb->name,0,35).'..';
-											   //'<h5 style="color:#000">'.$qb->chapter.'</h5>';
+        
+                                           if($prdhead_cnt>35){
+                                               $prdhead= substr($qb->name,0,35).'..';//'<h5 style="color:#000">'.$qb->chapter.'</h5>';
                                            } else{
                                                $prdhead=$qb->name;
+                                           
                                            }
+                                           
                                         ?>
+                                        
+                                        
                                         <h6 class="vid_prod_hed" title="<?php    echo $qb->name; ?>"><?php    echo $prdhead; ?></h6>       
                                     </div>
+             
+			 
+			 
 			 
 			 <div class="separator btn_prod_ved">
                                         <p class="buy_btn"><?php 

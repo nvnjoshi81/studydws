@@ -58,7 +58,7 @@ function utf8replacer($captures) {
         </div>
         
          <div class="question_panel_lft">
-           <div class="mid_advertise"><img src="<?php echo base_url('');?>/assets/images/930adv.jpg" alt="Question Bank" /></div>
+           <!--<div class="mid_advertise"><img src="<?php echo base_url('');?>/assets/images/930adv.jpg" alt="Question Bank" /></div> -->
                 <ul class="grid">
             <?php $count=1;foreach($questions as $question){  ?>
                 <li  class="element-item <?php echo url_title($question->type,'', TRUE)?>" >
@@ -90,9 +90,6 @@ function utf8replacer($captures) {
                 
                 <!--Added _q to show question id on next page-->
                         <span class="pull-right view_ans"><a target="_blank" href="<?php echo base_url('question-bank').'/'.url_title($qbdetails->name,'-',TRUE).'_q'.$count.'/'.$qbdetails->id.'/'.$question->id?>">View Solution <i class="material-icons">play_arrow</i> </a></span>
-                
-                 
-              
               </li>
             <?php $count++;} ?>
               
@@ -137,15 +134,15 @@ function utf8replacer($captures) {
                 <div class="row">
                   <div class="price col-xs-12 col-md-12">
                     <h5 class="vid_prod_hed"><?php echo $file->displayname?$file->displayname:$file->filename; ?></h5>
-                       <h5 class="price-text-color">&nbsp; <?php if($isProduct->discounted_price > 0){ 
+                       <!--<h5 class="price-text-color">&nbsp; <?php if($isProduct->discounted_price > 0){ 
         ?>
-    <i class="fa fa-inr"> </i> <del class="del_txt"> <?php echo $isProduct->price?></del> 
+    <i class="fa fa-inr"> </i> <del class="del_txt"> <?php //echo $isProduct->price?></del> 
 	<?php 
-	echo $isProduct->discounted_price;
+	//echo $isProduct->discounted_price;
     }else{
-    echo $isProduct->price;
+  //echo $isProduct->price;
     }
-    ?> </h5>
+    ?> </h5>-->
                 </div>
                  </div>
                 <div class="separator btn_prod_ved">
@@ -156,14 +153,27 @@ function utf8replacer($captures) {
             </div>
           </div>
         </div>   
-		<?php } ?>
-        
+		<?php }else{ ?>
+
         <div class="clearfix"></div>
-        <!-- adv rht panel -->
-        <div class="rightadvertisepanel hidden-xs">
-        <img src="<?php echo base_url('');?>/assets/images/150adv.jpg" alt="adversite" />
-        </div>
-         
+       <div class="col-xs-12 col-sm-12 col-md-12 rht_pdf_box">
+            <div class="col-item">
+             <div class="info">
+                <div class="row">
+                  <div class="price col-xs-12 col-md-12">
+                    <h5 class="vid_prod_hed">Download Complete Course</h5>
+                </div>
+                 </div>
+                <div class="separator btn_prod_ved">
+                    <a href="<?php echo base_url('purchase-courses'); ?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
+                </div>
+                <div class="clearfix"> </div>
+              </div>
+
+            </div>
+          </div>
+        <?php } ?>
+        <div class="clearfix"></div>
       </div> 
         
         <div class="clearfix"></div> 

@@ -439,7 +439,14 @@ if($ipp=='4'){
 			'29' =>  (object) array('id' => '348053', 'name' => 'Gunjan Saluja Mam-348053'),
 			'30' =>  (object) array('id' => '348055', 'name' => 'Rukmani Sahu Mam-348055'),
 			'31' =>  (object) array('id' => '339291', 'name' => 'Ajay Khatri Sir-339291'),
-			'32' =>  (object) array('id' => '356456', 'name' => 'Avijeet Vyas Sir-356456')
+			'32' =>  (object) array('id' => '356456', 'name' => 'Avijeet Vyas Sir-356456'),
+            '33' =>  (object) array('id' => '364069', 'name' => 'Kajal Choudhary Mam-364069'),
+            '34' =>  (object) array('id' => '364975', 'name' => 'Pooja Rathore Mam-364975'),
+            '35' =>  (object) array('id' => '364976', 'name' => 'Rani Patwa Mam-364976'),
+            '36' =>  (object) array('id' => '364980', 'name' => 'Nishant Sharma sir-364980'),
+            '37' =>  (object) array('id' => '364984', 'name' => 'Rajendra Jaiswal Sir-364984'),
+            '38' =>  (object) array('id' => '364985', 'name' => 'Deepa Mam-364985'),
+            '39' =>  (object) array('id' => '365070', 'name' => 'Manju Sahu Mam-365070')
 			
         );
 		

@@ -143,7 +143,7 @@ $solution_pdf=$onlinetest_info->solution_pdf;
 $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].'/upload/pdfs/';
 
             ?>
-<div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-12">
  <div class="panel panel-default">
  <!--ReTest -->
  
@@ -820,32 +820,32 @@ subdirectory_arrow_right
                     <?php 
 					foreach($sections as $key=>$value){
 						?>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12">
                         <h4><?php echo $key;?></h4>
                         <?php $cc=1;foreach($value['questions'] as $key1=>$value1){ ?>
                         <div class="oaerror <?php if($value1['answered_correctly']==1){ echo 'success'; }elseif($value1['answered_correctly']==2){ echo '';}elseif($value1['answered_correctly']==0){ echo 'danger';}?>">
                             <strong><?php echo $cc;?>) &nbsp;</strong>
-                            <?php echo $value1['question'];?>
+                            
+                                <?php echo $value1['question'];?>
                             <p style="border-top: 1px dashed #8c8b8b;margin-top: 12px;">&nbsp;</p>
-                            <p>Answers:</p>
+                            <p>Answers: </p>
+							
 							<ul class="grid  question_panel_lft">
                             <?php $t='A';
 							foreach($value1['answers'] as $answer){ 
                               if($answer->is_correct==1){
                               $textSuccess ='style="color:#4caf50;"'; 
                               }else{ 
-                              $textSuccess =''; 
+                                  $textSuccess =''; 
                               }
-                              ?>
-					<li class="element-item singlechoice">
-                    <p <?php echo $textSuccess; ?>>
-                    <B><?php echo $t;?>) &nbsp;</B><?php $lvl_oneAns= trim(preg_replace('/\s+/', ' ', $answer->answer));
-					echo remove_tabSpace($lvl_oneAns);
+                                ?> <li class="element-item singlechoice">
+                            <p <?php echo $textSuccess; ?>>
+                     <B><?php echo $t;?>) &nbsp;</B><?php $lvl_oneAns= trim(preg_replace('/\s+/', ' ', $answer->answer));
+					 echo remove_tabSpace($lvl_oneAns);
 					 ?>
                     </p>
 					</li>
-                    <?php 
-					if(isset($answer->description)&&$answer->description!=''){ 
+                        <?php if(isset($answer->description)&&$answer->description!=''){ 
 						$explanArray[]=$answer->description;
 						} $t++;
 						}
@@ -875,7 +875,7 @@ subdirectory_arrow_right
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+    <div class="col-xs-12">
       <div class="table-responsive">
         <table summary="This table shows Your Assesment on Test Given." class="table table-bordered table-hover">
           <!--
@@ -914,21 +914,20 @@ subdirectory_arrow_right
                    if($answer->is_correct==1){
                   ?>
                         <p>
-                            <div><strong><?php echo $t;?>) &nbsp;</strong><?php  echo $answer->answer;  ?> </div>
+                            <div <?php if($answer->is_correct==1){ echo 'class="text text-success"';}?>><strong><?php echo $t;?>) &nbsp;</strong><?php  echo $answer->answer;  ?> </div>
                         </p>
                    <?php } $t++;}
                             ?></td>
               <td  class="oaerror <?php if($value1['answered_correctly']==1){ echo 'success'; }elseif($value1['answered_correctly']==2){ echo 'warning';}elseif($value1['answered_correctly']==0){ echo 'danger';}?>"><?php
               if(isset($value1['your_answer'])){
               foreach($value1['your_answer'] as $ansnumber=>$useranswer){
-                  if($useranswer!=''){  ?><p>
+                  ?><p>
                             <div>
-                            <strong><?php echo $ansnumber;?>) &nbsp;</strong><?php echo $useranswer; ?>
-							</div>
-                    </p>
-			  <?php  } }
+                            <strong><?php echo $ansnumber;?>) &nbsp;</strong><?php echo $useranswer?></div>
+                        </p>
+                   <?php  }
               }else{
-                  echo "Not Attempted!";
+                  echo "NA";
               }
                            
 //echo $answer->your_answer

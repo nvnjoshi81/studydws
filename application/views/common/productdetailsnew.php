@@ -18,7 +18,9 @@ if($subscription_expiry>1){
                                 //WE do not display product if user has alredy puchased
                            }   
     }
+     ?>
 
+        <?php 
 			$isProductid=$isProduct->id; 
 							$customer_id=$this->session->userdata('customer_id');
 							if(isset($customer_id)&&$customer_id>0){

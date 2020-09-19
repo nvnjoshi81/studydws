@@ -46,11 +46,12 @@ function utf8replacer($captures) {
           if($sections_cnt>1){
           ?>
                   <div class="col-md-12 col-sm-12 ">  
-        <div class="btn-group ques_mate_panel button-group  ">
+        <div class="btn-group ques_mate_panel button-group">
+		<!--For mouse hover- #25CFAA-->
           <?php foreach($questiontypes as $qtype){   ?>
-             <button class="btn btn-raised btn-success" data-filter=".<?php echo url_title($qtype->typename,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo ucwords($qtype->typename);?></button>
+             <button class="btn btn-raised" style="background-color:#D2FCF3" data-filter=".<?php echo url_title($qtype->typename,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo ucwords($qtype->typename);?></button>
           <?php } ?>
-             <button class="btn btn-raised btn-success " data-filter=".element-item"><i class="material-icons">play_arrow</i>All..</button>
+             <button class="btn btn-raised" style="background-color:#D2FCF3" data-filter=".element-item"><i class="material-icons">play_arrow</i>All..</button>
           
         </div>
         </div>

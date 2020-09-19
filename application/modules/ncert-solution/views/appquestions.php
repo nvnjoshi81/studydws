@@ -27,9 +27,16 @@ function utf8replacer($captures) {
     // Encode as 11000011 10xxxxxx.
     return "\xC3".chr(ord($captures[3])-64);
   }
-}
+}   
+//  echo "jk == <br>";print_r($exmeplar_questions); die();
 ?>
-
+<style>
+.appqtype-color{
+background-color:#D2FCF3 
+}
+.appqtype-color:hover{
+  background-color: #25CFAA;
+}</style>      
 <div id="wrapper">
   <div class="container">
     <div class="row">
@@ -40,15 +47,17 @@ function utf8replacer($captures) {
           <?php  $sections_cnt=count($questiontypes);  
           if($sections_cnt>1){
           ?> <!--btn-group-vertical-->
-                  <div class="col-md-12 col-sm-12 "><div class="btn-group ques_mate_panel filter-button-group button-group rht_sorting_panel">
+		  
+		<!--For mouse hover- #25CFAA-->
+                  <div class="col-md-12 col-sm-12"><div class="btn-group ques_mate_panel filter-button-group button-group rht_sorting_panel">
           <?php foreach($questiontypes as $qtype){   ?>
-             <button class="btn btn-raised btn-success" data-filter=".page_<?php echo url_title($qtype->typeid,'',TRUE)?>"><i class="material-icons">play_arrow</i>Page <?php echo $qtype->typeid;?></button>
+             <button class="btn appqtype-color" data-filter=".page_<?php echo url_title($qtype->typeid,'',TRUE)?>"><i class="material-icons">play_arrow</i>Page <?php echo $qtype->typeid;?></button>
           <?php } ?>
           <?php if(count($exmeplar_questions) > 1){ ?>
-             <button class="btn btn-raised btn-success " data-filter=".page_exemplar"><i class="material-icons">play_arrow</i>Exemplar</button> 
+             <button class="btn appqtype-color"  data-filter=".page_exemplar"><i class="material-icons">play_arrow</i>Exemplar</button> 
           <?php } ?>
                <?php if(count($questiontypes) > 1){ ?>
-             <button class="btn btn-raised btn-success " data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
+             <button class="btn appqtype-color" data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
              <?php } ?>
                       </div></div>
           <?php } ?>
@@ -60,13 +69,12 @@ function utf8replacer($captures) {
                  <span><a href="<?php echo $linktostudypackage;?>" style="text-decoration: none;color:#15760C;font-size:17px  ">[Download Complete Solution]</a></span>
                  <?php } ?>
              </h3>
-        </div>
-		-->
+        </div>-->
           <div class="question_panel_lft">
             <ul class="grid">
             <?php $count=1;foreach($questions as $question){  ?>
                 <li  class="element-item page_<?php echo $question->filter;?>" >
-                    <p> <a href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php //echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));
+                    <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php //echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));
                     echo custom_strip_tags($question->question); 
                     ?> </a></p>
                 <?php $answers=$this->Questions_model->answers($question->id);
@@ -86,20 +94,44 @@ function utf8replacer($captures) {
                         }
                     $ac++;
                     }  
-                    } 
+                    }
                 ?>
                 <!--Added _q to show question id on next page-->
-                <span class="pull-right view_ans"><a href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name,'-',TRUE).'-appapi_q'.$count.'_'.$urlcustid.'/'.$soldetails->id.'/'.$question->id; ?>" >View Answer<i class="material-icons">play_arrow</i> </a></span>
-		
+                <span class="pull-right view_ans"><a onclick="showHideans(<?php echo $count; ?>)" <?php //echo base_url('ncert-solution').'/'.url_title($soldetails->name,'-',TRUE).'_q'.$count.'/'.$soldetails->id.'/'.$question->id?>>View Answer <i class="material-icons">play_arrow</i> </a></span>  <div id="ansBlock_<?php echo $count; ?>" style="display:none;"> 
+                <?php  if(count($answers) > 1){ 
+                           ?>
+                  <div class="col-md-12">
+                  <p class="ans_panel"><strong class="text-success">Correct Answer:</strong>
+                  <?php echo implode(' , ', $correctAns); ?>
+				  </p>
+                   <?php foreach($answers as $answer){ ?>
+                     <?php //echo $answer->is_correct==1 ? $correctAns[$answer->id]:''; ?>                  
+                      <?php if($answer->description){ ?>
+                          <p class="ans_panel"><strong class="text-success">Solution : </strong></p>
+                          <?php // iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->description));
+                          echo custom_strip_tags($answer->description); 
+                          ?>
+                      <?php }
+                      } ?>
+                  </div>
+                  <?php }else{ ?>
+                  <p class="ans_panel"><strong class="text-success">Answer: </strong> </p>
+                    <p> <?php foreach($answers as $answer){ ?>
+                     <?php echo  custom_strip_tags($answer->answer);?><br>
+                      <?php } ?>
+                    </p>
+                  <?php } 
+                  ?>
+                    </div>
               </li>
             <?php $count++;} ?>
-              <?php if(count($exmeplar_questions) > 0){ 
+            <?php if(count($exmeplar_questions) > 0){ 
                     foreach($exmeplar_questions as $question){?>
                     <li  class="element-item page_exemplar" >
                         <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?> </a></p>
-                        <span class="pull-right view_ans"><a href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name,'-',TRUE).'-appapi_q'.$count.'/'.$soldetails->id.'/'.$question->id; ?>">View Answer <i class="material-icons">play_arrow</i> </a></span>
+                        <span class="pull-right view_ans"><a href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name,'-',TRUE).'_q'.$count.'/'.$soldetails->id.'/'.$question->id?>">View Answer <i class="material-icons">play_arrow</i> </a></span>
                     </li>
-                    <?php $count++; } } ?>
+            <?php $count++; } } ?>
             </ul> 
           </div>
             <!-- next prev panel -->

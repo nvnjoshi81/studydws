@@ -31,11 +31,8 @@
                   
                    </ul>                  
                  
-                   <?php $count++; }} ?>
-                      </div>
-                
-      
-            
+                   <?php $count++; }} 
+				   ?>
        <div class="clearfix"></div>  
             
             <?php if($this->uri->total_segments() > 1){?>
@@ -51,9 +48,7 @@
                                             ?>
                                             <a title="NCERT Solutions for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn btn btn-primary btn-raised btn-lg" type="button">
             <?php echo $value['name']; ?> <span class="badge"><?php echo $value['count']; ?></span>
-                                            </a>   
-
-
+                                            </a>
                                         <?php }
                                     }
                                     ?>

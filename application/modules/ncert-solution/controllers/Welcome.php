@@ -346,12 +346,17 @@ class Welcome extends Modulecontroller {
 				$urlcustid=0;
 			}
 		$url_segments = $this->uri->segment_array();
+		
+		///echo $solution_id." ==jk   "; print_r($url_segments); die();
+		
          //update View Count
         $this->Pricelist_model->update_viewcount($solution_id,'cmsncertsolutions');
         array_pop($url_segments);
         if(count($url_segments)==4){
             $url_segments[]='all';
         }
+        
+        
         if(count($url_segments)==3){
             $url_segments[]='all';
             $url_segments[]='all';
@@ -363,16 +368,22 @@ class Welcome extends Modulecontroller {
         //$this->data['files']=$files;
         //9==ncert solution type
         $relatedfiles=$this->Mergesection_model->getRelatedModule($solution_id,9,1);
-        if(count($relatedfiles) == 1){
+    if(count($relatedfiles) == 1){
             $this->load->model('Studymaterial_model');
             $file_price_info = $this->Studymaterial_model->getinfo_formerge($relatedfiles[0]->related_module_id);
+   
+         
+             
              if($relatedfiles[0]->related_file_id > 0){
               $this->load->model('File_model');
               $details=$this->File_model->getStudyPackageDetails($relatedfiles[0]->related_file_id);
               $isProduct = $this->Pricelist_model->getItemPrice($relatedfiles[0]->related_file_id,1);
-                $details_chaptername=$details->chapter;
-              if(isset($details_chaptername)&&count($details_chaptername)>1){
-                $details_chaptername=$details->chapter; 
+             $details_chaptername=$details->chapter;
+            
+             //jk_test if(isset($details_chaptername)&&count($details_chaptername)>1){
+               if(isset($details_chaptername)){
+               
+               $details_chaptername=$details->chapter; 
               }else{
                 $details_chaptername='all';
               }
@@ -382,7 +393,8 @@ class Welcome extends Modulecontroller {
                 $this->data['filename'] = $file_price_info[0]->displayname?$file_price_info[0]->displayname:$file_price_info[0]->filename;
                 $this->data['filepath'] = 'upload/webreader/';
                 $this->data['isProduct']=$isProduct;
-            }else{
+                 
+             }else{
                 $details=$this->Studymaterial_model->detail($relatedfiles[0]->related_module_id);
                 $relation=$this->Studymaterial_model->getRelations($relatedfiles[0]->related_module_id);   
                 $details_chaptername=$relation[0]->chapter;
@@ -401,7 +413,7 @@ class Welcome extends Modulecontroller {
         }
         //if($files){$this->data['file']=$files;}
         $relatedVideos=$this->Mergesection_model->getRelatedModule($solution_id,9,2);
-        if(count($relatedVideos) > 0){
+     if(count($relatedVideos) > 0){
             $this->load->model('Videos_model');
             $playlists=array();
             foreach($relatedVideos as $related){
@@ -411,16 +423,19 @@ class Welcome extends Modulecontroller {
         }
         $soldetails=$this->Ncertsolutions_model->detail($solution_id);
         $relation=$this->Ncertsolutions_model->getRelations($solution_id);
-        //print_r($relation);
+       //print_r($relation);
         $questions=$this->Ncertsolutions_model->getQuestions($solution_id);
         $exmeplar_questions=$this->Ncertsolutions_model->getExemplarQuestions($solution_id);
+ 
+ ///echo "js ==1 <br>";print_r($exmeplar_questions); die();
+
         $questiontypes=  $this->Ncertsolutions_model->questionTypes($solution_id);
         
         $title=generateTitle('Free Ncert Solutions for',$relation[0]);
         /* Get video list for side bar*/
         //$videoListAll =  $this->Ncertsolutions_model->getAllVideoProducts();
         //$this->data['videoListAll']=$videoListAll;		
-        $this->data['title']=$title;
+        $this->data['title']=  $title;
         $this->data['soldetails']=$soldetails;
         $this->data['relation']=$relation[0];
         $this->data['questiontypes']=$questiontypes;

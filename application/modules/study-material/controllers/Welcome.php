@@ -11,6 +11,7 @@ class Welcome extends Modulecontroller {
         $examdata = array();
         if ($examname == null) {
             $title = getTitle('Study Packages', $this->data['examcategories']);
+
             $titleStr[] = $title;
         } else {
             $titleStr[] = 'Study Packages for';
@@ -300,7 +301,10 @@ $this->load->helper('text');
                           $productslist_html .='<img style="width:60%;" src="'.show_flex_thumb($product->filename, 300, 350).'" class="img-responsive lazy"/>';
                        $productslist_html .='</a>';             
                            $productslist_html .='</div>';
+                           
                            $productslist_html.=' <div class="info">';
+                           
+                           
                                 $productslist_html.='<div class="row">
                                     <div class="price col-xs-12 col-md-12">';
 $st_productname=character_limiter($product->displayname ? $product->displayname : $product->modules_item_name, 40);                           

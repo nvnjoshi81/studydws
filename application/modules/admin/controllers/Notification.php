@@ -219,11 +219,11 @@ if(isset($date)&&$date!=''){
 		foreach($notifyInfoArray as $fireid){
 		$url=base_url()."notify/?regId=".$fireid."&title=".$title."&message=".$description."&push_type=individual";
 
- $ch = curl_init();
- curl_setopt($ch, CURLOPT_URL, $url);
- curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
- $contents = curl_exec($ch);
- //echo $contents;
+         $ch = curl_init();
+         curl_setopt($ch, CURLOPT_URL, $url);
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+         $contents = curl_exec($ch);
+         //echo $contents;
 		sleep(3); die;
 		}
 		die;
@@ -238,10 +238,7 @@ if(isset($date)&&$date!=''){
         //$this->Notification_model->notify($id);
          redirect('admin/notification');
      }
-	 
-	 
-	 
-	 
+
      public function androidnotify(){
 		 
 		 

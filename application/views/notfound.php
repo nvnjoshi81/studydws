@@ -55,7 +55,9 @@
         </div>
     <div class="col-md-9 col-sm-9">
         <div class="box">
+                
                 <div class="info">
+
                     <p>The resource you are looking for might not exist; We are updating the content.Please visit again.</p>
                     <a href="<?php echo base_url(); ?>" class="btn">Home</a>
                 </div>

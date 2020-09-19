@@ -148,6 +148,7 @@ class Welcome extends Modulecontroller {
 	
 	/*for subject and chapters*/
     public function main($examname,$examid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
+        
         $urlChapter_name=NULL;
          $isProduct_array=array();
         $testseries_Product = $this->Pricelist_model->getProduct($examid, $subject_id, $chapter_id, 3);
@@ -187,6 +188,7 @@ class Welcome extends Modulecontroller {
                         $subjects_array[$record->sid] = array('name' => $record->sname);
                     }
                         $sm = $this->Studymaterial_model->getStudyMaterialCount($examid, $record->sid, $record->cid);
+						// print_r(count($sm));
 						 $videos = $this->Videos_model->getVideosCount($exam_id, $record->sid, $record->cid);
 						$samplepap=$this->Samplepapers_model->getQuestionCount($examid, $record->sid, $record->cid);
 						$onlinetest=$this->Onlinetest_model->getQuestionCount($examid, $record->sid, $record->cid);
@@ -237,6 +239,9 @@ $chkcount=$chkcount+1;
                     $subjects_array[$key]['count'] = count($sm);
                 }
             }
+           // echo "<pre>";
+            //print_r($chapters_array);
+            //echo "<pre>";
             $this->data['subjects_array'] = $subjects_array;
 
             $this->data['chapters_array'] = $chapters_array;
@@ -286,6 +291,7 @@ $chkcount=$chkcount+1;
         //$videolist=$this->Products_model->getVideos($examid,$subject_id,$chapter_id);
         
         $videolist=$this->Products_model->getVideosByLevel($examid,$subject_id,$chapter_id);
+        //print_r($filelist);exit;
         /*If class and subject wise videos are not available show recent */
         if(isset($filelist)&&count($filelist)>0){
         $this->data['productslist']=$filelist;
@@ -470,7 +476,7 @@ $chkcount=$chkcount+1;
 		
 		   if($this->session->userdata('customer_id')=='71696'){
            //print_r($all_packages);
-         }
+        }
         foreach($all_packages as $package){
             if($package->module_type=='question-bank'){
                 $this->data['qb_package']=$package->total_package;

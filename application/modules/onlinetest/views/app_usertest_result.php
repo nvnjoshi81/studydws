@@ -30,6 +30,7 @@ div.className = '';
 	   }else{
 		$examnameurl='all';
 		}
+	   
 	   if(isset($usertest_result_info->name)&&$usertest_result_info->name!=''){
 		   $testname=$usertest_result_info->name;
 	   }else{
@@ -102,12 +103,15 @@ $exam_date = $usertest_result_info->dt_created;
 $testname = $usertest_result_info->name;
 ?>
 <style>
-.error-notice {
+  .error-notice {
   margin: 5px 5px; /* Making sure to keep some distance from all side */
 }
 
 .oaerror {
     width:100% !important;
+	clear: both;
+    display: block;
+    float: left;
 }
 .danger {
   border-left-color: #d9534f; /* Left side border color */
@@ -157,6 +161,7 @@ table caption {
     border-bottom: 1px solid #ddd;
   }
 }
+
 .p {
   text-align: center;
   padding-top: 140px;
@@ -311,9 +316,6 @@ $solution_pdf_count=strlen($solution_pdf);
 			</ul>
 <div class="clearfix"></div>   
 <!--All india/Group wise ranking-->
-<div class="panel panel-default" style="text-align : center;">
-<ul class="nav nav-pills">
-
 <table class="table table-responsive">
   <thead>
     <tr>
@@ -367,7 +369,6 @@ echo round($groupValueObj['time_taken'] / 60, 1);
 
 	  </tbody>
 	  </table>
-</div><br>
 <!--End All india/Group wise ranking-->
 <?php } ?>
 <div class="clearfix"></div>      
@@ -386,9 +387,13 @@ echo round($groupValueObj['time_taken'] / 60, 1);
                     <a href="#student_result" aria-controls="student_result" role="tab" data-toggle="tab">
                         Your Answers
                     </a>
-                </li>      <!--<li role="presentation"><a href="<?php //echo base_url('online-test/attempts/'.$testid); ?>">Chart View<i class="material-icons">
+                </li>      
+				
+<!--
+<li role="presentation"><a href="<?php //echo base_url('online-test/attempts/'.$testid); ?>">Chart View<i class="material-icons">
 bar_chart
-</i></a> </li> -->
+</i></a></li>
+-->
 
             </ul>
             <div class="tab-content" >
@@ -892,22 +897,23 @@ subdirectory_arrow_right
 //Display Answer Solution
 						if(isset($explanArray)&&count($explanArray)>0){
 						?>
-                        <br><div>EXPLANATION:-<?php foreach($explanArray  as $expval){
+            <br><div>EXPLANATION:-<?php 
+            foreach($explanArray  as $expval){
 						echo $expval;
 						} 
 						?>
 						</div>
-                        <?php 
-						unset($explanArray); } 						?>
-                        </div>
-						<div><hr style="	border-top: 3px double #8c8b8b;"></div>
+            <?php 
+						unset($explanArray); }
+            ?>
+            </div>
+						<!--<div><hr style="border-top: 3px double #8c8b8b;"></div>-->
                         <?php $cc++;
 						} 
 						?>
-                    </div>
+            </div>
                     <?php } ?>
                 </div>
-                
                 <div role="tabpanel" class="tab-pane" id="student_result">
                     <h2>Your Answers</h2>
 
@@ -966,35 +972,26 @@ subdirectory_arrow_right
 			  }?>"><?php
               if(isset($value1['your_answer'])){
               foreach($value1['your_answer'] as $ansnumber=>$useranswer){
-              ?>
-			  <p>
-              <div>
-              <strong><?php echo $ansnumber;?>) &nbsp;</strong><?php echo $useranswer; ?></div>
-              </p>
-            <?php  
-			}
-            }else{
-            echo "NA";
-              }             
-			?>
+                  ?><p>
+                            <div>
+                            <strong><?php echo $ansnumber;?>) &nbsp;</strong><?php echo $useranswer; ?></div>
+                        </p>
+                   <?php  }
+              }else{
+                  echo "NA";
+              }
+                                         ?>
               </td>
-            <td><?php      if(isset($value1['per_qus_time'])){ echo $value1['per_qus_time']; } else{ echo "NA"; } ?></td>
-            <td><?php      if(isset($value1['question_type'])){ echo $value1['question_type']; } else{ echo "NA"; }?></td>
+              <td><?php      if(isset($value1['per_qus_time'])){ echo $value1['per_qus_time']; } else{ echo "NA"; } ?></td>
+              <td><?php       if(isset($value1['question_type'])){ echo $value1['question_type']; } else{ echo "NA"; }?></td>
             </tr>
-            <?php   
-			$ucc++;
-			}
-            ?>  </tbody>
-			<?php
+            
+                   <?php   $ucc++;}
+                    ?>  </tbody><?php
                   
-            $sec_q++; 
-				  
-			} 
-				  
-		    ?>
+                  $sec_q++; } ?>
           
-          <!--
-		  <tfoot>
+          <!--<tfoot>
             <tr>
               <td colspan="5" class="text-center">Data retrieved from <a href="http://www.infoplease.com/ipa/A0855611.html" target="_blank">infoplease</a> and <a href="http://www.worldometers.info/world-population/population-by-country/" target="_blank">worldometers</a>.</td>
             </tr>
@@ -1010,7 +1007,10 @@ subdirectory_arrow_right
 <!--<p class="p">Demo by George Martsoukos. <a href="http://www.sitepoint.com/responsive-data-tables-comprehensive-list-solutions" target="_blank">See article</a>.</p>
 -->
                 </div>
-  </div>                
+  </div>
+
+
+                
             </div>            
     </div>
 </div>

@@ -26,7 +26,6 @@ class Cart extends REST_Controller {
         $this->load->model('Cart_model');
         $this->load->model('File_model');       
   
-	$this->data['boltpayu'] = 'yes';
     }
 
     public function additem_post()

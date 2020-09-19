@@ -9,7 +9,7 @@
     <meta name="keywords" content="IIT, IIT-JEE, IIT-JEE 2011, AIEEE, CBSE BOARD, ICSE BOARD, NEET, Exam Alert, Expert Help, Career Counselling, Latest Educational News, Sample Papers, Test Papers, Study Packages, Projects, Results, Scholarship, Blog, My Community, Dictionary, Calculator, Free Study Packages for All type of Exams, Free IIT-JEE Study Packages, Total Free Study Packages for IIT-JEE, AIEEE Free Study Packages, IIT-JEE Study Packages, Free Study Packages of AIEEE, NEET Study Packages, Free NEET Study Packages, Onl">
     <meta name="author" content="">
     <link rel="shortcut icon" href="<?php echo base_url()?>favicon.ico" />
-    <title><?php echo isset($title)?$title.' - Studyadda.com':'JEE Main, JEE Advanced, CBSE, NEET, IIT, free study packages, test papers, counselling, ask experts - Studyadda.com';?>
+       <title><?php echo isset($title)?$title.' - Studyadda.com':'JEE Main, JEE Advanced, CBSE, NEET, IIT, free study packages, test papers, counselling, ask experts - Studyadda.com';?>
 	</title>
     
 <meta property="og:title" content="<?php echo isset($title)?$title.' - Studyadda.com':'JEE Main, JEE Advanced, CBSE, NEET, IIT, free study packages, test papers, counselling, ask experts - Studyadda.com';?>" />

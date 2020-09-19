@@ -133,17 +133,18 @@
                 <div class="row">
                   <div class="price col-xs-12 col-md-12">
                     <h5 class="vid_prod_hed"><?php echo $file->displayname?$file->displayname:$file->filename; ?></h5>
-                       <h5 class="price-text-color">&nbsp; <?php if($isProduct->discounted_price > 0){ 
+                      <!-- <h5 class="price-text-color">&nbsp; <?php if($isProduct->discounted_price > 0){ 
         ?>
       <i class="fa fa-inr"> </i> <del class="del_txt"> <?php echo $isProduct->price?></del> <?php echo $isProduct->discounted_price;
     }else{
         echo $isProduct->price;
     }
-    ?> </h5>
+    ?> </h5>-->
                 </div>
                  </div>
                 <div class="separator btn_prod_ved">
-                    <a href="<?php echo $linktostudypackage?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
+                <!--<a href="<?php echo $linktostudypackage?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>-->
+                <a href="<?php echo base_url('purchase-courses'); ?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
                 </div>
                 <div class="clearfix"> </div>
               </div>

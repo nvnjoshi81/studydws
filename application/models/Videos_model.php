@@ -516,7 +516,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         $this->db->from('cmsvideos');
         $this->db->where('androidapp_link !=', '');
 		$this->db->where('video_duration', '');	
-        $this->db->limit(100);
+        $this->db->limit(200);
         $query = $this->db->get();
         if($query->num_rows()>0){ 
         return $query->result();
@@ -524,6 +524,8 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         return array();
         }
     }
+
+
  public function getAllVideos1() {
         $this->db->select('*');
         $this->db->from('cmsvideos');
