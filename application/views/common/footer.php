@@ -494,7 +494,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                 </div>
                 <hr>
                 <!-- Copyright info -->
-                <p class="copy wow rotateInDownRight"  data-wow-duration="2s" data-wow-delay="200ms">
+                <p class="copy wow slideInLeft"  data-wow-duration="2s" data-wow-delay="200ms">
                     Copyright &copy; 2007-2020 | 
 
                     <a href="<?php echo base_url() ?>">
@@ -528,7 +528,7 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
 
                 </p>
 
-                <p class="copy wow rotateInDownRight"  data-wow-duration="2s" data-wow-delay="200ms">
+                <p class="copy wow slideInLeft"  data-wow-duration="2s" data-wow-delay="200ms">
                     <a href="<?php echo base_url('contact-us') ?>" title="studyadda contact-us" >
                         Contact Us
                     </a>|                     
