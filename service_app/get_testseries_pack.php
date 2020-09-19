@@ -92,15 +92,16 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		$myss = mysqli_query($conn, $resultg);
 		$coo = mysqli_num_rows($myss);
 		if($coo){
-		    	$returnValue['activate'] =  "yes active";
-		$rowg = ($rtt=mysqli_fetch_array($myss));
+		      
+		       	$returnValue['activate'] =  "yes active";
+			$rowg = ($rtt=mysqli_fetch_array($myss));
 		{
 		    	$returnValue['start_date'] =  $rowg['dt_created'];
 		    	$returnValue['end_date'] =   $rowg['end_date'];
 		}
 		    }
 		    else {
-				$returnValue['activate'] =  "no active";
+			 $returnValue['activate'] =  "no active";
 					$returnValue['start_date'] =  "";
 		    	$returnValue['end_date'] =   "";
 		    }	

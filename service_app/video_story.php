@@ -37,7 +37,8 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			$result1 = mysqli_query($conn,"SELECT * FROM cmsvideos where id = '$video'");
 		if($rows = mysqli_fetch_array($result1)) 
 		{
-		$returnValue['title'] = preg_replace('/[^A-Za-z0-9]/', ' ', $rows['title']);
+		$returnValue['title'] = $rows['title'];
+		//$returnValue['title'] = preg_replace('/[^A-Za-z0-9]/', ' ', $rows['title']);
 		$returnValue['video_file_name'] = $rows['video_file_name'];
 		}
 		if($rows['androidapp_link'] != "")

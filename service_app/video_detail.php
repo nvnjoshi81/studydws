@@ -46,6 +46,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		$returnValue['title'] = preg_replace('/[^A-Za-z0-9]/', ' ', $row['title']);
 			//$returnValue['title'] = $row['title'];
 		$returnValue['video_url_code'] = $row['video_url_code'];
+		$returnValue['video_source'] = $row['video_source'];
 			$returnValue['video_file_name'] = $row['video_file_name'];
 		//	$returnValue['video_image'] = $row['video_image'];
 			$returnValue['short_video'] = $row['short_video'];

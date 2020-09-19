@@ -104,7 +104,7 @@ if (!$result) {
 	}
 		}
 		
-	$subTmp[] =array($playlistId,$exam_id,$subject_id,$chapter_id,$playlistname,$playtoggel,$product_id);
+	$subTmp[] =array($playlistId,$exam_id,$subject_id,$chapter_id,$playlistname,$playtoggel,$product_id,'2');
 	}				
 /*Start for product check final condition*/
 

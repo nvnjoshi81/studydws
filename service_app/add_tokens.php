@@ -29,7 +29,8 @@ if (!empty($_POST['token']) && !empty($_POST['user_id']))
            $data = array("response"=>array("status" => "false", "msg" => "User Not Inserted"));
 
                   }
-           }      
+           }  
+                  
 	}
 	else 
 	{

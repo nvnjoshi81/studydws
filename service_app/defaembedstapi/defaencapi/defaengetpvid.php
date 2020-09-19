@@ -1,5 +1,12 @@
 <?php
-include('includetop.php');
+$word = "'";
+$mystring = $_GET["defaviddb"];
+// Test if string contains the word 
+if(strpos($mystring, $word) !== false){
+    
+} else{
+    include('includetop.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +16,7 @@ include('includetop.php');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   </head>
   <body style="background:#fff;">
-    
+    <?php $str = html_entity_decode(str_replace("%27","'",$_GET["defaviddb"]));?>
     <section>
    <div align="center">
     <object class="embed-responsive-item">
@@ -18,7 +25,7 @@ include('includetop.php');
   bottom: 0;
   min-width: 100%;
   max-height: 100%;max-width: 100%;min-height:100%;">
-       <source src="https://studyadda.com/upload_files/<?php echo $_GET["defaviddb"];?>" />
+       <source src="https://studyadda.com/upload_files/<?php echo $mystring;?>" />
      </video>
    </object>
    </div>

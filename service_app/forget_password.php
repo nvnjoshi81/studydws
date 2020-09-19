@@ -3,7 +3,7 @@ error_reporting(0);
 include("config.php");
 
  $package = $_POST['package']; 
-  $ran_no = $_POST['ran_no'];
+  $ran_no = $_POST['ran_no'];$oldotp="";$otp;
 
 
   if($first > $ran_no  AND $last > $ran_no)
@@ -36,8 +36,18 @@ include("config.php");
 	}
 	else
 	{
-   
+        while($rowpass = mysqli_fetch_array($r))
+        {
+            $oldotp = $rowpass['otp'];
+        }
+        if($oldotp != "")
+        {
+            $otp = $oldotp;
+        }
+        else
+        {
         $otp = rand(1001,9000);
+        }
     	$upp = "update cmscustomers set otp = '$otp' where email='".$email."'";
     	$oss = mysqli_query($conn, $upp);
 		$to=$email;
