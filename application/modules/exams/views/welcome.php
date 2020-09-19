@@ -260,19 +260,21 @@ if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '') {
         $short_chptername = str_split($chapterlist_value['name'],59);
         ?>
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+			<div class="box_shadow">
 		<a href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id . '/' . url_title($subjectname, '-', true) . '/' . $subjectid . '/' . url_title($chapterlist_value['name'], '-', true) . '/' . $chapterlist_key); ?>">
-			<div class="offer offer-success col-item" style="height:110px;">
+			<div class="offer offer1 offer-success col-item" style="height:110px;">
 				<div class="shape">
 					<div class="shape-text">
 						<span class="glyphicon glyphicon glyphicon-th"></span>
 						</div>
 				</div>
 				<div class="offer-content">
-					<h3 class="vid_prod_hed">
+					<h3 class="vid_prod_hed prod_hed1">
 						 <?php echo $short_chptername[0]; ?>
 					</h3>
 				</div>
 			</div></a>
+			</div>
 		</div>
 <?php								}
 }
