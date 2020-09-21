@@ -465,7 +465,7 @@ Search.....
       <nav role="navigation" class="navbar mainnav notoggle navbar-full">
         <div class="container">      
           <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-           <div class="col-md-12 col-md-12 col-sm-12 col-xs-6 wow slideInLeft" data-wow-delay="1s"><ul class="nav navbar-nav toggle_nav">
+           <div class="col-md-12 col-md-12 col-sm-12 col-xs-6 wow slideInLeft" data-wow-delay="500ms"><ul class="nav navbar-nav toggle_nav">
               <?php $exam_cnt=1;
               $ts_lable_array=array('btn-default','btn-primary','btn-success','btn-info','btn-warning','btn-danger');
               foreach($mainexamcategories as $ex){ 

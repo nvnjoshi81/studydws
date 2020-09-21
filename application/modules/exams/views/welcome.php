@@ -838,17 +838,18 @@ if (count($qb) > 0) { ?>
             <?php 
 			//if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '')
 				//We do not show module counting on pages now. so $allpack_cnt array Passed to blank.
-$allpack_cnt='no';
+$allpack_cnt='yes';
 if($allpack_cnt=='yes'){
 			if ($this->uri->segment(1) != '') {  ?> 
            <div class="row">
                         <?php if ($qb_package > 0) { ?>
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+						<div class="border_exam">
+                            <div class="col-md-2 text-center">
                                   <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-file text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Question Bank
                                 </h4>
@@ -862,6 +863,7 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
+							</div>
                         </div>
 
                                 <?php } 
@@ -869,11 +871,12 @@ if($allpack_cnt=='yes'){
                                 if ($ot_package > 0) { ?>
                         <!--Online Test-->    
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+						<div class="border_exam">
+                            <div class="col-md-2 text-center">
                                    <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-hourglass text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Online Test
                                 </h4>
@@ -887,17 +890,19 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
+							</div>
                         </div>
                                 <?php } 
                                 
                                 if ($sp_package > 0) { ?>
                         <!--Sample Papers-->    
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+						<div class="border_exam">
+                            <div class="col-md-2 text-center">
                                  <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-list-alt text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Sample Papers
                                 </h4>
@@ -911,17 +916,19 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
+							</div>
                         </div>
                                 <?php }
                               ?><div class="clearfix"> </div><?php  
                                 if ($stpac_package > 10) { ?>
                         <!-- Study Packages-->
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+						<div class="border_exam">
+                            <div class="col-md-2 text-center">
                                <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-folder-open glyphic_fontinfo text-danger"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Study Packages
                                 </h4>
@@ -935,16 +942,18 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
+							</div>
                         </div>  
                                 <?php }  if ($notes_package > 0) { ?>
 
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
+						<div class="border_exam">
                             <!-- Notes-->
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                    <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-info-sign glyphic_fontinfo text-danger"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Notes
                                 </h4>
@@ -958,6 +967,7 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div> <!--notes -->  
+							</div>
                         </div>
                        
 <?php } ?>
@@ -965,12 +975,13 @@ if($allpack_cnt=='yes'){
 
                                 <?php if ($video_package > 0) { ?>
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
+						<div class="border_exam">
                             <!--  Video Lecture Series-->
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                 <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-facetime-video glyphic_fontinfo text-danger"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Video Lecture Series
                                 </h4>
@@ -984,17 +995,19 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
+							</div>
                         </div>
                                 <?php } ?><div class="clearfix"> </div>
 
                                 <?php  if ($solpap_package > 0) { ?>
                         <!--Solved Papers-->    
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+						<div class="border_exam">
+                            <div class="col-md-2 text-center">
                                 <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-edit glyphic_fontinfo text-success"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     Solved Papers
                                 </h4>
@@ -1008,6 +1021,7 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
+							</div>
                         </div>
                                 <?php } ?>
                         
