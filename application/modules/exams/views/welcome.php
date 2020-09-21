@@ -144,6 +144,9 @@ $subjectName=str_replace("science","EVS","science");
 </div> </div>
     
     <div class="container">
+	<?php $showFreecnt='no';
+	if($showFreecnt=='yes'){
+	?>
   	<div class="row col-list center-block">
 	<?php 
 	if(count($solvedp)>0){ ?>
@@ -205,6 +208,7 @@ $subjectName=str_replace("science","EVS","science");
 			
 	</div>
 	  <?php
+						}
 if ($segment_chpterseven>0) { ?>
           <hr>
   	<div class="row col-list center-block">
@@ -838,7 +842,7 @@ if (count($qb) > 0) { ?>
             <?php 
 			//if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '')
 				//We do not show module counting on pages now. so $allpack_cnt array Passed to blank.
-$allpack_cnt='no';
+$allpack_cnt='yes';
 if($allpack_cnt=='yes'){
 			if ($this->uri->segment(1) != '') {  ?> 
            <div class="row">
