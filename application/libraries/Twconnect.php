@@ -144,6 +144,11 @@ class Twconnect extends TwitterOAuth {
 			default:
 				/* Return false if cannot connect to Twitter */
 				// echo 'Could not connect to Twitter. Refresh the page or try again later.';
+					
+					// Redirect to twitter temprray 
+					header("Location: http://www.twitter.com/"); 
+					
+				
 				return false;
 		}
 	}

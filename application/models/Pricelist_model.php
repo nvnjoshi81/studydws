@@ -11,6 +11,11 @@ class Pricelist_model extends CI_Model {
     public function update($id, $data) {
         $this->db->update('cmspricelist', $data, array('id' => $id));
     }
+	
+    public function pkgupdate($id, $data) {
+        $this->db->update('cmspackages_counter', $data, array('id' => $id));
+    }
+	
    
     public function update_packageCount($pricelistid, $data) {
         $this->db->update('cmspricelist', $data, array('id' => $pricelistid));
@@ -522,6 +527,18 @@ class Pricelist_model extends CI_Model {
         return $query->row();          
     }  
 	
+    public function pkgCount_byExam($exam_id='0') {
+	     $this->db->select('id,exam_id,exam_name , subject_name,subject_id ,total_package ,total_question ,custom_total_package ,custom_total_question ,module_type');
+        $this->db->from('cmspackages_counter');
+        $this->db->where('exam_id', $exam_id);
+		
+        $this->db->where('subject_id','');
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        $result = $query->result();
+        return $result;
+	}
+	
 	
      public function allproduct_by_content($contentType='all') {
 		$this->db->select('cmspricelist.image,cmspricelist.app_image,cmspricelist.modules_item_id,cmspricelist.id,cmspricelist.exam_id,cmspricelist.subject_id,cmspricelist.chapter_id,cmspricelist.item_id,cmspricelist.type,cmspricelist.price,cmspricelist.discounted_price,cmspricelist.description,cmspricelist.modules_item_name');
@@ -531,14 +548,15 @@ class Pricelist_model extends CI_Model {
         $this->db->join('cmschapters', 'cmspricelist.chapter_id=cmschapters.id','left');
         $this->db->join('cmsfiles', 'cmsfiles.id=cmspricelist.item_id','left');   
 if(isset($contentType)&&($contentType=='1'||$contentType=='2'||$contentType=='3')){        
-	
-    $this->db->where('cmspricelist.type', $contentType);
+	$this->db->where('cmspricelist.type', $contentType);
 }else{
 	$type_array = array('1', '2','3');
-        $this->db->where_in('cmspricelist.type', $type_array);
+    $this->db->where_in('cmspricelist.type', $type_array);
 }  		
-        $this->db->where('cmspricelist.price>', 0);
-        $this->db->where('cmspricelist.item_id',0);      
+        $this->db->where('cmspricelist.price>', 0);   
+		$this->db->where('subject_id', 0);
+		$this->db->where('exam_id >', 0);
+		$this->db->where('cmspricelist.item_id',0);      
         $this->db->order_by('cmspricelist.price','desc');
         $this->db->order_by('cmspricelist.id','desc');
         $this->db->group_by('cmspricelist.id','desc');
@@ -550,9 +568,8 @@ if(isset($contentType)&&($contentType=='1'||$contentType=='2'||$contentType=='3'
             return false;
         }
 	 }
-	
     
-     public function allproduct_by_exam($examid,$contentType='all') {
+public function allproduct_by_exam($examid,$contentType='all') {
 if($contentType=='1'||$contentType=='2'||$contentType=='3'){        
 	$type_array = array($contentType);
 }else{

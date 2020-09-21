@@ -140,9 +140,9 @@ echo "<input type='hidden' name='redirect_url' value='".$redirect_url."' id='red
 		                        	<a href="<?php echo base_url('auth/facebook')?>" class="btn-link-1 btn-link-1-facebook">
 		                        		<i class="fa fa-facebook"></i> Facebook
 		                        	</a>
-		                        	<a href="<?php echo base_url('auth/twitter')?>" class="btn-link-1 btn-link-1-twitter">
+									<!--<a href="<?php //echo base_url('auth/twitter')?>" class="btn-link-1 btn-link-1-twitter">
 		                        		<i class="fa fa-twitter"></i> Twitter
-		                        	</a>
+		                        	</a>-->
 		                        	<a href="<?php echo base_url('auth/googleplus')?>" class="btn-link-1 btn-link-1-google-plus">
 		                        		<i class="fa fa-google-plus"></i> Google Plus
 		                        	</a>

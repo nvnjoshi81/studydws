@@ -86,7 +86,6 @@
     <form action="" method="post" name="loginform" id="loginform">
         <p class="homesocial">
             <a class="btn-sm btn-md btn btn-primary social-login-btn social-facebook" href="<?php echo base_url('auth/facebook')?>"><i class="fa fa-facebook"></i></a>
-            <a class="btn-sm btn-md btn btn-primary social-login-btn social-twitter" href="<?php echo base_url('auth/twitter')?>"><i class="fa fa-twitter"></i></a>
             <a class="btn-sm btn-md btn btn-primary social-login-btn social-google" href="<?php echo base_url('auth/googleplus')?>"><i class="fa fa-google-plus"></i>
 			</a>
         </p>

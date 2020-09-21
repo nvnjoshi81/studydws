@@ -83,7 +83,7 @@ $product_brought='no';
   <img src="<?php echo base_url('assets/frontend/product_images/'.$isProduct->image); ?>" alt="studyadda" class="img-rounded img-responsive"> </div>
   <div class="top-right" style="position: absolute;
   top: 50px;
-  right: 0px;">
+  right: 75px;">
 <?php 
 if($isProduct->price>0){ 
 //buy now-

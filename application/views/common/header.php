@@ -371,7 +371,7 @@ Institutes
     <!-- Header Carousel -->
     <div class="container header-top_box">    
       <div class="col-lg-2 col-md-2 nopadding mob_no">
-        <a class="logo" href="<?php echo base_url();?>">
+        <a href="<?php echo base_url();?>">
           <img alt="" width="134" height="74" src="<?php echo get_assets('assets/frontend/images/logo_new.png');?>" class="img-responsive img-center mainpadding">
         </a>
       </div>

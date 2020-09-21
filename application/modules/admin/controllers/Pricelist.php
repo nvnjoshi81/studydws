@@ -179,5 +179,78 @@ $product_cnt++;
             $this->load->view('common/template',$this->data);
 		}
 		
+			public function packagecountchange_edit(){
+					
+			$exam_id = $this->input->post('hidden_exam_id');
+			$pkgcntlist=$this->Pricelist_model->pkgCount_byExam($exam_id); 
+			$this->data['pkgcntlist']=$pkgcntlist;
+			$this->data['exam_id']=$exam_id;
+			$action = $this->input->post('faction');
+			if(isset($action)&&$action > 0){
+			$pkgid_array = $this->input->post('pkgid');
+			$total_package_array = $this->input->post('custom_total_package');
+			$total_question_array = $this->input->post('custom_total_question');
+			$product_cnt=0;
+			foreach($pkgid_array as $pkey=>$pval){			
+			if(isset($total_package_array[$pkey])&&$total_package_array[$pkey]!=''){
+			$data['custom_total_package']=$total_package_array[$pkey];
+			}
+			if(isset($total_question_array[$pkey])&&$total_question_array[$pkey]!=''){
+				$data['custom_total_question']=$total_question_array[$pkey];
+			}
+			
+			if(isset($pval)&&$pval>0){
+			$sqlid=$pval;
+			}elseif(isset($pkgid_array[$pkey])&&$pkgid_array[$pkey]>0){
+			$sqlid=$pkgid_array[$pkey];
+			}else{
+			$sqlid=0;
+			}
+			if($sqlid>0){				
+$this->Pricelist_model->pkgupdate($sqlid,$data);
+	$data['custom_total_package']='';
+				$data['custom_total_question']='';
+			}
+$product_cnt++;
+			}
+			
+			if($sqlid>0){
+				
+		 $this->session->set_flashdata('update_msg','Your information has been updated successfully');
+			}
+			//echo '<form><input type="button" value="Return to previous page" onClick="javascript:history.go(-1)"></form>';
+}
+            redirect('admin/pricelist/packagecountchange/'.$exam_id);	
+			}
+		
+		public function packagecountchange($getexam_id=0){
+			$contentType=1;
+			$moduleid=0;
+			$postexam_id = $this->input->post('exam_id');
+			if(isset($getexam_id)&&$getexam_id>0){
+			$exam_id = $getexam_id;
+			}else if(isset($postexam_id)&&$postexam_id>0){
+			$exam_id = $postexam_id;
+			}else{
+			$exam_id=0;	
+			}
+			
+			if(isset($exam_id)&&$exam_id>0){
+			$pkgcntlist=$this->Pricelist_model->pkgCount_byExam($exam_id);
+			}else{
+			$pkgcntlist=array();
+			}
+			$productlist=$this->Pricelist_model->allproduct_by_content($contentType);  			
+			$this->data['productlist']=$productlist;			
+			$this->data['pkgcntlist']=$pkgcntlist;
+				
+            
+			$this->data['productlist']=$productlist;
+			$this->data['content']='pricelist/pkgcountlist';
+            $this->load->view('common/template',$this->data);			
+			
+		
+		}
+		
         
 }

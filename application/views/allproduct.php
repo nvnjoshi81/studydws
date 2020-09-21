@@ -27,13 +27,13 @@ if(isset($franchiseInfo)&&$franchiseInfo!=NULL){
 <div id="wrapper">
 
 <style>
-	.overlayPrice {
+.overlayPrice {
 position: absolute;
 top:50px;
 right:51px;
 }
 @media(max-width:380px) {
-	.overlayPrice {
+.overlayPrice {
 position: absolute;
 top:50px;
 right:51px;
@@ -42,7 +42,7 @@ right:51px;
 }
 @media(max-width:768px) {
 	
-	.overlayPrice {
+.overlayPrice {
 position: absolute;
 top:50px;
 right:51px;
@@ -60,7 +60,13 @@ right:51px;
 position: absolute;
 top:5px;
 right:51px;
-}}
+}
+}
+
+.bellowPrice{
+	
+	
+}
 					
 </style>
 
@@ -107,6 +113,7 @@ As you all know, Studyadda has always provided the best services for you all, we
         } ?>
 </ul>
                 </div>
+				<div class="Clearfix" style="margin-top: 1px;"><br><br><br></div>
                  <div class="col-lg-12 text-center" align="center">
               <div class="text-center" align="center">
                   <div align="center"> 
@@ -136,9 +143,9 @@ As you all know, Studyadda has always provided the best services for you all, we
                                 $product_name = $product->modules_item_name;
                                             }
 					?>
-<div class="row" id="urlid_<?php echo $product->exam_id; ?>">
-<div class="card col-xs-12 col-md-12 col-sm-12">
-  <div class="card-body">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" id="urlid_<?php echo $product->exam_id; ?>">
+<div class="card">
+<div>
       <a href="<?php echo getProductLink($product, $type); ?>">
                                     <?php			
 									if(isset($product->id)){
@@ -146,20 +153,23 @@ As you all know, Studyadda has always provided the best services for you all, we
 									}else{
 									$productlist_id=NULL;	
 									}
+									
+									/* Path For web products image echo base_url('assets/frontend/product_images/'.$image)*/ 
                                 ?>
-                           <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"  style="position: relative;
-  text-align: center;
-  color: white;">
-                               <img id="base_image" src="<?php echo base_url('assets/frontend/product_images/'.$image);?>" class="img-responsive lazy"  alt="<?php echo $product_name; ?>"  /> 
-            
-                                </a>
-								</div>
-											
-<div class="overlayPrice">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"  style="position: relative; text-align: center;   color: black;">
   
-<ul class="price_details row">
-<?php if ($product->discounted_price > 0) {  
+                               <img id="base_image" src="<?php echo base_url('assets/images/'.$image);?>" class="img-responsive lazy card-img-top"  alt="<?php echo $product_name; ?>"  /> 
+            
+                                
+							</div>
+								</a>
+								</div>
+			<!-- add class 'overlayPrice' for image over text for price-->								
 
+
+	<div class="col-sm-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+	<?php if ($product->discounted_price > 0) {
 	$packagesprice=$product->discounted_price;
 			$reduseprice=$packagesprice*10/100;									
 		if($franchise_id>0){
@@ -170,39 +180,38 @@ As you all know, Studyadda has always provided the best services for you all, we
 		}									
 
 ?>
-      <li class="act-price"> <font color="white" size="4">Actual Price :</font>
-                    <del class="text-default" style="color:white" ><strong><i class="fa fa-inr"> </i> <?php echo $product->price; ?></strong></del></li>
-                <li class="youpay-price"> <font color="white" size="4">Offer Price:</font> 
-                    <span class="text-default" style="color:white;" ><strong><i class="fa fa-inr"> </i> <?php echo $packagesprice; ?></strong></span></li>
+      <div class="act-price col-lg-12 col-md-12 col-sm-12 col-xs-12"> <font color="red" size="4">Actual Price :</font>
+                    <del class="text-default" style="color:red" ><strong><i class="fa fa-inr"> <?php echo $product->price; ?></i> </strong></del>
+					</div>
+                <div class="youpay-price col-lg-12 col-md-12 col-sm-12 col-xs-12"> <font color="black" size="4">Offer Price:</font> 
+                    <span class="text-default" style="color:black;" ><strong><i class="fa fa-inr"> <?php echo $packagesprice; ?></i> </strong></span></div>
 					 <?php 
 					 }else{
 						  ?>
-						   <li class="youpay-price"> <font color="white" size="4">Price:</font> 
-                    <span class="text-default" style="color:white;" ><strong><i class="fa fa-inr"> </i> <?php echo $product->price; ?></strong></span></li>
+						   <div class="youpay-price col-lg-12 col-md-12 col-sm-12 col-xs-12"> <font color="black" size="4">Price:</font> 
+                    <span class="text-default" style="color:black;" ><strong><i class="fa fa-inr"> </i> <?php echo $product->price; ?></strong></span></div>
 						  <?php 
 						   
 					   }
 					   
-					   ?>
-					   <li>
-					   <p class="buy_btn">
-					   
-					    <?php
-
-				   if ($product->price > 0) { 
+					   ?></div>
+    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6"> 
+	<?php
+			if ($product->price > 0) { 
 			if (!$this->session->userdata('purchases') || !in_array_r($product->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>
-					    <button itemname="<?php echo $product->modules_item_name;?>" 
+					  <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 hidden-lg hidden-md hidden-sm" style="margin-top: 1px;"><br></div> -->
+					  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+						<button itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
                         itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
                         itemid="<?php echo $product->id ?>"
                         itemqty="1"
                         offline='0'
                         action_type="1"
-                        class="btn-lg btn-sm  btn-md btn btn-raised btn-light addtocart"
+                        class="btn-md btn-sm btn btn-raised btn-light addtocart"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
-						
-						<br>
-						
+						</div><div class="hidden-lg hidden-md " style="margin-top: 1px;"><br><br></div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						   <button itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
                         itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
@@ -211,55 +220,33 @@ As you all know, Studyadda has always provided the best services for you all, we
                         offline='1'
                         action_type="1" 
 						redirect="buynow"
-                        class="btn-lg btn-sm  btn-md btn btn-raised btn-light addtocart"
-                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;&nbsp;&nbsp;&nbsp;Buy Now&nbsp;</button>					
+                        class="btn-md btn-sm btn btn-raised btn-light addtocart"
+                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						</div>					
 			<?php }else{
 				?>
-				 <button  class="btn-xs btn btn-raised btn-success"
-                    name="btnAlreadyExist">You have already bought this course</button>
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" > <button class="btn-xs btn btn-raised btn-success"
+                    name="btnAlreadyExist">You have already bought this course</button></div>
 				
 			<?php
 			}
 					   }else{
-						   ?>
+						   ?><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 						   <button  class="btn-xs btn btn-raised btn-success"
-                    name="btnAlreadyExist">Not For Sale</button>
+                    name="btnAlreadyExist">Not For Sale</button></div>
 						   <?php
 					   }
 			?>
-						</p>
-					   </li>
-	
-								</ul>
-								</div>
-								<?php 
-								//If image is not avialble.
-								
-								if($image == 'purchase-courses.png'){
-								?>
-						
-<div id="overlayPrice" style="position: absolute;top:48px; right: 540px;">
-                    <span class="text-default" style="color:white" ><font color="white" size="5"><?php echo $product_name; ?></font></span>
-  </div>						
-								<?php 
-								} 
-								?>
-  </div>
+					</div>   
+    </div>
 </div></div>
 
 					   <?php }
-					   ?>
-<div class="Clearfix"  style="margin-bottom: 20px !important;"></div> <?php
+
 					   } ?>
 		
 		
 		</div></div></div>
-
-
-
-
-
-
 			
 <?php
 $this->load->helper('text');

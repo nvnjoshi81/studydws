@@ -343,7 +343,7 @@ if($f_formtotal!=$fc_total){
        $sp_exam_id=$ex->id;
        $sp_Product = $this->Pricelist_model->getProduct($sp_exam_id, $sp_subject_id, $sp_chapter_id, 1);
        if(count($sp_Product)>0){
-                   $isProduct_array[]= $sp_Product;
+        $isProduct_array[]= $sp_Product;
        }
         }
                $this->data['sp_productslist']=$isProduct_array;
