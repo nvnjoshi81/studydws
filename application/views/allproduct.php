@@ -165,22 +165,68 @@ if ($product->discounted_price > 0) {
 	<!-- customize card -->
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 	<div class="card card1">
+	
+		<img id="base_image" src="<?php echo base_url('assets/images/Railways.png/');?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  /> 
+		
+		<div class="card-title">
+			<?php echo $product_name; ?>
+		</div>
+		
 	<?php if($reduseprice>0){ ?>
-		<div class="show_price pull-right">
+		<div class="show_price">
 			<a href="#">Actual Price <span class='actul_price'><?php echo $packagesprice; ?></span></a>
 			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
 		</div>
 	<?php }else{ ?>
-			<div class="show_price pull-right">
+			<div class="show_price">
 			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
-		</div>
+			</div>
 	<?php } ?>
 		<!--$image-->
+		
+		
+
+
+<div class="btn-group1 text-center">		
+		<?php
+			if ($product->price > 0) { 
+			if (!$this->session->userdata('purchases') || !in_array_r($product->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>				
+						<button itemname="<?php echo $product->modules_item_name;?>" 
+                        type="<?php echo $product->type ?>" 
+                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
+                        itemid="<?php echo $product->id ?>"
+                        itemqty="1"
+                        offline='0'
+                        action_type="1"
+                        class="btn btn-primary cartleft"
+                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
+						   <button itemname="<?php echo $product->modules_item_name;?>" 
+                        type="<?php echo $product->type ?>" 
+                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
+                        itemid="<?php echo $product->id ?>"
+                        itemqty="1"
+                        offline='1'
+                        action_type="1" 
+						redirect="buynow"
+                        class="btn btn-primary buyright"
+                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
+										
+			<?php }else{
+				?>
+				 <button class="btn btn-primary"
+                    name="btnAlreadyExist">You have already bought this course</button>
 				
-                               <img id="base_image" src="<?php echo base_url('assets/images/Railways.png/');?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  /> 
-		<div class="card-title">
-			<?php echo $product_name; ?>
+			<?php
+			}
+					   }else{
+						   ?>
+						   <button  class="btn btn-primary" name="btnAlreadyExist">Not For Sale</button>
+						   <?php
+					   }
+			?>
+		
 		</div>
+		
 			
 		<hr class="card_divider1">
 		<div class="card-body">
@@ -231,45 +277,7 @@ if ($product->discounted_price > 0) {
 			</div>
 			<hr class="card_divider2">
 			
-		<div class="btn-group1 text-center">		
-		<?php
-			if ($product->price > 0) { 
-			if (!$this->session->userdata('purchases') || !in_array_r($product->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>				
-						<button itemname="<?php echo $product->modules_item_name;?>" 
-                        type="<?php echo $product->type ?>" 
-                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
-                        itemid="<?php echo $product->id ?>"
-                        itemqty="1"
-                        offline='0'
-                        action_type="1"
-                        class="btn btn-primary addtocart"
-                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
-						   <button itemname="<?php echo $product->modules_item_name;?>" 
-                        type="<?php echo $product->type ?>" 
-                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
-                        itemid="<?php echo $product->id ?>"
-                        itemqty="1"
-                        offline='1'
-                        action_type="1" 
-						redirect="buynow"
-                        class="btn btn-primary addtocart"
-                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
-										
-			<?php }else{
-				?>
-				 <button class="btn btn-primary"
-                    name="btnAlreadyExist">You have already bought this course</button>
-				
-			<?php
-			}
-					   }else{
-						   ?>
-						   <button  class="btn btn-primary" name="btnAlreadyExist">Not For Sale</button>
-						   <?php
-					   }
-			?>
 		
-		</div>
 		
 		
 		</div>
