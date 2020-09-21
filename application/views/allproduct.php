@@ -26,49 +26,6 @@ if(isset($franchiseInfo)&&$franchiseInfo!=NULL){
 
 <div id="wrapper">
 
-<style>
-.overlayPrice {
-position: absolute;
-top:50px;
-right:51px;
-}
-@media(max-width:380px) {
-.overlayPrice {
-position: absolute;
-top:50px;
-right:51px;
-}
-	
-}
-@media(max-width:768px) {
-	
-.overlayPrice {
-position: absolute;
-top:50px;
-right:51px;
-}
-}
-@media(max-width:500px) {
-.overlayPrice {
-position: absolute;
-top:50px;
-right:51px;
-}
-}
-@media(max-width:1280px) {
-.overlayPrice {
-position: absolute;
-top:5px;
-right:51px;
-}
-}
-
-.bellowPrice{
-	
-	
-}
-					
-</style>
 
     <div class="container">
         <div class="row">
@@ -158,9 +115,7 @@ if ($product->discounted_price > 0) {
 			$packagesprice=$product->price;
         }
 }																			
-					
-					
-					?>
+	?>
 	  <!-- dummy -->
 	<!-- customize card -->
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -175,60 +130,39 @@ if ($product->discounted_price > 0) {
 			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
 		</div>
 	<?php } ?>
-		<!--$image-->
 				
-                               <img id="base_image" src="<?php echo base_url('assets/images/Railways.png/');?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  /> 
+                               <img id="base_image" src="<?php echo base_url('assets/images/'.$image);?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  /> 
 		<div class="card-title">
 			<?php echo $product_name; ?>
 		</div>
 			
 		<hr class="card_divider1">
 		<div class="card-body">
-			
+			<?php  
+			if(isset($packagecnt)&&count($packagecnt)>0){
+			?>
 			<div class="card-module text-capitalize text-center">
 				<ul class="list-inline">
+					<?php foreach($packagecnt as $keyval){ 	
+					?>
 					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
+						<?php if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
+						<span><?php echo $keyval->custom_total_package; ?> +</span>
+						<?php }  
+						if(isset($keyval->custom_total_question)&&$keyval->custom_total_question>0){ ?>
+						<span><?php echo $keyval->custom_total_question; ?> +</span>
+						<?php  } if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
+						<a href="#"><?php
+$moduletype_array=explode('-',$keyval->module_type);
+echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
+						; ?></a>
+						<?php } ?>
 					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
+					<?php } ?>
+			</ul>
 			</div>
+			<?php } ?>
+		
 			<hr class="card_divider2">
 			
 		<div class="btn-group1 text-center">		
@@ -242,7 +176,7 @@ if ($product->discounted_price > 0) {
                         itemqty="1"
                         offline='0'
                         action_type="1"
-                        class="btn btn-primary addtocart"
+                        class="btn btn-primary addtocart cartleft"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
 						   <button itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
@@ -252,7 +186,7 @@ if ($product->discounted_price > 0) {
                         offline='1'
                         action_type="1" 
 						redirect="buynow"
-                        class="btn btn-primary addtocart"
+                        class="btn btn-primary addtocart buyright"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
 										
 			<?php }else{
@@ -284,6 +218,49 @@ if ($product->discounted_price > 0) {
 					
 					/*
 					
+<style>
+.overlayPrice {
+position: absolute;
+top:50px;
+right:51px;
+}
+@media(max-width:380px) {
+.overlayPrice {
+position: absolute;
+top:50px;
+right:51px;
+}
+	
+}
+@media(max-width:768px) {
+	
+.overlayPrice {
+position: absolute;
+top:50px;
+right:51px;
+}
+}
+@media(max-width:500px) {
+.overlayPrice {
+position: absolute;
+top:50px;
+right:51px;
+}
+}
+@media(max-width:1280px) {
+.overlayPrice {
+position: absolute;
+top:5px;
+right:51px;
+}
+}
+
+.bellowPrice{
+	
+	
+}
+					
+</style>
 					if ($product->price > 0) {
                     $image = 'purchase-courses.png';
                     if (isset($product->image) && $product->image != '') {
