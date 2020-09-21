@@ -127,474 +127,6 @@ As you all know, Studyadda has always provided the best services for you all, we
       
 
 
-	  <!-- dummy -->
-	<!-- customize card -->
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
-	
-		<div class="show_price pull-right">
-			<a href="#">Actual Price 30000</a>
-			<a href="#">Offer Price 3999</a>
-		</div>
-		
-		<img src="rail1.png" alt="purchase_rail_course" class="img-responsive img-purchase">
-		
-		<div class="card-title">
-			Railway Course
-		</div>
-			
-		<hr class="card_divider1">
-		<div class="card-body">
-			
-			<div class="card-module text-capitalize text-center">
-				<ul class="list-inline">
-					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
-			</div>
-			<hr class="card_divider2">
-			
-		<div class="btn-group1 text-center">
-			<button type="button" class="btn btn-primary addtocart">Add to Card</button>
-			<button type="button" class="btn btn-primary buynow">Buy Now</button>
-		</div>
-		
-		
-		</div>
-		
-	</div>
-</div>
-<!-- //customize card -->
-
-
-
-
-	<!-- customize card -->
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
-	
-		<div class="show_price pull-right">
-			<a href="#">Actual Price 30000</a>
-			<a href="#">Offer Price 3999</a>
-		</div>
-		
-		<img src="rail1.png" alt="purchase_rail_course" class="img-responsive img-purchase">
-		
-		<div class="card-title">
-			Railway Course
-		</div>
-			
-		<hr class="card_divider1">
-		<div class="card-body">
-			
-			<div class="card-module text-capitalize text-center">
-				<ul class="list-inline">
-					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
-			</div>
-			<hr class="card_divider2">
-			
-		<div class="btn-group1 text-center">
-			<button type="button" class="btn btn-primary addtocart">Add to Card</button>
-			<button type="button" class="btn btn-primary buynow">Buy Now</button>
-		</div>
-		
-		
-		</div>
-		
-	</div>
-</div>
-<!-- //customize card -->
-
-
-
-	<!-- customize card -->
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
-	
-		<div class="show_price pull-right">
-			<a href="#">Actual Price 30000</a>
-			<a href="#">Offer Price 3999</a>
-		</div>
-		
-		<img src="rail1.png" alt="purchase_rail_course" class="img-responsive img-purchase">
-		
-		<div class="card-title">
-			Railway Course
-		</div>
-			
-		<hr class="card_divider1">
-		<div class="card-body">
-			
-			<div class="card-module text-capitalize text-center">
-				<ul class="list-inline">
-					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
-			</div>
-			<hr class="card_divider2">
-			
-		<div class="btn-group1 text-center">
-			<button type="button" class="btn btn-primary addtocart">Add to Card</button>
-			<button type="button" class="btn btn-primary buynow">Buy Now</button>
-		</div>
-		
-		
-		</div>
-		
-	</div>
-</div>
-<!-- //customize card -->
-
-
-
-	<!-- customize card -->
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
-	
-		<div class="show_price pull-right">
-			<a href="#">Actual Price 30000</a>
-			<a href="#">Offer Price 3999</a>
-		</div>
-		
-		<img src="rail1.png" alt="purchase_rail_course" class="img-responsive img-purchase">
-		
-		<div class="card-title">
-			Railway Course
-		</div>
-			
-		<hr class="card_divider1">
-		<div class="card-body">
-			
-			<div class="card-module text-capitalize text-center">
-				<ul class="list-inline">
-					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
-			</div>
-			<hr class="card_divider2">
-			
-		<div class="btn-group1 text-center">
-			<button type="button" class="btn btn-primary addtocart">Add to Card</button>
-			<button type="button" class="btn btn-primary buynow">Buy Now</button>
-		</div>
-		
-		
-		</div>
-		
-	</div>
-</div>
-<!-- //customize card -->
-
-
-
-	<!-- customize card -->
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
-	
-		<div class="show_price pull-right">
-			<a href="#">Actual Price 30000</a>
-			<a href="#">Offer Price 3999</a>
-		</div>
-		
-		<img src="rail1.png" alt="purchase_rail_course" class="img-responsive img-purchase">
-		
-		<div class="card-title">
-			Railway Course
-		</div>
-			
-		<hr class="card_divider1">
-		<div class="card-body">
-			
-			<div class="card-module text-capitalize text-center">
-				<ul class="list-inline">
-					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
-			</div>
-			<hr class="card_divider2">
-			
-		<div class="btn-group1 text-center">
-			<button type="button" class="btn btn-primary addtocart">Add to Card</button>
-			<button type="button" class="btn btn-primary buynow">Buy Now</button>
-		</div>
-		
-		
-		</div>
-		
-	</div>
-</div>
-<!-- //customize card -->
-
-
-
-	<!-- customize card -->
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
-	
-		<div class="show_price pull-right">
-			<a href="#">Actual Price 30000</a>
-			<a href="#">Offer Price 3999</a>
-		</div>
-		
-		<img src="rail1.png" alt="purchase_rail_course" class="img-responsive img-purchase">
-		
-		<div class="card-title">
-			Railway Course
-		</div>
-			
-		<hr class="card_divider1">
-		<div class="card-body">
-			
-			<div class="card-module text-capitalize text-center">
-				<ul class="list-inline">
-					<li class="list-group-item">
-						<span>96 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">online tests</a>
-					</li>
-					<li class="list-group-item">
-						<span>285 +</span>
-						<a href="#">sample papers</a>
-					</li>
-					<li class="list-group-item">
-						<span>749 +</span>
-						<a href="#">study packages</a>
-					</li>
-					<li class="list-group-item">
-						<span>87 +</span>
-						<a href="#">notes</a>
-					</li>
-					<li class="list-group-item">
-						<span>1045 +</span>
-						<a href="#">videos</a>
-					</li>
-					<li class="list-group-item">
-						<span>17545 +</span>
-						<a href="#">questions bank</a>
-					</li>
-					<li class="list-group-item">
-						<span>53 +</span>
-						<a href="#">solved pagers</a>
-					</li>
-					<li class="list-group-item">
-						<span>9105 +</span>
-						<a href="#">other module 1</a>
-					</li>
-					<li class="list-group-item">
-						<span>21405 +</span>
-						<a href="#">other module 2</a>
-					</li>
-				</ul>
-			</div>
-			<hr class="card_divider2">
-			
-		<div class="btn-group1 text-center">
-			<button type="button" class="btn btn-primary addtocart">Add to Card</button>
-			<button type="button" class="btn btn-primary buynow">Buy Now</button>
-		</div>
-		
-		
-		</div>
-		
-	</div>
-</div>
-<!-- //customize card -->
-		 <!-- // dummy -->
 
 
 <div  id="content_allprod">
@@ -604,6 +136,153 @@ As you all know, Studyadda has always provided the best services for you all, we
 <!-- Wrapper for slides -->
 	<?php  $count = 0;
                 foreach ($sp_productslist as $product) {
+					
+			
+					if ($product->price > 0) {
+                    $image = 'purchase-courses.png';
+                    if (isset($product->image) && $product->image != '') {
+                        $image = $product->image;
+                    }
+					if (isset($product->displayname) && ($product->displayname != '')) {
+                                $product_name = $product->displayname;
+                                            } else {
+                                $product_name = $product->modules_item_name;
+                                            }
+if ($product->discounted_price > 0) {
+	$packagesprice=$product->price;
+		//$reduseprice=$packagesprice*10/100;									
+		$reduseprice=$product->discounted_price;
+		if($franchise_id>0){
+			$packagesprice=round($packagesprice-$reduseprice);
+		}else{
+			$packagesprice=$product->price;
+        }
+}																			
+					
+					
+					?>
+	  <!-- dummy -->
+	<!-- customize card -->
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+	<div class="card card1">
+	<?php if($reduseprice>0){ ?>
+		<div class="show_price pull-right">
+			<a href="#">Actual Price <span class='actul_price'><?php echo $packagesprice; ?></span></a>
+			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
+		</div>
+	<?php }else{ ?>
+			<div class="show_price pull-right">
+			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
+		</div>
+	<?php } ?>
+		<!--$image-->
+				
+                               <img id="base_image" src="<?php echo base_url('assets/images/Railways.png/');?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  /> 
+		<div class="card-title">
+			<?php echo $product_name; ?>
+		</div>
+			
+		<hr class="card_divider1">
+		<div class="card-body">
+			
+			<div class="card-module text-capitalize text-center">
+				<ul class="list-inline">
+					<li class="list-group-item">
+						<span>96 +</span>
+						<a href="#">questions bank</a>
+					</li>
+					<li class="list-group-item">
+						<span>285 +</span>
+						<a href="#">online tests</a>
+					</li>
+					<li class="list-group-item">
+						<span>285 +</span>
+						<a href="#">sample papers</a>
+					</li>
+					<li class="list-group-item">
+						<span>749 +</span>
+						<a href="#">study packages</a>
+					</li>
+					<li class="list-group-item">
+						<span>87 +</span>
+						<a href="#">notes</a>
+					</li>
+					<li class="list-group-item">
+						<span>1045 +</span>
+						<a href="#">videos</a>
+					</li>
+					<li class="list-group-item">
+						<span>17545 +</span>
+						<a href="#">questions bank</a>
+					</li>
+					<li class="list-group-item">
+						<span>53 +</span>
+						<a href="#">solved pagers</a>
+					</li>
+					<li class="list-group-item">
+						<span>9105 +</span>
+						<a href="#">other module 1</a>
+					</li>
+					<li class="list-group-item">
+						<span>21405 +</span>
+						<a href="#">other module 2</a>
+					</li>
+				</ul>
+			</div>
+			<hr class="card_divider2">
+			
+		<div class="btn-group1 text-center">		
+		<?php
+			if ($product->price > 0) { 
+			if (!$this->session->userdata('purchases') || !in_array_r($product->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>				
+						<button itemname="<?php echo $product->modules_item_name;?>" 
+                        type="<?php echo $product->type ?>" 
+                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
+                        itemid="<?php echo $product->id ?>"
+                        itemqty="1"
+                        offline='0'
+                        action_type="1"
+                        class="btn btn-primary addtocart"
+                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
+						   <button itemname="<?php echo $product->modules_item_name;?>" 
+                        type="<?php echo $product->type ?>" 
+                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
+                        itemid="<?php echo $product->id ?>"
+                        itemqty="1"
+                        offline='1'
+                        action_type="1" 
+						redirect="buynow"
+                        class="btn btn-primary addtocart"
+                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
+										
+			<?php }else{
+				?>
+				 <button class="btn btn-primary"
+                    name="btnAlreadyExist">You have already bought this course</button>
+				
+			<?php
+			}
+					   }else{
+						   ?>
+						   <button  class="btn btn-primary" name="btnAlreadyExist">Not For Sale</button>
+						   <?php
+					   }
+			?>
+		
+		</div>
+		
+		
+		</div>
+		
+	</div>
+</div>
+<!-- //customize card -->
+
+ <!-- // dummy --><?php
+					
+					
+					
+					/*
 					
 					if ($product->price > 0) {
                     $image = 'purchase-courses.png';
@@ -627,7 +306,7 @@ As you all know, Studyadda has always provided the best services for you all, we
 									$productlist_id=NULL;	
 									}
 									
-									/* Path For web products image echo base_url('assets/frontend/product_images/'.$image)*/ 
+									//Path For web products image echo base_url('assets/frontend/product_images/'.$image)
                                 ?>
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center"  style="position: relative; text-align: center;   color: black;">
   
@@ -714,8 +393,10 @@ As you all know, Studyadda has always provided the best services for you all, we
     </div>
 </div></div>
 
-					   <?php }
-
+					   <?php 
+					   }
+*/
+					}   
 					   } ?>
 		
 		
