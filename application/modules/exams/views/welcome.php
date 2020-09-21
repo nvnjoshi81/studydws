@@ -144,7 +144,8 @@ $subjectName=str_replace("science","EVS","science");
 </div> </div>
     
     <div class="container">
-	<?php $showFreecnt='no';
+	<?php 
+	$showFreecnt='no';
 	if($showFreecnt=='yes'){
 	?>
   	<div class="row col-list center-block">
