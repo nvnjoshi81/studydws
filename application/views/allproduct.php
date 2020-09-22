@@ -94,7 +94,6 @@ As you all know, Studyadda has always provided the best services for you all, we
 	<?php  $count = 0;
                 foreach ($sp_productslist as $product) {
 					
-			
 					if ($product->price > 0) {
                     $image = 'purchase-courses.png';
                     if (isset($product->image) && $product->image != '') {
@@ -120,45 +119,45 @@ if ($product->discounted_price > 0) {
 	<!-- customize card -->
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 	<div class="card card1">
+	  <img width='80' height='80'id="base_image" src="<?php echo base_url('assets/images/weball_product/'.$image);?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  />
+	
+                             
+		<div class="card-title">
+			<?php echo $product_name; ?>
+		</div>
+				  
 	<?php if($reduseprice>0){ ?>
-		<div class="show_price pull-right">
+		<div class="show_price">
 			<a href="#">Actual Price <span class='actul_price'><?php echo $packagesprice; ?></span></a>
 			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
 		</div>
 	<?php }else{ ?>
-			<div class="show_price pull-right">
+			<div class="show_price">
 			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
 		</div>
 	<?php } ?>
-				
-                               <img id="base_image" src="<?php echo base_url('assets/images/'.$image);?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  /> 
-		<div class="card-title">
-			<?php echo $product_name; ?>
-		</div>
 			
 		<hr class="card_divider1">
 		<div class="card-body">
 			<?php  
-			if(isset($packagecnt)&&count($packagecnt)>0){
+			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
+				$packagecnt=$packagecnt_array[$product->exam_id];
 			?>
 			<div class="card-module text-capitalize text-center">
 				<ul class="list-inline">
 					<?php foreach($packagecnt as $keyval){ 	
-					?>
+					 if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
 					<li class="list-group-item">
-						<?php if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
 						<span><?php echo $keyval->custom_total_package; ?> +</span>
-						<?php }  
-						if(isset($keyval->custom_total_question)&&$keyval->custom_total_question>0){ ?>
-						<span><?php echo $keyval->custom_total_question; ?> +</span>
-						<?php  } if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
+						<?php  
+						 if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
 						<a href="#"><?php
 $moduletype_array=explode('-',$keyval->module_type);
 echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 						; ?></a>
 						<?php } ?>
 					</li>
-					<?php } ?>
+					 <?php } } ?>
 			</ul>
 			</div>
 			<?php } ?>
@@ -169,14 +168,14 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 		<?php
 			if ($product->price > 0) { 
 			if (!$this->session->userdata('purchases') || !in_array_r($product->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>				
-						<button itemname="<?php echo $product->modules_item_name;?>" 
+						<button style='margin-bottom:6px;' itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
                         itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
                         itemid="<?php echo $product->id ?>"
                         itemqty="1"
                         offline='0'
                         action_type="1"
-                        class="btn btn-primary addtocart cartleft"
+                        class="btn btn-primary btn-sm addtocart cartleft"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
 						   <button itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
@@ -186,7 +185,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                         offline='1'
                         action_type="1" 
 						redirect="buynow"
-                        class="btn btn-primary addtocart buyright"
+                        class="btn btn-primary btn-sm addtocart buyright"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
 										
 			<?php }else{

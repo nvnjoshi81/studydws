@@ -344,7 +344,13 @@ if($f_formtotal!=$fc_total){
        $sp_Product = $this->Pricelist_model->getProduct($sp_exam_id, $sp_subject_id, $sp_chapter_id, 1);
        if(count($sp_Product)>0){
         $isProduct_array[]= $sp_Product;
-       }
+		
+	   //Get package count
+	   
+       $packagecnt = $this->Pricelist_model->pkgCount_byExam($sp_exam_id);
+		$packagecnt_array[$sp_exam_id]= $packagecnt;
+		
+		}
         }
                $this->data['sp_productslist']=$isProduct_array;
         /*End Display all packge*/
@@ -372,7 +378,8 @@ if($f_formtotal!=$fc_total){
 		}
 	   }
 	   
-        $this->data['franchise_id']=$franchise_id;
+        $this->data['packagecnt_array']=$packagecnt_array;
+		$this->data['franchise_id']=$franchise_id;
 	    $this->data['ts_productslist']=$isProduct_array;
         $this->load->view('template',$this->data);
     }

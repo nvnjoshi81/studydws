@@ -74,8 +74,147 @@ $product_brought='no';
             $videos_counts = $videos_counts + 1;
         }
     }
-	if($isProduct->image!=''&& file_exists($this->input->server('DOCUMENT_ROOT').'/assets/frontend/product_images/'.$isProduct->image)){
-	?>   
+	
+	
+	if ($isProduct->discounted_price > 0) {
+	$packagesprice=$isProduct->price;
+		//$reduseprice=$packagesprice*10/100;									
+		$reduseprice=$isProduct->discounted_price;
+		if($franchise_id>0){
+			$packagesprice=round($packagesprice-$reduseprice);
+		}else{
+			$packagesprice=$isProduct->price;
+        }
+}
+	
+	if($isProduct->image!=''&& file_exists($this->input->server('DOCUMENT_ROOT').'/assets/images/weball_product/'.$isProduct->image)){
+
+	?> 
+
+
+     <div id="content_allprod">
+    <div id="showPackages">
+	
+
+	<!-- customize card -->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="card card1">
+		
+		<img src="<?php echo base_url('assets/images/weball_product/'.$isProduct->image);?>" alt="<?php echo $isProduct->modules_item_name; ?>" class="img-responsive img-purchase1">
+		
+		<div class="card-title">
+			<?php echo $isProduct->modules_item_name; ?>
+		</div>
+						  
+	<?php if($reduseprice>0){ ?>
+		<div class="show_price">
+			<a href="#">Actual Price <span class='actul_price'><?php echo $packagesprice; ?></span></a>
+			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
+		</div>
+	<?php }else{ ?>
+			<div class="show_price">
+			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
+		</div>
+	<?php } ?>
+		
+		
+		
+		<div class="btn-group1 text-center">
+		    <?php 
+			if (!$this->session->userdata('purchases') || !in_array_r($isProduct->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>
+                <button  style='margin-bottom:6px;' itemname="<?php echo $isProduct->modules_item_name;?>" 
+                        type="<?php echo $isProduct->type ?>" 
+                        itemprice="<?php echo $isProduct->discounted_price > 0 ? $isProduct->discounted_price : $isProduct->price ?>" 
+                        itemid="<?php echo $isProduct->id ?>"
+                        itemqty="1"
+                        offline='0'
+                        action_type="1"
+                        class="btn btn-primary cartleft addtocart"
+                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button><br>
+						<!--For Buy now Action redirect="buynow" and offline='1'-->
+						     <button itemname="<?php echo $isProduct->modules_item_name;?>" 
+                        type="<?php echo $isProduct->type ?>" 
+                        itemprice="<?php echo $isProduct->discounted_price > 0 ? $isProduct->discounted_price : $isProduct->price ?>" 
+                        itemid="<?php echo $isProduct->id ?>"
+                        itemqty="1"
+                        offline='1'
+                        action_type="1"
+						redirect="buynow"					
+                        class="btn btn-primary buyright addtocart"
+                        name="btnAddToCart"><i class="material-icons">payment</i>&nbsp;&nbsp;&nbsp;&nbsp;Buy Now&nbsp;</button>
+						
+                        <?php if ($isProduct->offline_status == 1) { ?>
+                    <button itemname="<?php echo $isProduct->modules_item_name; ?>"  
+                            type="<?php echo $isProduct->type ?>" 
+                            itemprice="<?php echo $isProduct->discounted_price > 0 ? $isProduct->discounted_price : $isProduct->price ?>"itemid="<?php echo $isProduct->id ?>"
+                            itemqty="1"
+                            offline='1'
+                            action_type="1"
+                            class="btn btn-primary cartleft addtocart"
+                            name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Buy Offline</button>
+                        <?php }                       
+                        } else {			   
+					   if($isProduct->type==1)
+                   {
+						 //If main product is brought we can enable download all products.
+					
+                       $this->session->set_userdata('sub_purchases','yes');
+					
+                           }else{
+							    $this->session->set_userdata('sub_purchases','no');
+						   }
+                        ?>
+                <button  class="btn btn-primary cartleft"
+                    name="btnAlreadyExist">You have already bought this course</button>
+                    <?php } 
+                ?>
+        </div>
+		
+			
+		<hr class="card_divider1">
+		<div class="card-body">
+			
+			<?php  
+			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
+				$packagecnt=$packagecnt_array[$examid];
+			?>				
+			<div class="card-module text-capitalize text-center">
+				<ul class="list-inline">
+					<?php foreach($packagecnt as $keyval){ 	
+					 if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
+					<li class="list-group-item">
+						<span><?php echo $keyval->custom_total_package; ?> +</span>
+						<?php  
+						 if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
+						<a href="#"><?php
+$moduletype_array=explode('-',$keyval->module_type);
+echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
+						; ?></a>
+						<?php } ?>
+					</li>
+					 <?php } } ?>
+			</ul>
+			</div>
+			<?php } ?>
+			
+			
+			<hr class="card_divider2">		
+		
+		</div>
+		
+	</div>
+</div></div>
+</div>
+<!-- //customize card -->
+
+
+
+
+
+
+<?php $oldhide='no'; 
+if($oldhide=='yes'){?>
+	
 <div class="row" id="floatingprice">
 <div class="col-xs-12 col-md-12 text-center"  style="position: relative;
   text-align: center;
@@ -162,7 +301,7 @@ if($isProduct->price>0){
 </div>
 	<!--DYNAMIC SECTION-->
 	<?php
-	}
+	}}
  }else{
 	 
 	if($product_brought=='no'){

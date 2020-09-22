@@ -90,7 +90,11 @@
                          }
 if($selectedexam->id==32&&$subjectlist_value['id']==5){
 $subjectName=str_replace("science","EVS","science");
-}	 
+}
+// for Banking change mathematics to Quantitative Aptitude
+if($selectedexam->id==78&&$subjectlist_value['id']==3){
+$subjectName=str_replace("mathematics","EVS","Quantitative Aptitude");
+}		 
 //echo "<i class='fa fa-book fa-4x text-warning'></i>";
                              ?>                                     <img class="img-responsive" width="50px" height="30px" src="<?php echo base_url($imagepath);?>">
         
@@ -145,7 +149,7 @@ $subjectName=str_replace("science","EVS","science");
     
     <div class="container">
 	<?php 
-	$showFreecnt='no';
+	$showFreecnt='yes';
 	if($showFreecnt=='yes'){
 	?>
   	<div class="row col-list center-block">
@@ -724,17 +728,17 @@ if (count($qb) > 0) { ?>
                                         </ul>
                                     </div>
                                     <div class="panel-footer"> <i class="glyphicon glyphicon-eye-open"> </i> &nbsp; <a title="Question Banks" href="<?php echo base_url('question-bank/' . $path) ?>">View All</a> </div>
-                                </div>
+                                </div></div>
                             </div>
 <?php } 
 
  if ($ns_package > 0) { ?>  <!--Ncert Solutions -->   
-                        <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+                        <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">	<div class="border_exam">
+                            <div class="col-md-2 text-center">
                                    <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-book glyphic_fontinfo text-success"></span></p>
                             </div>
-                            <div class="col-md-8 section-box">
+                            <div class="col-md-10 section-box">
                                 <h4>
                                     NCERT Solutions
                                 </h4>
@@ -747,7 +751,7 @@ if (count($qb) > 0) { ?>
     <?php } ?>
 
                                 </div> 
-                            </div>
+                            </div>	</div>
                         </div>
 <?php }
 ?>
@@ -843,13 +847,13 @@ if (count($qb) > 0) { ?>
             <?php 
 			//if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '')
 				//We do not show module counting on pages now. so $allpack_cnt array Passed to blank.
-$allpack_cnt='yes';
+$allpack_cnt='no';
 if($allpack_cnt=='yes'){
 			if ($this->uri->segment(1) != '') {  ?> 
            <div class="row">
                         <?php if ($qb_package > 0) { ?>
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                   <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-file text-success glyphic_fontinfo"></span></p>
                             </div>
@@ -874,7 +878,7 @@ if($allpack_cnt=='yes'){
                                 if ($ot_package > 0) { ?>
                         <!--Online Test-->    
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                    <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-hourglass text-success glyphic_fontinfo"></span></p>
                             </div>
@@ -898,7 +902,7 @@ if($allpack_cnt=='yes'){
                                 if ($sp_package > 0) { ?>
                         <!--Sample Papers-->    
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                  <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-list-alt text-success glyphic_fontinfo"></span></p>
                             </div>
@@ -922,7 +926,7 @@ if($allpack_cnt=='yes'){
                                 if ($stpac_package > 10) { ?>
                         <!-- Study Packages-->
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-folder-open glyphic_fontinfo text-danger"></span></p>
                             </div>
@@ -945,7 +949,7 @@ if($allpack_cnt=='yes'){
 
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
                             <!-- Notes-->
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                    <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-info-sign glyphic_fontinfo text-danger"></span></p>
                             </div>
@@ -971,7 +975,7 @@ if($allpack_cnt=='yes'){
                                 <?php if ($video_package > 0) { ?>
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
                             <!--  Video Lecture Series-->
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                 <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-facetime-video glyphic_fontinfo text-danger"></span></p>
                             </div>
@@ -995,7 +999,7 @@ if($allpack_cnt=='yes'){
                                 <?php  if ($solpap_package > 0) { ?>
                         <!--Solved Papers-->    
                         <div class="col-xm-6 col-md-4 col-sm-6 col-md-6">
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-2 text-center">
                                 <p class="detail_product_img">  
                                 <span class="glyphicon glyphicon-edit glyphic_fontinfo text-success"></span></p>
                             </div>

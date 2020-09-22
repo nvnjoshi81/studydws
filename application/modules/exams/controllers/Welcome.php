@@ -554,7 +554,12 @@ $chkcount=$chkcount+1;
         //$subject_id, $chapter_id is sety to zero
         $isProduct = $this->Pricelist_model->getProduct($examid, 0, 0, 1);
         $examPlaylist = $this->Videos_model->getVideos($examid, $subject_id, $chapter_id,18);
-       
+       //Get package count
+	   
+       $packagecnt = $this->Pricelist_model->pkgCount_byExam($examid);
+		$packagecnt_array[$examid]= $packagecnt;
+		$this->data['packagecnt_array']=$packagecnt_array;
+		
         $this->data['examPlaylist']=$examPlaylist;
             //Get video name for playlist in case of chapter
         if($chapter_id > 0){
