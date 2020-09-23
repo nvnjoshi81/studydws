@@ -118,9 +118,6 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                             <li><a href="<?php echo base_url('videos/jee-main-advanced/28') ?>" title="videos-jee-main-advanced">
                                     Videos
                                 </a></li>
-                                <li><a href="<?php echo base_url('ncert-solution/jee-main-advanced/28'); ?>" title="ncert-solution-jee-main-advanced">
-                                    Ncert Solutions
-                                </a></li>
                                 <li></li><li><a href="<?php echo base_url('question-bank/jee-main-advanced/28'); ?>" title="question-bank-jee-main-advanced">
                                     Question Bank
                                 </a></li>
@@ -139,9 +136,6 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
 
                         <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>NEET</h5></li><li> <a href="<?php echo base_url('videos/neet/29') ?>" title="videos-neet" >
                                     Videos
-                                </a></li>
-                                <li> <a href="<?php echo base_url('ncert-solution/neet/29'); ?>" title="ncert-solution-neet" >
-                                    Ncert Solutions
                                 </a></li>
                                 <li> <a href="<?php echo base_url('question-bank/neet/29'); ?>" title="question-bank-neet" >
                                     Question Bank

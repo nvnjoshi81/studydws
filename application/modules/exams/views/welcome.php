@@ -43,9 +43,7 @@
 								<div class="row">
     <div class="page-header text-center">
         <h3>Select Subject</h3>
-    </div> <!--class="row pack_sub"-->
-    <div class="serve-top" style="display:block; background-color:red;">
-                                        
+    </div>                                        
              <?php
    //print_r($subject_chapters);
             $totalsolvedp=count($solvedp);
@@ -67,10 +65,11 @@
         //echo $showSub.'---'.$subjectlist_key;
              $bookclass_cnt= rand(0,3);
              if (count($subject_chapters[$subjectlist_key]) > 0 && $showSub=='yes') { ?>                         
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 serve-icons">
+        
+			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
             <!--class="col-xs-6 col-md-3 col-sm-6 rcorners2"--> 
-            	<div class="s-sub rcorners2">
-				<div class="border_exam">
+      	<div class="subject_detail" style="border:1px solid green; border-radius:15px;">
+				
                                     <?php echo "<a title='".$subjectlist_key."' href='" . base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', true). '/' . $selectedexam->id . '/' . url_title($subjectlist_key, '-',true) . '/' . $subjectlist_value['id']) . "'>"; 
 									
 									$imagepath=$subimage_array[$subjectlist_value['id']];
@@ -80,57 +79,56 @@
 									}else{
 									$imagepath='assets/subject_image/gen-knowl.png';
 									}									
-									?>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                        <?php  
+									
                         if(strlen($subjectlist_key)>40){
                         $subjectName=substr($subjectlist_key,0,40).'..';
                          }else{
                              $subjectName=$subjectlist_key;
                          }
-if($selectedexam->id==32&&$subjectlist_value['id']==5){
-$subjectName=str_replace("science","EVS","science");
-}
-// for Banking change mathematics to Quantitative Aptitude
-if($selectedexam->id==78&&$subjectlist_value['id']==3){
-$subjectName=str_replace("mathematics","EVS","Quantitative Aptitude");
-}		 
-//echo "<i class='fa fa-book fa-4x text-warning'></i>";
-                             ?>                                     <img class="img-responsive" width="50px" height="30px" src="<?php echo base_url($imagepath);?>">
+		 
+                             ?>                                     
+							 <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
         
-                            </div>  
-                                        <div class="clearfix col-md-8 col-sm-8 col-xs-8">
+                                        <div class="sub_name">
 										<?php  
 										echo "<h4 class='text-primary' >{$subjectName} </h4>"; 
 										?> 
                                         </div>
-                                    <div class="col-md-12">
-                                <div class="view_det_shop">
+                                 
+									<div class="total_modules">
                                     <?php 
                                   
                         if(isset($subjectArray_package[$subjectlist_value['id']])){
-                      
+                       ?>
+					  <ul>
+						
+					  
+					  <?php
      foreach($subjectArray_package[$subjectlist_value['id']] as $pvalue){
-         if($pvalue->total_package>1){
+         if($pvalue->total_package>1){ ?>
+		 <li>
+		 <?php
              $moduleName=str_replace('-',' ',$pvalue->module_type);
          ?>
              <i class="fa fa-check" aria-hidden="true"></i> Total <?php echo ucfirst($moduleName); ?>  : <span> <strong><?php echo $pvalue->total_package; ?>+</strong></span><br>
         <?php
              
-         $obj_totalpack =$pvalue->total_package;
-            if($moduleName=='solved papers'){
-            //$outer_spcnt = intval($outer_spcnt) + intval($obj_totalpack); 
-                 
-            }
+         $obj_totalpack =$pvalue->total_package;            
+			?>
+		 </li>
+		 <?php
          }
      }
-     
+      ?>
+					  </ul>
+						
+					  
+					  <?php
  }
    ?>
-                                </div> 
                             </div>
                         </a> 
-        </div>
+       
 		</div>
                         </div>
                                
@@ -145,7 +143,7 @@ $subjectName=str_replace("mathematics","EVS","Quantitative Aptitude");
                     $outer_spcnt= $totalsolvedp; 
                  }  
 ?>  
-</div> </div></div> 
+ </div></div> 
     
     <div class="container">
 	<?php 
@@ -904,45 +902,18 @@ if ($ns_package > 0) { ?>
 
       <?php if ($ns_package > 0) { ?>
                                         <i class="material-icons">check</i> Total NCERT Chapters : <span> <strong><?php echo $ns_package; ?>+</strong></span>
-    <?php } if ($ns_questions > 1) { ?><br>
+    <?php } if ($ns_questions > 1){ ?><br>
                                         <i class="material-icons">check</i> Total Questions : <span> <strong><?php echo $ns_questions; ?></strong> </span>
     <?php } ?>
 
                                 </div> 
                             </div>
                         </div></div>
-                                <?php }
-?>
+                        <?php } ?>
 
 <div class="clearfix"></div>
-<?php 
-
- if ($solpap_package > 0) { ?>
-                        <!--Solved Papers-->    
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <div class="col-md-2 text-center">
-                                <p class="detail_product_img">  
-                                <span class="glyphicon glyphicon-edit glyphic_fontinfo text-success"></span></p>
-                            </div>
-                            <div class="col-md-10 section-box">
-                                <a href="<?php echo base_url("featured-videos"); ?>">   <h4>
-                                    Free Video Lecture
-                                </h4></a>
-                                <div class="view_det_shop row">
-    <?php if ($freevideo_package > 0) { ?>
-                                        <i class="material-icons">check</i> Total Free Lecture Series : <span> <strong><?php echo $freevideo_package; ?>+</strong></span>
-    <?php } if ($freevideos_questions > 1) { ?><br>
-                                        <i class="material-icons">check</i> Total Free Videos : <span> <strong><?php echo $freevideos_questions; ?></strong> </span>
-                                    <?php } ?>
-
-                                </div> 
-                            </div>
-                        </div></div>
-                                <?php }
-
-
-?>                        
-                </div>
+                        
+</div>
 <?php  } } ?>           
 		   </div>
             <!-- /. PAGE INNER  -->

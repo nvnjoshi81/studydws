@@ -538,10 +538,6 @@ $chkcount=$chkcount+1;
               $this->data['solpap_package']=$package->custom_total_package;
              $this->data['solpap_questions']=$package->custom_total_question;  
             }			
-            if($package->module_type=='free-videos'){				
-                $this->data['freevideo_package']=$package->custom_total_package;
-                $this->data['freevideos_questions']=$package->custom_total_question;
-            }
         }   
         //Get statistics on subject bassis for all module.
         $subjectArray_package=array();
