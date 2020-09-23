@@ -22,10 +22,10 @@
                 <div class="module_panel row">                  
                   <!-- content panel start here -->
                   <!-- left panel -->
-                  <div class="col-sm-12 col-md-9">
+                  <div class="col-sm-12 col-md-12">
                   
                   <div class="col-md-12 cont_log">
-                  <div class="pull-right img-thumbnail contact-img"><img src="<?php echo base_url('assets/images/contact_img.jpg')?>" class="img-responsive" /></div>
+                  <!--<div class="pull-right img-thumbnail contact-img"><img src="<?php echo base_url('assets/images/contact_img.jpg')?>" class="img-responsive" /></div>-->
                      <h3 class="text-danger">For general enquiry:- </h3>
 <span>  
             <a href="mailto:info@studyadda.com">
@@ -34,13 +34,19 @@
             <h4>: info@studyadda.com</h4>
             </a>
 </span>
-<span>
-           <a href="tel:+91 6261036004">
+<span>  
+            <a href="mailto:jobs@studyadda.com">
+            <i class="fa fa-envelope-square fa-2">
+            </i>
+            <h4>: jobs@studyadda.com</h4>
+            </a>
+</span>
+<!--           <a href="tel:+91 6261036004">
            <i class="fa fa-phone-square fa-2">
            </i>
            <h4>: +91 6261036004</h4>
            </a> 
-</span>
+</span>-->
 <br/>
                   </div>
                       <div class="col-md-12 cont_log">         			  
@@ -78,10 +84,10 @@
                           </div>
                   </div>
                   <!-- right panel -->
-                 <div class="col-sm-12 col-md-3 rht_status_mat">
-                 <div class="right_advertisepanel"><img alt="adversite" src="<?php echo base_url('assets/images/260adv_2.jpg')?>"></div>
+                 <!--<div class="col-sm-12 col-md-3 rht_status_mat">
+                 <div class="right_advertisepanel"><img alt="adversite" src="<?php //echo base_url('assets/images/260adv_2.jpg')?>"></div>
                      
-                </div>
+                </div>-->
                  </div>
                <!-- /. ROW  -->
                  <hr>               

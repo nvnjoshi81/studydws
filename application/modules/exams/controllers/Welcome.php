@@ -479,21 +479,21 @@ $chkcount=$chkcount+1;
         }
         foreach($all_packages as $package){
             if($package->module_type=='question-bank'){
-                $this->data['qb_package']=$package->total_package;
-                $this->data['qb_questions']=$package->total_question;
+                $this->data['qb_package']=$package->custom_total_package;
+                $this->data['qb_questions']=$package->custom_total_question;
             }
             if($package->module_type=='sample-papers'){
-                $this->data['sp_package']=$package->total_package;
-                $this->data['sp_questions']=$package->total_question;
+                $this->data['sp_package']=$package->custom_total_package;
+                $this->data['sp_questions']=$package->custom_total_question;
             }
             
             if($package->module_type=='videos'){
-                $this->data['video_package']=$package->total_package;
-                $this->data['videos_questions']=$package->total_question;
+                $this->data['video_package']=$package->custom_total_package;
+                $this->data['videos_questions']=$package->custom_total_question;
             }
             if($package->module_type=='online-test'){
-                $this->data['ot_package']=$package->total_package;
-                $this->data['ot_questions']=$package->total_question;
+                $this->data['ot_package']=$package->custom_total_package;
+                $this->data['ot_questions']=$package->custom_total_question;
             }
             if($package->module_type=='study-packages'){
                 $getProduct_id = $this->Pricelist_model->getProduct_id($examid, $subject_id, $chapter_id, 1);
@@ -501,7 +501,7 @@ $chkcount=$chkcount+1;
                     //Update Product count
                 if(isset($getProduct_id->id)&&($getProduct_id->id>0)){
                   if($examid>0&&($subject_id<1||$subject_id=='')){  
-             $dataarray=array('no_of_lectures'=>$package->total_package);
+             $dataarray=array('no_of_lectures'=>$package->custom_total_package);
                     //$this->Pricelist_model->update_packageCount($getProduct_id->id,$dataarray);
                   }
                   
@@ -521,24 +521,27 @@ $chkcount=$chkcount+1;
                            $this->data['stpac_package']=$package->total_package;
                        }
                  *  */
-                $this->data['stpac_package']=$package->total_package;       
-                $this->data['stpac_questions']=$package->total_question;
+                $this->data['stpac_package']=$package->custom_total_package;       
+                $this->data['stpac_questions']=$package->custom_total_question;
             }
             if($package->module_type=='notes'){
-              $this->data['notes_package']=$package->total_package;
-              $this->data['notes_questions']=$package->total_question;   
+              $this->data['notes_package']=$package->custom_total_package;
+              $this->data['notes_questions']=$package->custom_total_question;   
             }
             
             if($package->module_type=='ncert-solution'){
-             $this->data['ns_package']=$package->total_package;
-             $this->data['ns_questions']=$package->total_question;     
+             $this->data['ns_package']=$package->custom_total_package;
+             $this->data['ns_questions']=$package->custom_total_question;     
             }
             
             if($package->module_type=='solved-papers'){
-              $this->data['solpap_package']=$package->total_package;
-             $this->data['solpap_questions']=$package->total_question;  
+              $this->data['solpap_package']=$package->custom_total_package;
+             $this->data['solpap_questions']=$package->custom_total_question;  
+            }			
+            if($package->module_type=='free-videos'){				
+                $this->data['freevideo_package']=$package->custom_total_package;
+                $this->data['freevideos_questions']=$package->custom_total_question;
             }
-            
         }   
         //Get statistics on subject bassis for all module.
         $subjectArray_package=array();

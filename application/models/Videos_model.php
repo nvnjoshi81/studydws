@@ -37,18 +37,18 @@ class Videos_model extends CI_Model {
     
     public function get_modules_package($exam_id=0,$subject_id=0){
         if($exam_id > 0 && $subject_id>0) {
-        $this->db->select('id,exam_id,exam_name,subject_id,subject_name,total_package,total_question,module_type'); 
+        $this->db->select('id,exam_id,exam_name,subject_id,subject_name,total_package,total_question,custom_total_package,custom_total_question,module_type'); 
         $this->db->from('cmspackages_counter');
         $this->db->where('exam_id', $exam_id);
         $this->db->where('subject_id',$subject_id);
         $this->db->where('level','subject');
         }else if($exam_id > 0 && $subject_id==0) {
-        $this->db->select('id,exam_id,exam_name,subject_id,subject_name,total_package,total_question,module_type'); 
+        $this->db->select('id,exam_id,exam_name,subject_id,subject_name,total_package,total_question,custom_total_package,custom_total_question,module_type'); 
         $this->db->from('cmspackages_counter');
         $this->db->where('exam_id', $exam_id);
         $this->db->where('level','exam');
         }else{
-        $this->db->select('id,total_package,total_question,module_type'); 
+        $this->db->select('id,total_package,total_question,custom_total_package,custom_total_question,module_type'); 
         $this->db->where('level','root');
         $this->db->from('cmspackagesall_counter');
         }

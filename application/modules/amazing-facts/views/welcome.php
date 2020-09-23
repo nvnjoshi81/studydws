@@ -68,8 +68,7 @@
       <!--  <div class="responsive_google_ad">
           </div>-->
       <!-- mid -->
-      <aside class="col-xs-12 col-sm-12 col-md-12 col-lg-12 lftforadd">
-       
+      <aside class="col-xs-12 col-sm-12 col-md-12 col-lg-12 amazing_facts lftforadd">
         <div class="heading-bar">
         	<h2>
             <?php 
@@ -104,13 +103,9 @@ $bg_custom_image =$bg_custom_image_array[$cnt_img_name];
             <h4><a href="#"><b><?php echo $list->name;?></b></a></h4>
             <p><?php echo custom_strip_tags($list->description);?></p>
         </article>
-	
-	
          <?php } ?>
             </section>
-</div>    
-
-        
+</div>  
       </aside>
       <!-- right -->
     <!--  <aside class="col-xs-12 col-sm-12 col-md-3 col-lg-3">

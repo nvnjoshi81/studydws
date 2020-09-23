@@ -81,11 +81,6 @@ As you all know, Studyadda has always provided the best services for you all, we
           </div>
           </div>
             <br/>
-      
-
-
-
-
 <div  id="content_allprod">
     <div id="showPackages">
     
@@ -125,29 +120,20 @@ if ($product->discounted_price > 0) {
 		<div class="card-title">
 			<?php echo $product_name; ?>
 		</div>
-				  
-	<?php if($reduseprice>0){ ?>
-		<div class="show_price">
-			<a href="#">Actual Price <span class='actul_price'><?php echo $packagesprice; ?></span></a>
-			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
-		</div>
-	<?php }else{ ?>
-			<div class="show_price">
-			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
-		</div>
-	<?php } ?>
-			
-		<hr class="card_divider1">
+		
+
+<!-- modules -->
+<hr class="card_divider1">
 		<div class="card-body">
 			<?php  
 			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
 				$packagecnt=$packagecnt_array[$product->exam_id];
 			?>
-			<div class="card-module text-capitalize text-center">
+<div class="card-module text-capitalize text-center">				
 				<ul class="list-inline">
 					<?php foreach($packagecnt as $keyval){ 	
 					 if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
-					<li class="list-group-item">
+						<li class="list-group-item">
 						<span><?php echo $keyval->custom_total_package; ?> +</span>
 						<?php  
 						 if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
@@ -161,9 +147,21 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 			</ul>
 			</div>
 			<?php } ?>
-		
 			<hr class="card_divider2">
-			
+<!-- // modules -->	
+
+<hr class="module_divider"> 
+<!-- for module divider -->
+	<?php if($reduseprice>0){ ?>
+		<div class="show_price">
+			<a href="#">Actual Price <span class='actual_price'><?php echo $packagesprice; ?></span></a>
+			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
+		</div>
+	<?php }else{ ?>
+			<div class="show_price">
+			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
+		</div>
+	<?php } ?>
 		<div class="btn-group1 text-center">		
 		<?php
 			if ($product->price > 0) { 
@@ -177,7 +175,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                         action_type="1"
                         class="btn btn-primary btn-sm addtocart cartleft"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
-						   <button itemname="<?php echo $product->modules_item_name;?>" 
+						<button itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
                         itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
                         itemid="<?php echo $product->id ?>"
@@ -185,7 +183,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                         offline='1'
                         action_type="1" 
 						redirect="buynow"
-                        class="btn btn-primary btn-sm addtocart buyright"
+                        class="btn btn-primary btn-sm buyright"
                         name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
 										
 			<?php }else{
