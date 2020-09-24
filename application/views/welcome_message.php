@@ -1,4 +1,5 @@
 <!-- Page Content -->
+<!-- slider section -->
 <div id="myCarousel" class="carousel slide slide_container" data-ride="carousel" > 
   <!-- <div class="bg_img_ban"><img src="http://www.studyadda.local/assets/frontend/images/bg_2.jpg"  />   </div>-->
  <div class="homepageban">
@@ -34,7 +35,7 @@
     </div>      
       <div class="item"> <img width="1326" height="483" src="<?php echo base_url('assets/frontend/images/studyadda3.jpg')?>" style="width:100%" data-src="" alt="Test Series">
       <div class="container">
-        <div class="carousel-caption">
+        <div class="carousel-caption slide2">
           <h1>Test Series</h1>
           <p><h3>Pre Launch Offer-Test Series of Any Class From 1st to 12th, JEE & NEET,Railways,Banking,SSC,GRE,CAT,CA-CPT,CLAT,NTSE in </h3><span style="font-size: xx-large; font-size: 34px;"><i class="fa fa-inr"> </i>3999 ONLY</font></span></p>
           <p><a class="btn btn-raised btn-lg btn-primary" href="<?php echo base_url('online-test')?>" role="button">View more</a></p>
@@ -185,6 +186,7 @@ if(!$isWebView){
  </div> 
  </div>
  </div>
+<!-- // slider section -->
 
 
 
