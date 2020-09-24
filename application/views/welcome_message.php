@@ -3,8 +3,7 @@
 <div id="myCarousel" class="carousel slide slide_container" data-ride="carousel" > 
   <!-- <div class="bg_img_ban"><img src="http://www.studyadda.local/assets/frontend/images/bg_2.jpg"  />   </div>-->
  <div class="homepageban">
- <div class="homepageslid-inner">
-     
+ <div class="homepageslid-inner">     
       <?php if(!$this->session->userdata('customer_id')){ ?>
  <div class="col-md-12 home_ban">
       <?php }else{ ?>
