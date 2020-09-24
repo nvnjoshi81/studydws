@@ -2,21 +2,25 @@
   <div class="container">
     <div class="row">
       <?php $this->load->view('common/breadcrumb');?>
-      <div class="col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div id="page-inner">
           <div class="module_panel row">
 		  <!-- content panel start here -->
           <!-- left panel -->
-              <div class="container ">   
-        <div class="col-md-10 col-sm-12">
-        <div class="col-md-5 col-sm-6"><h2>Franchise Benefits:</h2></div>
-        	<div class="pull-right col-md-5 col-sm-6">
+              <div class="container franchise">   
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<h2>Franchise Benefits:</h2>
+			</div>
+
+        	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                     <a class="btn btn-sm btn-success" href="<?php echo base_url('franchise_welcome'); ?>"><button  class="btn-success"><center>Apply For Franchise</center></button></a>
                     <a class="btn btn-sm btn-success" href="<?php echo base_url('assets/images/brochure_franchise.pdf#zoom=125'); ?>" target="_blank"><button class="btn-success"><center>Download Brochure</center></button></a>
     </div> 
          </div>   
                   
-    <div class="panel-group col-md-10 col-sm-12" id="faqAccordion">
+    <div class="panel-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="faqAccordion">
                  
         <div class="panel panel-default ">
             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
@@ -179,9 +183,9 @@
     </div>
     <!--/panel-group-->
      <!-- right panel -->
-            <div class="hidden-xs hidden-sm col-md-2 rht_status_mat">
+            <!--<div class="hidden-xs hidden-sm col-md-2 rht_status_mat">
               <div class="right_advertisepanel"><img alt="adversite" src="<?php echo base_url('assets/images/260adv_2.jpg')?>"></div>
-            </div>
+            </div>-->
 </div>
 
 
