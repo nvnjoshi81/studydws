@@ -1,12 +1,40 @@
 <?php
 	include('config.php');
-	$user_key = $_POST['user_key'];$sub_status=0;
-	$user_id = $_POST['user_id'];
-	$category_id = $_POST['category_id'];
-	$device_id = $_POST['device_id'];
-    $self = "select * from cmscustomers where user_key = '$user_key' and id = '$user_id' and device_id = '$device_id'";
+		
+	if(isset($_POST['user_key'])&&$_POST['user_key']!=''){
+	$user_key = $_POST['user_key'];	
+	}else{
+	$user_key = 0;
+	}
+		
+	if(isset($_POST['user_id'])&&$_POST['user_id']!=''){
+	$user_id = $_POST['user_id'];	
+	}else{
+	$user_id = 0;
+	}
+	
+	if(isset($_POST['category_id'])&&$_POST['category_id']!=''){
+	$category_id = $_POST['category_id'];	
+	}else{
+	$category_id = 0;
+	}
+	
+	if(isset($_POST['device_id'])&&$_POST['device_id']!=''){
+	$device_id = $_POST['device_id'];	
+	}else{
+	$device_id = 0;
+	}
+	$sub_status=0;
+		if(isset($user_id)&&$user_id>0){
+		    $self = "select * from cmscustomers where user_key = '$user_key' and id = '$user_id' and device_id = '$device_id'";
     $oppf = mysqli_query($conn, $self);
     $rww = mysqli_num_rows($oppf);
+	}else{
+	$tmp['status'] = "false";$tmp['data'] = "";$tmp['msg'] = "Please Enter all parameters.";
+	$rww=0;
+		echo json_encode($tmp);  die();
+	}
+	
     if($rww > 0){
     	while($ryu = mysqli_fetch_array($oppf)){
     	$get_api = $ryu['user_key'];
@@ -14,10 +42,14 @@
     }
 	$tmp = array();
 	$subTmp = array();
-	$category_id = $_POST['category_id'];
 	$postStatusString = "publish";
     if($get_api){
-	$result = mysqli_query($conn,"SELECT * FROM cmschapter_details where class_id = '$category_id' GROUP BY subject_id ");
+	//$result = mysqli_query($conn,"SELECT * FROM cmschapter_details where class_id = '$category_id' GROUP BY subject_id ");
+	//$result = mysqli_query($conn,"SELECT * FROM cmsstudymaterial_relations where exam_id = '$category_id' GROUP BY subject_id ");
+	
+	$result = mysqli_query($conn,"SELECT `cmschapters`.`id` as `cid`, `cmschapters`.`name` as `cname`, `cmssubjects`.`id` as `subject_id`, `cmssubjects`.`name` as `sname`, `cmssubjects`.`imagename` FROM `cmschapter_details` `cd` JOIN `cmschapters` ON `cd`.`chapter_id` = `cmschapters`.`id` JOIN `cmssubjects` ON `cd`.`subject_id` = `cmssubjects`.`id` WHERE `cd`.`class_id` = '$category_id' group by `cmssubjects`.`name`");
+	
+	
 	while($row = mysqli_fetch_array($result)) {
 	$mar_id = $row['subject_id'];
 	$self = "SELECT * FROM cmsstudymaterial_relations WHERE exam_id = '$category_id' and subject_id = '$mar_id'";
@@ -91,7 +123,9 @@
         
     }
 	else 
-	{ $tmp['status'] = "true";$tmp['data'] = "No Subjects available in this class.";$tmp['msg'] = "true";}
+	{ 
+     $tmp['status'] = "true";$tmp['data'] = "No Subjects available in this class.";$tmp['msg'] = "true";
+    }
     }
     else
     {

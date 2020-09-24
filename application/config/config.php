@@ -29,7 +29,7 @@ if($break_host_array=='cal'){
     $text_https='http';
 }else{
   $text_http='https';
-    $text_https='https';  
+  $text_https='https';  
 }
 $config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "Off") ? $text_http : $text_https);
 //$config['base_url'] .= "://www.studyadda.com/";

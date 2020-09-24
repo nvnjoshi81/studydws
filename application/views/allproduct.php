@@ -134,13 +134,17 @@ if ($product->discounted_price > 0) {
 			<?php  
 			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
 				$packagecnt=$packagecnt_array[$product->exam_id];
+				$totalpackage_q=0;
 			?>
 			<div class="card-module text-capitalize text-center">
 				<ul class="list-inline">
 					<?php foreach($packagecnt as $keyval){ 	
 					 if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
 					<li class="list-group-item">
-						<span><?php echo $keyval->custom_total_package; ?> +</span>
+						<span><?php  if($keyval->module_type=='videos'){  echo $keyval->custom_total_question; }else{ echo $keyval->custom_total_package; 
+						
+						$totalpackage_q=$totalpackage_q+$keyval->custom_total_question;
+						} ?> +</span>
 						<?php  
 						 if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
 						<a href="#"><?php
@@ -149,7 +153,13 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 						; ?></a>
 						<?php } ?>
 					</li>
-					 <?php } } ?>
+					 <?php } 
+					 } 
+					 if($totalpackage_q>0){
+					 ?>
+					 
+					 	<li class="list-group-item"><span><?php  echo $totalpackage_q;  ?> +</span><a href="#">Total Question</a></li>
+					 <?php } ?>
 			</ul>
 			</div>
 			<?php } ?>

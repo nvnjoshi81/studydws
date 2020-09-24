@@ -92,17 +92,10 @@
                          }else{
                              $subjectName=$subjectlist_key;
                          }
-if($selectedexam->id==32&&$subjectlist_value['id']==5){
-$subjectName=str_replace("science","EVS","science");
-}
-// for Banking change mathematics to Quantitative Aptitude
-if($selectedexam->id==78&&$subjectlist_value['id']==3){
-$subjectName=str_replace("mathematics","EVS","Quantitative Aptitude");
-}		 
+
 //echo "<i class='fa fa-book fa-4x text-warning'></i>";
-                             ?>                                <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
-									
-									
+                             ?>     
+							 <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
 									<div class="sub_name">
 									<?php  
 										echo "<h4 class='text-primary' >{$subjectName} </h4>"; 
@@ -125,17 +118,15 @@ $subjectName=str_replace("mathematics","EVS","Quantitative Aptitude");
 		 <li>
 		 <?php
              $moduleName=str_replace('-',' ',$pvalue->module_type);
-         ?>
-             
+         ?>  
 			<i class="fa fa-check" aria-hidden="true"></i>
-			Total <?php echo ucfirst($moduleName); ?>  : <span> <strong><?php echo $pvalue->total_package; ?>+</strong></span>
+			Total <?php echo ucfirst($moduleName); ?>  : <span> <strong><?php   if($moduleName=='videos'){
+                 echo $obj_totalpack =$pvalue->total_question; 
+            }else{
+				  echo $obj_totalpack =$pvalue->total_package;
+			} ?>+</strong></span>
         <?php
              
-         $obj_totalpack =$pvalue->total_package;
-            if($moduleName=='solved papers'){
-            //$outer_spcnt = intval($outer_spcnt) + intval($obj_totalpack); 
-                 
-            }
         ?>
 		 </li>
 		 <?php
@@ -963,36 +954,7 @@ if ($ns_package > 0) { ?>
                                 <?php }
 ?>
 
-<div class="clearfix"></div>
-<?php 
-
- if ($solpap_package > 0) { ?>
-                        <!--Solved Papers-->    
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-						<div class="module_detail">
-                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
-                                  <p class="detail_product_img text-center">  
-                                <span class="glyphicon glyphicon-edit text-success glyphic_fontinfo"></span></p>
-                            </div>
-                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
-                                <a href="<?php echo base_url("featured-videos"); ?>">   <h4>
-                                    Free Video Lecture
-                                </h4></a>
-							</div>
-                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
-    <?php if ($freevideo_package > 0) { ?>
-                                        <i class="material-icons">check</i> Total Free Lecture Series : <span> <strong><?php echo $freevideo_package; ?>+</strong></span>
-    <?php } if ($freevideos_questions > 1) { ?><br>
-                                        <i class="material-icons">check</i> Total Free Videos : <span> <strong><?php echo $freevideos_questions; ?></strong> </span>
-                                    <?php } ?>
-
-                                </div> 
-                            </div>
-                        </div>
-                                <?php }
-
-
-?>                        
+<div class="clearfix"></div>                      
                 </div>
 				</div>
 				</div>
