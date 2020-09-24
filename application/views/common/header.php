@@ -194,7 +194,12 @@ ga('send', 'pageview');
         Sign Up
         </a> 
         <a title="Featured Videos" class="btn btn-sm btn-warning btn-raised mob_btn" href="<?php echo base_url('featured-videos');?>">Demo Videos</a>     
-      <a style="margin-top:3px" title="Android Application" class="btn btn-sm btn-warning btn-raised mob_btn" title="Studyadda App" href="https://play.google.com/store/apps/details?id=com.studyaddaapp&pageId=none&rdid=com.studyaddaapp&pli=1"><i class="material-icons">android</i>Android Application</a>         
+      
+	  <a style="" title="Android Application" class="btn btn-sm btn-warning btn-raised mob_btn" title="Studyadda App" href="https://play.google.com/store/apps/details?id=com.studyaddaapp&pageId=none&rdid=com.studyaddaapp&pli=1">
+		  <i class="material-icons" style="font-size:12px;">android</i>
+		  Android Application
+	  </a>         
+	  
       <a style="margin-top:3px" title="Purchase Courses" class="btn btn-sm btn-primary btn-raised mob_btn" href="<?php echo base_url('purchase-courses');?>"><i class="material-icons">shopping_cart</i>Purchase Courses&nbsp;&nbsp;</a> </div>
         <?php } ?>
     <!-- /.container -->
