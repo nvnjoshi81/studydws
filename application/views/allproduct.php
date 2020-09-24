@@ -54,11 +54,11 @@ As you all know, Studyadda has always provided the best services for you all, we
 <a href="<?php echo base_url('login') ;?>" class="btn btn-raised btn-success btn-lg btn-md btn-sm" role="button" aria-disabled="true">log In Now</a>
 <?php } ?></div></div>
 <?php } ?>
-	      <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12 text-center" align="center">                 	
+	      <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12 text-center" align="center">                 	<div class="btn_select_course" style="display:block; position:relative; width:200px; margin:0 auto;">
                     <a href="" data-target="#" class="btn btn-raised dropdown-toggle btn-warning btn-lg" data-toggle="dropdown" aria-expanded="false">
                         Select Course
                         <span class="caret"></span>
-                    </a><ul style="position:absolute; left:484px;" class="dropdown-menu">
+                    </a><ul style="position:absolute; left:6%; top:100%" class="dropdown-menu">
                             <?php foreach($mainexamcategories as $ex){
                             ?>
                             <li>
@@ -69,6 +69,7 @@ As you all know, Studyadda has always provided the best services for you all, we
             <?php 
         } ?>
 </ul>
+							</div>
                 </div>
 				<div class="Clearfix" style="margin-top: 1px;"><br><br><br></div>
                  <div class="col-lg-12 text-center" align="center">
@@ -81,6 +82,11 @@ As you all know, Studyadda has always provided the best services for you all, we
           </div>
           </div>
             <br/>
+      
+
+
+
+
 <div  id="content_allprod">
     <div id="showPackages">
     
@@ -129,11 +135,11 @@ if ($product->discounted_price > 0) {
 			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
 				$packagecnt=$packagecnt_array[$product->exam_id];
 			?>
-<div class="card-module text-capitalize text-center">				
+			<div class="card-module text-capitalize text-center">
 				<ul class="list-inline">
 					<?php foreach($packagecnt as $keyval){ 	
 					 if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
-						<li class="list-group-item">
+					<li class="list-group-item">
 						<span><?php echo $keyval->custom_total_package; ?> +</span>
 						<?php  
 						 if(isset($keyval->module_type)&&$keyval->module_type!=''){?>
@@ -147,11 +153,10 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 			</ul>
 			</div>
 			<?php } ?>
-			<hr class="card_divider2">
+		
 <!-- // modules -->	
 
-<hr class="module_divider"> 
-<!-- for module divider -->
+
 	<?php if($reduseprice>0){ ?>
 		<div class="show_price">
 			<a href="#">Actual Price <span class='actual_price'><?php echo $packagesprice; ?></span></a>
@@ -162,12 +167,15 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
 		</div>
 	<?php } ?>
+	
+			
 		<div class="btn-group1 text-center">		
 		<?php
 			if ($product->price > 0) { 
 			if (!$this->session->userdata('purchases') || !in_array_r($product->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>				
-					<button style='margin-bottom:6px;' itemname="<?php echo $product->modules_item_name;?>" 
-                        type="<?php echo $product->type ?>" itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
+						<button style='margin-bottom:6px;' itemname="<?php echo $product->modules_item_name;?>" 
+                        type="<?php echo $product->type ?>" 
+                        itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
                         itemid="<?php echo $product->id ?>"
                         itemqty="1"
                         offline='0'

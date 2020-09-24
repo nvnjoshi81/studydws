@@ -231,7 +231,9 @@ $chkcount=$chkcount+1;
                 }
             }
         } 
+		?>
 		
+		<?php 
         $this->data['subject_chapters']=$data_array;
 		 if (count($subjects_array) > 0) {
                 foreach ($subjects_array as $key => $value) {
@@ -538,6 +540,7 @@ $chkcount=$chkcount+1;
               $this->data['solpap_package']=$package->custom_total_package;
              $this->data['solpap_questions']=$package->custom_total_question;  
             }			
+          
         }   
         //Get statistics on subject bassis for all module.
         $subjectArray_package=array();

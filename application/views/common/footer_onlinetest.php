@@ -1,4 +1,8 @@
-
+<footer>
+    <div class="container">
+	</div>
+</footer>
+	
 <!-- /.container -->
 
 <!-- jQuery -->

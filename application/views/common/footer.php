@@ -2,8 +2,9 @@
 $segmentURL=$this->uri->segment(1);
 $currentModuleName=$this->router->fetch_module();
 $currentSegment=$this->uri->segment(1);
+
 //add segment name to hide in bellow sagment arr
-$sagmentArray=array('cart');
+$sagmentArray=array('cart','search');
 if(in_array($currentSegment,$sagmentArray)){
 $showFooterlinks='no';
 $showFooterJs='no';
@@ -11,50 +12,56 @@ $showFooterJs='no';
 $showFooterlinks='yes';
 $showFooterJs='yes';
 }
+
+$hideumod=$sagmentArray=array('cart','login','purchase-courses','exams','search','study-packages');
+if(in_array($currentSegment,$hideumod)){
+	$hideumodany='no';
+	
+}else{
+	$hideumodany='yes';	
+}
 if($showFooterlinks=='yes') { 
 
 if($this->router->fetch_module() != 'customer') { ?>
     <div class="row bottom_vid_list">
         <div class="col-md-12">
-            <?php //$this->load->view('common/homeproducts');?>
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1" >
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6" >
                 <a href="<?php echo base_url('videos/jee-main-advanced/28') ?>" title="IIT JEE AIEEE Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/1.png') ?>">
                 </a>
             </div>
-            
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1" >
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6" >
                 <a href="<?php echo base_url('videos/neet/29') ?>" title="NEET Video Lectures">
-                    <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/2.png') ?>">
+                <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/2.png') ?>">
                 </a>
             </div>
             
           
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/12th-class/22') ?>" title="12th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/3.png') ?>">
                 </a>
             </div>
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/11th-class/23') ?>" title="11th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/4.png') ?>">
                 </a>
             </div>
             
            
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/10th-class/24') ?>" title="10th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/5.png') ?>">
                 </a>
             </div>
-            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-1">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/9th-class/30') ?>" title="9th Class Video Lectures">
                     <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/6.png') ?>">
                 </a>
             </div>
         </div>
     </div>
-<?php } ?>
+ <?php } ?>
 <!-- Footer -->
 <footer>
     <div class="container">
@@ -118,6 +125,9 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                             <li><a href="<?php echo base_url('videos/jee-main-advanced/28') ?>" title="videos-jee-main-advanced">
                                     Videos
                                 </a></li>
+                                <li><a href="<?php echo base_url('ncert-solution/jee-main-advanced/28'); ?>" title="ncert-solution-jee-main-advanced">
+                                    Ncert Solutions
+                                </a></li>
                                 <li></li><li><a href="<?php echo base_url('question-bank/jee-main-advanced/28'); ?>" title="question-bank-jee-main-advanced">
                                     Question Bank
                                 </a></li>
@@ -136,6 +146,9 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
 
                         <ul class="row col-xs-12 col-sm-4 col-md-2"><li><h5>NEET</h5></li><li> <a href="<?php echo base_url('videos/neet/29') ?>" title="videos-neet" >
                                     Videos
+                                </a></li>
+                                <li> <a href="<?php echo base_url('ncert-solution/neet/29'); ?>" title="ncert-solution-neet" >
+                                    Ncert Solutions
                                 </a></li>
                                 <li> <a href="<?php echo base_url('question-bank/neet/29'); ?>" title="question-bank-neet" >
                                     Question Bank
@@ -1610,7 +1623,7 @@ function launchBOLT()
 
 <?php 
 }
-if($showFooterlinks=='yes') {  
+if($hideumodany=='yes') {  
 ?>
 <div id="google_translate_element"></div>
 

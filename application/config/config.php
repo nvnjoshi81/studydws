@@ -142,7 +142,7 @@ $config['subclass_prefix'] = 'MY_';
 |
 |	$config['composer_autoload'] = '/path/to/vendor/autoload.php';
 |
-| For more information about Composer, please visithttp://getcomposer.org/
+| For more information about Composer, please visit http://getcomposer.org/
 |
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)

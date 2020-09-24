@@ -257,6 +257,8 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
                 }
 				
                ?>
+			   
+<div class="col-sm-12 col-md-12 col-xs-12 well">
 <div class="col-sm-6 well">
            <?php
         if($content_type_id>0){
@@ -1012,6 +1014,10 @@ echo base_url(); ?>/assets/videoimages/<?php  echo $video_image; ?>" width="25%"
  <button type="submit" class="btn btn-primary"><?php echo $submit_button_text; ?></button>
  </div> 
  </div>
+<div class="col-sm-6 well">
+ertre
+</div>
+
 </form>
 <script type="text/javascript">
   tinymce.init({

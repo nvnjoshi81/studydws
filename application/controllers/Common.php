@@ -377,7 +377,6 @@ if($f_formtotal!=$fc_total){
 		$this->data['franchiseInfo']=NULL;
 		}
 	   }
-	   
         $this->data['packagecnt_array']=$packagecnt_array;
 		$this->data['franchise_id']=$franchise_id;
 	    $this->data['ts_productslist']=$isProduct_array;
@@ -389,7 +388,7 @@ if($f_formtotal!=$fc_total){
         $html='';
         $html.='<option value="">Please Select</option>';
         foreach($cities as $city){
-            $html.='<option value="'.$city->id.'">'.$city->city_name.'</option>';
+        $html.='<option value="'.$city->id.'">'.$city->city_name.'</option>';
         }
         echo  $html;
     }

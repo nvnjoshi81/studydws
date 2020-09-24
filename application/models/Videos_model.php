@@ -61,7 +61,6 @@ class Videos_model extends CI_Model {
         }
     }
     
-
     public function add($data) {
         $this->db->insert('cmsvideos', $data);
         return $this->db->insert_id();

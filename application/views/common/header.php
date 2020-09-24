@@ -459,7 +459,7 @@ Search.....
 
            <div class="col-xs-12 col-sm-12 col-lg-offset-3 col-lg-3 col-md-3 mainpadding  hidden-xs text-center">
      <a class="pur_course" target="_blank" title="Purchase Courses" href="<?php echo base_url('purchase-courses') ?>">
-     <img src="<?php echo base_url('/assets/images/discount.jpg')?>"></a>
+     <img  style="margin-top:2px;" src="<?php echo base_url('/assets/images/discount.png')?>"></a>
      </div>    
       </div>
       <nav role="navigation" class="navbar mainnav notoggle navbar-full">

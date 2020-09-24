@@ -45,9 +45,9 @@
     display: block;
     clear: both;
     float: left;
-    max-width: 92px;
+    max-width: 110px;
     width: 100%;
-    max-height: 135px;
+    max-height: 104px;
     height: auto;
     overflow: hidden
 }
@@ -468,7 +468,7 @@
 	max-width:350px;
 	min-height:350px;
 	height:auto;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: #f9f9f9;
     margin: 20px auto
 }
@@ -501,7 +501,7 @@
 }
 
 .total_modules ul {
-	margin:0 5%;
+	margin:0 0 0 10%;
 }
 
 .total_modules ul li {
@@ -511,6 +511,73 @@
 	margin: 2px 0;
 	padding: 2px 0 1px 0;
 	font-size: 15px;
+}
+
+.total_modules ul li i {
+	color:#e74c3c;
+}
+
+
+.module_detail {	
+	display: block;
+	clear: both;
+	float: none;
+	width: 100%;
+	max-width: 350px;
+	min-height: 150px;
+	height: 200px;
+	border-radius: 15px;
+	background-color: #4caf500a;
+	margin: 20px auto;
+	border-width: 3px;
+	border-style: inset;
+	border-color: #4caf50;
+	padding: 10px 0;
+	transition:all 500ms ease;
+}
+
+.glyphicon-file {
+	transition:all 500ms ease;
+}
+
+.module_detail:hover {
+	border-color: #ff5722;
+	transition:all 500ms ease;
+}
+
+.module_detail:hover .section-box > a > h4 {
+	color: #ff5722;
+	transition:all 500ms ease;
+}
+
+.module_detail:hover .glyphicon-file {
+	color: #ff5722;
+	transition:all 500ms ease;
+}
+
+
+.section-box > a > h4 {
+	font-weight: bold;
+	color: #4caf50;
+	letter-spacing: 1px;
+	font-size: 22px;
+	text-align:center;
+	transition:all 500ms ease;
+}
+
+
+
+@media only screen and (max-width:991px) {
+	.detail_product_img {
+		float: none !important;
+		width: 50px !important;
+		margin: 0 auto !important;
+	}
+}
+
+@media only screen and (max-width:450px) {
+    .view_det_shop {
+    margin: 0 auto;
 }
 	
 .amazing_facts,

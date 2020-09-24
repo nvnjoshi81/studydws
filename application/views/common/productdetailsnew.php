@@ -119,6 +119,7 @@ $product_brought='no';
 				$packagecnt=$packagecnt_array[$examid];
 			?>				
 			<div class="card-module2 text-capitalize text-center">
+			
 				<ul class="list-inline">
 					<?php foreach($packagecnt as $keyval){ 	
 					 if(isset($keyval->custom_total_package)&&$keyval->custom_total_package>0){ ?>
@@ -143,8 +144,10 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 		</div>
 <!-- // modules -->
 
-<hr class="module_divider"><!-- module divider -->
 
+
+
+		
 	<?php if($reduseprice>0){ ?>
 		<div class="show_price2">
 			<a href="#">Actual Price <span class='actual_price'><?php echo $packagesprice; ?></span></a>

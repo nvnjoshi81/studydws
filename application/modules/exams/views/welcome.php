@@ -39,11 +39,13 @@
                             if (isset($subject_chapters) && count($subject_chapters) > 0) {
                                 ?>
                                 <!--Showing Subject Start-->
-                                <div class="container" style="padding-left:0; margin-left:0">
+                                <div class="container">
 								<div class="row">
     <div class="page-header text-center">
         <h3>Select Subject</h3>
-    </div>                                        
+    </div> <!--class="row pack_sub"-->
+    
+                                        
              <?php
    //print_r($subject_chapters);
             $totalsolvedp=count($solvedp);
@@ -62,15 +64,17 @@
 		foreach($allsubject as $key=>$value){
 			$subimage_array[$value->id]=$value->imagename;
 		}
+        ?>
+		<?php
         //echo $showSub.'---'.$subjectlist_key;
              $bookclass_cnt= rand(0,3);
-             if (count($subject_chapters[$subjectlist_key]) > 0 && $showSub=='yes') { ?>                         
-        
+             if (count($subject_chapters[$subjectlist_key]) > 0 && $showSub=='yes') { ?>
+
+<!-- start of subject box -->	
+			
 			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
-            <!--class="col-xs-6 col-md-3 col-sm-6 rcorners2"--> 
-      	<div class="subject_detail" style="border:1px solid green; border-radius:15px;">
-				
-                                    <?php echo "<a title='".$subjectlist_key."' href='" . base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', true). '/' . $selectedexam->id . '/' . url_title($subjectlist_key, '-',true) . '/' . $subjectlist_value['id']) . "'>"; 
+				<div class="subject_detail">
+				<?php echo "<a title='".$subjectlist_key."' href='" . base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', true). '/' . $selectedexam->id . '/' . url_title($subjectlist_key, '-',true) . '/' . $subjectlist_value['id']) . "'>"; 
 									
 									$imagepath=$subimage_array[$subjectlist_value['id']];
 									
@@ -79,63 +83,90 @@
 									}else{
 									$imagepath='assets/subject_image/gen-knowl.png';
 									}									
+									?>
 									
+									
+									<?php  
                         if(strlen($subjectlist_key)>40){
                         $subjectName=substr($subjectlist_key,0,40).'..';
                          }else{
                              $subjectName=$subjectlist_key;
                          }
-		 
-                             ?>                                     
-							 <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
-        
-                                        <div class="sub_name">
-										<?php  
+if($selectedexam->id==32&&$subjectlist_value['id']==5){
+$subjectName=str_replace("science","EVS","science");
+}
+// for Banking change mathematics to Quantitative Aptitude
+if($selectedexam->id==78&&$subjectlist_value['id']==3){
+$subjectName=str_replace("mathematics","EVS","Quantitative Aptitude");
+}		 
+//echo "<i class='fa fa-book fa-4x text-warning'></i>";
+                             ?>                                <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
+									
+									
+									<div class="sub_name">
+									<?php  
 										echo "<h4 class='text-primary' >{$subjectName} </h4>"; 
 										?> 
-                                        </div>
-                                 
+									</div>
+									
 									<div class="total_modules">
-                                    <?php 
+									<?php 
                                   
                         if(isset($subjectArray_package[$subjectlist_value['id']])){
-                       ?>
+                      ?>
 					  <ul>
 						
 					  
 					  <?php
      foreach($subjectArray_package[$subjectlist_value['id']] as $pvalue){
-         if($pvalue->total_package>1){ ?>
+		
+         if($pvalue->total_package>1){
+			 ?>
 		 <li>
 		 <?php
              $moduleName=str_replace('-',' ',$pvalue->module_type);
          ?>
-             <i class="fa fa-check" aria-hidden="true"></i> Total <?php echo ucfirst($moduleName); ?>  : <span> <strong><?php echo $pvalue->total_package; ?>+</strong></span><br>
+             
+			<i class="fa fa-check" aria-hidden="true"></i>
+			Total <?php echo ucfirst($moduleName); ?>  : <span> <strong><?php echo $pvalue->total_package; ?>+</strong></span>
         <?php
              
-         $obj_totalpack =$pvalue->total_package;            
-			?>
+         $obj_totalpack =$pvalue->total_package;
+            if($moduleName=='solved papers'){
+            //$outer_spcnt = intval($outer_spcnt) + intval($obj_totalpack); 
+                 
+            }
+        ?>
 		 </li>
 		 <?php
-         }
-     }
-      ?>
-					  </ul>
-						
-					  
-					  <?php
+     } 
+	 }
+		 
+  ?>
+  </ul>
+  <?php   
  }
    ?>
-                            </div>
-                        </a> 
-       
-		</div>
-                        </div>
+									</div>
+									
+				</div><!-- // subject detail -->
+				
+				
+			</div>
+			
+<!-- end of subject box -->
+	
+        
+                        
+						
+						<!-- // subject box -->
                                
              <?php }
              
                          } 
-    } 
+						 ?>
+						 	 
+    <?php } 
     /*Added two new subject solved paper and sample paper*/
       if($outer_spcnt>0){
                     $outer_spcnt=$outer_spcnt;
@@ -143,12 +174,14 @@
                     $outer_spcnt= $totalsolvedp; 
                  }  
 ?>  
- </div></div> 
+ </div>
+ 
+ </div> 
     
     <div class="container">
 	<?php 
 if ($segment_chpterseven>0) { ?>
-          <hr>
+          
   	<div class="row col-list center-block">
                                           <?php 
 if(isset($totalsp)&&$totalsp>0){
@@ -705,23 +738,27 @@ if (count($qb) > 0) { ?>
 					
 					</div>
                 </div>
+				
             <?php 
 $allpack_cnt='yes';
 if($allpack_cnt=='yes'){
 			if ($this->uri->segment(1) != '') {  ?> 
+			<div class="container">
            <div class="row">
                         <?php if ($qb_package > 0) { ?>
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
-						<div class="border_exam">
-                            <div class="col-md-2 text-center">
-                                  <p class="detail_product_img">  
+						<!-- module detail -->
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
                                 <span class="glyphicon glyphicon-file text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
-                               <a href="<?php echo base_url( 'question-bank/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"> <h4>
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
+                               <a href="<?php echo base_url( 'question-bank/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"> <h4 class="text-center">
                                     Question Bank
                                 </h4></a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row" style="font-size:15px;">
 
     <?php if ($qb_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Question Banks  : <span> <strong><?php echo $qb_package; ?>+</strong></span>
@@ -730,25 +767,28 @@ if($allpack_cnt=='yes'){
     <?php } ?>
 
                                 </div> 
-                            </div>
+                    
                         </div>
 						</div>
+						<!-- // module detail -->
 
                                 <?php } 
                                 
                                 if ($ot_package > 0) { ?>
                         <!--Online Test-->    
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <div class="col-md-2 text-center">
-                                   <p class="detail_product_img">  
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
                                 <span class="glyphicon glyphicon-hourglass text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                <a href="<?php echo base_url( 'online-test/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"> <h4>
                                     Online Test
                                 </h4>
 								</a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
     <?php if ($ot_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Online Test: <span> <strong><?php echo $ot_package; ?>+</strong></span>
@@ -757,22 +797,24 @@ if($allpack_cnt=='yes'){
     <?php } ?>
 
                                 </div> 
-                            </div>
+                            
                         </div></div>
                                 <?php } 
                                 
                                 if ($sp_package > 0) { ?>
                         <!--Sample Papers-->    
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <div class="col-md-2 text-center">
-                                 <p class="detail_product_img">  
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
                                 <span class="glyphicon glyphicon-list-alt text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                 <a href="<?php echo base_url( 'sample-papers/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"><h4>
                                     Sample Papers
                                 </h4></a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
     <?php if ($sp_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Sample Papers: <span> <strong><?php echo $sp_package; ?>+</strong></span>
@@ -782,22 +824,25 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
-                        </div></div>
+							
+                        </div>
                                 <?php }
                               ?><div class="clearfix"> </div><?php  
                                 if ($stpac_package > 10) { ?>
                         <!-- Study Packages-->
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <div class="col-md-2 text-center">
-                               <p class="detail_product_img">  
-                                <span class="glyphicon glyphicon-folder-open glyphic_fontinfo text-danger"></span></p>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
+                                <span class="glyphicon glyphicon-folder-open text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                 <a href="<?php echo base_url( 'study-packages/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"> <h4>
                                     Study Packages
                                 </h4>
 								</a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
     <?php if ($stpac_package > 10) { ?>
                                         <i class="material-icons">check</i> Total Study packages :<span> <strong><?php echo $stpac_package; ?>+</strong></span>
@@ -807,21 +852,22 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
-                        </div>  </div>
+                        </div> 
                                 <?php }  if ($notes_package > 0) { ?>
 
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <!-- Notes-->
-                            <div class="col-md-2 text-center">
-                                   <p class="detail_product_img">  
-                                <span class="glyphicon glyphicon-info-sign glyphic_fontinfo text-danger"></span></p>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
+                                <span class="glyphicon glyphicon-info-sign text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                 <a href="<?php echo base_url( 'notes/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"> <h4>
                                     Notes
                                 </h4>
 								</a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
     <?php if ($notes_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Notes :<span> <strong><?php echo $notes_package; ?>+</strong></span>
@@ -831,24 +877,25 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div> <!--notes -->  
-                        </div></div>
+                        </div>
                        
 <?php } ?>
 
 
                                 <?php if ($video_package > 0) { ?>
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <!--  Video Lecture Series-->
-                            <div class="col-md-2 text-center">
-                                <p class="detail_product_img">  
-                                <span class="glyphicon glyphicon-facetime-video glyphic_fontinfo text-danger"></span></p>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
+                                <span class="glyphicon glyphicon-facetime-video text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                <a href="<?php echo base_url( 'videos/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>"> <h4>
                                     Video Lecture Series
                                 </h4>
 								</a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
     <?php if ($video_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Lecture Series : <span> <strong><?php echo $video_package; ?>+</strong></span>
@@ -858,21 +905,23 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
-                        </div></div>
+                        </div>
                                 <?php } ?><div class="clearfix"> </div>
 
                                 <?php  if ($solpap_package > 0) { ?>
                         <!--Solved Papers-->    
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <div class="col-md-2 text-center">
-                                <p class="detail_product_img">  
-                                <span class="glyphicon glyphicon-edit glyphic_fontinfo text-success"></span></p>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
+                                <span class="glyphicon glyphicon-edit text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                 <a href="<?php echo base_url( 'solved-papers/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>">   <h4>
                                     Solved Papers
                                 </h4></a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
     <?php if ($solpap_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Solved Papers: <span> <strong><?php echo $solpap_package; ?>+</strong></span>
@@ -882,38 +931,71 @@ if($allpack_cnt=='yes'){
 
                                 </div> 
                             </div>
-                        </div></div>
+                        </div>
                                 <?php } ?><div class="clearfix"></div>
 <?php
 
 
 if ($ns_package > 0) { ?>
                         <!--NCERT SOLURTIONS Papers-->    
-                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12"><div class="border_exam">
-                            <div class="col-md-2 text-center">
-                                <p class="detail_product_img">  
-                                <span class="glyphicon glyphicon-edit glyphic_fontinfo text-success"></span></p>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
+                                <span class="glyphicon glyphicon-edit text-success glyphic_fontinfo"></span></p>
                             </div>
-                            <div class="col-md-10 section-box">
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
                                 <a href="<?php echo base_url( 'ncert-solution/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id.'/'.url_title($subjectname, '-', true).'/'.$subjectid); ?>">   <h4>
                                     Ncert Solution
                                 </h4></a>
-                                <div class="view_det_shop row">
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
       <?php if ($ns_package > 0) { ?>
                                         <i class="material-icons">check</i> Total NCERT Chapters : <span> <strong><?php echo $ns_package; ?>+</strong></span>
-    <?php } if ($ns_questions > 1){ ?><br>
+    <?php } if ($ns_questions > 1) { ?><br>
                                         <i class="material-icons">check</i> Total Questions : <span> <strong><?php echo $ns_questions; ?></strong> </span>
     <?php } ?>
 
                                 </div> 
                             </div>
-                        </div></div>
-                        <?php } ?>
+                        </div>
+                                <?php }
+?>
 
 <div class="clearfix"></div>
-                        
-</div>
+<?php 
+
+ if ($solpap_package > 0) { ?>
+                        <!--Solved Papers-->    
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						<div class="module_detail">
+                            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12 text-center">
+                                  <p class="detail_product_img text-center">  
+                                <span class="glyphicon glyphicon-edit text-success glyphic_fontinfo"></span></p>
+                            </div>
+                            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 section-box">
+                                <a href="<?php echo base_url("featured-videos"); ?>">   <h4>
+                                    Free Video Lecture
+                                </h4></a>
+							</div>
+                                <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
+    <?php if ($freevideo_package > 0) { ?>
+                                        <i class="material-icons">check</i> Total Free Lecture Series : <span> <strong><?php echo $freevideo_package; ?>+</strong></span>
+    <?php } if ($freevideos_questions > 1) { ?><br>
+                                        <i class="material-icons">check</i> Total Free Videos : <span> <strong><?php echo $freevideos_questions; ?></strong> </span>
+                                    <?php } ?>
+
+                                </div> 
+                            </div>
+                        </div>
+                                <?php }
+
+
+?>                        
+                </div>
+				</div>
+				</div>
 <?php  } } ?>           
 		   </div>
             <!-- /. PAGE INNER  -->
