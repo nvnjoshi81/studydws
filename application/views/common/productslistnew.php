@@ -8,7 +8,7 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
 		     
     ?>
     <div class="col-xs-12 col-md-12 prod_list_exam">
-        <div class="col-md-12 text-center bavl"><h2> 
+        <div class="col-md-12 text-center bavl"><h2 class="select_heading"> 
          <?php 
               $heading_video_exam='';
     $heading_studymaterial_exam='';

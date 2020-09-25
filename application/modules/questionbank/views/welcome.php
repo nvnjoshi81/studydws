@@ -111,7 +111,7 @@
                     ?>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                         <?php if($chapter_id==0||$chapter_id==''){ ?>
-                    <div class="col-md-12 text-center"><h2>Recent Question Banks</h2></div>
+                    <div class="col-md-12 text-center"><h2 class="select_heading">Recent Question Banks</h2></div>
                         <?php } ?>
                 <div class="clearfix"></div> 
                     <?php

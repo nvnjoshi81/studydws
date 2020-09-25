@@ -45,7 +45,7 @@
 <?php if (!isset($selectedsubject) && isset($subjects_array) && $borwsebysubjects > 0) { ?>                
                                 <div class="col-sm-12 col-md-12 bro_subject" style="min-height:200px;">
 
-                                    <div class="col-md-12 text-center"><h2>Browse By Subjects</h2>
+                                    <div class="col-md-12 text-center"><h2 class="select_heading">Browse By Subjects</h2>
                                     <?php foreach ($subjects_array as $key => $value) {
                                         if ($value['count'] > 0) {
                                             ?>
@@ -63,7 +63,7 @@
 								$totalseg=$this->uri->total_segments();
 								if($totalseg<7){
 								?>
-                                    <div class="col-md-12 text-center"><h2>Browse By Chapters</h2>
+                                    <div class="col-md-12 text-center"><h2 class="select_heading">Browse By Chapters</h2>
                                         <?php foreach ($chapters_array as $key => $value) {
                                             if ($value['count'] > 0) {
                                                 ?>
@@ -84,7 +84,7 @@
         </div>
 		 <div class="clearfix"></div>      
             <div class="col-md-12">
-                <div class="col-md-12 text-center"><h2>Recent NCERT Solutions</h2></div>
+                <div class="col-md-12 text-center"><h2 class="select_heading">Recent NCERT Solutions</h2></div>
                 <?php
 				
 				//print_r($ncertsolutions);

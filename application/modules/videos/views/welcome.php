@@ -57,13 +57,13 @@ if($contant_avail=='no'){
                                 <?php } elseif (isset($chapters_array)&&$chapter_id<1) {
                                     $chapters__cont_avail='no';
                                     ?>
-                                    <div class="col-md-12 text-center"><h2>Browse By Chapters</h2>
+                                    <div class="col-md-12 text-center"><h2 class="select_heading">Browse By Chapters</h2>
                                         <?php foreach ($chapters_array as $key => $value) {
                                             if ($value['count'] > 0) {
                                                 $chapters__cont_avail='yes';
                                                 ?>
 
-                                            <a title="Video Lectures for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn btn btn-primary btn-raised btn-lg" type="button">
+                                            <a title="Video Lectures for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn select_subject_btn btn btn-primary btn-raised btn-lg" type="button">
                                             <?php echo $value['name']; ?> <span class="badge"><?php echo $value['count']; ?></span>
                                             </a>
                                     <?php }                                   

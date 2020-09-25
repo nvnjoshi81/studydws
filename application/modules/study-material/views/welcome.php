@@ -1,7 +1,7 @@
 <div id="wrapper">
     <div class="container">
         <div class="row">
-            <?php //$this->load->view('common/breadcrumb'); 
+            <?php $this->load->view('common/breadcrumb'); 
         if (!isset($selectedexam)) { 
 if((isset($isProduct_array))&&(count($isProduct_array)>0)){
     ?> <div class="clearfix"></div>

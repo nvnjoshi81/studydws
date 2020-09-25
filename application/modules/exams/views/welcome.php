@@ -42,7 +42,7 @@
                                 <div class="container">
 								<div class="row">
     <div class="page-header text-center">
-        <h3>Select Subject</h3>
+        <h3 class="select_heading">Select Subject</h3>
     </div> <!--class="row pack_sub"-->
     
                                         
