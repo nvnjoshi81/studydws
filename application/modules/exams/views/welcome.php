@@ -92,7 +92,6 @@
                          }else{
                              $subjectName=$subjectlist_key;
                          }
-
 //echo "<i class='fa fa-book fa-4x text-warning'></i>";
                              ?>     
 							 <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
@@ -108,8 +107,6 @@
                         if(isset($subjectArray_package[$subjectlist_value['id']])){
                       ?>
 					  <ul>
-						
-					  
 					  <?php
      foreach($subjectArray_package[$subjectlist_value['id']] as $pvalue){
 		

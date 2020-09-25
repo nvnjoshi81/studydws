@@ -293,7 +293,6 @@ class Categories_model extends CI_Model
     }
     public function getParents($id = NULL, $ids = array())
     {
-        
         if ($id == NULL) {
             return false;
         }
