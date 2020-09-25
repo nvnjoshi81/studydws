@@ -617,3 +617,14 @@
 .select_subject_btn {
 	margin:5px 1px !important;  
 }
+
+.select_heading {
+	font-size: 50px !important;
+	letter-spacing: 1px;
+	color: #FFFFFF;
+	background: #FFFFFF;
+	text-shadow: 2px 2px 0 #225a1d, 2px -2px 0 #225a1d, -2px 2px 0 #225a1d, -2px -2px 0 #225a1d, 2px 0px 0 #225a1d, 0px 2px 0 #225a1d, -2px 0px 0 #225a1d, 0px -2px 0 #225a1d;
+	transform: skewX(-7deg);
+	border-bottom: 10px ridge #ff5722;
+	border-radius:15px;
+}
