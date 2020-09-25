@@ -35,7 +35,7 @@
                       </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-12 text-center"><h2>Recent Solved Papers</h2></div>
+                <div class="col-md-12 text-center"><h2 class="select_heading">Recent Solved Papers</h2></div>
                 <?php
                     if($solvedpapers){ $count=1;foreach($solvedpapers as $qb){
                     if($count==10 && $this->uri->total_segments() ==1) break;

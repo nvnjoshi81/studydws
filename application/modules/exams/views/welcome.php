@@ -215,7 +215,7 @@ if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '') {
                                 <div class="col-md-12">
                                 <!--<div class="col-md-6">-->
                                 <div class="col-md-12 text-center bavl">
-                                <h2>Select Chapter</h2>      
+                                <h2 class="select_heading">Select Chapter</h2>      
                                 </div>
         <?php
         foreach ($chapters_array as $chapterlist_key => $chapterlist_value) {

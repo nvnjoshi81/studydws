@@ -1,7 +1,7 @@
 <div id="wrapper">
     <div class="container">
         <div class="row">
-            <?php $this->load->view('common/breadcrumb'); 
+            <?php //$this->load->view('common/breadcrumb'); 
         if (!isset($selectedexam)) { 
 if((isset($isProduct_array))&&(count($isProduct_array)>0)){
     ?> <div class="clearfix"></div>
@@ -125,7 +125,7 @@ $bookclass = array('btn-default', 'btn-primary', 'btn-warning', 'btn-info', 'btn
                    ?>
                             <!--Showing Subject Start-->
                                 <div class="col-md-12 text-center bavl">
-                                    <h2>Select Subject</h2>      
+                                    <h2 class="select_heading">Select Subject</h2>      
                                 </div>     
                                 <div class="container">
                                     <div class="row">
@@ -152,14 +152,14 @@ $bookclass = array('btn-default', 'btn-primary', 'btn-warning', 'btn-info', 'btn
                    if($chapter_id == 0){    
 ?>
                                 <div class="clearfix"></div>
-                                   <div class="col-md-12 col-lg-12 text-center"  >
+                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"  >
                                         <h2>Select Chapter</h2> 
                                                 <?php
                                     $containt_avail='no'; 
                                      foreach ($chapters_array as $key => $value) {
                                             if ($value['count'] > 0) { 
                                                 ?>
-                                            <a title="Study Packages for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn btn btn-primary btn-raised btn-lg" type="button">
+                                            <a title="Study Packages for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn select_subject_btn btn btn-primary btn-raised btn-lg" type="button">
                                                 <?php echo $value['name']; ?> 
                                 <span class="badge"><?php echo $value['count']; ?></span>
                                             </a>

@@ -64,7 +64,7 @@
                                  if (!isset($selectedsubject) && isset($subjects_array)) { ?>                
                                 <div class="col-sm-12 col-md-12 bro_subject" style="min-height:200px;">
 
-                                        <div class="col-md-12 text-center"><h2>Select Subjects</h2>
+                                        <div class="col-md-12 text-center"><h2 class="select_heading">Select Subjects</h2>
                                     <?php foreach ($subjects_array as $key => $value) {
                                         if ($value['count'] > 0) {
                                                $bookclass_cnt = rand(0, 3);
@@ -103,7 +103,7 @@
 
 <div class="col-md-12">
     <?php if($chapter_id==0||!isset($chapter_id)){  ?>
-                <div class="col-md-12 text-center"><h2>Recent Notes</h2></div>
+                <div class="col-md-12 text-center"><h2 class="select_heading">Recent Notes</h2></div>
     <?php } ?>
                 <div class="clearfix"></div>
                 <?php

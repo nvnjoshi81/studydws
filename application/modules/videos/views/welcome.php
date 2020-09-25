@@ -36,7 +36,7 @@
 <?php if (!isset($selectedsubject) && isset($subjects_array)) { ?>                
                                 <div class="col-sm-12 col-md-12 bro_subject" style="min-height:200px;">
 
-                                        <div class="col-md-12 text-center"><h2>Browse By Subjects</h2>
+                                        <div class="col-md-12 text-center"><h2 class="select_heading">Browse By Subjects</h2>
                                     <?php 
                                     $contant_avail='no';
                                     foreach ($subjects_array as $key => $value) {

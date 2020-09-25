@@ -56,7 +56,7 @@
     
     ?>  <!--Showing Subject Start-->
                                 <div class="col-md-12 text-center bavl">
-                                    <h2>Select Subject</h2>      
+                                    <h2 class="select_heading">Select Subject</h2>      
                                 </div>     
                                 <div class="container">
                                     <div class="row">
@@ -85,7 +85,7 @@
 <?php } elseif (isset($chapters_array) && count($chapters_array) > 0) { 
     if($chapter_id==0){ ?>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                                        <h2>Select Chapter</h2>
+                                        <h2 class="select_heading">Select Chapter</h2>
                                         <?php foreach ($chapters_array as $key => $value) {
                                             if ($value['count'] > 0) {
                                                 ?>

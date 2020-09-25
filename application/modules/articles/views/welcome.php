@@ -12,7 +12,7 @@
                             </a>
                         <span class="pull-right"><?php //echo date('D, F jS Y',$list->dt_created);?></span>
                     </h4></div>
-                    <div class="panel-body details_ques_ans">
+                    <div class="panel-body details_ques_ans text-justify">
                         <?php echo word_limiter(custom_strip_tags($list->description),150,'<a href="'.base_url().'articles/'.url_title($list->name,'-',true).'/'.url_title($list->title,'-',true).'/'.$list->id.'" title="'.$list->title.'"> more...</a>');?>
                         
                     </div>

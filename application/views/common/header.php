@@ -380,7 +380,7 @@ Institutes
           <img alt="" width="134" height="74" src="<?php echo get_assets('assets/frontend/images/logo_new.png');?>" class="img-responsive img-center mainpadding">
         </a>
       </div>
-      <div class="col-lg-4 col-md-4 mainpadding searchpanel">
+      <div class=" col-lg-offset-2 col-lg-4 col-md-4 mainpadding searchpanel">
           <?php 
           $showSearchTop='yes';
           if($showSearchTop=='yes'){?>
@@ -462,7 +462,7 @@ Search.....
           </div>
 
 
-           <div class="col-xs-12 col-sm-12 col-lg-offset-3 col-lg-3 col-md-3 mainpadding  hidden-xs text-center">
+           <div class="col-xs-12 col-sm-12 col-lg-offset-1 col-lg-3 col-md-3 mainpadding  hidden-xs text-center">
      <a class="pur_course" target="_blank" title="Purchase Courses" href="<?php echo base_url('purchase-courses') ?>">
      <img  style="margin-top:2px;" src="<?php echo base_url('/assets/images/discount.png')?>"></a>
      </div>    

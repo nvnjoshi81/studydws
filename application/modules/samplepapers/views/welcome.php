@@ -51,7 +51,7 @@
             </div>
             
             <div class="col-sm-12 col-md-12">              
-                <div class="col-md-12 text-center"><h2>Recent Sample Papers</h2></div>
+                <div class="col-md-12 text-center"><h2 class="select_heading">Recent Sample Papers</h2></div>
                 <div class="clearfix"></div>
                 <?php
                 if ($samplepapers) {
