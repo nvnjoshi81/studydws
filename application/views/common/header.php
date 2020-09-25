@@ -200,7 +200,7 @@ ga('send', 'pageview');
 		  Android Application
 	  </a>         
 	  
-      <a style="margin-top:3px" title="Purchase Courses" class="btn btn-sm btn-primary btn-raised mob_btn" href="<?php echo base_url('purchase-courses');?>"><i class="material-icons">shopping_cart</i>Purchase Courses&nbsp;&nbsp;</a> </div>
+      <a style="" title="Purchase Courses" class="btn btn-sm btn-primary btn-raised mob_btn" href="<?php echo base_url('purchase-courses');?>"><i class="material-icons" style="font-size:12px;">shopping_cart</i>Purchase Courses&nbsp;&nbsp;</a> </div>
         <?php } ?>
     <!-- /.container -->
   </nav>

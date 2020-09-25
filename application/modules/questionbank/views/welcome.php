@@ -84,12 +84,12 @@
                                 <!--End Showing Subject --> 
 <?php } elseif (isset($chapters_array) && count($chapters_array) > 0) { 
     if($chapter_id==0){ ?>
-                                    <div class="col-md-12 text-center">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                                         <h2>Select Chapter</h2>
                                         <?php foreach ($chapters_array as $key => $value) {
                                             if ($value['count'] > 0) {
                                                 ?>
-                                            <a title="Question Bank for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn btn btn-primary btn-raised btn-lg" type="button">
+                                            <a title="Question Bank for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn select_subject_btn btn btn-primary btn-raised btn-lg" type="button">
                                             <?php echo $value['name']; ?> <span class="badge"><?php echo $value['count']; ?></span>
                                             </a>
                                     <?php }
@@ -109,7 +109,7 @@
                
                 if (isset($questionbanks)&&$questionbanks) {
                     ?>
-                    <div class="col-sm-12 col-md-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                         <?php if($chapter_id==0||$chapter_id==''){ ?>
                     <div class="col-md-12 text-center"><h2>Recent Question Banks</h2></div>
                         <?php } ?>

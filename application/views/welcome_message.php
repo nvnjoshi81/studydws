@@ -274,7 +274,7 @@ if($advideo_show=='yes'){ ?>
 $show_index_contant='yes';
 if($show_index_contant=='yes'){ ?>
 		      <div class="serve-top">
-				 <div class="col-sm-6 col-md-6 serve-icons">
+				 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 serve-icons">
 					<div class="s-sub rcorners2">
 						<div class="col-md-2 icon text-danger">
 						<i class="glyphicon glyphicon-info-sign"></i>
@@ -334,7 +334,8 @@ if($show_index_contant=='yes'){ ?>
 					     <div class="clearfix"> </div>	
 					 </div>
 				 </div>
-				 <div class="col-sm-6 col-md-6 serve-icons">
+				 
+				 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 serve-icons">
 					<div class="s-sub rcorners2">
 						<div class="col-md-2 icon text-success">
 						  <i class="glyphicon glyphicon-book"></i>
