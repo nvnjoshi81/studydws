@@ -521,9 +521,9 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
                     <a href="<?php echo base_url('articles') ?>"  title="studyadda articles" >
                         Articles
                     </a>
-                   |<a href="<?php echo base_url('books') ?>"  title="studyadda articles" >
+                   <!--|<a href="<?php //echo base_url('books') ?>"  title="studyadda articles" >
                         Books
-                    </a>                    |  
+                    </a>-->                    |  
                     <a href="<?php echo base_url('amazing-facts') ?>" title="studyadda amazing-facts" >
                         Amazing Facts
                     </a> | 

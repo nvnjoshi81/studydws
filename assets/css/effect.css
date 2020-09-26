@@ -32,14 +32,14 @@
 }
 
 .card1 {
-    clear: both;
-    height: auto;
-    overflow: hidden;
-    display: block;
-    background-color: #f9fffe;
-    margin: 15px 0;
-    padding: 10px 1px 0 10px;
-    border-radius: 25px
+	clear: both;
+	height: auto;
+	overflow: hidden;
+	display: block;
+	background-color: #f9fffe;
+	margin: 15px 0;
+	padding: 10px 1px 0 10px;
+	border-radius: 25px;
 }
 
 .card1 .img-purchase {
@@ -126,6 +126,11 @@
     height: auto;
     overflow: hidden;
     text-align: center
+}
+
+.card-module {
+    min-height: 228px;
+    height: auto;
 }
 
 @media screen and (max-width:1199px) and (min-width:992px) {

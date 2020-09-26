@@ -7,6 +7,7 @@ if((isset($isProduct_array))&&(count($isProduct_array)>0)){
     ?> <div class="clearfix"></div>
         <?php
 //$this->load->view('common/product_list_packages'); 
+//$this->load->view('common/product_list_packages'); 
 
 		redirect('purchase-courses'); die;
 }

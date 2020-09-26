@@ -60,8 +60,8 @@
                                 </div>     
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-lg-12">
-                                            <p>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <p class="text-center">
                             <?php 
                             
                            foreach ($subjects_array as $key => $value) {

@@ -367,7 +367,7 @@ echo "<h6><b>".$this->pagination->create_links() . "</b></h6>";
                         </div>
                 	<div class="panel-body">
                             <ul>
-                                <li><i class="material-icons">&#xE037;</i> <a href="#"><span class="text-warning"><?php echo count($onlinetest);?></span> Online Tests</a> </li>
+                                <li><i class="material-icons">&#xE037;</i> <a href="#"><span class="text-warning"><?php echo count($onlinetest);?></span> Online Test</a> </li>
                                 <li><i class="material-icons">&#xE037;</i><a href="#"> <span class="text-warning"><?php echo count($onlinetestquestions);?></span> Questions</a> </li>
                             </ul>
                         </div>
