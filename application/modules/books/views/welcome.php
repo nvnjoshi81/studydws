@@ -47,13 +47,7 @@
                         </div>
                         <div class="col-sm-12 col-md-12">
 <?php if ($this->uri->total_segments() == 1) { ?>
-
-                                <!-- adv rht panel -->
-                                <div class="m_small_advertisepanel">
-                                    <img src="<?php echo base_url(''); ?>/assets/images/610adv.jpg" alt="adversite" />
-                                </div>
-
-
+<!-- adv rht panel -->
 <?php } ?>
                             <!-- Most Viewed 
                             <div class="row">
