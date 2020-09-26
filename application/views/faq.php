@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <?php $this->load->view('common/breadcrumb');?>
-      <div class="col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div id="page-inner">
           <div class="module_panel row">
           
@@ -12,7 +12,7 @@ $('#msg_waiting').show(); -->
             
             
               <div class="container ">
-    <div class="panel-group col-md-10 col-sm-12" id="faqAccordion">
+    <div class="panel-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="faqAccordion">
         <div class="panel panel-default ">
             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
                  <h4 class="panel-title">
@@ -95,10 +95,7 @@ $('#msg_waiting').show(); -->
         
     </div>
     <!--/panel-group-->
-     <!-- right panel -->
-            <div class="hidden-xs hidden-sm col-md-2 rht_status_mat">
-              <div class="right_advertisepanel"><img alt="adversite" src="<?php echo base_url('assets/images/260adv_2.jpg')?>"></div>
-            </div>
+     
 </div>
 
 

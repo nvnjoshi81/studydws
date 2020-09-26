@@ -3,12 +3,12 @@
         <div class="row">
           <?php $this->load->view('common/breadcrumb');?>
          
-    <div class="col-md-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div id="page-inner">
                 <div class="module_panel row">                  
                   <!-- content panel start here -->
                   <!-- left panel -->
-                  <div class="col-sm-12 col-md-9">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   
        
         <div class="pull-right"><img src="<?php echo base_url('assets/images/why_img.jpg');?>" class="img-responsive" /></div>
@@ -30,14 +30,7 @@
 
 <p class="text-justify">Strong Foundation: Reaching out to Studyadda enables each student to develop strong analytical skills and rational thinking which can build a steady foundation for future aspirations.</p>
                      
-                  </div>
-                  
-                  <!-- right panel -->
-                 <div class="col-sm-12 col-md-3 rht_status_mat">
-                                      <div class="right_advertisepanel"><img alt="adversite" src="<?php echo base_url('assets/images/260adv_2.jpg')?>"></div>
-                     
-                </div>
-                  
+                  </div>               
                   
                   
                   
