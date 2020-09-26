@@ -278,7 +278,6 @@ class Categories_model extends CI_Model
             $user_tree_array   = $this->fetchCategoryTreeList($mainCategory->id, $user_tree_array);
         }
         $user_tree_array[] = "</ul>";
-        
         return $user_tree_array;
         /*
         <ul>
@@ -293,27 +292,22 @@ class Categories_model extends CI_Model
     }
     public function getParents($id = NULL, $ids = array())
     {
-        if ($id == NULL) {
-            return false;
+        if($id == NULL) {
+        return false;
         }
-        
         $this->db->select("parent_id");
         $this->db->where("id", $id);
         $result = $this->db->get("categories");
-        
         if ($result->num_rows() == 0) {
-            return false;
+        return false;
         }
-        
         $record = $result->first_row();
         $ids[]  = $id;
         if ($record->parent_id == 0) {
-            
-        } else {
-            $ids = $this->getParents($record->parent_id, $ids);
+        }else{
+        $ids = $this->getParents($record->parent_id, $ids);
         }
         return $ids;
-        
     }
     
    public function getArticlesArchives(){

@@ -5258,17 +5258,25 @@ NOT USEFUL
         if ($show_content_type->name == 'Article') {
             $contents = $this->Posting_model->getArticlesForExams($examid, $subject_id, $chapter_id);
         }
-        if (count($contents) > 0) {
+		
+		$subClass_array[] = array('subexam'=>'ICSE');
+		
+		$subClass_array[] = array('subexam'=>'RJ Board');
+		
+		$cntCount=count($contents);
+        if ($cntCount > 0) {
             foreach ($contents as $content) {
             $content_array[] = (array) $content;
         }
-            $response['data'] = $content_array;
+        	$response['data'] = $content_array;
             $response['type'] = $type;
             $response['count'] = count($contents);
         } else {
             $response['data'] = array();
-            $response['count'] = 0;
+            $response['count'] = 1;
         }
+		
+		$response['subClass'] = $subClass_array;
         echo json_encode($response);
     }
 

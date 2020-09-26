@@ -45,10 +45,7 @@ class   Notes_model extends CI_Model
         //echo $this->db->last_query(); die;
         return $query->result();
     }
-    
-    public function getQuestionCount($exam_id=null,$subject_id=null,$chapter_id=null){
-        
-    }
+
     
     public function detail($id){
         $this->db->select('*');

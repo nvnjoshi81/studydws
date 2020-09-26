@@ -115,6 +115,7 @@ $product_brought='no';
 
 		<div class="card-body card-body2">
 			<?php  
+			$examid=28
 			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
 				$packagecnt=$packagecnt_array[$examid];
 				$totalpackage_q=0;
@@ -139,25 +140,14 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 					</li>
 					 <?php } }  if($totalpackage_q>0){
 					 ?>
-					 
+					 <!--Count for all questions from above loop-->
 					 	<li class="list-group-item"><span><?php  echo $totalpackage_q;  ?> +</span><a href="#">Total Question</a></li>
 					 <?php } ?>
-					 
-					 
 			</ul>
 			</div>
 			<?php } ?>
-			
-			
-					
-		
 		</div>
 <!-- // modules -->
-
-
-
-
-		
 	<?php if($reduseprice>0){ ?>
 		<div class="show_price2">
 			<a href="#">Actual Price <span class='actual_price'><?php echo $packagesprice; ?></span></a>

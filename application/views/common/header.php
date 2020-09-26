@@ -484,7 +484,7 @@ Search.....
               </li>
               <?php
           
-       if($ex->id=='110'){
+       if($ex->id=='108'){
          ?><br><?php
        }
               $exam_cnt++;

@@ -255,7 +255,6 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
                 }
 		        $display_file_name=$module_file_details[0]->displayname;
                 }
-				
                ?>
 			   
 <div class="col-sm-12 col-md-12 col-xs-12 well">
@@ -1015,9 +1014,10 @@ echo base_url(); ?>/assets/videoimages/<?php  echo $video_image; ?>" width="25%"
  </div> 
  </div>
 <div class="col-sm-6 well">
-ertre
+<div class="col-sm-12 well" id="displaySubExam" > 
+<!--subexam-->
 </div>
-
+</div>
 </form>
 <script type="text/javascript">
   tinymce.init({

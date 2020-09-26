@@ -650,6 +650,27 @@ class Posting_Model extends CI_Model {
         return array();
         }
     }
+	
+	    
+    public function getQuestionCount1($exam_id=null,$subject_id=null,$chapter_id=null){
+            $this->db->select('postings.id as id,postings.title as title,relatedpostings.category_id,relatedpostings.subject_id,relatedpostings.chapter_id');
+        $this->db->from('postings');
+        if ($exam_id > 0) {
+            $this->db->where('relatedpostings.category_id', $exam_id);
+        }
+        if ($subject_id > 0) {
+            $this->db->where('relatedpostings.subject_id', $subject_id);
+        }
+        if ($chapter_id > 0) {
+            $this->db->where('relatedpostings.chapter_id', $chapter_id);
+        }
+        $this->db->join('relatedpostings','relatedpostings.article_id=postings.id');
+        if($limit > 0){
+            $this->db->limit($limit);
+        }
+        $query = $this->db->get();
+        return $query->result();		
+    }
 
     public function getNotesList2($exam_id = 0, $subject_id = 0, $chapter_id = 0,$order='desc',$limit=null) {
         $this->db->select('postings.id as id,postings.title as title,relatedpostings.category_id,relatedpostings.subject_id,relatedpostings.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');

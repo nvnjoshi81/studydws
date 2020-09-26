@@ -181,7 +181,7 @@ class Welcome extends Modulecontroller {
         }
         $subjects_array = array();
         $chapters_array = array();
-        $chaptersubjects=  $this->Examcategory_model->getExamChapters($examid);
+        $chaptersubjects=  $this->Examcategory_model->getExamChapters($examid); 
         if(count($chaptersubjects) > 0){
             foreach($chaptersubjects as $record){
 				if (!in_array($record->sname, $subjects_array)) {
@@ -194,7 +194,9 @@ class Welcome extends Modulecontroller {
 						$onlinetest=$this->Onlinetest_model->getQuestionCount($examid, $record->sid, $record->cid);
 						$questionbank=$this->Questionbank_model->getQuestionCount($examid, $record->sid, $record->cid);
 						$ncertSol=$this->Ncertsolutions_model->getQuestionCount($examid, $record->sid, $record->cid);
-						$solvedpap=$this->Solvedpapers_model->getQuestionCount($examid, $record->sid, $record->cid);			
+						$solvedpap=$this->Solvedpapers_model->getQuestionCount($examid, $record->sid, $record->cid);
+						$notesposting=$this->Posting_model->getQuestionCount($examid, $record->sid, $record->cid);
+						
 $chkcount=0;
 if(count($sm)>0){
 $chkcount=$chkcount+1;
@@ -211,12 +213,14 @@ $chkcount=$chkcount+1;
 $chkcount=$chkcount+1;
 }elseif(count($solvedpap)>0){
 $chkcount=$chkcount+1;
+}elseif(count($notesposting)>0){
+$chkcount=$chkcount+1;
 }							
                     if ($subject_id > 0 && $subject_id == $record->sid) {
                         if (!in_array($record->cname, $chapters_array)) {
                         $chapters_array[$record->cid] = array('name' => $record->cname, 'count' => $chkcount);
                         } else {
-                            $chapters_array[$record->cid]['count'] = $chkcount;
+                        $chapters_array[$record->cid]['count'] = $chkcount;
                         }
                     }
 				if(array_key_exists($record->sname, $data_array)){

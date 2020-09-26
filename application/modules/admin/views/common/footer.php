@@ -379,7 +379,8 @@ function mergeSection(is_final){
                         $('#contentdata').show();
                         $("#dataTables-example > tbody").html("");
                         var trHTML = '';
-                         var sid_total =0;
+						var subExHTML = '';
+						 var sid_total =0;
                         //trHTML += '<tr><td></td><td><b>Currently Showing Question Bank</b></td><td></td></tr>';                        
                         var sid =1;
                         $.each(response.data,function(index,item){
@@ -419,7 +420,8 @@ function mergeSection(is_final){
    }
 trHTML +='<tr><td>' + sid + '</td>'
 
-if(filename_one!=''){ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
+if(filename_one!=''){ 
+trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
 	
 }else{
 	  trHTML +='<td>' + item.id + '</td>';
@@ -451,6 +453,19 @@ if(filename_one!=''){ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</
                         $('#panel_chang_id').hide();
                         $('#submit_qus_list').hide();
                         $('#dataTables-example tbody').append(trHTML);
+						
+						subExHTML += '<table><tr><td></td><td><b>Select Sub Exam</b></td><td></td></tr>';  
+						    $.each(response.subClass,function(indexsub,itemsub){
+							subExHTML += '<tr><td></td><td><b>'+itemsub.subexam+'</b></td><td></td></tr>';  
+subExHTML +=  itemsub.subexam;
+});
+		subExHTML += '</table>'; 
+		document.getElementById("displaySubExam").innerHTML = subExHTML;			
+		
+		//trHTML +='<tr><td>' + sid + '</td>'		
+                ///trHTML += '<td>' + edit + del + price + tag + merge +'</td></tr>';
+						//Display sub Exam
+                       // $('#displaySubExam').append(subExHTML);
                     }else{
                         $('#dataTables-example tbody').html('');
                         $('#contentdata').hide();
@@ -509,7 +524,6 @@ if(filename_one!=''){ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</
                 success:function(response) {
                     if(response.count > 0){
                         $('#playlistTables-example').show();
-                        
                         $("#playlistTables-example").html("");
                         var trHTML = '<label>Select Existing Playlist</label>';
                         trHTML += '<select class="form-control valid" id="existing_playlist_id" name="existing_playlist_id">'; trHTML += '<option value="0">Select Playlist</option>';  
