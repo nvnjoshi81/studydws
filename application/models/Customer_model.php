@@ -3,6 +3,27 @@ class Customer_model extends CI_Model{
     public function __construct() {
         $this->franchisetype=$this->session->userdata('usertype');
     }
+	
+	
+	//Teacher functions
+	
+	
+	function teacher_list()
+	{
+		
+	}
+	
+		function edit_teacher($)
+	{
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	function getCustomers($limit_start=null, $limit_end=null,$ordercol='id',$order='desc')
 	{
             $this->db->select('*');

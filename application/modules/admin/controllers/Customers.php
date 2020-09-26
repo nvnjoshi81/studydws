@@ -8,6 +8,30 @@ class Customers extends MY_Admincontroller {
             $this->load->model('Examcategory_model');
             
         }
+		
+		/*For Displaylist*/
+		
+		   public function teacher_list(){
+                $teacher =$this->Customer_model->get_teacherlist(); 
+                $this->data['teacher']=  $teacher;      
+                $this->data['content']='customers/teacherlist';
+                $this->load->view('common/template',$this->data);
+        }
+		
+		
+		  public function edit_teacher(){
+                $customer_id =$this->input->post('customer_id');
+                $customer_email =$this->input->post('customer_email');
+                $customer_mobile =$this->input->post('customer_mobile');
+                $teacher =$this->Customer_model->get_teacherlist(); 
+                $this->data['teacher'] = $teacher; 
+                $customers =$this->Customer_model->edit_teacher(); 
+                $this->data['customers']=  $customers;      
+                $this->data['content']='customers/teacherlist';
+                $this->load->view('common/template',$this->data);
+        }
+		
+		
         public function index(){
             $this->load->library('pagination');
                 $ordercol=$this->input->get('col');
