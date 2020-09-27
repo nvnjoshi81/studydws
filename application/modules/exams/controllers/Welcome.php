@@ -252,9 +252,7 @@ $chkcount=$chkcount+1;
                 }
             }
         } 
-		?>
 		
-		<?php 
         $this->data['subject_chapters']=$data_array;
 		 if (count($subjects_array) > 0) {
                 foreach ($subjects_array as $key => $value) {
@@ -559,8 +557,8 @@ $chkcount=$chkcount+1;
             }
             
             if($package->module_type=='solved-papers'){
-              $this->data['solpap_package']=$package->total_question;
-             $this->data['solpap_questions']=$package->total_question;  
+			$this->data['solpap_package']=$package->total_question;
+            $this->data['solpap_questions']=$package->total_question;  
             }			
           
         }   
@@ -579,7 +577,7 @@ $chkcount=$chkcount+1;
         $isProduct = $this->Pricelist_model->getProduct($examid, 0, 0, 1);
         $examPlaylist = $this->Videos_model->getVideos($examid, $subject_id, $chapter_id,18);
        //Get package count
-	   
+	   /*Only For dispaly on exam  section*/
        $packagecnt = $this->Pricelist_model->pkgCount_byExam($examid);
 		$packagecnt_array[$examid]= $packagecnt;
 		$this->data['packagecnt_array']=$packagecnt_array;

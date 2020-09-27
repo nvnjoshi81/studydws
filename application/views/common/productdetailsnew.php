@@ -63,7 +63,7 @@ $product_brought='no';
     $this->session->set_userdata('sub_purchases','no');
     $videos_likes = 0;
     $videos_views = 0;
-    $videos_duration = 0;
+    $videos_duration =0;
     $videos_counts = 0;
     if (isset($videos_inform)) {
         foreach ($videos_inform as $videos_info) {
@@ -74,7 +74,6 @@ $product_brought='no';
             $videos_counts = $videos_counts + 1;
         }
     }
-	
 	
 	if ($isProduct->discounted_price > 0) {
 	$packagesprice=$isProduct->price;
