@@ -70,7 +70,7 @@
                                                 </thead>
                 <?php
 $i = 1;
-if (count($customers)>0) {
+if (count($teacher)>0) {
 //print_r($customers);
 	foreach ($teacher as $customer) { 
 if($customer->is_app_registered=='1'&&$customer->device_id!=''){

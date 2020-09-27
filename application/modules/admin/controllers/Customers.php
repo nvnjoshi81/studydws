@@ -10,14 +10,12 @@ class Customers extends MY_Admincontroller {
         }
 		
 		/*For Displaylist*/
-		
-		   public function teacher_list(){
+		public function teacher_list(){
                 $teacher =$this->Customer_model->get_teacherlist(); 
                 $this->data['teacher']=  $teacher;      
                 $this->data['content']='customers/teacherlist';
                 $this->load->view('common/template',$this->data);
         }
-		
 		
 		  public function edit_teacher(){
                 $customer_id =$this->input->post('customer_id');
@@ -30,7 +28,6 @@ class Customers extends MY_Admincontroller {
                 $this->data['content']='customers/teacherlist';
                 $this->load->view('common/template',$this->data);
         }
-		
 		
         public function index(){
             $this->load->library('pagination');

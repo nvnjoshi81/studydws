@@ -55,7 +55,15 @@ if(($androidapp_link!=''&&$andlink_exist=='yes')){
   <source src="<?php echo base_url('upload_files/'.$androidapp_link) ;?>" type="video/mp4">
   <source src="movie.ogg" type="video/ogg">
 Your browser does not support the video tag.
-</video><h3><?php	
+</video>
+
+
+   <div class="col-sm-12 col-md-12">
+   <div><h4><font style="font-family:'Courier New';font-size:'initial'"><?php echo $video->title.' | '; ?><?php echo $video->name.' | '; ?><?php echo $video->chapter.' | '; ?><?php echo $video->subject.' | '; ?><?php echo $video->exam; ?></font>
+   
+   </h4>
+   <h5>  
+<?php
 
 if(isset($video->video_duration)&&$video->video_duration!=''){
 				?>
@@ -67,9 +75,14 @@ if(isset($video->video_duration)&&$video->video_duration!=''){
 			}
 			if(isset($video->video_size)&&$video->video_size!=''){
 				?>
-			<font style="font-family:'Courier New'">Video Duration-<?php echo $video->video_size; ?></font><?php 
+			<font style="font-family:'Courier New'">Video Size-<?php echo $video->video_size; ?></font><?php 
 			}
-?></h3><?php
+		
+?></h5>
+   </div>
+
+</div>
+<?php
 }else if($resourceKey!=''&&$streamHostUrl!=''){
 	//echo $yourbrowser.'=--------'; die;
 	if($yourbrowser !='Mozilla Firefox'){
@@ -331,16 +344,14 @@ foreach($commentlist as $vc){ ?>
                 </div>
                   <?php
                   
-                     if($url_segments[5]!=''){
-          $chaptername =  $url_segments[5];
-          
-         $var_relationid_array = explode('relationid-',$chaptername);
+        if($url_segments[5]!=''){
+        $chaptername =  $url_segments[5];
+        $var_relationid_array = explode('relationid-',$chaptername);
         if(isset($var_relationid_array[1])){
-         $var_relationid=$var_relationid_array[1];
+        $var_relationid=$var_relationid_array[1];
         }else{
-            $var_relationid='';
+        $var_relationid='';
         }
-        
         }
         
         if($var_relationid>0){
@@ -348,8 +359,7 @@ foreach($commentlist as $vc){ ?>
         }else{
             $playlist_url=url_title($product['playlist'],'-',true);
         }
-        
-                  ?>
+        ?>
                 <div class="separator btn_prod_ved">
                         <a href="<?php echo base_url('videos/'.url_title($product['exam'],'-',true).'/'.url_title($product['subject']!=''?$product['subject']:'all','-',true).'/'.url_title($product['chapter']!=''?$product['chapter']:'all','-',true).'/'.$playlist_url.'/'.url_title($product['title'],'-',true).'/'.$product['id'])?>" class="btn btn-raised btn-warning ">Watch Now</a>
                 </div>
@@ -368,15 +378,12 @@ foreach($commentlist as $vc){ ?>
       
     </div>
   </div>
-  
 </div>
-
-
-          </div>
+</div>
     <!-- right panel -->
     <div class="col-sm-12 col-md-3 rht260adv">
                     <h3 class="videohed"><i class="material-icons">video_library</i>
-                        More Videos form this chapter<p>Sardana Tutorials - <span><?php echo $videolist?count($videolist):'0'?> videos</span></p></h3>
+                        More Videos form this chapter<p><span><?php echo $videolist?count($videolist):'0'?> videos</span></p></h3>
                     <div class="row height_for_scroll">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 scrolheightimgthumb">
                     <?php if($videolist){ foreach($videolist as $video){ ?>

@@ -54,7 +54,7 @@
                  $showSub='no'; 
             if (count($subject_chapters[$subjectlist_key]) > 0) {
             foreach($subjectArray_package[$subjectlist_value['id']] as $p_value){
-         if($p_value->total_package>1){
+         if($p_value->total_package>0){
              $showSub='yes';
              break;
          }
@@ -110,7 +110,7 @@
 					  <?php
      foreach($subjectArray_package[$subjectlist_value['id']] as $pvalue){
 		
-         if($pvalue->total_package>1){
+         if($pvalue->total_package>0){
 			 ?>
 		 <li>
 		 <?php
@@ -218,6 +218,7 @@ if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '') {
                                 <h2 class="select_heading">Select Chapter</h2>      
                                 </div>
         <?php
+		
         foreach ($chapters_array as $chapterlist_key => $chapterlist_value) {
 		if ($chapterlist_value['count'] > 0) {
         $short_chptername = str_split($chapterlist_value['name'],59);

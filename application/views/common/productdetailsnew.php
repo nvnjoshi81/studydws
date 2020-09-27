@@ -115,7 +115,6 @@ $product_brought='no';
 
 		<div class="card-body card-body2">
 			<?php  
-			$examid=28
 			if(isset($packagecnt_array)&&count($packagecnt_array)>0){
 				$packagecnt=$packagecnt_array[$examid];
 				$totalpackage_q=0;

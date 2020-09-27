@@ -22,6 +22,13 @@ class Posting_Model extends CI_Model {
        if($exam_id>0){
            $this->db->where('category_id',$exam_id);
        }
+	    if($subject_id>0){
+           $this->db->where('subject_id',$subject_id);
+       } 
+	   
+	   if($chapter_id>0){
+           $this->db->where('chapter_id',$chapter_id);
+       }
        $this->db->from('postings');
        $query = $this->db->get();
        //echo $this->db->last_query();

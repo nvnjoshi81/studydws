@@ -179,29 +179,44 @@ class Welcome extends Modulecontroller {
             $titleStr[]=$this->data['selectedchapter']->name;
             $urlChapter_name=$this->data['selectedchapter']->name;
         }
+		
         $subjects_array = array();
         $chapters_array = array();
         $chaptersubjects=  $this->Examcategory_model->getExamChapters($examid); 
         if(count($chaptersubjects) > 0){
             foreach($chaptersubjects as $record){
+				
+				if($chapter_id > 0){
+					 $cidCount=$chapter_id;
+				 }else{
+					 $cidCount=$record->cid;
+				 }
+				 
+				  if($subject_id > 0){ 
+				  $sidCount=$subject_id;
+				  }else{
+			      $sidCount=$record->sid;
+				  }
+				 
+				 
 				if (!in_array($record->sname, $subjects_array)) {
                         $subjects_array[$record->sid] = array('name' => $record->sname);
                     }
-                        $sm = $this->Studymaterial_model->getStudyMaterialCount($examid, $record->sid, $record->cid);
-						// print_r(count($sm));
-						 $videos = $this->Videos_model->getVideosCount($exam_id, $record->sid, $record->cid);
-						$samplepap=$this->Samplepapers_model->getQuestionCount($examid, $record->sid, $record->cid);
-						$onlinetest=$this->Onlinetest_model->getQuestionCount($examid, $record->sid, $record->cid);
-						$questionbank=$this->Questionbank_model->getQuestionCount($examid, $record->sid, $record->cid);
-						$ncertSol=$this->Ncertsolutions_model->getQuestionCount($examid, $record->sid, $record->cid);
-						$solvedpap=$this->Solvedpapers_model->getQuestionCount($examid, $record->sid, $record->cid);
-						$notesposting=$this->Posting_model->getQuestionCount($examid, $record->sid, $record->cid);
-						
+				
+                        $sm = $this->Studymaterial_model->getStudyMaterialCount($examid, $sidCount, $cidCount);
+										// print_r(count($sm));
+						 $videos = $this->Videos_model->getVideosCount($exam_id, $sidCount, $cidCount);
+						$samplepap=$this->Samplepapers_model->getQuestionCount($examid, $sidCount, $cidCount);
+						$onlinetest=$this->Onlinetest_model->getQuestionCount($examid, $sidCount, $cidCount);
+						$questionbank=$this->Questionbank_model->getQuestionCount($examid, $sidCount, $cidCount);
+						$ncertSol=$this->Ncertsolutions_model->getQuestionCount($examid, $sidCount, $cidCount);
+						$solvedpap=$this->Solvedpapers_model->getQuestionCount($examid, $sidCount, $cidCount);
+						$notesposting=$this->Posting_model->getQuestionCount($examid, $sidCount, $cidCount);
+				
 $chkcount=0;
 if(count($sm)>0){
-$chkcount=$chkcount+1;
+$chkcount=$chkcount+1; 
 }elseif(count($videos)>0){
-
 $chkcount=$chkcount+1; 
 }elseif(count($samplepap)>0){
 $chkcount=$chkcount+1;
@@ -213,12 +228,14 @@ $chkcount=$chkcount+1;
 $chkcount=$chkcount+1;
 }elseif(count($solvedpap)>0){
 $chkcount=$chkcount+1;
-}elseif(count($notesposting)>0){
+}elseif(count($notesposting)>0){	
 $chkcount=$chkcount+1;
 }							
                     if ($subject_id > 0 && $subject_id == $record->sid) {
                         if (!in_array($record->cname, $chapters_array)) {
-                        $chapters_array[$record->cid] = array('name' => $record->cname, 'count' => $chkcount);
+							if($chkcount>0){
+							$chapters_array[$record->cid] = array('name' => $record->cname, 'count' => $chkcount);
+							}
                         } else {
                         $chapters_array[$record->cid]['count'] = $chkcount;
                         }
@@ -227,7 +244,7 @@ $chkcount=$chkcount+1;
                     array_push($data_array[$record->sname]['chapters'],array($record->cid,$record->cname));
                 }else{
                     $data_array[$record->sname]['id']=$record->sid;
-                    if(isset($data_array[$record->sname]['chapters'])){
+                    if(isset($data_array[$record->sname]['chapters'])&&($chkcount>0)){
                     array_push($data_array[$record->sname]['chapters'],array($record->cid,$record->cname));
                     }else{
                     $data_array[$record->sname]['chapters'][0]=array($record->cid,$record->cname);
@@ -485,29 +502,30 @@ $chkcount=$chkcount+1;
         }
         foreach($all_packages as $package){
             if($package->module_type=='question-bank'){
-                $this->data['qb_package']=$package->custom_total_package;
-                $this->data['qb_questions']=$package->custom_total_question;
+                $this->data['qb_package']=$package->total_question;
+                $this->data['qb_questions']=$package->total_question;
             }
             if($package->module_type=='sample-papers'){
-                $this->data['sp_package']=$package->custom_total_package;
-                $this->data['sp_questions']=$package->custom_total_question;
+                $this->data['sp_package']=$package->total_question;
+                $this->data['sp_questions']=$package->total_question;
             }
             
             if($package->module_type=='videos'){
-                $this->data['video_package']=$package->custom_total_package;
-                $this->data['videos_questions']=$package->custom_total_question;
+                $this->data['video_package']=$package->total_question;
+                $this->data['videos_questions']=$package->total_question;
             }
             if($package->module_type=='online-test'){
-                $this->data['ot_package']=$package->custom_total_package;
-                $this->data['ot_questions']=$package->custom_total_question;
+                $this->data['ot_package']=$package->total_question;
+                $this->data['ot_questions']=$package->total_question;
             }
+			
             if($package->module_type=='study-packages'){
                 $getProduct_id = $this->Pricelist_model->getProduct_id($examid, $subject_id, $chapter_id, 1);
                 if($getProduct_id){
                     //Update Product count
                 if(isset($getProduct_id->id)&&($getProduct_id->id>0)){
                   if($examid>0&&($subject_id<1||$subject_id=='')){  
-             $dataarray=array('no_of_lectures'=>$package->custom_total_package);
+             $dataarray=array('no_of_lectures'=>$package->total_question);
                     //$this->Pricelist_model->update_packageCount($getProduct_id->id,$dataarray);
                   }
                   
@@ -527,22 +545,22 @@ $chkcount=$chkcount+1;
                            $this->data['stpac_package']=$package->total_package;
                        }
                  *  */
-                $this->data['stpac_package']=$package->custom_total_package;       
-                $this->data['stpac_questions']=$package->custom_total_question;
+                $this->data['stpac_package']=$package->total_question;       
+                $this->data['stpac_questions']=$package->total_question;
             }
             if($package->module_type=='notes'){
-              $this->data['notes_package']=$package->custom_total_package;
-              $this->data['notes_questions']=$package->custom_total_question;   
+              $this->data['notes_package']=$package->total_question;
+              $this->data['notes_questions']=$package->total_question;   
             }
             
             if($package->module_type=='ncert-solution'){
-             $this->data['ns_package']=$package->custom_total_package;
-             $this->data['ns_questions']=$package->custom_total_question;     
+             $this->data['ns_package']=$package->total_question;
+             $this->data['ns_questions']=$package->total_question;     
             }
             
             if($package->module_type=='solved-papers'){
-              $this->data['solpap_package']=$package->custom_total_package;
-             $this->data['solpap_questions']=$package->custom_total_question;  
+              $this->data['solpap_package']=$package->total_question;
+             $this->data['solpap_questions']=$package->total_question;  
             }			
           
         }   

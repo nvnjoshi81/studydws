@@ -8,18 +8,15 @@ class Customer_model extends CI_Model{
 	//Teacher functions
 	
 	
-	function teacher_list()
+	function get_teacherlist()
 	{
 		
 	}
 	
-		function edit_teacher($)
+		function edit_teacher()
 	{
 		
 	}
-	
-	
-	
 	
 	
 	

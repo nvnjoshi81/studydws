@@ -42,16 +42,8 @@
          <p class="text-justify">Registration Number -: <strong>SRN A1484760</strong> </p>
                    </div>  
                   </div>
-                  
                   <!-- right panel -->
-                 <div class="col-sm-12 col-md-3 rht_status_mat">
-                                      <div class="right_advertisepanel"><img alt="adversite" src="<?php echo base_url('assets/images/260adv_2.jpg')?>"></div>
-                     
-                </div>
-                  
                   </div>
-               
-                 
                  <!-- /. ROW  -->
                  <hr>
                
