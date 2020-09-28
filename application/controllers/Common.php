@@ -392,7 +392,9 @@ if($f_formtotal!=$fc_total){
         }
         echo  $html;
     }
-     public function  download($file_key){ 
+     public function  download($file_key){
+?><p style='color:red'>Studypackages Are Available At Android App Only!</p><?php die();
+
         $this->load->model('File_model');
          $file_key =  decrypt($file_key);
          $var_file = explode('.',$file_key); 

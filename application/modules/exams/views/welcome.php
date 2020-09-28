@@ -886,9 +886,11 @@ if($allpack_cnt=='yes'){
 							</div>
                                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 view_det_shop row">
 
-    <?php if ($video_package > 0) { ?>
+    <?php /*if ($video_package > 0) { ?>
                                         <i class="material-icons">check</i> Total Lecture Series : <span> <strong><?php echo $video_package; ?>+</strong></span>
-    <?php } if ($videos_questions > 1) { ?><br>
+    <?php } */
+	
+	if ($videos_questions > 1) { ?><br>
                                         <i class="material-icons">check</i> Total Videos : <span> <strong><?php echo $videos_questions; ?></strong> </span>
                                     <?php } ?>
 

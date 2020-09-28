@@ -160,6 +160,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 		
 		
 		<div class="btn-group2 text-center">
+			<h3 style='color:red' >Offer price Available For Only Today!</h3>
 		    <?php 
 			if (!$this->session->userdata('purchases') || !in_array_r($isProduct->id, $this->session->userdata('purchases'))||$product_brought=='no') { ?>
                 <button  style='margin-bottom:6px;' itemname="<?php echo $isProduct->modules_item_name;?>" 

@@ -75,7 +75,7 @@ if(isset($video->video_duration)&&$video->video_duration!=''){
 			}
 			if(isset($video->video_size)&&$video->video_size!=''){
 				?>
-			<font style="font-family:'Courier New'">Video Size-<?php echo $video->video_size; ?></font><?php 
+			<font style="font-family:'Courier New'"> | Video Size-<?php echo $video->video_size; ?></font><?php 
 			}
 		
 ?></h5>

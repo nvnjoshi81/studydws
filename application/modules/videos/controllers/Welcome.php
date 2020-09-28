@@ -638,7 +638,6 @@ $this->load->helper('text');
         $getID3 = new getID3();
 		if(isset($allVideo)){
 foreach($allVideo as $vid=>$vinfo){
-	if(isset($vinfo->androidapp_link)&&$vinfo->androidapp_link!=''){
 	$vid_path = $_SERVER['DOCUMENT_ROOT'].'/upload_files/'.$vinfo->androidapp_link; //Replace here!
  if (file_exists($vid_path)) {
 	 
@@ -696,7 +695,7 @@ if(isset($vinfo->video_size)&&$vinfo->video_size!=''){
 }else{
 	echo $vinfo->id.' ) '.$vinfo->androidapp_link.' - Not Exist on server<br>';
 }	
-	}
+	
 	
 }	
 }	

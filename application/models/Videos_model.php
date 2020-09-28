@@ -71,7 +71,7 @@ class Videos_model extends CI_Model {
                 . 'cmsvideolist_details.id,cmsvideolist_details.videolist_id,cmsvideolist_details.video_id,'
                 . 'cmsvideos.id,cmsvideos.title,cmsvideos.video_source,cmsvideos.video_url_code,cmsvideos.video_file_name,cmsvideos.video_image'
                 . ',cmsvideos.short_video,cmsvideos.is_featured,cmsvideos.description,cmsvideos.video_by,cmsvideos.status,cmsvideos.views'
-                . ',cmsvideos.is_free,cmsvideos.video_duration,cmsvideos.custom_video_duration,cmsvideos.androidapp_link,cmsvideos.amazonaws_link'
+                . ',cmsvideos.is_free,cmsvideos.video_duration,cmsvideos.custom_video_duration,cmsvideos.video_size,cmsvideos.androidapp_link,cmsvideos.amazonaws_link'
                 . ',cmsvideos.amazon_cloudfront_domain');
         $this->db->from('cmsvideolist_relations');
 
@@ -208,7 +208,7 @@ class Videos_model extends CI_Model {
 		$vstatus=1;
 
 		}
-        $this->db->select('V.id,V.title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,V.description,V.video_by,V.status,V.views'. ',V.is_free,V.video_duration,V.custom_video_duration,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain,V.like_count')->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id as vid,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');;
+        $this->db->select('V.id,V.title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,V.description,V.video_by,V.status,V.views'. ',V.is_free,V.video_duration,V.custom_video_duration,V.video_size,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain,V.like_count')->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id as vid,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');;
         $this->db->from('cmsvideos V');
         $this->db->join('cmsvideolist_details','cmsvideolist_details.video_id=V.id');
         $this->db->join('cmsvideolist_relations','cmsvideolist_relations.videolist_id=cmsvideolist_details.videolist_id');
@@ -232,7 +232,7 @@ class Videos_model extends CI_Model {
     }
     
     function getVideoDetails_all($tempvar='youtube') {
-         $this->db->select('V.id,V.video_tag,V.title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration,V.custom_video_duration,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain,V.video_source')->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id as vid,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+         $this->db->select('V.id,V.video_tag,V.title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration,V.custom_video_duration,V.video_size,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain,V.video_source')->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id as vid,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->from('cmsvideos V');
         $this->db->join('cmsvideolist_details','cmsvideolist_details.video_id=V.id');
         $this->db->join('cmsvideolist_relations','cmsvideolist_relations.videolist_id=cmsvideolist_details.videolist_id');
@@ -394,7 +394,7 @@ class Videos_model extends CI_Model {
 		}
      $this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,
 V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
-,V.custom_video_duration,V.androidapp_link,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain
+,V.custom_video_duration,V.video_size,V.androidapp_link,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain
 ,d.videolist_id,d.video_id');
         $this->db->from('cmsvideos V');
         $this->db->join('cmsvideolist_details d', 'd.video_id=V.id');
@@ -668,7 +668,7 @@ public function getFreeVideos($palylist_id) {
 $this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,
 V.video_image,V.short_video,V.is_featured,
 V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
-,V.custom_video_duration,V.amazonaws_link,V.amazon_cloudfront_domain
+,V.video_size,V.custom_video_duration,V.video_size,V.amazonaws_link,V.amazon_cloudfront_domain
 ');
         $this->db->from('cmsvideolist_details VD');
         $this->db->where('V.video_source', 'youtube');
@@ -686,10 +686,10 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
     public function getExamFreeVideos($exam_id,$limit=0) {
-        $this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,
+    $this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,
 V.video_image,V.short_video,V.is_featured,
 V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
-,V.custom_video_duration,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain
+,V.custom_video_duration,V.video_size,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain
 ')->select('L.name as playlist,L.id as playlist_id')->select('C.name as exam')->select('S.name as subject')->select('CH.name as chapter');
         //$this->db->from('cmsvideolist_details VD');
         $this->db->from('cmsvideos V');
@@ -697,21 +697,22 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         $this->db->where('V.video_url_code !=', '');
         $this->db->where('V.is_featured',1);
         $this->db->where('V.video_tag!=','Career Point');
-        $this->db->join('cmsvideolist_details VD', 'V.id=VD.video_id');
+        $this->db->join('cmsvideolist_details VD','V.id=VD.video_id');
         $this->db->join('cmsvideolist_relations R','R.videolist_id=VD.videolist_id');
         $this->db->join('categories C','C.id=R.exam_id');
         $this->db->join('cmssubjects S', 'R.subject_id=S.id', 'left');
         $this->db->join('cmschapters CH', 'R.chapter_id=CH.id', 'left');
         $this->db->join('cmsvideoslist L','L.id=VD.videolist_id');
         if($exam_id>0){
-            $this->db->where('R.exam_id',$exam_id);
+        $this->db->where('R.exam_id',$exam_id);
         }
         if($limit > 0){
-            $this->db->limit($limit);
-            $this->db->order_by('V.id','random');
+        $this->db->limit($limit);
+        $this->db->order_by('V.id','random');
         }
         $this->db->group_by('V.id');
-        $query = $this->db->get();    //echo $this->db->last_query();
+        $query = $this->db->get();    
+		//echo $this->db->last_query();
         if($query->num_rows()>0){ 
         return $query->result();
         }else{
@@ -719,10 +720,10 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
     public function getAllFreeVideos($exam_id = 0, $subject_id = 0, $chapter_id = 0,$limit=0) {
-        $this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,
+$this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,
 V.video_image,V.short_video,V.is_featured,
 V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
-,V.custom_video_duration,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain
+,V.custom_video_duration,V.video_size,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain
 ')->select('L.name as playlist')->select('C.name as exam')->select('S.name as subject')->select('CH.name as chapter');
         //$this->db->from('cmsvideolist_details VD');
         $this->db->from('cmsvideos V');
