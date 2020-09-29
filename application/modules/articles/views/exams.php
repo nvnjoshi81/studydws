@@ -1,7 +1,7 @@
 <div id="wrapper">
     <div class="container">
         <div class="row">
-            <?php $this->load->view('common/breadcrumb'); ?>
+            <?php //$this->load->view('common/breadcrumb'); ?>
            <!-- <div class="col-md-3 col-sm-3">
                 <?php //$this->load->view('common/leftnav'); ?>
             </div>-->
@@ -69,7 +69,7 @@
                                         if ($value['count'] > 0) {
                                                $bookclass_cnt = rand(0, 3);
                                             ?>
-                                            <a title="Notes for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class='btn btn-sq-lg <?php echo $bookclass[$bookclass_cnt]; ?>'><i class='fa fa-book fa-5x'></i><br><?php echo $value['name']; ?><br> <span>(<?php echo $value['count']; ?>) Notes</span>
+                                            <a title="Notes for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class='sub_btn btn btn-sq-lg <?php echo $bookclass[$bookclass_cnt]; ?>'><i class='fa fa-book fa-5x'></i><br><?php echo $value['name']; ?><br> <span>(<?php echo $value['count']; ?>) Notes</span>
                                             </a>
                                         <?php }
                                     }

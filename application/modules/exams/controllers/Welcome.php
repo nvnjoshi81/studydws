@@ -455,7 +455,7 @@ $chkcount=$chkcount+1;
                $purchased_material=$this->session->userdata('purchases');               
                array_push($purchased_material[1],$final_subject_product_id);
                $this->session->unset_userdata('purchases');
-                 $this->session->set_userdata('purchases',$purchased_material);               
+               $this->session->set_userdata('purchases',$purchased_material);               
         }
                 
         if(!$this->session->userdata('purchases') || !in_array_r($final_subject_product_id, $this->session->userdata('purchases'))) {
@@ -495,9 +495,6 @@ $chkcount=$chkcount+1;
 	   //$all_packages=array();
         }
 		
-		   if($this->session->userdata('customer_id')=='71696'){
-           //print_r($all_packages);
-        }
         foreach($all_packages as $package){
             if($package->module_type=='question-bank'){
                 $this->data['qb_package']=$package->total_question;
@@ -562,6 +559,7 @@ $chkcount=$chkcount+1;
             }			
           
         }   
+		
         //Get statistics on subject bassis for all module.
         $subjectArray_package=array();
         foreach ($data_array as $sublist_key => $sublist_value) {

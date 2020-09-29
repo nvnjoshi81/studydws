@@ -48,7 +48,7 @@ class Pricelist_model extends CI_Model {
         }
     }
        public function getOrderInfo($productid,$customerid,$ordStatus=NULL){
-     $this->db->select('O.id,O.order_no,O.user_id,O.order_items,O.created_dt,O.status,OD.product_id');
+     $this->db->select('O.id,O.order_no,O.user_id,O.order_items,O.created_dt,O.status,O.validity_dt,OD.end_date,OD.product_id');
         $this->db->from('cmsorders O');  //cmsorder_details
         $this->db->where('OD.product_id',$productid);
 		if(isset($ordStatus)&&$ordStatus>=0){

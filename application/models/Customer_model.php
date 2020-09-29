@@ -556,7 +556,9 @@ if($agree_terms_value=='yes'){
                 $agree_terms_value='yes';
             }else{
                 $agree_terms_value='no'; 
-            }            
+            }    
+
+			
 		$cart = $this->Cart_model->getCustomerCart($user_id,1);
 		$order_no=time();
 		$dataorder = array('order_no'=>$order_no,
@@ -569,16 +571,16 @@ if($agree_terms_value=='yes'){
 							  'shipping_charges'=>$shipping_charges,
 							  'cod_charges'=>$cod_charges,
 							  'final_amount'=>$final_amount,
-                                                          'guest'=> $isGuest, 
+                              'guest'=> $isGuest, 
 							  'shipping_id'=>$shipping_address_id,
-                                                          'agree_terms'=>$agree_terms_value,
+                              'agree_terms'=>$agree_terms_value,
+							  'validity_dt'=>'1680261071',
 							  'created_dt'=>time(),
 							  'created_by'=>$createdby);
             
-
+//manisha1ravrani 9601649197
 			
-			$dataorderarray = $this->db->insert('cmsorders',$dataorder);
-			
+			$dataorderarray = $this->db->insert('cmsorders',$dataorder);		
 			
 			$order_id = $this->db->insert_id();
 			$cart_items = $this->Cart_model->getCartItems($cart->id);
@@ -587,7 +589,7 @@ if($agree_terms_value=='yes'){
                         
 						
 /*Entry Order Detals table*/
-		foreach ($cart_items as $item){
+		foreach($cart_items as $item){
                     $product_info =  $this->Pricelist_model->getProducts_byid($item->product_id);
                    if(isset($product_info[0]->type)){
                        $type= $product_info[0]->type; 

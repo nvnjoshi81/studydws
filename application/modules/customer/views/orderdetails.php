@@ -40,7 +40,7 @@
                  
             ?>
             </td>
-            <td><button onclick="window.print();" class="label label-success">Print</button>&nbsp;<a title="View Download" href="<?php echo base_url(); ?>customer"><i class="material-icons">system_update_alt</i>View/Download</a></td>
+            <td><button onclick="window.print();" class="label label-success">Print</button></td>
         </tr>
         <?php //} ?>
        <!-- <tr>

@@ -18,9 +18,7 @@ if($subscription_expiry>1){
                                 //WE do not display product if user has alredy puchased
                            }   
     }
-     ?>
-
-        <?php 
+	
 			$isProductid=$isProduct->id; 
 							$customer_id=$this->session->userdata('customer_id');
 							if(isset($customer_id)&&$customer_id>0){
@@ -36,29 +34,33 @@ if($subscription_expiry>1){
 		}else{
 		$order_result=NULL;
 		}
-							
-					if(isset($order_result->id)&&($order_result->id>0))
+		if(isset($order_result->id)&&($order_result->id>0))
                    {
 $product_brought='yes';
 				   }else{					   
 $product_brought='no';
 				   }
-				   
             if(isset($orderInfo)&&$product_brought=='yes'){ 
 			$validity_years='+'.$validity.' years';
             $orderdate=$orderInfo->created_dt;
-            $newTimestamp = strtotime($validity_years, $orderdate);
+            $validityByproduct = strtotime($validity_years, $orderdate);
+			$validity_dt=$orderInfo->validity_dt;
+			if(isset($validity_dt)&&$validity_dt>0){
+			$newTimestamp=$validity_dt;	
+			}else{
+			$newTimestamp=$validityByproduct;
+			}
+			
+			
                 ?><div class="row">
         <div class="alert alert-info">
             <span class="copy">You have purchased this Course on <strong><?php echo date('d/M/Y', $orderdate); ?></strong>.Course will not be available after <strong><?php echo date('d/M/Y', $newTimestamp);  ?></strong>.<strong><a href="<?php echo base_url('user/orderdetails/'.$orderInfo->id)?>" title="Studyadda Order - <?php echo $orderInfo->order_no ; ?>">View Order</a></strong> 
         </span></div>  <div class="clearfix"></div></div>
-        <?php 
-        }
-        ?>
-
+<?php 
+}
+?>
 <div class="row">
     <?php
-	
 	if(isset($product_brought)&&$product_brought!='yes'){ 
     $this->session->set_userdata('sub_purchases','no');
     $videos_likes = 0;

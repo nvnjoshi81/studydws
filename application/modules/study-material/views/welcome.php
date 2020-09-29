@@ -139,7 +139,9 @@ $bookclass = array('btn-default', 'btn-primary', 'btn-warning', 'btn-info', 'btn
                                             $bookclass_cnt = rand(0, 3);
                                             $containt_avail='yes';
                                     ?>
-                                                <a style="text-transform:none" title="Study Packages for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class='btn btn-sq-lg <?php echo $bookclass[$bookclass_cnt]; ?>'><i class='fa fa-book fa-5x'></i><br/><?php echo ucfirst($value['name']); ?><br><span>(<?php echo $value['count']; echo ucfirst(' Packages ');?> )</span> </a>  
+                                                <div class="sub_btn">
+												<a style="text-transform:none" title="Study Packages for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class='btn btn-sq-lg <?php echo $bookclass[$bookclass_cnt]; ?>'><i class='fa fa-book fa-5x'></i><br/><?php echo ucfirst($value['name']); ?><br><span>(<?php echo $value['count']; echo ucfirst(' Packages ');?> )</span> </a> 	
+												</div>												
 <?php }
                                     }
                                                 ?>

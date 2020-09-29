@@ -307,7 +307,14 @@
 
 .card-module2>ul>li {
     margin: 5px;
-    float: none
+    float: none;
+	border:1px solid #93ab99;
+	transition:all 500ms;
+}
+
+.card-module2>ul>li:hover {
+	border:2px solid #0d521f;
+	transition:all 500ms;
 }
 
 .card-module2>ul>li>span {
@@ -620,7 +627,7 @@
 }
 
 .select_subject_btn {
-	margin:5px 1px !important;  
+	margin:5px 1px !important;
 }
 
 .select_heading {
@@ -631,5 +638,39 @@
 	text-shadow: 2px 2px 0 #225a1d, 2px -2px 0 #225a1d, -2px 2px 0 #225a1d, -2px -2px 0 #225a1d, 2px 0px 0 #225a1d, 0px 2px 0 #225a1d, -2px 0px 0 #225a1d, 0px -2px 0 #225a1d;
 	transform: skewX(-7deg);
 	border-bottom: 10px ridge #ff5722;
-	border-radius:15px;
+	border-radius:8px;
+}
+
+.sub_btn {
+	border: 2px double green !important;
+	border-radius:20px;
+	display:block;
+	float:left;
+	margin:5px 8px;
+	
+	animation: bg 1.25s cubic-bezier(0.19, 1, 0.22, 1) 1;
+    animation-play-state: paused;
+}
+}
+
+.sub_btn:hover {
+	background:none !important;
+}
+
+.sub_btn a {
+	display:block;
+}
+
+.sub_btn a span:hover {
+	background:none;
+	color:#009688;
+}
+
+
+@media only screen and (max-width:490px) {
+		.sub_btn {
+		float:none;
+		margin:5px auto;
+		text-align:center;
+	}
 }

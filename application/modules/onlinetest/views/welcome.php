@@ -20,11 +20,17 @@
          if(in_array($isPrName->exam_id,$testarray)){  
  $testexam1='online-test/'.url_title($isPrName->exam, '-', true) . '/' . $isPrName->exam_id;    
 ?>
+
+
 <a class="buy_btn btn-primary btn btn-sm btn-md btn-lg  btn-raised select_subject_btn" href="<?php echo base_url($testexam1);?>">
+ 
+
 <?php 
 echo substr($isPrName->modules_item_name,0,-11);
 ?>
   </a>
+
+  
 <?php }} ?>
 </div>
 	<?php if($exam_id>0){
