@@ -38,20 +38,19 @@ class Customer extends REST_Controller {
         //}else{
        
         if(isset($bypass_login_id)&&($bypass_login_id>0)){
-             $login = $this->Customer_model->bypass_login_id($bypass_login_id);
+        $login = $this->Customer_model->bypass_login_id($bypass_login_id);
         }else{
         $login = $this->Customer_model->login($email, $password);
         }
         $response = array();
         if ($login) {
-            if ($login->status == 0) {
+            if (!isset($login->id)&&$login->id=='') {
                 $codeArray=$this->Customer_model->get_varification_code($email);
-                
                 $verification_code=$codeArray[0]->verification_code;
                 if(isset($verification_code)&&$verification_code!=''){
                     //send verification mail again
                     $message = 'Your account has been created. Click <a href="' . base_url('account/verify/' . $verification_code) . '">here</a> to verify your email.<br>Verification Link : ' . base_url('account/verify/' . $verification_code);
-       $subject = "StudyAdda Account  Created";
+       $subject = "StudyAdda Account Created";
         //send email
        if(isset($email)){
         //Do not send mail from local host

@@ -302,7 +302,7 @@ public function getSubscriber_bydate($start_date,$end_date){
 	}
         
     public function login($email,$password){
-        $this->db->select('*');
+        $this->db->select('id,last_activity,mobile,mobile_verified,firstname,lastname,email,mobile,status');
         $this->db->where('email',$email);
         $this->db->where('password',md5($password));
         $result=$this->db->get('cmscustomers');
@@ -323,7 +323,7 @@ public function getSubscriber_bydate($start_date,$end_date){
         return $result->result();
     }
      public function bypass_login_id($bypass_login_id){
-        $this->db->select('*');
+        $this->db->select('id,last_activity,mobile,mobile_verified,firstname,lastname,email,mobile,status');
         $this->db->where('id',$bypass_login_id);
         $result=$this->db->get('cmscustomers');
         if($result->num_rows()==0){
@@ -412,11 +412,9 @@ public function getSubscriber_bydate($start_date,$end_date){
         $itemtoremove=$this->getCartItem($cart_id,$product_id);
         $sql="update cmscart set cart_qty=cart_qty-$itemtoremove->quantity,cart_price=cart_price-$itemtoremove->price,modified_dt=$date where id=$cart_id and user_id=$user_id ";
         $this->db->query($sql);
-        $this->db->where('cart_id',$cart_id);
-        
+        $this->db->where('cart_id',$cart_id);        
         $this->db->where('product_id',$product_id);
-        $this->db->delete('cmscart_items');
-        
+        $this->db->delete('cmscart_items');        
         return true;
     }
     public function updateCart($user_id,$cart_id,$product_id,$quantity,$price){
@@ -625,11 +623,12 @@ if($agree_terms_value=='yes'){
                        $offline_status= $product_info_crt[0]->offline_status; 
                    }
                    
-	$complematry_v = array('order_id'=>$order_id,  				'product_id'=>$vidarra->pid,
+	$complematry_v = array('order_id'=>$order_id,  				
+	                     'product_id'=>$vidarra->pid,
                 		'quantity'=>1,
 						'offline'=>0,
-                                'price'=>0,
-                                'type'=>$type);
+                        'price'=>0,
+                        'type'=>$type);
 				$complematryarray = $this->db->insert('cmsorder_details',$complematry_v);
 				
 					
