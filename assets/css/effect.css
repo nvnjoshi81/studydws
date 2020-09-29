@@ -631,12 +631,14 @@
 }
 
 .select_heading {
-	font-size: 50px !important;
+	font-size: 32px !important;
 	letter-spacing: 1px;
-	color: #FFFFFF;
+	color: #398000;
 	background: #FFFFFF;
-	text-shadow: 2px 2px 0 #225a1d, 2px -2px 0 #225a1d, -2px 2px 0 #225a1d, -2px -2px 0 #225a1d, 2px 0px 0 #225a1d, 0px 2px 0 #225a1d, -2px 0px 0 #225a1d, 0px -2px 0 #225a1d;
+	/*text-shadow: 2px 2px 0 #225a1d, 2px -2px 0 #225a1d, -2px 2px 0 #225a1d, -2px -2px 0 #225a1d, 2px 0px 0 #225a1d, 0px 2px 0 #225a1d, -2px 0px 0 #225a1d, 0px -2px 0 #225a1d;
 	transform: skewX(-7deg);
+	*/
+	font-weight:700;
 	border-bottom: 10px ridge #ff5722;
 	border-radius:8px;
 }

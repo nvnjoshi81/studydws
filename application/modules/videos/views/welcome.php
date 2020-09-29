@@ -70,12 +70,12 @@ if($contant_avail=='no'){
                                                 $chapters__cont_avail='yes';
                                                 ?>
 												
-												<div class="sub_btn">
+												
 
                                             <a title="Video Lectures for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($selectedsubject->name, '-' , TRUE) . '/' . $selectedsubject->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn select_subject_btn btn btn-primary btn-raised btn-lg" type="button">
                                             <?php echo $value['name']; ?> <span class="badge"><?php echo $value['count']; ?></span>
                                             </a>
-											</div>
+											
                                     <?php }                                   
                                     }
                                      ?> 
