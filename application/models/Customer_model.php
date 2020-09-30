@@ -266,7 +266,7 @@ public function getSubscriber_bydate($start_date,$end_date){
 		$this->db->update('cmscategories',$data);     
 		return;        
     }
-    	//update customer addresses
+    //update customer addresses
 	
 	// ####Delete####
 	public function deleteCustomers($id){
