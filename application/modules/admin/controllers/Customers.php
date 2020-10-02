@@ -10,24 +10,76 @@ class Customers extends MY_Admincontroller {
         }
 		
 		/*For Displaylist*/
-		public function teacher_list(){
+		public function teacher_list($techerid=0){
+			
+			if(isset($techerid)&&$techerid>0){
+			 $teachervyid =$this->Customer_model->get_teacherlist($techerid); 	
+			$this->data['teachervyid']=  $teachervyid;   
+			}
+			
                 $teacher =$this->Customer_model->get_teacherlist(); 
                 $this->data['teacher']=  $teacher;      
                 $this->data['content']='customers/teacherlist';
                 $this->load->view('common/template',$this->data);
         }
 		
-		  public function edit_teacher(){
-                $customer_id =$this->input->post('customer_id');
-                $customer_email =$this->input->post('customer_email');
-                $customer_mobile =$this->input->post('customer_mobile');
-                $teacher =$this->Customer_model->get_teacherlist(); 
-                $this->data['teacher'] = $teacher; 
-                $customers =$this->Customer_model->edit_teacher(); 
-                $this->data['customers']=  $customers;      
-                $this->data['content']='customers/teacherlist';
-                $this->load->view('common/template',$this->data);
-        }
+		
+		public function reg_teacher() {
+				$teacher_id = $this->input->post('tid');
+				$firstname = $this->input->post('fnm');
+				$lastname =  $this->input->post('lnm');
+				$gender =  $this->input->post('gender');
+				$designation = $this->input->post('designation');
+				$email = $this->input->post('t_email');
+				$mob = $this->input->post('t_mob');	
+				
+				$techdata = array('teacher_id'=>$teacher_id,
+								'firstname'=>$firstname,
+								'lastname'=>$lastname,
+								'gender'=>$gender,
+								'designation'=>$designation,
+								'email'=>$email,
+								'mob'=>$mob);
+				
+				$this->Customer_model->addteachersinfo($techdata);
+				
+				redirect('admin/customers/teacher_list');
+														
+		}
+		
+		
+		public function edit_teacher(){
+			
+			$teachersql_id = $this->input->post('t_id');
+			$teacher_id = $this->input->post('tid');
+				$firstname = $this->input->post('fnm');
+				$lastname =  $this->input->post('lnm');
+				$gender =  $this->input->post('gender');
+				$designation = $this->input->post('designation');
+				$email = $this->input->post('t_email');
+				$mob = $this->input->post('t_mob');	
+				
+				
+				$techdata = array('teacher_id'=>$teacher_id,
+								'firstname'=>$firstname,
+								'lastname'=>$lastname,
+								'gender'=>$gender,
+								'designation'=>$designation,
+								'email'=>$email,
+								'mob'=>$mob);
+			
+				$this->Customer_model->edit_teacher($techdata,$teachersql_id);
+				
+				redirect('admin/customers/teacher_list');
+			
+			
+			$teacher =$this->Customer_model->get_teacherlist(); 
+			$this->data['teacher'] = $teacher; 
+			$customers =$this->Customer_model->edit_teacher(); 
+			$this->data['customers']=  $customers;      
+			$this->data['content']='customers/teacherlist';
+			$this->load->view('common/template',$this->data);
+		}
 		
         public function index(){
             $this->load->library('pagination');

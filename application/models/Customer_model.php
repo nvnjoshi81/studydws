@@ -8,15 +8,40 @@ class Customer_model extends CI_Model{
 	//Teacher functions
 	
 	
-	function get_teacherlist()
+	public function get_teacherlist($techerid=0)
 	{
+		
+		 $this->db->select('*');
+            $this->db->from('cmsteachers');
+		if($limit_start || $limit_end){
+			$this->db->limit($limit_start, $limit_end);
+		}
+	if(isset($techerid)&&$techerid>0){
+		   $this->db->where('id',$techerid);
+		$query = $this->db->get();
+		return $query->row();
+	}else{
+		$query = $this->db->get();
+		return $query->result();
+		
+	}
+		
+               // $this->db->order_by($ordercol,$order);
+		
 		
 	}
 	
-		function edit_teacher()
+		public function edit_teacher($data,$id)
 	{
-		
+		$this->db->where('id',$id);
+		$this->db->update('cmsteachers',$data);     
+		return; 
 	}
+	
+	public function addteachersinfo($data){
+        $this->db->insert('cmsteachers',$data);
+        return $this->db->insert_id();
+    }
 	
 	
 	
@@ -104,7 +129,7 @@ $this->db->like('email',$customer_email);
             return $query->result();
         }
 		
-		 public function getCustomerDetails_byparam($searchcustomer){
+		 public function getCustomerDetails_byparam1($searchcustomer){
 			 $cfname=$searchcustomer['cfname'];
 			 $clname=$searchcustomer['clname'];
 			 $customer_email=$searchcustomer['customer_email'];
