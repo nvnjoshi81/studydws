@@ -12,9 +12,7 @@
             <!-- /.row -->
             <div class="row">
                <div class="col-lg-12">
-                    
                     <div class="panel">
-                        
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper table-responsive">
@@ -33,15 +31,23 @@
                                     </thead>
                                     <tbody>
 <?php
+
 $i = 1;
 if (isset($orders)) {
 	foreach ($orders as $order) {
 		
 //if(($order->status==1)||($order->status==3)){
 // print_r($orders_status_array);
-	?><tr class="odd gradeX">
+	?>
+	<tr class="odd gradeX">
                                     <td><?php echo $order->id;?> (<?php echo $order->order_no; ?>)</td>
-                                    <td><a target="_blank" href="<?php echo base_url(); ?>/admin/customers/edit/<?php echo $order->user_id; ?>"><?php echo $order->firstname.' '.$order->lastname;?></a></td>
+                                    <td><a target="_blank" href="<?php echo base_url(); ?>/admin/customers/edit/<?php echo $order->user_id; ?>"><?php echo $order->firstname.' '.$order->lastname;?></a><br>							
+									<?php
+									if(isset($order->user_id)&&$order->user_id>0){
+											echo 'SQLuser_id['.$order->user_id.']'; 
+											}
+									?>
+									</td>
                                     <td><?php echo $order->email?><br><?php echo $order->mobile ?></td>
                                     <td><?php foreach($orders_status_array as $order_status){
                   
@@ -50,7 +56,9 @@ if (isset($orders)) {
 					echo '<span>'.$order_status->value.'</span>';
 				}  
                  }?></td>
-                                    <td><i class="fa fa-inr"></i><?php echo $order->order_price;?></td>
+                                    <td><i class="fa fa-inr"></i><?php echo $order->order_price;?><br><?php if(isset($order->order_items)&&$order->order_items>0){
+											echo 'QTY['.$order->order_items.']'; 
+											} ?></td>
                                     <td>
                                          <?php
                                             if (!empty($order->created_dt)) {
@@ -61,7 +69,13 @@ if (isset($orders)) {
                                          <td>
                                          <?php
                                            echo ucfirst($order->guest);
-                                        ?>
+                                        ?><br>
+										<?php if(isset($order->payment_mode)){
+											echo 'payment_mode['.$order->payment_mode.']'; 
+											} ?><br>
+										<?php if(isset($order->payment_status)){
+											echo 'payment_status['.$order->payment_status.']'; 
+											} ?>
                                         </td>
                                     <td class="center">
                                         
@@ -69,6 +83,12 @@ if (isset($orders)) {
                                             <i class="fa fa-edit cat-edit" ></i>
                                         </a><a href="<?php echo base_url(); ?>admin/orders/deleteCanOrd/<?php echo $order->id.'/'.$order->user_id.'/'.$order->status;?>">
                                             <i class="fa fa-trash cat-del"></i>
+											<br><?php 
+											if(isset($order->app_order)&&$order->app_order==1){
+											echo 'APP['.$order->app_order.']'; 
+											}else{
+											echo 'WEB['.$order->app_order.']';
+											} ?>
                                         </a>
                     
 </td>

@@ -493,7 +493,7 @@ if (isset($postdata ['key'])) {
             
             
              $this->sms->send_sms($mobile_number, 'your order No# '. $order_no .' at STUDYADDA is Completed.Please Login to your account to access your products.You can View/Download your product from My Account Section.'); 
-             $message = 'Dear Sir/Madam,'.'<br>'.'Your Order Was Successfull, Below is your order number for further references.'.'<br>'.'Your Order Number is'.'&nbsp;'.$order_no;
+             $message = 'Dear Sir/Madam,'.'<br>'.'Your Order Was Successfull, Below is your order number for further references.'.'<br>'.'Your Order Number is'.'&nbsp;'.$order_no.'<br>For Technical Support<br>06267349244';
             $subject = 'Order Confirmation-'.$mobile_number;
             $to = $user_info->email;
             $mobile_number = $user_info->mobile;
@@ -548,6 +548,7 @@ if (isset($postdata ['key'])) {
 		</tr>
     </tbody>
   </table></div>';
+  $message .= '<br>Thanks,<br>Team Studyadda';
             //send email
             sendEmail($to,$subject,$message);
             //$this->sms->send_sms($mobile_number,$sms_message);   
@@ -560,7 +561,6 @@ if (isset($postdata ['key'])) {
          redirect('/cart');   
         }
     }
-    
 	
 	public function response(){ 
 	//error_reporting(1); error_reporting(E_ALL);
@@ -621,7 +621,7 @@ ga('send', 'pageview');
                 $this->Cart_model->removeCart($cart_id,$user_id);
                 $this->cart->destroy();
 		// @TO-DO : Send email to user for payment recieved for order submitted
-		$message = 'Dear Sir/Madam,'.'<br>'.'Your Transaction Was Successfull, Below is your order number for further references.'.'<br>'.'Studyadda.com'.'<br>'.'Your Order Number is'.'&nbsp;'.$order_no.'.<br>You can find video link or PDF link in <a href="'.base_url().'customer">My Account Dashboard</a> Section.We recommend that Please check studyadda My Account dashboard after Payment.We can activate the download link only after payment is successful and Order Status is completed.'.'<br><br>Thanks,<br>Team Studyadda';
+		$message = 'Dear Sir/Madam,'.'<br>'.'Your Transaction Was Successfull, Below is your order number for further references.'.'<br>'.'Studyadda.com'.'<br>'.'Your Order Number is'.'&nbsp;'.$order_no.'.<br>You can find video link or PDF link in <a href="'.base_url().'customer">My Account Dashboard</a> Section.We recommend that Please check studyadda My Account dashboard after Payment.We can activate the download link only after payment is successful and Order Status is completed.'.'<br><br>Thanks,<br>Team Studyadda<br>Technical Support<br>06267349244';
 		$subject = 'Order Confirmation';
 		$to = $user_info->email;
 		//$sms_message = "Your order has been placed successfully.Your order number is".$order_no;
@@ -759,7 +759,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH']== 'com.studyaddaapp') {
                 $this->Customer_model->cancelOrder($order_id,$order_no,0,$txn_number);
                 //$this->Cart_model->removeCart($cart_id,$user_id);
 		//$this->cart->destroy();
-		$message = 'Dear Sir/Madam,'.'<br>'.'Your order#'.$order_no.' was not processed because of failed transaction.<br><br>Thanks,<br>Team Studyadda ';
+		$message = 'Dear Sir/Madam,'.'<br>'.'Your order#'.$order_no.' was not processed because of failed transaction.<br><br>Thanks,<br>Team Studyadda<br>Technical Support<br>06267349244 ';
 		$subject = 'Order failure';
 		$to = $user_info->email;
 		$mobile_number = $user_info->mobile;
@@ -992,7 +992,7 @@ $delivery_cust_notes='';
                 $this->Cart_model->removeCart($cart_id,$user_id);
                 $this->cart->destroy();
 		// @TO-DO : Send email to user for payment recieved for order submitted
-		$message = 'Dear Sir/Madam,'.'<br>'.'Your Transaction Was Successfull, Below is your order number for further references.'.'<br>'.'Studyadda.com'.'<br>'.'Your Order Number is'.'&nbsp;'.$order_no.'.<br>You can find video link or PDF link in <a href="'.base_url().'customer">My Account Dashboard</a> Section.We recommend that Please check studyadda My Account dashboard after Payment.We can activate the download link only after payment is successful and Order Status is completed.'.'<br><br>Thanks,<br>Team Studyadda';
+		$message = 'Dear Sir/Madam,'.'<br>'.'Your Transaction Was Successfull, Below is your order number for further references.'.'<br>'.'Studyadda.com'.'<br>'.'Your Order Number is'.'&nbsp;'.$order_no.'.<br>You can find video link or PDF link in <a href="'.base_url().'customer">My Account Dashboard</a> Section.We recommend that Please check studyadda My Account dashboard after Payment.We can activate the download link only after payment is successful and Order Status is completed.'.'<br><br>Thanks,<br>Team Studyadda<br>Technical Support<br>06267349244';
 		$subject = 'Order Confirmation';
 		$to = $user_info->email;
 		//$sms_message = "Your order has been placed successfully.Your order number is".$order_no;
@@ -1071,11 +1071,11 @@ if($_SERVER['HTTP_X_REQUESTED_WITH']== 'com.studyaddaapp') {
                 $this->Customer_model->cancelOrder($order_id,$order_no,0,$txn_number);
                 //$this->Cart_model->removeCart($cart_id,$user_id);
 		//$this->cart->destroy();
-		$message = 'Dear Sir/Madam,'.'<br>'.'Your order#'.$order_no.' was not processed because of failed transaction.<br><br>Thanks,<br>Team Studyadda ';
+		$message = 'Dear Sir/Madam,'.'<br>'.'Your order#'.$order_no.' was not processed because of failed transaction.<br><br>Thanks,<br>Team Studyadda<br>Technical Support<br>06267349244';
 		$subject = 'Order failure';
 		$to = $user_info->email;
 		$mobile_number = $user_info->mobile;
-		$sms_message = 'Your order#'.$order_no.' was not processed because of failed transaction';
+		$sms_message = 'Your order#'.$order_no.' was not processed because of failed transaction.<br>Technical Support<br>06267349244';
 		//send email
 		sendEmail($to,$subject,$message);
 		//$this->load->library('sms');

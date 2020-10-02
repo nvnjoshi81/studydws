@@ -86,7 +86,6 @@ class Content_model extends CI_Model
         $this->db->update('content_type', $data, array('id' => $id));
     }
     
-    
     public function getContentTypeDetail($id)
     {
         $this->db->select('id,name,order,created_by,modified_by,dt_created,dt_modified');

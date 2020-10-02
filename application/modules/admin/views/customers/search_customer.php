@@ -4,7 +4,7 @@
                     <h1 class="page-header">Customers</h1>
                 </div>
                 <div class="col-lg-12">
-                <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/search_customer">Search By Id<input id="customer_id" name="customer_id" value=""> OR Email <input id="customer_email" name="customer_email" value="">OR Mobile <input id="customer_mobile" name="customer_mobile" value="">
+                <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/search_customer">Search By Id<input id="customer_id" name="customer_id" value=""> First Name<input id="cfname" name="cfname" value=""> OR Surname<input id="clname" name="clname" value=""> OR Email <input id="customer_email" name="customer_email" value="">OR Mobile <input id="customer_mobile" name="customer_mobile" value="">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 </div>

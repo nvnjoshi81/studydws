@@ -73,12 +73,12 @@ class Orders extends MY_Admincontroller {
                 $order=$this->input->get('order');
 				$start_date=$this->input->post('start_date');
 				$regiType=$this->input->post('regiType');
-				 $start_date_string = strtotime($start_date);
+				$start_date_string = strtotime($start_date);
 				$end_date=$this->input->post('end_date');
                 $end_date_string = strtotime($end_date);
                 if($start_date_string == $end_date_string){
-                    $end_date_string=$start_date_string+(3600*24);
-                }
+                $end_date_string=$start_date_string+(3600*48);
+}
 				
                 if(!$ordercol){
                     $ordercol='id';
@@ -130,7 +130,12 @@ class Orders extends MY_Admincontroller {
                 }else{
 		$orders =$this->Orders_model->getOrders($config["per_page"], $page,$ordercol,$order); 
                 }
-		$this->data['orders']=  $orders;      
+		$this->data['orders']=  $orders;
+        $totalorder=count($orders);
+		$this->data['totalorder']=  $totalorder;
+		$this->data['start_date_string']=  $start_date_string;
+		$this->data['end_date_string']=  $end_date_string;
+		$this->data['regiType']=  $regiType;
                 $this->data['content']='orders/search_order';
                                
                 $this->load->view('common/template',$this->data);

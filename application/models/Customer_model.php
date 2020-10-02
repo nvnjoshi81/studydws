@@ -103,6 +103,47 @@ $this->db->like('email',$customer_email);
             //echo $this->db->last_query(); 
             return $query->result();
         }
+		
+		 public function getCustomerDetails_byparam($searchcustomer){
+			 $cfname=$searchcustomer['cfname'];
+			 $clname=$searchcustomer['clname'];
+			 $customer_email=$searchcustomer['customer_email'];
+			 $customer_id=$searchcustomer['customer_id'];
+			 $customer_mobile=$searchcustomer['customer_mobile'];
+
+			 
+			 
+			 
+			 
+			$this->db->select('*');
+            $this->db->from('cmscustomers');
+            
+			if($customer_id>0){
+            $this->db->where('id',$customer_id);
+            }else{
+				
+            $this->db->where($where);
+				
+if(isset($cfname)&&$cfname!=''){
+ $this->db->or_where('firstname',$cfname); 
+}
+				
+if(isset($clname)&&$clname!=''){
+ $this->db->or_where('lastname',$clname);
+}
+				
+if(isset($customer_mobile)&&$customer_mobile!=''){
+ $this->db->or_where('mobile',$customer_mobile); 
+}
+if(isset($customer_email)&&$customer_email!=''){
+ $this->db->or_where('email',$customer_email);
+}
+}
+        $query=$this->db->get();
+        //echo $this->db->last_query(); 
+        return $query->result();
+		}
+		
         
         public function getFrCustDetails_byparam($customer_id,$customer_email=NULL,$customer_mobile=NULL,$userid,$franchiseid,$searchschool_id=0){
             $this->db->select('c.id,c.firstname,c.lastname,c.email,c.dob,c.mobile,c.status,c.targate_exam,c.usertype,c.created_dt,f.id as franid,f.franchise_id');
