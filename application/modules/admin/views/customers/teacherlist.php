@@ -171,7 +171,7 @@ input:focus, select:focus {
 						<div class="form-group">
 							<label class="control-label col-sm-3">Mobile</label>
 							<div class="col-sm-9">
-								<input type="text" name="t_mob" placeholder="Enter Mobile" value="<?php echo $teachervyid->mob; ?>"  pattern="[1-9]{10}" title="Ten digit only (mobile no)" class="form-control">
+								<input type="text" name="t_mob" placeholder="Enter Mobile" value="<?php echo $teachervyid->mob; ?>"  pattern="[0-9]{10}" title="Ten digit only (mobile no)" class="form-control">
 							</div>
 						</div>
 						
