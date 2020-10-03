@@ -16,14 +16,17 @@
             <div class="col-md-3 col-sm-12 my_account"> 
             <?php $this->load->view('customer/menu'); ?>
             </div>            
-            <div class="col-sm-12 col-md-9 dash_panel customer-packageModel" id="recent_orderdiv">
+            <!-- <div class="col-sm-12 col-md-9 dash_panel customer-packageModel" id="recent_orderdiv">-->
+			<div class="col-sm-12 col-md-9 customer-packageModel" id="recent_orderdiv">
         <div class="row">
-        <div class="col-lg-4 fixpack">
+        <div class="col-lg-4">
         <div class="panel-group" id="accordion1">
-            <div class="panel panel-default">
+            <div class="panel panel-default subs_study">
                 <div class="btn-success" style="padding:10px 15px;">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree"><i class="material-icons">assignment_returned</i> &nbsp; My Study Packages Subscription</a>
+                    <h4 class="panel-title text-center">
+                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree"><i class="material-icons">assignment_returned</i>
+						        <b>My Study Packages Subscription</b>
+						</a>
                     </h4> 
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse">
@@ -136,8 +139,8 @@
                                        if(isset($itemdetail)){
                                               if($details->item_id<1){ 
                                                 ?>    <div class="panel-group" id="accordion_<?php echo $i_cnt; ?>">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
+                            <div class="panel panel-default subs_study">
+                                <div class="panel-heading subheading text-center">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion_<?php echo $i_cnt; ?>" href="#collapseThreeOne_<?php echo $i_cnt; ?>"><?php echo $name ?><!--<i class="material-icons">arrow_forward</i>-->
                                         </a></h4>
@@ -162,13 +165,14 @@
                                               }  else { 
                                               $saprat_package[]=array($itemdetail->id,$name);
                                                 ?>
-                                <div class="panel-heading">
+                                <div class="panel-heading subheading text-center">
                                     <h4 class="panel-title">
                                      <a data-toggle="collapse" data-parent="#accordion_<?php echo $i_cnt; ?>" href="#collapseThreeOne_<?php echo $i_cnt; ?>"><?php echo $name ?>
                                      </a>
                                     </h4>
                                 </div>
-                                <div id="collapseThreeOne_<?php echo $i_cnt; ?>" class="panel-collapse collapse in"><div class="panel-body"><a href="<?php echo base_url('study-packages/download/'.encrypt($itemdetail->id.'.'.$this->session->userdata('customer_id')))?>" target="_blank">Download Now</a></div></div>
+                                <div id="collapseThreeOne_<?php echo $i_cnt; ?>" class="panel-collapse collapse in subs_study"><div class="panel-body"><a href="<?php echo base_url('study-packages/download/'.encrypt($itemdetail->id.'.'.$this->session->userdata('customer_id')))?>" target="_blank">Download Now</a></div></div>
+                                <br>
 
  <?php   
                                               
@@ -245,10 +249,12 @@
             <!--Video Section Start-->
             <div class="col-lg-4 fixpack">
            <div class="panel-group">               
-        <div class="panel panel-default">     
+        <div class="panel panel-default subs_video">     
              <div class="btn-warning" style="padding:10px 15px;">
-              <h4 class="panel-title">
-          <a data-toggle="collapse" href="#collapse2"><i class="material-icons">ondemand_video</i> &nbsp; My Video Subscription</a>
+              <h4 class="panel-title text-center">
+          <a data-toggle="collapse" href="#collapse2"><i class="material-icons">ondemand_video</i> 
+          <b>My Video Subscription</b>
+        </a>
         </h4>
             </div>
       <div id="collapse2" class="panel-collapse collapse">
@@ -304,10 +310,12 @@ if(is_array($v1)){
                    <div class="col-lg-4 fixpack">
                        <!--Test Series-->
       <div class="panel-group">               
-      <div class="panel panel-default">     
+      <div class="panel panel-default subs_series">     
        <div class="btn-primary" style="padding:10px 15px;">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" href="#collapse3"><i class="material-icons">speaker_notes</i> &nbsp; My Test Series Subscription</a>
+        <h4 class="panel-title text-center">
+          <a data-toggle="collapse" href="#collapse3"><i class="material-icons">speaker_notes</i>
+          <b>My Test Series Subscription</b>
+        </a>
         </h4>
         </div>
       <div id="collapse3" class="panel-collapse collapse">          
