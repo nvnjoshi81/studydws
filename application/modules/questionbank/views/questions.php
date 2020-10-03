@@ -56,8 +56,8 @@ function utf8replacer($captures) {
          <div class="question_panel_lft">
           <h3 class="panel-title"><i class="material-icons">done</i> <?php echo $qbdetails->name;?></h3><div><?php
 		  $qcnt=count($questions);
-		  echo 'Result- '
-		  ?><span id='resultArea'></span><?php echo $qcnt; ?></div>
+		  echo 'Total Question - '
+		  ?><span id='resultArea'></span><h3><?php echo $qcnt; ?></h3></div>
         </div>
         
          <div class="question_panel_lft">

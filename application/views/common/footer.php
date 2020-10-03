@@ -1321,7 +1321,7 @@ $("div.vidblock").children().css('display','none');
         }else{
             $("#answrong_"+aId).css('display', 'block');
         }
-		$( "#resultArea" ).html('3');
+		//$( "#resultArea" ).html('3');
 		
     }
 </script>
