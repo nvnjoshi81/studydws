@@ -3,45 +3,91 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Customers</h1>
                 </div>
-                <div class="col-lg-12">
-                <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/search_customer">Search By Id<input id="customer_id" name="customer_id" value=""> First Name<input id="cfname" name="cfname" value=""> OR Surname<input id="clname" name="clname" value=""> OR Email <input id="customer_email" name="customer_email" value="">OR Mobile <input id="customer_mobile" name="customer_mobile" value="">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-lg-12 searchFrm">
+                
+                <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/search_customer">
+                    
+                    <div class="form-group col-lg-4">
+                        <label>Search By - Id</label>
+                        <input id="customer_id" class="form-control" name="customer_id" value=""> 
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label>OR First Name</label>                    
+                    <input id="cfname" class="form-control" name="cfname" value=""> 
+                    </div>
+
+
+                    <div class="form-group col-lg-4">
+                       <label>OR Lastname</label>
+                    <input id="clname" class="form-control" name="clname" value=""> 
+                    </div>
+
+
+                    <div class="form-group col-lg-4">
+                        <label>OR Email </label> 
+                    <input id="customer_email" class="form-control" name="customer_email" value="">
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                   <label>OR Mobile </label> 
+                    <input id="customer_mobile" class="form-control" ame="customer_mobile" value="">
+                    </div>
+
+                <div class="form-group col-lg-4">
+                    <label class="" style="visibility: hidden">Submit</label>
+                   <button type="submit" class="btn btn-primary form-control">Submit</button>
+                    </div>
+
                 </form>
+
                 </div>
                 <!-- /.col-lg-12 -->
-                  <div class="col-lg-12">
-                  <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/customer_by_date" >
-                    <div class="container">
-                        <div class='col-md-5'>
-                            <div class="form-group">From Date 
+                  <div class="col-lg-12 searchFrm">
+                  <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/customer_by_date">
+
+                    
+                        <div class="form-group col-lg-3">
+                                <label>From Date </label>
                                 <div class='input-group date' id='datetimepicker6'>
-                                    <input type='text' class="form-control" id="start_date"  name="start_date" />
-                                  <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-md-5'>
-                            <div class="form-group">To Date
-                                <div class='input-group date' id='datetimepicker7'>
-                                    <input type='text' class="form-control" id="end_date" name="end_date"  />
+                                    <input type='text' class="form-control" id="start_date"  name="start_date" placeholder="Ex-2016-09-14" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
-                            </div>Ex-2022-09-14 (Lesser to Greater )
-                        </div> <div class='col-md-5'>
-                        <div class="form-group">
+                            </div>
+
+                        <div class="form-group col-lg-3">
+                                <label>To Date</label>
+                                <div class='input-group date' id='datetimepicker7'>
+                                    <input type='text' class="form-control" id="end_date" name="end_date"  placeholder="Ex-2016-09-14"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div> 
+
+    <div class="form-group col-lg-3">
         <label>Type</label>
-        <span class="new-list-spn"><input type="radio" name="regiType" value="web"> <span>Web</span></span>
-        <span class="new-list-spn"><input type="radio" name="regiType" value="app"> <span>App</span></span>
-        <span class="new-list-spn"><input type="radio" name="regiType" value="all" checked="checked"> <span>All</span></span>
-    </div><button type="submit" class="btn btn-primary">Submit</button>
-                    </div> 
-					</div>
+    
+        <div class="form-control">
+         <label class="radio-inline"> <input type="radio" name="regiType" value="web"> Web</label>
+       
+        <label class="radio-inline"><input type="radio" name="regiType" value="app"> App</label>
+
+        <label class="radio-inline"><input type="radio" name="regiType" value="all" selected="selected"> All</label>
+       </div>
+    </div>
+
+                        <div class="form-group col-lg-3">
+                            <label class="" style="visibility: hidden">Submit</label>
+                            <button type="submit" class="btn btn-primary form-control">Submit</button>
+                        </div>
+					
                       
                   </form>
+
+
                     <script type="text/javascript">
     $(function () {
         $('#datetimepicker6').datetimepicker({format:'YYYY-MM-DD'});

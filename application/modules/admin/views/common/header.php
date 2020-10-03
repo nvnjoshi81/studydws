@@ -31,6 +31,9 @@
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css"> 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap-multiselect.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap-tagsinput.css" />
+	
+	<link href="<?php echo base_url(); ?>assets/css/admin_style.css" rel="stylesheet">
+	
     <!--CSS  For Date Picker -->   
     <link href="<?php echo base_url(); ?>assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <?php if(isset($styles) && count($styles) > 0){ 

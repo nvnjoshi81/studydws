@@ -178,6 +178,8 @@ $user_key = $this->input->post('user_key');
          
          
          public function search_customer(){			 
+          ini_set('memory_limit','-1');
+          ini_set('max_execution_time',600);
 			 
                 $cfname =$this->input->post('cfname');
                 $clname =$this->input->post('clname');
@@ -195,7 +197,7 @@ $user_key = $this->input->post('user_key');
 				
 				
 				
-                $this->data['customers']=  $customers;      
+                $this->data['customers']= $customers;      
                 $this->data['content']='customers/search_customer';
                 $this->load->view('common/template',$this->data);
         }
