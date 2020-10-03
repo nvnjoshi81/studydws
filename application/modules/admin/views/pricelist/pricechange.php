@@ -1,5 +1,112 @@
-<div id="page-wrapper" class="row">
-    <div class="row">
+<script>
+
+$(document).ready(function(){
+	$("#set_val_date").hide();
+	$("#set_val_day").hide();
+	
+  $("#dt").click(function(){
+    $("#set_val_date").show();
+	$("#set_val_day").hide();
+  });
+  
+  $("#dy").click(function(){
+    $("#set_val_day").show();
+	$("#set_val_date").hide();
+  });
+});
+
+</script>
+
+
+<div id="page-wrapper" class="container" style="width:80%;">
+    <div class="row">	
+			<h1 class="page-header text-capitalize">set validity for product</h1>
+			
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 searchFrm">
+			
+	<div class="form-group col-lg-3 col-xs-12 text-capitalize">
+        <label>set validity for product by - </label>
+    
+        <div class="form-control" style="border:none">
+
+			<div id="dt" cl>
+				<label class="radio-inline"> <input type="radio" name="regiType" value="web"> Date</label>
+			</div>
+			
+			<div id="dy">
+				<label class="radio-inline"> <input type="radio" name="regiType" value="web"> Day</label>
+			</div>
+
+       </div>
+	   
+    </div>
+	
+	<br>
+		
+		<div class="col-lg-9">
+		<form id="set_val_date" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/set_validity">
+
+
+			<div class="form-group col-lg-5">
+					<label>Date </label>
+					<div class='input-group date' id='datetimepicker6'>
+						<input type='text' class="form-control" id="start_date"  name="start_date" placeholder="Ex-2016-09-14" required />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div> 
+
+			<div class="form-group col-lg-3">
+				<label class="" style="visibility: hidden">Submit</label>
+				<button type="submit" class="btn btn-primary form-control">Submit</button>
+			</div>
+
+		  
+		</form>
+		
+		
+		
+		<form id="set_val_day" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/set_validity">
+
+
+			<div class="form-group col-lg-5">
+                        <label>Day</label>                    
+                    <input type="number" id="cfname" class="form-control" name="cfname" value="" min="1" max="31" title="Please enter a value that is no more than 31" required> 
+                    </div> 
+
+			<div class="form-group col-lg-3">
+				<label class="" style="visibility: hidden">Submit</label>
+				<button type="submit" class="btn btn-primary form-control">Submit</button>
+			</div>
+
+		  
+		</form>
+		</div>
+
+
+                    <script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker({format:'YYYY-MM-DD'});
+        $('#datetimepicker7').datetimepicker({
+            format:'YYYY-MM-DD',
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+            $('.datepicker').hide();
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+             $('.datepicker').hide();
+        });
+        
+    });
+</script>
+                </div>
+		
+	
+	
         <div class="col-lg-12">
             <h1 class="page-header">Bulk Price List</h1>
         </div>
