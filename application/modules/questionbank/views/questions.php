@@ -54,7 +54,10 @@ function utf8replacer($captures) {
         <!-- fluid pandl -->
         <div class="col-md-10 col-sm-9">
          <div class="question_panel_lft">
-          <h3 class="panel-title"><i class="material-icons">done</i> <?php echo $qbdetails->name;?></h3>
+          <h3 class="panel-title"><i class="material-icons">done</i> <?php echo $qbdetails->name;?></h3><div><?php
+		  $qcnt=count($questions);
+		  echo 'Result- '
+		  ?><span id='resultArea'></span><?php echo $qcnt; ?></div>
         </div>
         
          <div class="question_panel_lft">

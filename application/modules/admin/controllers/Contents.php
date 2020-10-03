@@ -2599,7 +2599,6 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                         } else {
                             $entry_question_type = $cmsquestiontypes;
                         }
-
                         $data_questoin_text = array(
                             'question' => trim($qus_text),
                             'type' => $entry_question_type,
@@ -2611,6 +2610,7 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                             'created_by' => $created_by_id,
                             'dt_created' => $date
                         );
+						//print_r($data_questoin_text); die;
                         $data_questoin_ans_insert_id = $this->Questions_model->add($data_questoin_text);
                         $data_questoin_bank_details = array(
                             'questionbank_id' => $module_id,

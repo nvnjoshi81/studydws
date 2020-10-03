@@ -1298,10 +1298,8 @@ if($this->uri->segment(2)=='confirm'){
                 </div>
                  <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-                
+      </div>    
             </div>
-
     </div>
 </div>
 <?php if($showFooterJs=='yes'){ ?>
@@ -1309,21 +1307,22 @@ if($this->uri->segment(2)=='confirm'){
     
     function showhide_featured(aId){ 
      
-$( "div.vidblock" ).children().css('display','none'); 
-
-            $("#btn_"+aId).css('display', 'block');
+$("div.vidblock").children().css('display','none'); 
+    $("#btn_"+aId).css('display', 'block');
     }
     
     function checkSingleQus(aId,aRight){ 
         //$('#ansblock').children('i').css('display','none'); 
 
-$( "span.ansblock" ).children().css('display','none'); 
+//$( "span.ansblock" ).children().css('display','none'); 
         if(aRight==1){
             $("#ansright_"+aId).css('display', 'block');
             
         }else{
             $("#answrong_"+aId).css('display', 'block');
         }
+		$( "#resultArea" ).html('3');
+		
     }
 </script>
 <script>

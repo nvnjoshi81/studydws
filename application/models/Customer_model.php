@@ -144,7 +144,7 @@ $this->db->like('email',$customer_email);
 			$this->db->select('*');
             $this->db->from('cmscustomers');
             if($limit_start || $limit_end){
-            $this->db->limit($limit_start, $limit_end);
+            //$this->db->limit($limit_start, $limit_end);
         }
             
 			if($customer_id>0){
