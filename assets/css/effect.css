@@ -676,3 +676,31 @@
 		text-align:center;
 	}
 }
+
+.subs_study {
+    border:1px solid #5cb85c !important;
+}
+
+.subs_study > .btn-success {
+    background-color: #38802d !important;
+}
+
+.subs_video {
+    border:1px solid #f0ad4e !important;
+}
+
+.subs_series {
+    border:1px solid #337ab7 !important;
+}
+
+
+.subheading {
+    background: #449d44 !important; 
+    color: white !important;
+}
+
+.subheading > .panel-title > a {
+    font-weight: bold !important;
+}
+
+
