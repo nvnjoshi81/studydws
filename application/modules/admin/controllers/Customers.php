@@ -315,5 +315,23 @@ $user_key = $this->input->post('user_key');
           $this->data['content']='customers/usercart';
           $this->load->view('common/template',$this->data);
 		} 
-		 
+
+    public function set_validity() {      
+      $getstr = date('Y-m-d');
+      $dtstr = strtotime($getstr);
+      $offer_dt = $this->load->input->post('current_date');      
+      $no_of_day = $this->load->input->post('current_day');
+      $totaldays = "+".$no_of_day." days";
+      if (!$offer_dt=="") {
+        echo "Set by Date";
+        $offerdtstr = strtotime($offer_dt);
+      }
+      if (!$no_of_day=="") {
+        echo "Set by Day";
+        $offerdtstr = strtotime($currentdt.$totaldays);
+      }
+      $setval = array('value'=>$offerdtstr,'extra'=>$no_of_day,'created_dt'=>$dtstr);
+      $this->Customer_model->setvalidity('ORDER_VALIDITY',$setval);
+      redirect('admin/pricelist/pricechange');
+    }		 
 }
