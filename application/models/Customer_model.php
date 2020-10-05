@@ -1031,5 +1031,10 @@ if($agree_terms_value=='yes'){
         $query=$this->db->get();
         return $query->num_rows();
     }
+
+    public function setvalidity ($id,$userdata) {
+        $this->db->where('macro',$id);
+        $this->db->update('cmsmacro',$userdata);
+    }
 }
 ?>
