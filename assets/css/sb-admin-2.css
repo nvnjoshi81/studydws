@@ -366,6 +366,9 @@ table.dataTable thead .sorting:after {
 
 
 .page-header{
+    clear: both;
+    display: block;
+    float: left;
 	margin-top:15px !important;
 	padding-bottom:0 !important
 }
