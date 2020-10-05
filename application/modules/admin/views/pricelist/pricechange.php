@@ -17,6 +17,9 @@ $(document).ready(function(){
 
 </script>
 
+<?php
+$_POST[""];
+?>
 
 <div id="page-wrapper" class="container" style="width:80%;">
     <div class="row">	
@@ -24,7 +27,7 @@ $(document).ready(function(){
 			
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 searchFrm">
 			
-	<div class="form-group col-lg-3 col-xs-12 text-capitalize">
+	<div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-12 text-capitalize">
         <label>set validity for product by - </label>
     
         <div class="form-control" style="border:none">
@@ -43,14 +46,14 @@ $(document).ready(function(){
 	
 	<br>
 		
-		<div class="col-lg-9">
+		<div class="col-lg-9 col-md-3 col-sm-9 col-xs-12">
 		<form id="set_val_date" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/set_validity">
 
 
 			<div class="form-group col-lg-5">
 					<label>Date </label>
 					<div class='input-group date' id='datetimepicker6'>
-						<input type='text' class="form-control" id="start_date"  name="start_date" placeholder="Ex-2016-09-14" required />
+						<input type='text' class="form-control" id="start_date"  name="current_date" placeholder="Ex-2016-09-14" required />
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-calendar"></span>
 						</span>
@@ -72,7 +75,7 @@ $(document).ready(function(){
 
 			<div class="form-group col-lg-5">
                         <label>Day</label>                    
-                    <input type="number" id="cfname" class="form-control" name="cfname" value="" min="1" max="31" title="Please enter a value that is no more than 31" required> 
+                    <input type="number" id="cfname" class="form-control" name="current_day" value="" min="1" max="" title="Please enter a digit only" required> 
                     </div> 
 
 			<div class="form-group col-lg-3">
