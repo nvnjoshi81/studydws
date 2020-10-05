@@ -174,17 +174,7 @@ input:focus, select:focus {
 								<input type="text" name="t_mob" placeholder="Enter Mobile" value="<?php echo $teachervyid->mob; ?>"  pattern="[0-9]{10}" title="Ten digit only (mobile no)" class="form-control">
 							</div>
 						</div>
-						
-						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox">Remember me </label>
-									</label>
-								</div>
-							</div>
-						</div>
-						
+												
 						<div class="form-group text-center">
 							<input type="hidden" name="t_id" value="<?php echo $teachervyid->id; ?>">
 <?php
