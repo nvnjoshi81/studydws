@@ -93,6 +93,8 @@ $result = mysqli_query($conn, "SELECT * FROM $category WHERE id = '$mar_id'");
 	        	return $returnValue;
 		}
 		
+		
+	mysqli_close($conn);	
 	
  ?>
  

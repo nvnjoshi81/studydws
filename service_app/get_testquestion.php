@@ -27,7 +27,7 @@
 		
 			}
 		echo json_encode($tmp);
-	//	mysqli_close();
+
 		
 		function getcoursebycat($mar_id,$conn) {		
 			$returnValue = array();
@@ -99,7 +99,7 @@ while($ssr = mysqli_fetch_array($osdp))
 		return $returnValue;	
 		
 		}
-		
+	mysqli_close($conn);	
   
   ?>
  

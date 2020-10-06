@@ -35,7 +35,7 @@ if(1){
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		//echo "SELECT DISTINCT cmssubjects.name as subject, cmssubjects.id FROM cmsonlinetest_relations LEFT JOIN categories ON cmsonlinetest_relations.exam_id=categories.id LEFT JOIN cmssubjects ON cmsonlinetest_relations.subject_id=cmssubjects.id LEFT JOIN cmschapters ON cmsonlinetest_relations.chapter_id=cmschapters.id JOIN cmsonlinetest ON cmsonlinetest.id=cmsonlinetest_relations.onlinetest_id WHERE cmsonlinetest_relations.exam_id = '$category_id' AND cmsonlinetest.created_from_id = '$created_from_id' AND cmssubjects.id = '$mar_id'";
@@ -48,5 +48,5 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		}
 		return $returnValue;
 	}
-	
+		mysqli_close($conn);
 ?>

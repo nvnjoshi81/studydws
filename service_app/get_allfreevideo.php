@@ -20,6 +20,7 @@
 	$tmp = array();
 	$subTmp = array();
 	$postStatusString = "publish";
+	$res_2 = "";
 if($get_api){
     if($class_id && $subject_id && $chapter_id)
     {
@@ -32,11 +33,15 @@ if($get_api){
     else if($class_id)
     {
          $qry = "SELECT V.id, title, V.video_source, V.video_url_code, V.video_file_name, V.video_image, V.short_video, V.is_featured, V.description, V.video_by, V.status, V.views, V.is_free, V.video_duration, V.custom_video_duration, V.amazonaws_link, V.amazon_cloudfront_domain, L.name as playlist, L.id as playlist_id, C.name as exam, S.name as subject, CH.name as chapter FROM cmsvideos V JOIN cmsvideolist_details VD ON V.id=VD.video_id JOIN cmsvideolist_relations R ON R.videolist_id=VD.videolist_id JOIN categories C ON C.id=R.exam_id LEFT JOIN cmssubjects S ON R.subject_id=S.id LEFT JOIN cmschapters CH ON R.chapter_id=CH.id JOIN cmsvideoslist L ON L.id=VD.videolist_id WHERE V.video_source = 'youtube' AND V.video_url_code != '' AND V.video_tag !='Career Point' AND V.status='1' AND R.exam_id = '$class_id' GROUP BY V.id ORDER BY rand()";
-    }
+    }else{
+                 $tmp['status'] = "false";$tmp['data'] = "No Free Videos Found";
+	                 echo json_encode($tmp); die();
+        }
 	$result = mysqli_query($conn,$qry);
+	 $res_2 = mysqli_num_rows($result);
 }
-	if($numrs = mysqli_num_rows($result) > 0)
-	{
+	if($res_2 > 0)
+    {
 	while($row = mysqli_fetch_array($result)) {
 		 $mar_id = $row['id'];
 		$job = array();
@@ -48,31 +53,18 @@ if($get_api){
     {$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "Invalid key";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	}
 	else
 	{
 	    $tmp['status'] = "false";$tmp['data'] = "No Free Videos Found";
 	    echo json_encode($tmp);
 	}
-	/*else
-	{
-	     $qry = "SELECT V.id, title, V.video_source, V.video_url_code, V.video_file_name, V.video_image, V.short_video, V.is_featured, V.description, V.video_by, V.status, V.views, V.is_free, V.video_duration, V.custom_video_duration, V.amazonaws_link, V.amazon_cloudfront_domain, L.name as playlist, L.id as playlist_id, C.name as exam, S.name as subject, CH.name as chapter FROM cmsvideos V JOIN cmsvideolist_details VD ON V.id=VD.video_id JOIN cmsvideolist_relations R ON R.videolist_id=VD.videolist_id JOIN categories C ON C.id=R.exam_id LEFT JOIN cmssubjects S ON R.subject_id=S.id LEFT JOIN cmschapters CH ON R.chapter_id=CH.id JOIN cmsvideoslist L ON L.id=VD.videolist_id WHERE V.video_source = 'youtube' AND V.video_url_code != '' AND V.video_tag !='Career Point' AND V.status='1' AND R.exam_id = '28' GROUP BY V.id ORDER BY rand()";
-	    $result = mysqli_query($conn,$qry);
-	    while($row = mysqli_fetch_array($result)) {
-		 $mar_id = $row['id'];
-		$job = array();
-		$job = getmarvelcategory($mar_id,$conn);
-		$subTmp[] = $job;
-	}
-	
-if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
-		else {$tmp['status'] = "false";$tmp['data'] = "Invalid key";}
-	echo json_encode($tmp);
-	mysqli_close($conn);
-	    
-	    
-	}*/
+
+
+
+
+
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -112,5 +104,5 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
         }
 		return $returnValue;
 	}
-	
+        mysqli_close($conn);	
 ?>

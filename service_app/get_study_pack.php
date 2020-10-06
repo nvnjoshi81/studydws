@@ -49,7 +49,7 @@ error_reporting(0);
     if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 	else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn,$user_id,$category) {		
 		$returnValue = array();
 		$category = $_POST['category_id'];
@@ -93,5 +93,8 @@ error_reporting(0);
 		}
 		return $returnValue;
 	}
+	
+	mysqli_close($conn);
+	
 	
 ?>

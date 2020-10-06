@@ -74,5 +74,7 @@
 			}
 	        return $returnValue;
 		}
+		
+		mysqli_close($conn);
   ?>
  

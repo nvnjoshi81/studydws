@@ -135,41 +135,39 @@ $this->db->like('email',$customer_email);
 			 $customer_email=$searchcustomer['customer_email'];
 			 $customer_id=$searchcustomer['customer_id'];
 			 $customer_mobile=$searchcustomer['customer_mobile'];
-
-			 
 			 $limit_start=3;
              $limit_end=100;
 			 
-			 
 			$this->db->select('*');
             $this->db->from('cmscustomers');
-            if($limit_start || $limit_end){
-            //$this->db->limit($limit_start, $limit_end);
-        }
+         
             
 			if($customer_id>0){
             $this->db->where('id',$customer_id);
             }else{
 				
 //            $this->db->where($where);
-				
+	$chk=1;			
 if(isset($cfname)&&$cfname!=''){
- $this->db->or_where('firstname',$cfname); 
+ $this->db->or_where('firstname',$cfname); $chk++;
 }
 				
 if(isset($clname)&&$clname!=''){
  $this->db->or_where('lastname',$clname);
+$chk++;
 }
 				
 if(isset($customer_mobile)&&$customer_mobile!=''){
- $this->db->or_where('mobile',$customer_mobile); 
+ $this->db->or_where('mobile',$customer_mobile);  $chk++;
 }
 if(isset($customer_email)&&$customer_email!=''){
- $this->db->or_where('email',$customer_email);
+ $this->db->or_where('email',$customer_email); $chk++;
+}
+if($chk==1){
+	die('Please Enter Atleast One Field!');
 }
 }
         $query=$this->db->get();
-        //echo $this->db->last_query(); 
         return $query->result();
 		}
 		

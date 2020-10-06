@@ -64,7 +64,7 @@ if($get_api){
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+	
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -88,5 +88,5 @@ $returnValue['name'] = preg_replace('/[^A-Za-z0-9]/', ' ', $row['name']);
 		}
 		return $returnValue;
 	}
-	
+	mysqli_close($conn);
 ?>

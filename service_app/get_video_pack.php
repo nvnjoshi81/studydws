@@ -58,7 +58,7 @@ if($get_api){
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "Invalid key";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn,$user_id) {		
 		$returnValue = array();
 		$qry = "SELECT * FROM cmspricelist where id = '$mar_id'";
@@ -109,5 +109,7 @@ $tim = time();
 		}
 		return $returnValue;
 	}
+	
+	mysqli_close($conn);
 	
 ?>

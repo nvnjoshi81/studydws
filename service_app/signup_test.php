@@ -34,11 +34,9 @@ include("config.php");
     $sel = "select * from cmscustomers where email = '$email' or mobile = '$mobile'";
 	$userchk = mysqli_query($conn,$sel);
 	$numrows = mysqli_num_rows($userchk);
-	if(!($password == $re_pas)){
-	    $data = array("response"=>array("status" => "false", "msg" => "Password does not match!"));
-	}else{
 
-	if ($numrows < 1)
+
+    if ($numrows < 1)
 	{
 	function generate_random_password($length = 10) {
     $alphabets = range('A','Z');
@@ -107,16 +105,16 @@ include("config.php");
 	$data = array("response"=>array("status" => "false", "msg" => "Email or Mobile Number already registered!", "email" => $email));			  
 	}
 	
-	}//ik
+
 	
 	}//end first if
 	else 
 	{
-    $data = array("response"=>array("status" => "false", "msg" => "Enter all parameters!"));
+     $data = array("response"=>array("status" => "false", "msg" => "Enter all parameters!"));
     }
 
 	$newarray = $data;
 	echo json_encode($newarray);
-
+    	mysqli_close($conn);
 ?>
 

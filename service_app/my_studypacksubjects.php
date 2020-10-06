@@ -66,5 +66,5 @@ $va =array();
 				return $ress=(count($arr))? $arr : false;
 		}
 			
-		
+	mysqli_close($conn);	
 ?>

@@ -33,7 +33,6 @@ error_reporting(0);
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -42,12 +41,11 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		if($row = mysqli_fetch_array($result)) 
 		{
 		    $returnValue['order_no'] = $row['order_no'];
-		$returnValue['user_id'] = $row['user_id'];
+		    $returnValue['user_id'] = $row['user_id'];
 			$returnValue['order_items'] = $row['order_items'];
 			$returnValue['order_qty'] = $row['order_qty'];
 			$returnValue['order_price'] = $row['order_price'];
 			$returnValue['payment_mode'] = $row['payment_mode'];
-		
 			$returnValue['payment_status'] = $row['payment_status'];
 			$returnValue['status'] = $row['status'];
 			$returnValue['docket_no'] = $row['docket_no'];
@@ -60,16 +58,13 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			$returnValue['txn_number'] = $row['txn_number'];
 			$returnValue['created_dt'] = $yr = $row['created_dt'];
 			$returnValue['id'] = $row['id'];
-			
-			 $num = $row['id'];
-			 
-			 	$dt = new DateTime("@$yr");  // convert UNIX timestamp to PHP DateTime
-           $returnValue['created_datet'] = $dt->format('Y-m-d H:i:s');
-		
-			//	$returnValue['created_datet'] = $dt;
+			$num = $row['id']; 
+			$dt = new DateTime("@$yr");  // convert UNIX timestamp to PHP DateTime
+            $returnValue['created_datet'] = $dt->format('Y-m-d H:i:s');
 			
 		}
 		return $returnValue;
 	}
 	
+	mysqli_close($conn);
 ?>

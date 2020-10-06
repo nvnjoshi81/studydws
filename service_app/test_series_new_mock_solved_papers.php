@@ -35,7 +35,7 @@ if(1){
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		//echo "SELECT cmsonlinetest.name, cmsonlinetest.id, cmsonlinetest.exam_id, cmsonlinetest.subject_id, cmsonlinetest.chapter_id, cmsonlinetest.formula_id 
@@ -66,5 +66,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		}
 		return $returnValue;
 	}
+	
+	mysqli_close($conn);
 	
 ?>

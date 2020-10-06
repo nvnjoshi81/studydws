@@ -64,6 +64,6 @@ error_reporting(0);
 				return $ress=(count($arr))? $arr : false;
 		}
 	
-		
+    mysqli_close($conn);		
   
 ?>

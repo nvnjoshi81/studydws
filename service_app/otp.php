@@ -55,4 +55,7 @@ $type = $row1['type'];
 
     echo json_encode(array("response"=>array('status'=>'false','msg'=>'Invalid Request')));
 }
+
+    mysqli_close($conn);
+
 ?>

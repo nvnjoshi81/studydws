@@ -34,7 +34,7 @@
 if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['datatwo'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategoryn($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -72,5 +72,5 @@ if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
 		}
 		return $returnValue;
 	}
-	
+	mysqli_close($conn);
 ?>

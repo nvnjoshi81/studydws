@@ -39,7 +39,7 @@ if (!empty($_POST['token']) && !empty($_POST['user_id']))
 
 	$newarray = $data;
 	echo json_encode($newarray);
-
+mysqli_close($conn);
 ?>
 
 

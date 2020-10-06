@@ -203,4 +203,11 @@ else
     //echo $_POST['contact'];
    echo json_encode(array("response"=>array('status'=>'false','msg'=>'Invalid Request')));
 }
+
+    mysqli_close($conn)
 ?>
+
+
+
+
+

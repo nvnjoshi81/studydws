@@ -36,4 +36,6 @@
 	echo json_encode($array1);
 	}
 	
+	mysqli_close($conn);
+	
 ?>

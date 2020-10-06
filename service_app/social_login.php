@@ -14,7 +14,22 @@ error_reporting(0);$mobile_no;
   {
   $mobile_no = "";   
   }
-
+    /*=======================================*/
+     if($mobile_no != "")
+            {
+                  $qqq = "select * from cmscustomers where  mobile ='$mobile_no'";
+                    
+                      $dx = mysqli_query($conn, $qqq);
+                         $m_row = mysqli_num_rows($dx);
+                     
+                        if($m_row)
+                          {
+                             $data = array("response"=>array("status" => "false", "msg" => "This mobile number already exists! ", "mobile" => ""));
+                               echo json_encode($data);   
+                                    die();
+                         }
+            }
+    /*=======================================*/
 
   if($first > $ran_no  AND $last > $ran_no )
   $pac = "com.studyaddaapp";
@@ -59,10 +74,12 @@ if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($tes_id))
   }
    $user_key = "SD".$api_no =   generate_random_password(10) ;
    $dtnow = strtotime("now");
-   $in = "INSERT INTO cmscustomers (firstname,email,device_id,user_key,subject_id,is_app_registered, created_dt, usertype, is_social,mobile) VALUES ('$name','$email','$device_id','$user_key','0','1','$dtnow', 'student', '1','$mobile_no')";
+    $pass = rand(100000,999999); $new_pass = md5($pass);
+   $in = "INSERT INTO cmscustomers (firstname,email,device_id,user_key,subject_id,is_app_registered, created_dt, usertype, is_social,mobile,password) VALUES ('$name','$email','$device_id','$user_key','0','1','$dtnow', 'student', '1','$mobile_no','$new_pass')";
              $ob = mysqli_query($conn,$in);
             if($ob)
             {
+                  send_pass($pass,$email);
               $se = "SELECT * FROM cmscustomers where email='$email' and firstname='$name'" ;
               $trt = mysqli_query($conn,$se);
                $row=mysqli_fetch_array($trt);
@@ -146,5 +163,22 @@ if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($tes_id))
 
     $newarray = $data;
     echo json_encode($newarray);
+
+         function send_pass($pass,$email)
+            {   
+                	$to=$email;
+                    $strSubject="Studyadda | New Password";
+                    $message = '<br>';
+                    $message .= '<p>Your  password is -'.$pass.'</p>' ; 
+                    $message .= '<p>Email : - info@studyadda.com</p>' ;
+                    $message .= '<p>Thankyou for connecting with us.</p>' ;
+                    $headers = 'MIME-Version: 1.0'."\r\n";
+                    $headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
+                    $headers .= "From: Studyadda <info@studyadda.com>";            
+                    $mail_sent=mail($to, $strSubject, $message, $headers);
+                
+            }
+            
+    mysqli_close($conn);
 
 ?>

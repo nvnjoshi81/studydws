@@ -41,22 +41,28 @@ error_reporting(0);
 	$tmp = array();
 	$subTmp = array();
 	$postStatusString = "publish";
-
+      $res_2 ="" ; 
 if($get_api){
     //$qry = "SELECT cmsonlinetest.name, cmsonlinetest.id, cmsonlinetest_relations.exam_id, cmsonlinetest_relations.subject_id, cmsonlinetest_relations.chapter_id, categories.name as exam, cmssubjects.name as subject, cmschapters.name as chapter FROM cmsonlinetest_relations LEFT JOIN categories ON cmsonlinetest_relations.exam_id=categories.id LEFT JOIN cmssubjects ON cmsonlinetest_relations.subject_id=cmssubjects.id LEFT JOIN cmschapters ON cmsonlinetest_relations.chapter_id=cmschapters.id JOIN cmsonlinetest ON cmsonlinetest.id=cmsonlinetest_relations.onlinetest_id WHERE cmsonlinetest_relations.exam_id = '79' ORDER BY cmsonlinetest.id DESC";
-	$result = mysqli_query($conn,$qry);
-}
 
-	while($row = mysqli_fetch_array($result)) {
+}
+        	$result2 = mysqli_query($conn,$qry);
+
+             $res_2 = mysqli_num_rows($result2);
+  if($res_2 > 0)
+    { 
+        	while($row = mysqli_fetch_array($result2)) {
 		 $mar_id = $row['id'];
 		$job = array();
 		$job = getmarvelcategory($mar_id,$conn,$user_id);
 		$subTmp[] = $job;
 	}
+    }
+	
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn,$user_id) {		
 		$returnValue = array();
 		$qry = "SELECT cmsonlinetest.name, cmsonlinetest.id, cmsonlinetest_relations.exam_id, cmsonlinetest_relations.subject_id, cmsonlinetest_relations.chapter_id, categories.name as exam, cmssubjects.name as subject, cmschapters.name as chapter FROM cmsonlinetest_relations LEFT JOIN categories ON cmsonlinetest_relations.exam_id=categories.id LEFT JOIN cmssubjects ON cmsonlinetest_relations.subject_id=cmssubjects.id LEFT JOIN cmschapters ON cmsonlinetest_relations.chapter_id=cmschapters.id JOIN cmsonlinetest ON cmsonlinetest.id=cmsonlinetest_relations.onlinetest_id WHERE cmsonlinetest.id = '$mar_id'";
@@ -64,7 +70,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		if($row = mysqli_fetch_array($result)) 
 		{
 		$returnValue['title'] = preg_replace('/[^A-Za-z0-9]/', ' ', $row['name']);
-		$returnValue['id'] =$pid= $row['id'];
+		$returnValue['id'] =$pid= $mar_id; //jk $row['id'];
 		$returnValue['class_id'] = $row['exam_id'];
         $returnValue['subject_id'] = $row['subject_id'];
         $returnValue['chapter_id'] = $row['chapter_id'];
@@ -76,12 +82,14 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		$result1 = mysqli_query($conn,$qry1);
 		if($row1 = mysqli_fetch_array($result1)) 
 		{
-		    $returnValue['id'] =$pid= $row1['id'];
+		     //$returnValue['id'] =
+		     $pid= $row1['id'];
 		}
 		}
 		else
 		{
-		$returnValue['id'] =$pid= $row['id'];
+		    // $returnValue['id'] =
+		     $pid= $row['id'];
 		}
 		$num = $row['id'];
 		$las = $num%10;
@@ -109,5 +117,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		}
 		return $returnValue;
 	}
+	
+	mysqli_close($conn);
 	
 ?>

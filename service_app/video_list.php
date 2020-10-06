@@ -150,5 +150,9 @@ if($subTmp){
 	return $productQ;
 	}
 	
+	
+	
+	
+	
 $mysqli -> close();
 ?>

@@ -8,6 +8,7 @@
 	$cart_item = $_POST['cart_item'];
 	$cart_qty = $_POST['cart_qty'];
 	$cart_price = $_POST['cart_price'];
+	$transaction_id = $_POST['transaction_id'];
     $self = "select * from cmscustomers where user_key = '$user_key' and id = '$user_id'";
     $oppf = mysqli_query($conn, $self);
     $rww = mysqli_num_rows($oppf);
@@ -16,12 +17,16 @@
 	$get_api = $ryu['user_key'];
 	}
     }
+   
     $selspc = "select * from cmscustomer_addresses where customer_id = '$product_id'";
     $osdspc = mysqli_query($conn, $selspc);
+    $rw_2 = mysqli_num_rows($osdspc);
+    if($rw_2 > 0){
     while($ssrspc = mysqli_fetch_array($osdspc))
-    {  $sid = $ssrspc['id']; }
+    {  $sid = $ssrspc['id']; } }
+   
     $array1=array();
-	{
+	
 	if (!empty($_REQUEST['user_id']) &&!empty($get_api)) 
 	{
     $user_id = $_REQUEST['user_id'];
@@ -90,8 +95,8 @@
     $passwordnew .= $final_array[$key];
     }return $passwordnew; }
     $sessionid =   generate_random_password(40) ;
-	$query_req1s="INSERT INTO cmsorders (order_no,session_id,order_items,order_price,payment_mode,payment_status,status,final_amount,shipping_charges,created_dt,user_id,shipping_id,app_order)
-	VALUES ('$tim','$sessionid','$cart_qty','$cart_price','1','2','1','$cart_price','0','$tim','$user_id','4','1')"; 
+	$query_req1s="INSERT INTO cmsorders (order_no,session_id,order_items,order_price,payment_mode,payment_status,status,final_amount,shipping_charges,created_dt,user_id,shipping_id,app_order,txn_number)
+	VALUES ('$tim','$sessionid','$cart_qty','$cart_price','1','2','1','$cart_price','0','$tim','$user_id','4','1','$transaction_id')"; 
     $obs = mysqli_query($conn, $query_req1s);
     $selp = "select * from cmsorders where user_id = '$user_id' ORDER BY id DESC LIMIT 1";
     $osdp = mysqli_query($conn, $selp);
@@ -159,6 +164,8 @@
 		$array1['status']="Enter all fields";
 	}
 	echo json_encode($array1);
-	}
+	
+	mysqli_close($conn);
+	
 	
 ?>

@@ -36,7 +36,7 @@ error_reporting(0);
 		
 
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -62,5 +62,8 @@ error_reporting(0);
 		}
 		return $returnValue;
 	}
+	mysqli_close($conn);
+	
+	
 	
 ?>

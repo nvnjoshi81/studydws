@@ -76,7 +76,7 @@ error_reporting(0);
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
@@ -117,4 +117,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
         return  $rowcount=mysqli_num_rows($result);
 	 
 	}
+	
+	
+	mysqli_close($conn);
 ?>

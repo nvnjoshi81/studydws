@@ -68,5 +68,5 @@ $cart_pric = $cart_prices-$dprices;
 	}
 	echo json_encode($array1);
 	}
-	
+	mysqli_close($conn);
 ?>

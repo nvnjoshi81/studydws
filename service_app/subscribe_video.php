@@ -36,22 +36,30 @@
 	$tmp = array();
 	$subTmp = array();
 	$postStatusString = "publish";
+	$res_2 ="";
 if($get_api){
      "SELECT * FROM cmsvideolist_relations where exam_id = '$category' $sub $chh";
      //SELECT cmsvideoslist.name, cmsvideoslist.display_image, cmsvideoslist.id, cmsvideolist_relations.id as v_relations_id, cmsvideolist_relations.exam_id, cmsvideolist_relations.subject_id, cmsvideolist_relations.chapter_id, categories.name as exam, cmssubjects.name as subject, cmschapters.name as chapter FROM cmsvideolist_relations JOIN categories ON cmsvideolist_relations.exam_id=categories.id LEFT JOIN cmssubjects ON cmsvideolist_relations.subject_id=cmssubjects.id LEFT JOIN cmschapters ON cmsvideolist_relations.chapter_id=cmschapters.id JOIN cmsvideoslist ON cmsvideolist_relations.videolist_id=cmsvideoslist.id WHERE cmsvideolist_relations.exam_id = '$category' AND cmsvideolist_relations.subject_id = '$subject_id' AND cmsvideolist_relations.chapter_id = '$chapter_id' GROUP BY cmsvideolist_relations.videolist_id ORDER BY cmsvideoslist.id DESC
 	$result = mysqli_query($conn,"SELECT cmsvideoslist.name, cmsvideoslist.display_image, cmsvideoslist.id, cmsvideolist_relations.id as v_relations_id, cmsvideolist_relations.exam_id, cmsvideolist_relations.subject_id, cmsvideolist_relations.chapter_id, categories.name as exam, cmssubjects.name as subject, cmschapters.name as chapter FROM cmsvideolist_relations JOIN categories ON cmsvideolist_relations.exam_id=categories.id LEFT JOIN cmssubjects ON cmsvideolist_relations.subject_id=cmssubjects.id LEFT JOIN cmschapters ON cmsvideolist_relations.chapter_id=cmschapters.id JOIN cmsvideoslist ON cmsvideolist_relations.videolist_id=cmsvideoslist.id WHERE cmsvideolist_relations.exam_id = '$category' AND cmsvideolist_relations.subject_id = '$subject_id' AND cmsvideolist_relations.chapter_id = '$chapter_id' GROUP BY cmsvideolist_relations.videolist_id ORDER BY cmsvideoslist.id DESC");
+	 $res_2 = mysqli_num_rows($result);
 }
+	if($res_2 > 0)
+      {
 	
-	while($row = mysqli_fetch_array($result)) {
-		  $mar_id = $row['id']; 
-		$job = array();
-		$job = getmarvelcategory($mar_id,$conn);
-		$subTmp[] = $job;
-	}
+        	while($row = mysqli_fetch_array($result))
+            	{
+            		  $mar_id = $row['id']; 
+            		$job = array();
+            		$job = getmarvelcategory($mar_id,$conn);
+            		$subTmp[] = $job;
+                }
+    	}
+	
+	
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "Invalid key";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+	
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -86,5 +94,5 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		}
 		return $returnValue;
 	}
-	
+mysqli_close($conn);	
 ?>

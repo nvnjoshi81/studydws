@@ -66,7 +66,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
         	echo $n=$rows['created_dt'];
 			echo $m = date('Y-m-d',$n);
 			$date = strtotime($n);
-            $new_date = strtotime('+ 1 year',strtotime($n));
+            $new_date = strtotime('+ 2 year',strtotime($n));
             $mm = date('Y-m-d', $new_date);
 			$returnValue['expires_on'] = $n;
 			$returnValue['expires_on_check'] = $rows['product_expiry_date'];;

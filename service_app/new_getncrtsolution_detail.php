@@ -26,7 +26,7 @@
 		
 			}
 		echo json_encode($tmp);
-	//	mysqli_close();
+
 		
 		function getcoursebycat($mar_id,$conn) {		
 			$returnValue = array();
@@ -151,6 +151,6 @@
 		
 		}
 		
-  
+    mysqli_close($conn);
   ?>
  

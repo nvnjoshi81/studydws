@@ -28,7 +28,7 @@ while($ssrspc = mysqli_fetch_array($osdspc))
   
   
 $array1=array();
-	{
+	
 	if (!empty($_REQUEST['user_id']) &&!empty($get_api)) 
 		{
     $user_id = $_REQUEST['user_id'];
@@ -177,6 +177,7 @@ $prices = $ssrss['price'];
 		$array1['status']="Enter all fields";
 	}
 	echo json_encode($array1);
-	}
 	
+	
+	mysqli_close($conn);
 ?>

@@ -19,7 +19,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = $subTmp;}
 	
 	echo json_encode($tmp);
-	mysqli_close($conn);
+	
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		//echo "SELECT * FROM notifications WHERE noti_id = '$mar_id'";
@@ -37,5 +37,5 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		}
 		return $returnValue;
 	}
-	
+	mysqli_close($conn);
 ?>

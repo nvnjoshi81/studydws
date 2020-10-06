@@ -5,33 +5,34 @@
                 </div>
                 <div class="col-lg-12 searchFrm">
                 
-                <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/search_customer">
+                <form id="search_customer_form" 
+				name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/search_customer" >
                     
                     <div class="form-group col-lg-4">
                         <label>Search By - Id</label>
-                        <input id="customer_id" class="form-control" name="customer_id" value=""> 
+                        <input type='text' id="customer_id" class="form-control" name="customer_id" value=""> 
                     </div>
 
                     <div class="form-group col-lg-4">
                         <label>OR First Name</label>                    
-                    <input id="cfname" class="form-control" name="cfname" value=""> 
+                    <input id="cfname" type='text' class="form-control" name="customer_fnm" value=""> 
                     </div>
 
 
                     <div class="form-group col-lg-4">
                        <label>OR Lastname</label>
-                    <input id="clname" class="form-control" name="clname" value=""> 
+                    <input id="clname" type='text' class="form-control" name="customer_lnm" value=""> 
                     </div>
 
 
                     <div class="form-group col-lg-4">
                         <label>OR Email </label> 
-                    <input id="customer_email" class="form-control" name="customer_email" value="">
+                    <input id="customer_email" type='text' class="form-control" name="customer_email" value="">
                     </div>
 
                     <div class="form-group col-lg-4">
                    <label>OR Mobile </label> 
-                    <input id="customer_mobile" class="form-control" ame="customer_mobile" value="">
+                    <input id="customer_mobile" type='text' class="form-control" name="customer_mobile" value="">
                     </div>
 
                 <div class="form-group col-lg-4">

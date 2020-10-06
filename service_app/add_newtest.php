@@ -77,4 +77,5 @@ while($ssr = mysqli_fetch_array($osd))
 	echo json_encode($array1);
 	}
 	
+	mysqli_close($conn);
 ?>

@@ -276,6 +276,6 @@ while($row = mysqli_fetch_array($result)) {
 			return $ress=(count($arr))? $arr : false;
 		}
 		
-		
+	mysqli_close($conn);	
   
 ?>

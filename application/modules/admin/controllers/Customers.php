@@ -177,12 +177,9 @@ $user_key = $this->input->post('user_key');
 	 }
          
          
-         public function search_customer(){			 
-          ini_set('memory_limit','-1');
-          ini_set('max_execution_time',600);
-			 
-                $cfname =$this->input->post('cfname');
-                $clname =$this->input->post('clname');
+         public function search_customer(){
+                $cfname =$this->input->post('customer_fnm');
+                $clname =$this->input->post('customer_lnm');
                 $customer_id =$this->input->post('customer_id');
                 $customer_email =$this->input->post('customer_email');
                 $customer_mobile =$this->input->post('customer_mobile');
@@ -191,12 +188,9 @@ $user_key = $this->input->post('user_key');
                 $config = array();
                 $config["base_url"] = base_url() . "admin/customers/index/";
                 //$customers =$this->Customer_model->getCustomerDetails_byparam($customer_id,$customer_email,$customer_mobile);
+				
 				$carray=array('customer_id'=>$customer_id,'customer_email'=>$customer_email,'customer_mobile'=>$customer_mobile,'cfname'=>$cfname,'clname'=>$clname);
-				
-				$customers =$this->Customer_model->searchcustomer($carray); 
-				
-				
-				
+				$customers =$this->Customer_model->searchcustomer($carray);
                 $this->data['customers']= $customers;      
                 $this->data['content']='customers/search_customer';
                 $this->load->view('common/template',$this->data);

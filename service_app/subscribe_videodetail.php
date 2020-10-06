@@ -15,18 +15,22 @@
   $rww = mysqli_num_rows($oppf);
   if($rww > 0){
 	  while($ryu = mysqli_fetch_array($oppf)){
-	$get_api = $ryu['user_key'];
+    	$get_api = $ryu['user_key'];
 	  }
   }
   
   
-	$tmp = array();
+	$tmp = array();      
 	$subTmp = array();
 	$postStatusString = "publish";
 if($get_api){
     //echo "SELECT * FROM cmsvideolist_details join cmsvideos on cmsvideolist_details.videolist_id = cmsvideos.id where cmsvideolist_details.videolist_id = '$id'";
     //SELECT `V`.`id`, `title`, `V`.`video_source`, `V`.`video_url_code`, `V`.`video_file_name`, `V`.`video_image`, `V`.`short_video`, `V`.`is_featured`, `V`.`description`, `V`.`video_by`, `V`.`status`, `V`.`views`, `V`.`is_free`, `V`.`video_duration`, `V`.`custom_video_duration`, `V`.`amazonaws_link`, `V`.`amazon_cloudfront_domain`, `d`.`videolist_id`, `d`.`video_id` FROM `cmsvideos` `V` JOIN `cmsvideolist_details` `d` ON `d`.`video_id`=`V`.`id` WHERE `d`.`videolist_id` = '$id' ORDER BY `V`.`id` DESC
-	$result = mysqli_query($conn,"SELECT V.id, title, V.video_source, V.video_url_code, V.video_file_name, V.video_image, V.short_video, V.is_featured, V.description, V.video_by, V.status, V.views, V.is_free, V.video_duration, V.custom_video_duration, V.amazonaws_link, V.amazon_cloudfront_domain, d.videolist_id, d.video_id FROM cmsvideos V JOIN cmsvideolist_details d ON d.video_id=V.id WHERE d.videolist_id = '$id' ORDER BY CAST(V.title AS UNSIGNED) ASC, V.title ASC");
+
+     $q = 	"SELECT V.id, title, V.video_source, V.video_url_code, V.video_file_name, V.video_image, V.short_video, V.is_featured, V.description, V.video_by, V.status, V.views, V.is_free, V.video_duration, V.custom_video_duration, V.amazonaws_link, V.amazon_cloudfront_domain, d.videolist_id, d.video_id FROM cmsvideos V JOIN cmsvideolist_details d ON d.video_id=V.id WHERE d.videolist_id = '$id' ORDER BY CAST(V.title AS UNSIGNED) ASC, V.title ASC";
+    
+        $result = mysqli_query($conn,$q);
+
 }
 	
 	while($row = mysqli_fetch_array($result)) {
@@ -38,7 +42,11 @@ if($get_api){
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "Invalid key";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
+
+
+
+
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -86,4 +94,9 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		return $returnValue;
 	}
 	
+		mysqli_close($conn);
+
+
+
+
 ?>

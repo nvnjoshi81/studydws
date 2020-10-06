@@ -600,7 +600,6 @@ $chkcount=$chkcount+1;
         }else{
         $this->data['isProduct'] = '';
         }
-		
         $this->data['subject_id'] = $subject_id;
         $this->data['examid'] = $examid;
         $this->data['urlChapter_name']=$urlChapter_name;
@@ -611,7 +610,7 @@ $chkcount=$chkcount+1;
     }
      
     public function cron_update_packagecount(){
-die("Temporarily Off....in welcome exam");		
+    //die("Temporarily Off....in welcome exam");		
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 300); //300 seconds = 5 minutes
         //echo ini_get('memory_limit'); die;
@@ -806,9 +805,8 @@ die("Temporarily Off....in welcome exam");
         echo "All record saved!";
          }
     
-    public function cron_update_packagecnt_byexamid(){
-       
-die("Temporarily Off....in welcome exam");	 
+    public function cron_update_packagecnt_byexamid(){       
+    //die("Temporarily Off....in welcome exam");	 
     ini_set('memory_limit', '-1');
     ini_set('max_execution_time', 300); //300 seconds = 5 minutes
     $examid_array = $this->Examcategory_model->getExamCatgeories();
@@ -1076,7 +1074,7 @@ die("Temporarily Off....in welcome exam");
     //Update module count for subject.    
     public function cron_update_packagecnt_bysubjectid(){
         
-die("Temporarily Off....in welcome exam");	
+//die("Temporarily Off....in welcome exam");	
     ini_set('memory_limit', '-1');
     ini_set('max_execution_time', 300); //300 seconds = 5 minutes
     $examid_array = $this->Examcategory_model->getExamCatgeories();

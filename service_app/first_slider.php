@@ -140,7 +140,8 @@ error_reporting(0);
 		return $returnValue;	
 		
 		}*/
-		
+
+    	mysqli_close($conn);	
   
   ?>
  

@@ -33,7 +33,7 @@ if($get_api){
 if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['data'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategory($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -114,7 +114,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		
 			}
 		echo json_encode($tmp);
-	//	mysqli_close();
+	
 		
 		function getcoursebycat($mar_id,$conn) {		
 			$returnValue = array();
@@ -174,6 +174,6 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		
 		}*/
 		
-  
+  mysqli_close($conn);
   ?>
  

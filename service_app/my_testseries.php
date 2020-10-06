@@ -35,7 +35,7 @@
 if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
 		else {$tmp['status'] = "false";$tmp['datatwo'] = "no data";}
 	echo json_encode($tmp);
-	mysqli_close($conn);
+
 	function getmarvelcategoryn($mar_id,$conn) {		
 		$returnValue = array();
 		
@@ -67,11 +67,13 @@ if($subTmp){$tmp['status'] = "success";$tmp['datatwo'] = $subTmp; }
 	$n=$rows['product_expiry_date'];
 			$m = date('Y-m-d',$n);
 			$date = strtotime($n);
-            $new_date = strtotime('+ 1 year',strtotime($n));
+            $new_date = strtotime('+ 2 year',strtotime($n));
             $mm = date('Y-m-d', $new_date);
+            $date=date_create("2023-03-31");
+            $mm = date_format($date,"Y-m-d");
 			$returnValue['expires_on'] = $mm;
 		}
 		return $returnValue;
 	}
-	
+	mysqli_close($conn);
 ?>
