@@ -16,9 +16,9 @@
 			
 			         <div class="col-lg-12">
                   <form id="search_customer_form" name="search_customer_form" method="POST" action="<?php echo base_url(); ?>admin/orders/searchorder" >
-                    <div class="container"> 
+                  
 					<div class="col-lg-12 col-md-12">
-                        <div class='col-lg-4 col-md-4'>
+                        <div class='col-lg-3 col-md-3'>
                             <div class="form-group">From Date 
                                 <div class='input-group date' id='datetimepicker6'>
                                     <input type='text' class="form-control" id="start_date"  name="start_date" />
@@ -28,8 +28,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='col-lg-4 col-md-4'>
-                            <div class="form-group">To Date Ex-2022-09-14 (Lesser to Greater )
+                        <div class='col-lg-3 col-md-3'>
+                            <div class="form-group">To Date Ex-2022-09-14
                                 <div class='input-group date' id='datetimepicker7'>
                                     <input type='text' class="form-control" id="end_date" name="end_date"  />
                                     <span class="input-group-addon">
@@ -37,28 +37,52 @@
                                     </span>
                                 </div>
                             </div>
-                        </div> <div class='col-lg-4 col-md-4'>
+                        </div> 
+						<div class='col-lg-3 col-md-3'>
                         <div class="form-group">
-        <label>Type</label>
-        <span class="new-list-spn"><input type="radio" name="regiType" value="web"> <span>Web</span></span>
-        <span class="new-list-spn"><input type="radio" name="regiType" value="app"> <span>App</span></span>
-        <span class="new-list-spn"><input type="radio" name="regiType" value="all" checked="checked"> <span>All</span></span>
+        <label class="control-label">Type</label>
+			<div class="form-control">
+				<span class="new-list-spn"><input type="radio" name="regiType" value="web"> <span>Web</span></span>
+				<span class="new-list-spn"><input type="radio" name="regiType" value="app"> <span>App</span></span>
+				<span class="new-list-spn"><input type="radio" name="regiType" value="all" checked="checked"> <span>All</span></span>
+			</div>
     </div>
+	</div>
+	
+	<?php //print_r($orders_status_array); ?>
+	
+	<div class="col-lg-3 col-md-3 col-xs-12">
+		<div class="form-group">
+			<label class="control-label">Status</label>
+			<select class="form-control" name="status">
+			<option value="">All</option>
+			<?php
+	foreach ($orders_status_array as $key=>$status_val) {
+		$status_val->value;
+		?>
+		<option value="<?php echo $key; ?>"><?php echo $status_val->value; ?></option>
+	<?php }
+	?>
+			</select>
+		</div>						
+	</div>
                     </div>
-					</div> 
+					 
 					<div class='col-lg-12 col-md-12'>
 					<div class='col-lg-3 col-md-3'>
 					<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
 					<div class='col-lg-4 col-md-4'>
 					<?php 
+					
+					
 					echo "Total Order <font color='red'>".$totalorder."</font> "; 
 					echo " from <font color='red'>" . date("Y-m-d", $start_date_string)."  To  ".date("Y-m-d", $end_date_string)."</font>"; ?>
 					</div>
 					</div>
-					</div>
+					
                       
-                  </form>
+                  </form></div>
                     <script type="text/javascript">
     $(function () {
         $('#datetimepicker6').datetimepicker({format:'YYYY-MM-DD'});
@@ -102,12 +126,60 @@
                                     <tbody>
 <?php
 $i = 1;
+$subi=0;
+$stt=0;
 if (isset($orders)) {
 	foreach ($orders as $order) {
 		
-//if(($order->status==1)||($order->status==3)){
+		//if(($order->status==1)||($order->status==3)){
 // print_r($orders_status_array);
-	?><tr class="odd gradeX">
+
+		if($order->status==1) {
+			$c_stt = $stt++;
+		}
+		
+		if($order->app_order==1) {
+			$subi++;
+		}
+		?>
+		<div class="row">
+		<?php 
+		if($i==$totalorder) {
+			$totalorder;
+			$c_stt;
+			$cancel = $totalorder - $c_stt;
+		 ?>
+		<div class="col-lg-6">
+		<ul class="list-group list-inline text-left">
+			<li class="list-group-item hidden"></li>
+			<li class="list-group-item"><?php echo "Total Order - <b>".$totalorder."</b>"; ?></li>
+			<li class="list-group-item"><?php echo "Sucess Order - <b>".$c_stt."</b>"; ?></li>
+			<li class="list-group-item"><?php echo "Cancelled Order - <b>".$cancel."</b>"; ?></li>
+		</ul>
+		</div>
+		
+		<?php }
+		if($i==$totalorder) {			
+			$totalorder;
+			$subi;
+			$web = $totalorder-$subi;
+			?>
+			<div class="col-lg-6">
+			<ul class="list-group list-inline text-right">
+				<li class="list-group-item"><?php echo "Total Order - <b>".$totalorder."</b>"; ?></li>
+				<li class="list-group-item"><?php echo "Ordered by App - <b>".$subi."</b>"; ?></li>
+				<li class="list-group-item"><?php echo "Ordered by Web - <b>".$web."</b>"; ?></li>
+				<li class="list-group-item hidden"></li>
+			</ul>
+			</div>
+			
+			
+			
+		<?php }
+
+	?>
+	</div>
+	<tr class="odd gradeX">
                                     <td><?php echo '('.$i.') <br>OID-'.$order->id;?> (<?php echo $order->order_no; ?>)</td>
                                     <td><a target="_blank" href="<?php echo base_url(); ?>/admin/customers/edit/<?php echo $order->user_id; ?>"><?php echo $order->firstname.' '.$order->lastname;?></a><br><?php 
 									if(isset( $order->email)){

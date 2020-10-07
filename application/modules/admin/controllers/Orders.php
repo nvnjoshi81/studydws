@@ -72,21 +72,22 @@ class Orders extends MY_Admincontroller {
                 $ordercol=$this->input->get('col');
                 $order=$this->input->get('order');
 				$start_date=$this->input->post('start_date');
-				$regiType=$this->input->post('regiType');
+				$regiType=$this->input->post('regiType');				
+				$orderstatus=$this->input->post('status');				
 				$start_date_string = strtotime($start_date);
 				$end_date=$this->input->post('end_date');
                 $end_date_string = strtotime($end_date);
                 if($start_date_string == $end_date_string){
                 $end_date_string=$start_date_string+(3600*48);
 }
-				
                 if(!$ordercol){
                     $ordercol='id';
                 }if(!$order){
                     $order='desc';
                 }
-                /***** pgination _categories***   */
-			    $total=$this->Orders_model->ordersCountByDate($start_date_string,$end_date_string,$regiType);
+                /***** pagination _categories***   */
+			    $total=$this->Orders_model->ordersCountByDate($start_date_string,$end_date_string,$regiType,$orderstatus);
+				
                 $this->data['total']=$total;
                 $config = array();
                 $config["base_url"] = base_url() . "admin/orders/index/";
@@ -124,11 +125,13 @@ class Orders extends MY_Admincontroller {
                     $order_no='';
                 }
                 if($order_no>0){
-		$orders =$this->Orders_model->getsearchOrders($order_no); 
-                }elseif($regiType!=''){
-		$orders =$this->Orders_model->getsearchOrdersByDate($start_date_string,$end_date_string,$regiType); 
-                }else{
-		$orders =$this->Orders_model->getOrders($config["per_page"], $page,$ordercol,$order); 
+		$orders =$this->Orders_model->getsearchOrders($order_no,$orderstatus); 
+                }
+				elseif($regiType!=''){
+		$orders =$this->Orders_model->getsearchOrdersByDate($start_date_string,$end_date_string,$regiType,$orderstatus); 
+                }
+				else{
+		$orders =$this->Orders_model->getOrders($config["per_page"], $page,$ordercol,$order,$orderstatus); 
                 }
 		$this->data['orders']=  $orders;
         $totalorder=count($orders);

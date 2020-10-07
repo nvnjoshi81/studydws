@@ -94,6 +94,7 @@ class Orders_model extends CI_Model {
         $this->db->order_by('A.id', 'desc');
         $this->db->where('A.user_id', $userid);
         $query = $this->db->get();
+		//echo $this->db->last_query();
         return $query->result();
     }
 //$config["per_page"], $page,$ordercol,$userid
@@ -132,13 +133,13 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
 		if($orderby=='web'){
         $this->db->where('A.app_order',0);
 		}
-		if($orderstatus>=0) {
+		if($orderstatus>=0&&$orderstatus!='') {
 			$this->db->where('A.status',$orderstatus);
 		}
         $this->db->where('A.created_dt >=', $fdate);
         $this->db->where('A.created_dt <=', $tdate + 86439);
         $query = $this->db->get();
-		//echo $this->db->last_query();
+		echo $this->db->last_query();
         return $query->result();
     }
 
