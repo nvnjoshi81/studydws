@@ -78,6 +78,7 @@ class Orders_model extends CI_Model {
         }
         $this->db->where('A.order_no', $order_no);
         $query = $this->db->get();
+		//echo $this->db->last_query();		
         return $query->result();
     }
 
@@ -107,7 +108,7 @@ class Orders_model extends CI_Model {
         return $query->num_rows(); 
     }
 
-function getsearchOrders_byid($order_id) {
+function getsearchOrders_byid($order_id,$orderstatus='') {
 
         $this->db->select('A.*,B.firstname,B.lastname,B.mobile,B.email,C.address,C.address_name');
         $this->db->from('cmsorders A');
@@ -119,7 +120,7 @@ function getsearchOrders_byid($order_id) {
         return $query->result();
     }
 
-    function getsearchOrdersByDate($fdate, $tdate,$orderby='all') {
+    function getsearchOrdersByDate($fdate, $tdate,$orderby='all',$orderstatus='') {
         $this->db->select('A.*,B.firstname,B.lastname,B.email,B.mobile,C.address,C.address_name,A.app_order');
         $this->db->from('cmsorders A');
         $this->db->join('cmscustomers B', 'A.user_id=B.id');
@@ -131,10 +132,13 @@ function getsearchOrders_byid($order_id) {
 		if($orderby=='web'){
         $this->db->where('A.app_order',0);
 		}
+		if($orderstatus>=0) {
+			$this->db->where('A.status',$orderstatus);
+		}
         $this->db->where('A.created_dt >=', $fdate);
         $this->db->where('A.created_dt <=', $tdate + 86439);
         $query = $this->db->get();
-        //echo $this->db->last_query();
+		//echo $this->db->last_query();
         return $query->result();
     }
 
@@ -142,7 +146,7 @@ function getsearchOrders_byid($order_id) {
         $this->db->select('*');
         $this->db->from('cmsorders');
         $this->db->where('id', $id);
-        $query = $this->db->get();
+        $query = $this->db->get();		
         return $query->row();
     }
 
@@ -235,8 +239,7 @@ function getsearchOrders_byid($order_id) {
     }
 	}
 	
-	public function ordersCountByDate($start_date=0,$end_date=0,$orderby='all') {
-
+	public function ordersCountByDate($start_date=0,$end_date=0,$orderby='all',$orderstatus='') {
         $this->db->select('id');
         $this->db->from('cmsorders');
         if($start_date==null){
@@ -250,11 +253,16 @@ function getsearchOrders_byid($order_id) {
         }
 		
 		
-	if($orderby=='app'){
+		if($orderby=='app'){
         $this->db->where('app_order',1);
 		}
 		if($orderby=='web'){
         $this->db->where('app_order',0);
+		}
+		
+		
+		if($orderstatus>=0) {
+			$this->db->where('status',$orderstatus);
 		}
 		$query = $this->db->get();
 		//echo $this->db->last_query();
