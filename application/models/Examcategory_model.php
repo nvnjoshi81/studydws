@@ -27,6 +27,31 @@ class Examcategory_model extends CI_Model {
         return array();
         }
     }
+	
+	
+/*for getting sub Exam list for category table*/
+
+public function getSubExam($exam_id=0){
+//SELECT * FROM `categories` WHERE `parent_id` = $examid 
+  	if($exam_id>0){
+		
+  $this->db->select('id,name,order,parent_id,description');
+        $this->db->from('categories');
+        $this->db->where('parent_id', $exam_id);
+        $this->db->where('status', 'show');
+        $this->db->order_by('order','asc');
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        if($query->num_rows()>0){
+        return $query->result();
+        }else{
+        return array();
+        }
+	}else{
+		return array();
+	}
+}
+
         
     public function getAdminExamCatgeories(){
         $this->db->select('id,name,parent_id,description');
