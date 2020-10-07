@@ -5247,7 +5247,7 @@ NOT USEFUL
 
         if ($show_content_type->name == 'Solved Papers') {
             $contents = $this->Solvedpapers_model->getSolvedPapers($examid, $subject_id, $chapter_id);
-        }
+		}
 
         if ($show_content_type->name == 'Ncert Solutions') {
             $contents = $this->Ncertsolutions_model->getNcertSolutions($examid, $subject_id, $chapter_id);
@@ -5276,7 +5276,7 @@ NOT USEFUL
             $response['count'] = 1;
         }
 		
-		$response['subClass'] = $subClass_array;
+		//$response['subClass'] = $subClass_array;
         echo json_encode($response);
     }
 

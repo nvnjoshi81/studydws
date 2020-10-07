@@ -632,7 +632,6 @@ $this->load->helper('text');
 	
 	 public function updateVideoAttr() {
 		/*videos/welcome/updateVideoAttr*/ 
-		 
         $allVideo = $this->Videos_model->getAllVideos();
 		require_once('getid3/getid3.php');
         $getID3 = new getID3();
