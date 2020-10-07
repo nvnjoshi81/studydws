@@ -33,7 +33,6 @@
     				    <label>OR Email </label>
     				   <input type="text" id="customer_email" class="form-control" name="customer_email" value="">
 				   </div>
-				   
 				   <div class="form-group col-lg-4">
 				   <label>OR Mobile </label>
 				   <input type="text" id="customer_mobile" class="form-control" name="customer_mobile" value="">
