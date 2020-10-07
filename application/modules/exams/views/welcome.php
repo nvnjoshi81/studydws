@@ -41,6 +41,47 @@
                                 <!--Showing Subject Start-->
                                 <div class="container">
 								<div class="row">
+								<!--start Sub Class -->
+		<?php
+		
+									if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){
+										?>
+										    <div class="page-header text-center">
+        <h3 class="select_heading">Select Sub Subject <?php if(isset($subExamArray->name)&&$subExamArray->name!=''){
+echo $subExamArray->name; 
+} ?></h3>
+    </div> <!--class="row pack_sub"-->
+    
+	<?php
+             foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
+				 ?>								
+			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
+				<div class="">
+						<?php  
+		$sub_subjectnameArray=$sub_subjectlist_value->sname;
+                        if(strlen()>40){
+                        $sub_subjectName=substr($sub_subjectnameArray,0,40).'..';
+                         }else{
+                        $sub_subjectName=$sub_subjectnameArray;
+                         }
+//echo "<i class='fa fa-book fa-4x text-warning'></i>";
+                             ?>     	<div class="">
+									<?php  
+										echo "
+										<h4 class='text-primary'>{$sub_subjectName} 
+										</h4>
+										"; 
+										?> 
+									</div>
+				</div>
+				</div>		
+				 <?php
+			 }
+			}
+			?>
+								
+								<!--End sub Class-->
+								
     <div class="page-header text-center">
         <h3 class="select_heading">Select Subject</h3>
     </div> <!--class="row pack_sub"-->

@@ -595,7 +595,31 @@ $chkcount=$chkcount+1;
         $this->data['isProduct'] = $isProduct;
         $product_id=$isProduct->id;
         $user_id=$customer_id=$this->session->userdata('customer_id');
-        $orderInfo=$this->Pricelist_model->getOrderInfo($product_id, $user_id);        
+        $orderInfo=$this->Pricelist_model->getOrderInfo($product_id, $user_id); 
+
+
+/*for getting sub Exam list for category table*/
+$this->data['sub_chaptersubjects'] = array();
+$subExamArray=$this->Examcategory_model->getSubExam($examid);
+if(isset($subExamArray)&&count($subExamArray)>0){  
+if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
+$subExamId=$subExamArray[0]->id; 
+}else{
+$subExamId=0;
+}
+$sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId); 
+
+	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){ 
+        $this->data['sub_chaptersubjects'] = $sub_chaptersubjects;
+		   $this->data['subExamArray'] = $subExamArray[0];
+	}else{ 
+        $this->data['sub_chaptersubjects'] = array();
+		$this->data['subExamArray'] = array();
+	}
+}
+/*End sub exam lsit*/
+
+		
         $this->data['orderInfo'] = $orderInfo;
         }else{
         $this->data['isProduct'] = '';
@@ -608,7 +632,9 @@ $chkcount=$chkcount+1;
         $this->data['modulepath']=$path;
 	$this->load->view('template',$this->data);
     }
-     
+   
+
+   
     public function cron_update_packagecount(){
     //die("Temporarily Off....in welcome exam");		
         ini_set('memory_limit', '-1');
