@@ -302,7 +302,7 @@ class Videos_model extends CI_Model {
     }
 
     function playlistdetails($id) {
-        $this->db->select('cmsvideoslist.name,cmsvideoslist.id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+        $this->db->select('cmsvideoslist.name,cmsvideoslist.language,cmsvideoslist.id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->join('cmsvideolist_relations', 'cmsvideolist_relations.videolist_id=cmsvideoslist.id');
         $this->db->join('categories', 'cmsvideolist_relations.exam_id=categories.id');
         $this->db->join('cmssubjects', 'cmsvideolist_relations.subject_id=cmssubjects.id', 'left');
@@ -319,7 +319,7 @@ class Videos_model extends CI_Model {
     }
     
     function playlistdetails_byrelationid($id,$relation_id) { 
-        $this->db->select('cmsvideoslist.name,cmsvideoslist.id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+        $this->db->select('cmsvideoslist.name,cmsvideoslist.language,cmsvideoslist.id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->join('cmsvideolist_relations', 'cmsvideolist_relations.videolist_id=cmsvideoslist.id');
         $this->db->join('categories', 'cmsvideolist_relations.exam_id=categories.id');
         $this->db->join('cmssubjects', 'cmsvideolist_relations.subject_id=cmssubjects.id', 'left');
@@ -365,7 +365,7 @@ class Videos_model extends CI_Model {
     }
 
     public function playlist_detail($id) {
-        $this->db->select('cmsvideoslist.name,cmsvideoslist.description,cmsvideoslist.id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+        $this->db->select('cmsvideoslist.name,cmsvideoslist.language,cmsvideoslist.description,cmsvideoslist.id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->join('cmsvideolist_relations', 'cmsvideolist_relations.videolist_id=cmsvideoslist.id');
         $this->db->join('categories', 'cmsvideolist_relations.exam_id=categories.id');
         $this->db->join('cmssubjects', 'cmsvideolist_relations.subject_id=cmssubjects.id', 'left');

@@ -144,7 +144,7 @@ class Studymaterial_model extends CI_Model {
     }*/
     
      public function details($id) {
-        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id');
+        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id,A.language');
         $this->db->from('cmsstudymaterial A');
         $this->db->join('cmsstudymaterial_relations B','A.id=B.studymaterial_id','left');
         $this->db->where('A.id', $id); 
@@ -161,7 +161,7 @@ class Studymaterial_model extends CI_Model {
     }
     
     public function detail($id) {
-        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id');
+        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id,A.language');
         $this->db->from('cmsstudymaterial A');
         $this->db->join('cmsstudymaterial_relations B','A.id=B.studymaterial_id','left');
         $this->db->where('A.id', $id);
