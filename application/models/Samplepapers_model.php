@@ -60,7 +60,7 @@ class Samplepapers_model extends CI_Model
     }
     
     public function samplePaperDetails(){
-        $this->db->select('*');
+        $this->db->select('id,samplepaper_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->from('cmssamplepapers_details');
         $this->db->group_by('samplepaper_id');
         $query=$this->db->get();
@@ -119,7 +119,7 @@ class Samplepapers_model extends CI_Model
     }
     
     public function checkQuestion($qbid,$qid){
-        $this->db->select('*');
+        $this->db->select('id,samplepaper_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->where('question_id',$qid);
         $this->db->where('samplepaper_id',$qbid);
         $this->db->from('cmssamplepapers_details');
@@ -142,7 +142,7 @@ class Samplepapers_model extends CI_Model
     }
     
      public function getRelationDetail($relation_data_type){
-        $this->db->select('*');
+        $this->db->select('id,samplepaper_id,exam_id,subject_id,chapter_id,created_by,dt_created,modified_by,dt_modified');
         $this->db->from('cmssamplepapers_relations');
         $this->db->where('samplepaper_id',$relation_data_type);
 	    $query=$this->db->get();

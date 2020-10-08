@@ -15,7 +15,7 @@ class Topics_model extends CI_Model
     
     public function getTopics($limit = 0, $start = 0)
     {
-        $this->db->select('*');
+        $this->db->select('id,chapter_id,name,order,created,description,keywords,tagline');
         $this->db->from('cmstopics');
         if($limit>0 && $start>0){
             $this->db->limit($limit, $start);
@@ -49,7 +49,7 @@ class Topics_model extends CI_Model
     
     public function getTopic($id)
     {
-        $this->db->select('*');
+        $this->db->select('id,chapter_id,name,order,created,description,keywords,tagline`');
         $this->db->from('cmstopics');
         $this->db->where('id', $id);
         $query = $this->db->get();

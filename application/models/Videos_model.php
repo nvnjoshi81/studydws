@@ -184,7 +184,7 @@ class Videos_model extends CI_Model {
     }
 
     public function getIdByLegacy($legacy_id) {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,video_source,video_url_code,video_file_name,video_image,short_video,is_featured,description,video_by,status,views,courtesy,is_free,video_tag,video_duration,video_size,custom_video_duration,androidapp_link,amazonaws_link,amazon_cloudfront_domain,created_by,sort,dt_created,modified_by,dt_modified,view_count,like_count');
         $this->db->from('cmsvideos');
         $this->db->where('legacy_id', $legacy_id);
         $query = $this->db->get();
@@ -352,7 +352,7 @@ class Videos_model extends CI_Model {
     }
 
     public function detail($id) {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,name,description,exam_id,subject_id,chapter_id,language,display_image,video_by,created_by,dt_created,modified_by,dt_modified,is_deleted,view_count');
         $this->db->from('cmsvideoslist');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -428,7 +428,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
     public function getDetails_bymoduleID_file($mid) {
-        $this->db->select('*');
+        $this->db->select('id,videolist_id,video_id,created_by,dt_created,modified_by,dt_modified');
         $this->db->from('cmsvideolist_details');
         $this->db->join('cmsvideos', 'cmsvideos.id=cmsvideolist_details.video_id');
         $this->db->where('cmsvideolist_details.video_id>', 0);
@@ -496,7 +496,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
     }
 
     public function getRecentAmazonVideos() {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,video_source,video_url_code,video_file_name,video_image,short_video,is_featured,description,video_by,status,views,courtesy,is_free,video_tag,video_duration,video_size,custom_video_duration,androidapp_link,amazonaws_link,amazon_cloudfront_domain,created_by,sort,dt_created,modified_by,dt_modified,view_count,like_count');
         $this->db->from('cmsvideos');
         $this->db->where('video_image !=', '');
         $this->db->where('amazonaws_link !=', '');
@@ -511,7 +511,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
     }
 	
     public function getAllVideos() {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,video_source,video_url_code,video_file_name,video_image,short_video,is_featured,description,video_by,status,views,courtesy,is_free,video_tag,video_duration,video_size,custom_video_duration,androidapp_link,amazonaws_link,amazon_cloudfront_domain,created_by,sort,dt_created,modified_by,dt_modified,view_count,like_count');
         $this->db->from('cmsvideos');
         $this->db->where('androidapp_link !=', '');
 		$this->db->where('video_duration', '');	
@@ -525,7 +525,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
     }
 
  public function getAllVideos1() {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,video_source,video_url_code,video_file_name,video_image,short_video,is_featured,description,video_by,status,views,courtesy,is_free,video_tag,video_duration,video_size,custom_video_duration,androidapp_link,amazonaws_link,amazon_cloudfront_domain,created_by,sort,dt_created,modified_by,dt_modified,view_count,like_count');
         $this->db->from('cmsvideos');
         $this->db->where('id', '7403');
         $this->db->limit(1);
@@ -758,7 +758,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
     public function getPlaylistDetailsByName($name){
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,name,description,exam_id,subject_id,chapter_id,language,display_image,video_by,created_by,dt_created,modified_by,dt_modified,is_deleted,view_count');
         $this->db->from('cmsvideoslist');
         $this->db->where('name',$name);
         $query=$this->db->get();

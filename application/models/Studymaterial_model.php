@@ -1,5 +1,4 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
 class Studymaterial_model extends CI_Model {
     public function getStudyMaterial($exam_id = null, $subject_id = null, $chapter_id = null) {
             $this->db->select('F.displayname,F.filename,F.filepath,F.filename_one,F.filepath_one,F.type,F.filetype,F.pagecount,F.is_deleted,F.id,D.file_id,F.filename as question,A.name as modules_item_name,P.discounted_price,P.price,P.modules_item_id,P.item_id,P.id as productlist_id,A.name,cmsstudymaterial_relations.exam_id,cmsstudymaterial_relations.subject_id,cmsstudymaterial_relations.chapter_id,cmsstudymaterial_relations.studymaterial_id as miid')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
@@ -325,7 +324,7 @@ class Studymaterial_model extends CI_Model {
     }
 
     public function getRelationDetail($relation_data_type) {
-        $this->db->select('*');
+        $this->db->select('id,studymaterial_id,exam_id,subject_id,chapter_id,created_by,dt_created,modified_by,dt_modified');
         $this->db->from('cmsstudymaterial_relations');
         $this->db->where('studymaterial_id', $relation_data_type);
         $query = $this->db->get();
@@ -559,7 +558,7 @@ public function getFiles_merge($smid) {
     }
     
     public function checkQuestion($qbid,$qid){
-        $this->db->select('*');
+        $this->db->select('id,studymaterial_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->where('question_id',$qid);
         $this->db->where('studymaterial_id',$qbid);
         $this->db->from('cmsstudymaterial_details');

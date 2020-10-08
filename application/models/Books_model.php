@@ -44,7 +44,7 @@ class Books_model extends CI_Model {
 	
 	
 	   public function detail($id) {
-        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id');
+        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id,A.language');
         $this->db->from('cmsbooks A');
         $this->db->join('cmsbooks_relations B','A.id=B.books_id','left');
         $this->db->where('A.id', $id);

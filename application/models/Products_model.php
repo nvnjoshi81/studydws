@@ -5,19 +5,19 @@ class Products_model extends CI_Model
     public function getProductDetails($pricelist_id,$content_type)
     {
         $name='';
-        $this->db->select('*');
+        $this->db->select('id,name,order,created_by,modified_by,dt_created,dt_modified');
         $this->db->from('content_type');
         $this->db->where('id',$content_type);
         $contentType=$this->db->get();
         $content=$contentType->row();
-        $this->db->select('*');
+        $this->db->select('id,exam_id,subject_id,chapter_id,item_id,type,price,discounted_price,product_expiry_date,description,offline_status,image,thumb_image,app_image,created_by,dt_created,modified_by,dt_modified,modules_item_id,modules_item_name,no_of_dvds,subscription_expiry,no_of_lectures,lecture_duration,no_of_subscribers,status,order_arrange');
         $this->db->from('cmspricelist');
         $this->db->where('id',$pricelist_id);
         $this->db->where('type',$content_type);
         $query = $this->db->get();
         $data= $query->row();
         if($data->item_id > 0){
-            $this->db->select('*');
+            $this->db->select('id,displayname,filename,filepath,filename_one,filepath_one,type,filetype,pagecount,is_deleted,created_by,dt_created,modified_by,dt_modified,view_count,like_count');
             $this->db->from('cmsfiles');
             $newquery=$this->db->get();
             $data1=$newquery->row();
@@ -100,7 +100,7 @@ class Products_model extends CI_Model
     }
     
     public function details($product_id){
-        $this->db->select('*');
+        $this->db->select('id,exam_id,subject_id,chapter_id,item_id,type,price,discounted_price,product_expiry_date,description,offline_status,image,thumb_image,app_image,created_by,dt_created,modified_by,dt_modified,modules_item_id,modules_item_name,no_of_dvds,subscription_expiry,no_of_lectures,lecture_duration,no_of_subscribers,status,order_arrange');
         $this->db->where('id',$product_id);
         $this->db->from('cmspricelist');
         $query=$this->db->get();

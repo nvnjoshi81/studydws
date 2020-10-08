@@ -245,7 +245,7 @@ class Ncertsolutions_model extends CI_Model {
         return $query->result();
     }
     public function checkQuestion($solid, $qid) {
-        $this->db->select('*');
+        $this->db->select('id,ncertsolutions_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->where('question_id', $qid);
         $this->db->where('ncertsolutions_id', $solid);
         $this->db->from('cmsncertsolutions_details');
@@ -411,7 +411,7 @@ class Ncertsolutions_model extends CI_Model {
     
     function getAllVideoProducts($exam_id=0, $subject_id=0, $chapter_id=0, $type=2) {
 
-        $this->db->select('*')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+        $this->db->select('cmschapters.id,cmschapters.exam_id,cmschapters.subject_id,cmschapters.chapter_id,cmschapters.item_id,cmschapters.type,cmschapters.price,cmschapters.discounted_price,cmschapters.product_expiry_date,cmschapters.description,cmschapters.offline_status,cmschapters.image,cmschapters.thumb_image,cmschapters.app_image,cmschapters.created_by,cmschapters.dt_created,cmschapters.modified_by,cmschapters.dt_modified,cmschapters.modules_item_id,cmschapters.modules_item_name,cmschapters.no_of_dvds,cmschapters.subscription_expiry,cmschapters.no_of_lectures,cmschapters.lecture_duration,cmschapters.no_of_subscribers,cmschapters.status,cmschapters.order_arrange')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->from('cmspricelist');
         $this->db->where('cmspricelist.type', $type);
         $this->db->where('cmspricelist.price > ',0);

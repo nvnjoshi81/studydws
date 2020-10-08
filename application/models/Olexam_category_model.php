@@ -15,7 +15,7 @@ class Olexam_category_model extends CI_Model
     
     public function getCategories()
     {
-        $this->db->select('*');
+        $this->db->select('id,name,exam_id,order,description,keywords,status,created');
         $this->db->from('cmsonlinetest_cat');
         $this->db->order_by('name');
         $query = $this->db->get();
@@ -42,7 +42,7 @@ class Olexam_category_model extends CI_Model
     
     public function getCategory($id)
     {
-        $this->db->select('*');
+        $this->db->select('id,name,exam_id,order,description,keywords,status,created');
         $this->db->from('cmsonlinetest_cat');
         $this->db->where('id', $id);
         $query = $this->db->get();

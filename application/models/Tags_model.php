@@ -50,7 +50,7 @@ class Tags_model extends CI_Model
     
     public function getTag($id)
     {
-        $this->db->select('*');
+        $this->db->select('id,chapter_id,name,order,created,description,keywords,tagline');
         $this->db->from('cmstags');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -58,7 +58,7 @@ class Tags_model extends CI_Model
     }
     public function getTagByName($name)
     {
-        $this->db->select('*');
+        $this->db->select('id,chapter_id,name,order,created,description,keywords,tagline');
         $this->db->from('cmstags');
         $this->db->like('name', $name);
         $query = $this->db->get();
@@ -66,7 +66,7 @@ class Tags_model extends CI_Model
     }
     
     public function getChapterTags($chapterids){
-        $this->db->select('*');
+        $this->db->select('id,chapter_id,name,order,created,description,keywords,tagline');
         $this->db->where_in('chapter_id',  implode(',',$chapterids));
         $this->db->from('cmstags');
         $query=$this->db->get();
@@ -80,7 +80,7 @@ class Tags_model extends CI_Model
         $this->db->delete('cmscontent_tags',$data);
     }
     public function getcontenttags($id,$type){
-        $this->db->select('*');
+        $this->db->select('id,content_id,type,tag');
         $this->db->from('cmscontent_tags');
         $this->db->where('content_id',$id);
         $this->db->where('type',$type);

@@ -144,7 +144,7 @@ class Questionbank_model extends CI_Model {
     }*/
 
     public function checkQuestion($qbid, $qid) {
-        $this->db->select('*');
+        $this->db->select('id,questionbank_id,question_id,creatdy,dt_created,modified_by,dt_modified,file_id');
         $this->db->where('question_id', $qid);
         $this->db->where('questionbank_id', $qbid);
         $this->db->from('cmsquestionbank_details');

@@ -8,7 +8,7 @@ class Search_model extends CI_Model {
     }
    
     public function getSearchResult($search){
-       $this->db->select('*');
+       $this->db->select('id,searchtxt,ip_address,search_dt,user_id,results,type');
         $this->db->from('cmssearch');
         $this->db->where('searchtxt', $search);
         $query = $this->db->get();        
