@@ -139,7 +139,7 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
         $this->db->where('A.created_dt >=', $fdate);
         $this->db->where('A.created_dt <=', $tdate + 86439);
         $query = $this->db->get();
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
         return $query->result();
     }
 

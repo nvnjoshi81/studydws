@@ -103,7 +103,7 @@ if($ipp=='4'){
     }
 
     public function get($type, $exam_id, $subject_id = 0, $chapter_id = 0) {
-        $this->db->select('*');
+        $this->db->select('id,exam_id,subject_id,chapter_id,item_id,type,price,discounted_price,product_expiry_date,description,offline_status,image,thumb_image,app_image,created_by,dt_created,modified_by,dt_modified,modules_item_id,modules_item_name,no_of_dvds,subscription_expiry,no_of_lectures,lecture_duration,no_of_subscribers,status,order_arrange');
         $this->db->from('cmspricelist');
         $this->db->where('type', $type);
         $this->db->where('exam_id', $exam_id);
@@ -401,11 +401,22 @@ if($ipp=='4'){
             '2' => (object) array('id' => 'amazon', 'name' => 'amazon')
         );
         return $array_video_source;
+		
     } 
 	
-	
     public function getVideoBy() {
+		
+		$this->db->select('teacher_id as id ,CONCAT( firstname, " ", lastname ) AS name, gender');
+		$this->db->from('cmsteachers');
+		$query = $this->db->get();
 
+		  if ($this->db->count_all_results() > 0) {
+			$tarray=$query->result();
+			return $tarray;
+			//print_r($tarray);
+        } else {
+            //return false;
+        }
         $array_video_by = array(
             '0'  =>  (object) array('id' => '137922', 'name' => 'Lalit Sardana Sir-137922'),
             '1'  =>  (object) array('id' => '153585', 'name' => 'Shweta Sardana Mam-153585'),
@@ -453,6 +464,16 @@ if($ipp=='4'){
             '43' =>  (object) array('id' => '363573', 'name' => 'Abhishek Mali Sir-363573')
         );
 		
+		
+		
+      
+echo "<br> Org Array <br>";
+
+
+print_r($array_video_by);
+die;
+		
+		
 		    /*,
 		    '23' => (object) array('id' => '', 'name' => ''),
 			'24' => (object) array('id' => '', 'name' => ''),
@@ -460,7 +481,7 @@ if($ipp=='4'){
 			'26' => (object) array('id' => '', 'name' => ''),
 			'27' => (object) array('id' => '', 'name' => '')
 			*/
-        return $array_video_by;
+       // return $array_video_by;
     } 
 	
 

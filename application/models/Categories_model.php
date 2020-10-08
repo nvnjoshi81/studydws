@@ -46,7 +46,7 @@ class Categories_model extends CI_Model
     
     public function getCategoryDetails($id)
     {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,name,order,created,parent_id,description,keywords,tagline,link,status');
         $this->db->from('categories');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -135,7 +135,7 @@ class Categories_model extends CI_Model
         if ($id == 0) {
             return $this->db->count_all("categories");
         } else {
-            $this->db->select('*');
+            $this->db->select('id,legacy_id,name,order,created,parent_id,description,keywords,tagline,link,status');
             $this->db->from('categories');
             $this->db->where('parent_id', $id);
             return $this->db->count_all_results();

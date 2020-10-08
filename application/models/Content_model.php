@@ -44,7 +44,7 @@ class Content_model extends CI_Model
     }
     public function getCategoryContentType($category_id)
     {
-        $this->db->select('*');
+        $this->db->select('*');     // table category_content not exists.
         $this->db->from('category_content');
         $this->db->where('category_id',$category_id);
         $query = $this->db->get();
