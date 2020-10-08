@@ -12,3 +12,4 @@ Check wheter ripples.css used or not
 <!-- Custom CSS -->
 <link href="<?php echo get_assets('assets/frontend/css/main.css');?>" rel="stylesheet">
 <link href="<?php echo get_assets('assets/frontend/css/toastr.min.css');?>" rel="stylesheet"/>
+ <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/effect.css');?>">

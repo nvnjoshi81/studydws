@@ -1,7 +1,14 @@
 <div id="wrapper">
   <div class="container">
     <div class="row">
-      <?php $this->load->view('common/breadcrumb');?>
+      <?php $this->load->view('common/breadcrumb');
+	  	  if(isset($qbdetails->language)&&$qbdetails->language=='hindi'){
+$hindicss='class="hindifont"';
+$hindicss_number_q='class="hindicss_number_q"';
+$hindicss_number_a='class="hindicss_number_a"';
+$hindicss_text='class="hindicss_text"';
+}
+	  ?>
       <!-- /. PAGE INNER  -->
       <div class="clearfix"></div>
       <section class="question_fluid"  data-js-module="filtering-demo">     
@@ -15,10 +22,11 @@
                   
                 <h1 class="questionheading" > 
                     <i class="material-icons">question_answer</i> 
-                        <?php 
+                        <span <?php echo $hindicss_number_q; ?>><?php 
 						if((isset($qcount))&&($qcount>0)){
                         echo $qcount.') ';
 						}
+						?></span><span  <?php echo $hindicss ; ?>  <?php echo $hindicss_text ; ?> ><?php
                         if(isset($question->instructions_id ) && $question->instructions_id >  0){
                             $this->load->model("Instructions_model",'instruction');
                             $instruction=$this->instruction->getInstructionDetail($question->instructions_id);
@@ -27,7 +35,7 @@
                             ?></p><?php
                         }
                         echo custom_strip_tags($question->question)?>
-                            <?php 
+                            </span><?php 
                             $correctAns=array();
                             if(count($answers) > 1){ 
                                 $letters = range('A','Z');
@@ -38,9 +46,9 @@
                             if($answer->is_correct==1){ 
                                 $correctAns[$answer->id]=$letters[$ac];
                             }?>
-                            <p><?php echo $letters[$ac]?>) <?php //echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer));
+                            <p>  <span><?php echo $letters[$ac]?>)</span>   <span <?php echo $hindicss; ?> ><?php //echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer));
                             echo custom_strip_tags($answer->answer); 
-                            ?></p>
+                            ?></span></p>
                         <?php  $ac++; } ?>
                         <?php } ?>
                 </h1>
@@ -94,8 +102,9 @@
                      <?php //echo $answer->is_correct==1 ? $correctAns[$answer->id]:''; ?>
                       
                       <?php
+					  $countdes= count($answer->description);
 if(isset($answer->description)){					  
-					  if($answer->description==''||$answer->description=='Not Available'){
+					  if($answer->description==''||$countdes<5||$answer->description=='Not Available'){
 						  $SolutionDesc=NULL;
 					  }else{
 						  $SolutionDesc=$answer->description;
@@ -104,22 +113,22 @@ if(isset($answer->description)){
 					}else{
 						$SolutionDesc=NULL;
 					}
-					  
 					  if($SolutionDesc!=NULL){ 
 					  ?>
                           <p class="ans_panel"><strong class="text-success">Solution : </strong></p>
+						  <span <?php echo $hindicss; ?> >
                           <?php // iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->description));
                           echo custom_strip_tags($answer->description); 
-                          ?>
+                          ?></span>
                       <?php }      
                       } ?>
                   </div>  
                       
                   <?php }else{ ?>
                   <p class="ans_panel"><strong class="text-success">Answer: </strong> </p>
-                    <p> <?php foreach($answers as $answer){ ?>
+                    <p> <?php foreach($answers as $answer){ ?> <span <?php echo $hindicss; ?> >
                      <?php echo  custom_strip_tags($answer->answer);?><br>
-                      <?php } ?>
+                      <?php } ?></span>
                     </p>
                   <?php } ?>                
               </li>  

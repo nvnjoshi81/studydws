@@ -288,6 +288,25 @@ if (isset($maincontent->name))
 	echo $maincontent->name;
 	} ?>">
     </div>
+	<div class="form-group"> 
+	<?php 
+	$languagevar='';
+	if (isset($maincontent->language)&&$maincontent->language=='hindi')
+	{
+	$languagehindi= 'selected';
+	$languageenglish= '';
+	}else{
+	$languagehindi= '';
+	$languageenglish= 'selected';
+	}	
+	?>
+    <label>Language (for Question Answers)</label>
+	<select class="form-control" name="language" id="languageqa">
+					<option value="">Select Language</option>
+                 	<option <?php echo $languageenglish; ?> value="english">English</option>
+					<option <?php echo $languagehindi; ?> value="hindi">Hindi</option>
+							</select>
+	</div>
         <div class="form-group"> 
       <label>Price (* Required for Study Packages)</label>
         <input class="form-control" type="text" name="price" value="<?php if(isset($pricelist_details->price)){ echo  $pricelist_details->price;  } ?>"  id="price"/> 

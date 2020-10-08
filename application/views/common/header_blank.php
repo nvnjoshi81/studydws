@@ -31,7 +31,7 @@
         <link media="all" type="text/css" rel="stylesheet" href="<?php echo strpos($style,'http') !== false ? $style : base_url().$style;?>">
     <?php } 
     } ?>
-    
+     <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/effect.css');?>">
     <!-- Material Design fonts -->
  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

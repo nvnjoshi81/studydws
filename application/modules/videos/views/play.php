@@ -66,11 +66,23 @@ Your browser does not support the video tag.
 <?php
 
 if(isset($video->video_duration)&&$video->video_duration!=''){
+	$init = $video->video_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
 				?>
-			<font style="font-family:'Courier New';font-size:'initial'">Video Duration-<?php echo  gmdate("H:i:s", $video->video_duration); ?></font><?php 
+			<font style="font-family:'Courier New';font-size:'initial'">Video Duration-<?php 
+echo "$hours:$minutes:$seconds"; ?></font><?php 
 			}else if(isset($video->custom_video_duration)&&$video->custom_video_duration!=''){
+				
+	$init = $video->custom_video_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
 				?>
-			<font style="font-family:'Courier New'; font-size:'initial'">Video Duration-<?php echo  gmdate("H:i:s", $video->custom_video_duration); ?></font><?php
+			<font style="font-family:'Courier New'; font-size:'initial'">Video Duration-<?php 
+            echo "$hours:$minutes:$seconds";
+			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font><?php
 				
 			}
 			if(isset($video->video_size)&&$video->video_size!=''){

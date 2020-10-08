@@ -374,7 +374,14 @@ class Contents extends MY_Admincontroller {
         $exam_id = $this->input->post('category');
         $subject_id = $this->input->post('subject');
         $chapter_id = $this->input->post('chapter');
-        
+		/*For Upload in hindi english language*/
+       $language_post = $chapter_id = $this->input->post('language');
+        if(isset($language_post)&&$language_post!=''){
+			$language_var=$language_post;
+		}else{
+			$language_var='english';
+		}
+		
         if(null !=$this->input->post('studypackage_feed')){
         $studypackage_feed=$this->input->post('studypackage_feed');
         }else{
@@ -465,6 +472,7 @@ class Contents extends MY_Admincontroller {
                 'exam_id' => $exam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
+				'language'=>$language_var,
                 'instructions' => $ol_instructions,
                 'formula_id' => $ol_formula_id,
                 'olcategory_id'=>$olcategory_id,
@@ -482,6 +490,7 @@ class Contents extends MY_Admincontroller {
         } else {
             $data = array(
                 'name' => $name,
+				'language'=>$language_var,
                 'created_by' => $created_by_id,
                 'dt_created' => $date
             );
@@ -607,6 +616,7 @@ class Contents extends MY_Admincontroller {
                         'category_id' => $exam_id,
                         'subject_id' => $subject_id,
                         'chapter_id' => $chapter_id,
+				        'language'=>$language_var,
                         'user_id' => $created_by_id,
                         'dt_created' => $date,
                         'title' => $artiTitle,
@@ -2193,6 +2203,16 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
         }
 
         $product_expiry_date=$this->input->post('product_expiry_date');
+		
+		/*For Upload in hindi english language*/
+       $language_post = $chapter_id = $this->input->post('language');
+        if(isset($language_post)&&$language_post!=''){
+			$language_var=$language_post;
+		}else{
+			$language_var='english';
+		}
+		
+		
         if ($form_validation_value == FALSE) {
             $this->session->set_flashdata('message', 'Please enter name!');
             redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
@@ -2392,6 +2412,7 @@ if(isset($dt_end)&&$dt_end!=''){
                 'exam_id' => $exam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
+				'language'=>$language_var,
                 'instructions' => $ol_instructions,
                 'formula_id' => $ol_formula_id,
                 'olcategory_id' => $olcategory_id,
@@ -2412,11 +2433,13 @@ if(isset($dt_end)&&$dt_end!=''){
         } else {
             $data = array(
                 'name' => $name,
+				'language'=>$language_var,
                 'created_by' => $created_by_id,
                 'dt_created' => $date
             );
         }
 
+		
         if ($upload_type == 1) {
             /* Upload flex zip section */
             if ($_FILES[$zip_field_name]['name'] != '') {
