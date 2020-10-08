@@ -1,7 +1,8 @@
- <div id="page-wrapper">
+<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-6">
                     <h1 class="page-header">Orders Result<?php if(isset($totalorder)){
+						
 						echo 'Total:'.$totalorder;
 					}?></h1>
                 </div>
@@ -56,7 +57,7 @@
 			<label class="control-label">Status</label>
 			<select class="form-control" name="status">
 			<option value="">All</option>
-			<?php
+			<?php 
 	foreach ($orders_status_array as $key=>$status_val) {
 		$status_val->value;
 		?>
@@ -74,10 +75,16 @@
 					</div>
 					<div class='col-lg-4 col-md-4'>
 					<?php 
-					
-					
-					echo "Total Order <font color='red'>".$totalorder."</font> "; 
-					echo " from <font color='red'>" . date("Y-m-d", $start_date_string)."  To  ".date("Y-m-d", $end_date_string)."</font>"; ?>
+if($totalorder<1) {
+	echo "";
+}
+if($totalorder>=1) {
+	echo "Total Order <font color='red'>".$totalorder."</font> "; 
+					echo " from <font color='red'>" . date("Y-m-d", $start_date_string)."  To  ".date("Y-m-d", $end_date_string)."</font>";
+}
+
+					//echo "Total Order <font color='red'>".$totalorder."</font> "; 
+					//echo " from <font color='red'>" . date("Y-m-d", $start_date_string)."  To  ".date("Y-m-d", $end_date_string)."</font>"; ?>
 					</div>
 					</div>
 					
