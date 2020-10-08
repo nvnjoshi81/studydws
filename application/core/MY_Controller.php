@@ -238,7 +238,17 @@ class MY_Admincontroller extends CI_Controller {
                 $this->session->set_userdata('loggedinmodperms',$mod);
                 $this->session->set_userdata('loggedincatperms',$cat);
             }
-            $current_module=$this->router->fetch_class();
+            $current_class=$this->router->fetch_class();
+			
+$current_function=$this->router->fetch_method();
+if(isset($current_function)&&$current_function!=''&&$current_function!='index'){
+	
+$current_module=$current_class.'/'.$current_function;
+}else{
+	
+$current_module=$current_class;
+}
+
             $module=  $this->Menu_model->getIdBySlug($current_module);
             if($this->session->userdata('usertype') != '1' ){
                 if($current_module != 'dashboard' && !in_array($module->id, $this->session->userdata('loggedinmodperms'))){

@@ -273,8 +273,14 @@ function mergeSection(is_final){
                         
                        // trHTML += '<option value="0">Please select</option>';
                         $.each(response.data,function(index,item){
+var itemnamenew;
+if(typeof(item.displayname)==='undefined'){
+	itemnamenew=item.name;
+}else{
+	itemnamenew=item.displayname;
+}
                             
- trHTML +='<input type="checkbox" name="modules_item_id[]" value='+ item.id + '>'+ stripHTML(item.displayname)+'<br>';        
+ trHTML +='<input type="checkbox" name="modules_item_id[]" value='+ item.id + '>'+ stripHTML(itemnamenew)+'<br>';  
                        // trHTML += '<option value=' + item.id + '>' + stripHTML(item.displayname) + '</option>';
                          //modules_item_id.push(item.id);
                         modid=item.miid;
@@ -454,13 +460,13 @@ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
                         $('#submit_qus_list').hide();
                         $('#dataTables-example tbody').append(trHTML);
 						
-						subExHTML += '<table><tr><td></td><td><b>Select Sub Exam</b></td><td></td></tr>';  
+						/*subExHTML += '<table><tr><td></td><td><b>Select Sub Exam</b></td><td></td></tr>';  
 						    $.each(response.subClass,function(indexsub,itemsub){
 							subExHTML += '<tr><td></td><td><b>'+itemsub.subexam+'</b></td><td></td></tr>';  
 subExHTML +=  itemsub.subexam;
 });
 		subExHTML += '</table>'; 
-		document.getElementById("displaySubExam").innerHTML = subExHTML;			
+		document.getElementById("displaySubExam").innerHTML = subExHTML;*/			
 		
 		//trHTML +='<tr><td>' + sid + '</td>'		
                 ///trHTML += '<td>' + edit + del + price + tag + merge +'</td></tr>';

@@ -494,25 +494,49 @@ $chkcount=$chkcount+1;
        $all_packages=$this->Videos_model->get_modules_package($examid,$subject_id); 
 	   //$all_packages=array();
         }
-		
-        foreach($all_packages as $package){
+		foreach($all_packages as $package){
             if($package->module_type=='question-bank'){
-                $this->data['qb_package']=$package->total_question;
+        
+//For diaply on exam main page only
+if($subject_id>0){
+        $this->data['qb_package']=$package->total_package;
                 $this->data['qb_questions']=$package->total_question;
-            }
+}else{
+                $this->data['qb_package']=$package->custom_total_package;
+                $this->data['qb_questions']=$package->custom_total_question;
+}      
+      }
             if($package->module_type=='sample-papers'){
-                $this->data['sp_package']=$package->total_question;
+if($subject_id>0){
+                $this->data['sp_package']=$package->total_package;
                 $this->data['sp_questions']=$package->total_question;
-            }
+}else{
+	$this->data['sp_package']=$package->custom_total_package;
+                $this->data['sp_questions']=$package->custom_total_question;
+}      
+			}
             
             if($package->module_type=='videos'){
-                $this->data['video_package']=$package->total_question;
+				if($subject_id>0){
+                $this->data['video_package']=$package->total_package;
                 $this->data['videos_questions']=$package->total_question;
-            }
+				}else{
+				/*We will display total video instead of palylist as per requirment. custom_total_package==custom_total_question*/
+				
+                $this->data['video_package']=$package->custom_total_question;
+                $this->data['videos_questions']=$package->custom_total_question;
+				}
+			}
             if($package->module_type=='online-test'){
-                $this->data['ot_package']=$package->total_question;
+               if($subject_id>0){
+				   $this->data['ot_package']=$package->total_package;
                 $this->data['ot_questions']=$package->total_question;
-            }
+			   }else{
+                $this->data['ot_package']=$package->custom_total_package;
+                $this->data['ot_questions']=$package->custom_total_question;
+			   }
+            
+			}
 			
             if($package->module_type=='study-packages'){
                 $getProduct_id = $this->Pricelist_model->getProduct_id($examid, $subject_id, $chapter_id, 1);
@@ -540,22 +564,45 @@ $chkcount=$chkcount+1;
                            $this->data['stpac_package']=$package->total_package;
                        }
                  *  */
-                $this->data['stpac_package']=$package->total_question;       
-                $this->data['stpac_questions']=$package->total_question;
+				 if($subject_id>0){
+                $this->data['stpac_package']=$package->total_package;       
+                $this->data['stpac_questions']=$package->total_question; 
+				 }else{				
+            $this->data['stpac_package']=$package->custom_total_package;
+			$this->data['stpac_questions']=$package->custom_total_question;
+				 }			
             }
             if($package->module_type=='notes'){
-              $this->data['notes_package']=$package->total_question;
-              $this->data['notes_questions']=$package->total_question;   
-            }
+				if($subject_id>0){
+              $this->data['notes_package']=$package->total_package;
+              $this->data['notes_questions']=$package->total_question;
+				}else{			  
+              $this->data['notes_package']=$package->custom_total_package;
+              $this->data['notes_questions']=$package->custom_total_question;
+				}
+			  }
             
             if($package->module_type=='ncert-solution'){
-             $this->data['ns_package']=$package->total_question;
-             $this->data['ns_questions']=$package->total_question;     
-            }
+				if($subject_id>0){
+            $this->data['ns_package']=$package->total_package;
+            $this->data['ns_questions']=$package->total_question;
+				}else{			
+            $this->data['ns_package']=$package->custom_total_package;
+            $this->data['ns_questions']=$package->custom_total_question;  
+				}			
+            
+			
+			}
+			
             
             if($package->module_type=='solved-papers'){
-			$this->data['solpap_package']=$package->total_question;
+				if($subject_id>0){
+			$this->data['solpap_package']=$package->total_package;
             $this->data['solpap_questions']=$package->total_question;  
+				}else{
+			$this->data['solpap_package']=$package->custom_total_package;
+            $this->data['solpap_questions']=$package->custom_total_question;  
+				}
             }			
           
         }   
@@ -566,8 +613,7 @@ $chkcount=$chkcount+1;
         if(count($data_array[$sublist_key]) > 0) {
         $md_subject_id=$sublist_value['id'];
         $packagesFor_subject=$this->Videos_model->get_modules_package($examid,$md_subject_id);  
-        $subjectArray_package[$md_subject_id]=$packagesFor_subject;                    
-                                                      }
+        $subjectArray_package[$md_subject_id]=$packagesFor_subject;                                              }
                                                    }
         $this->data['subjectArray_package']=$subjectArray_package; 
         $isProduct=array();
@@ -579,7 +625,6 @@ $chkcount=$chkcount+1;
        $packagecnt = $this->Pricelist_model->pkgCount_byExam($examid);
 		$packagecnt_array[$examid]= $packagecnt;
 		$this->data['packagecnt_array']=$packagecnt_array;
-		
         $this->data['examPlaylist']=$examPlaylist;
             //Get video name for playlist in case of chapter
         if($chapter_id > 0){
@@ -595,9 +640,7 @@ $chkcount=$chkcount+1;
         $this->data['isProduct'] = $isProduct;
         $product_id=$isProduct->id;
         $user_id=$customer_id=$this->session->userdata('customer_id');
-        $orderInfo=$this->Pricelist_model->getOrderInfo($product_id, $user_id); 
-
-
+        $orderInfo=$this->Pricelist_model->getOrderInfo($product_id, $user_id);
 /*for getting sub Exam list for category table*/
 $this->data['sub_chaptersubjects'] = array();
 $subExamArray=$this->Examcategory_model->getSubExam($examid);
