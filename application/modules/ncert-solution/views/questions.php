@@ -28,6 +28,13 @@ function utf8replacer($captures) {
     return "\xC3".chr(ord($captures[3])-64);
   }
 }
+
+if(isset($soldetails->language)&&$soldetails->language=='hindi') {
+	$hindicss='class="hindifont"';
+	$hindicss_number_q='class="hindicss_number_q"';
+	$hindicss_number_a='class="hindicss_number_a"';
+	$hindicss_text='class="hindicss_text"';
+}
 ?>
 <div id="wrapper">
   <div class="container">
@@ -74,9 +81,12 @@ function utf8replacer($captures) {
             <ul class="grid">
             <?php $count=1;foreach($questions as $question){  ?>
                 <li  class="element-item page_<?php echo $question->filter;?>" >
-                    <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php //echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));
+                    
+					<p> <div <?php echo $hindicss_number_q ;?> ><a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) </div> <div <?php echo $hindicss.' '.$hindicss_text ;?> > <?php //echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));
                     echo custom_strip_tags($question->question); 
-                    ?> </a></p>
+                    ?> </a></div></p>
+					
+					
                 <?php $answers=$this->Questions_model->answers($question->id);
                 if(count($answers) > 1){ 
                     $letters = range('A', 'Z');
@@ -87,12 +97,12 @@ function utf8replacer($captures) {
                     }else{
                         $questions_type=NULL;
                     }
+					
                         ?><p><?php echo $letters[$ac]?>) <?php if($questions_type=='Single Choice'){ ?><span><input onclick="checkSingleQus('<?php echo $answer->id; ?>','<?php echo $answer->is_correct; ?>')" type="radio" value="" name="q_opt" id="q_opt_<?php echo $answer->id; ?>"></span> <?php } echo custom_strip_tags($answer->answer); ?><span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
         <i id="answrong_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:red; font-size: 22px; font-weight: bolder; margin-bottom: 2px;" >clear</i> </span></p><?php
                     $ac++;
                     
                     }  
-                    
                     }
                 ?>
                 <!--Added _q to show question id on next page-->

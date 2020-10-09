@@ -219,7 +219,7 @@ if(count($user_spOrder)>0){
         $this->data['questions']=$questions;
         $this->data['content']='questions';
         $this->data['loadMathJax']='YES';
-	//$this->load->view('template',$this->data);
+	$this->load->view('template',$this->data);
     }
     
         

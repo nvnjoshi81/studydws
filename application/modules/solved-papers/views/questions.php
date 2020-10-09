@@ -1,16 +1,11 @@
 <?php
 
-$qbdetails->language='hindi';
-
-if(isset($qbdetails->language)&&$qbdetails->language=='hindi') {
+if(isset($spdetails->language)&&$spdetails->language=='hindi') {
     $hindicss='class="hindifont"';
     $hindicss_number_q='class="hindicss_number_q"';
     $hindicss_number_a='class="hindicss_number_a"';
     $hindicss_text='class="hindicss_text"';
 }  
-
-print_r($spdetails->language);
-
 ?>
 
 <div id="wrapper">
