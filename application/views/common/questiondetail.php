@@ -102,9 +102,10 @@ $hindicss_text='class="hindicss_text"';
                      <?php //echo $answer->is_correct==1 ? $correctAns[$answer->id]:''; ?>
                       
                       <?php
+					  
 					  $countdes= count($answer->description);
 if(isset($answer->description)){					  
-					  if($answer->description==''||$countdes<5||$answer->description=='Not Available'){
+					  if($answer->description==''||$countdes<1||$answer->description=='Not Available'){
 						  $SolutionDesc=NULL;
 					  }else{
 						  $SolutionDesc=$answer->description;
@@ -160,15 +161,13 @@ if(isset($answer->description)){
                        </li>
                        <li class="radio">
                          <label>
-                           <input type="radio" value="Irrelevant Question" name="error">
-                           
+                           <input type="radio" value="Irrelevant Question" name="error">                           
                            Irrelevant Question 
                            </label>
                          </li>
                          <li class="radio">
                            <label>
-                             <input type="radio" value="Wrong Answer" name="error">
-                             
+                             <input type="radio" value="Wrong Answer" name="error">                             
                              Wrong Answer
                              </label>
                            </li>
