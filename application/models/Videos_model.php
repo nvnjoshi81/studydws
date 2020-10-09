@@ -428,7 +428,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
     public function getDetails_bymoduleID_file($mid) {
-        $this->db->select('id,videolist_id,video_id,created_by,dt_created,modified_by,dt_modified');
+        $this->db->select('*');
         $this->db->from('cmsvideolist_details');
         $this->db->join('cmsvideos', 'cmsvideos.id=cmsvideolist_details.video_id');
         $this->db->where('cmsvideolist_details.video_id>', 0);

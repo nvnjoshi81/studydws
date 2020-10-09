@@ -3,3 +3,24 @@
     margin:10px 0;
     padding: 5px 0;
 }
+
+@font-face{
+font-family: kruti-dev;
+src: url("../fonts/k010.ttf") format("truetype");
+}
+.hindifont{
+font-family: kruti-dev;
+font-size: 25px;
+}
+
+.hindicss_number_q{
+					float:left; padding-top:8px; padding-right:10px;
+				}
+				
+.hindicss_number_a{
+					float:left; clear:both; padding-top:8px; padding-right:10px;
+				}
+				
+				.hindicss_text{
+					style="float:left;"
+				}

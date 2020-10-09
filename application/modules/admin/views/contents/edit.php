@@ -4,6 +4,7 @@
         <div class="col-lg-3 text-left">
             <h1 class="page-header">
                 <?php
+
 				if(isset($maincontent->formula_id)){
 				$exam_formula_id=$maincontent->formula_id;
 				}else{
@@ -484,8 +485,26 @@ Type -> 3 FOR Long OR Type -> 10 FOR Fill in the blanks)
 			 }
 			 }?></td>
 
-                                            <td style="word-wrap: normal; width: 100px; background: lightblue; padding: 5px;"><?php 
-											echo custom_strip_tags($var_item_question);
+                                            <td style="word-wrap: normal; width: 100px; background: lightblue; padding: 5px;">
+<?php
+$maincontent_language=$maincontent->language;
+
+if(isset($maincontent_language)&&$maincontent_language=='hindi') {
+    $hindicss='class="hindifont"';
+    $hindicss_number_q='class="hindicss_number_q"';
+    $hindicss_number_a='class="hindicss_number_a"';
+    $hindicss_text='class="hindicss_text"';
+}  
+
+?>
+
+<div <?php echo $hindicss; ?> >
+
+
+                                                <?php 
+											echo custom_strip_tags($var_item_question); ?>
+                                            </div>
+                                            <?php
 										 $vidRelation=$this->Videos_model->getRelByVid($var_item_question_id,$maincontent->id);	
 	$remoteFile="";		/*								if(isset($var_video_file)&&$var_video_file!=''){ }*/
 
@@ -499,7 +518,9 @@ if(isset($item->androidapp_link)&&$item->androidapp_link!=''){
 // Open file
 $handle = @fopen($remoteFile, 'r');
 
-												?><br>Video=><?php                      
+												
+                                             if (isset($content_type->name) && ($content_type->name == 'Videos')) {  
+                                             ?><br>Video=><?php                 
 											if (isset($item->video_source)&&($item->video_source=='studyadda'||$item->video_source=='amazon')) { 
 // Check if file exists
 if(!$handle){ 
@@ -522,7 +543,12 @@ if(!$handle){
 		}
 		}
 
-											} ?></td>
+											} } ?></td>
+                                            
+
+
+
+
         <?php if (isset($added_chapters) && count($added_chapters) > 0) { ?>
                                                 <td>
                                                     <select style="font-size: 12px" name="relatequestion" onchange="relateQuestion(<?php echo $var_item_question_id; ?>, this.value)">

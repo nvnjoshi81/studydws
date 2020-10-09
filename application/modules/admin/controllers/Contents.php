@@ -2486,6 +2486,9 @@ if(isset($dt_end)&&$dt_end!=''){
                 redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
                 die();
             }
+			
+		
+			
             if ($_FILES[$zip_field_name_html]['name'] != '') {
                 $extract_file_name = upload_extract_file($zipfolder_path, $extractfolder_path_html, $zip_field_name_html, $extract = 'yes');
                 if ($extract_file_name == 'failed') {

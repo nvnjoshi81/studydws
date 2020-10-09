@@ -127,7 +127,7 @@ class SolvedPapers_model extends CI_Model {
     }
 
     public function getDetails_bymoduleID_file($mid) {
-        $this->db->select('id,solvedpapers_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
+        $this->db->select('*');
         $this->db->from('cmssolvedpapers_details');
         $this->db->join('cmsfiles', 'cmsfiles.id=cmssolvedpapers_details.file_id');
         $this->db->where('cmssolvedpapers_details.file_id>', 0);
