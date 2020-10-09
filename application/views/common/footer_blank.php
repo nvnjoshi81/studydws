@@ -14,7 +14,7 @@
     function checkSingleQus(aId,aRight){ 
         //$('#ansblock').children('i').css('display','none'); 
 
-$( "span.ansblock" ).children().css('display','none'); 
+//$( "span.ansblock" ).children().css('display','none'); 
         if(aRight==1){
             $("#ansright_"+aId).css('display', 'block');
             
