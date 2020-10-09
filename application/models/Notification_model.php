@@ -6,7 +6,7 @@ class Notification_model extends CI_Model
         return $this->db->count_all_results('cmsnotify');
     }
     public function getcontent($limit = 0, $start = 0) {
-        $this->db->select('*');
+        $this->db->select('id,title,class_id,description,content_type,packageid,notitype,date');
         $this->db->from('cmsnotify');
         if ($limit > 0) {
             $this->db->limit($limit, $start);

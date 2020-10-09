@@ -6,7 +6,7 @@ class Media_model extends CI_Model
         return $this->db->count_all_results('cmsmedia');
     }
     public function getcontent($limit = 0, $start = 0) {
-        $this->db->select('*');
+        $this->db->select('id,title,description,image,image_big,date');
         $this->db->from('cmsmedia');
         if ($limit > 0) {
             $this->db->limit($limit, $start);

@@ -67,7 +67,7 @@ class SolvedPapers_model extends CI_Model {
     }
 
     public function samplePaperDetails() {
-        $this->db->select('*');
+        $this->db->select('id,solvedpapers_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->from('cmssolvedpapers_details');
         $this->db->group_by('solvedpaper_id');
         $query = $this->db->get();
@@ -127,7 +127,7 @@ class SolvedPapers_model extends CI_Model {
     }
 
     public function getDetails_bymoduleID_file($mid) {
-        $this->db->select('*');
+        $this->db->select('id,solvedpapers_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->from('cmssolvedpapers_details');
         $this->db->join('cmsfiles', 'cmsfiles.id=cmssolvedpapers_details.file_id');
         $this->db->where('cmssolvedpapers_details.file_id>', 0);
@@ -138,7 +138,7 @@ class SolvedPapers_model extends CI_Model {
     }
 
     public function getRelationDetail($relation_data_type) {
-        $this->db->select('*');
+        $this->db->select('id,solvedpapers_id,exam_id,subject_id,chapter_id,created_by,dt_created,modified_by,dt_modified');
         $this->db->from('cmssolvedpapers_relations');
         $this->db->where('solvedpapers_id', $relation_data_type);
         $query = $this->db->get();
@@ -291,7 +291,7 @@ class SolvedPapers_model extends CI_Model {
     }
 
     public function checkQuestion($qbid, $qid) {
-        $this->db->select('*');
+        $this->db->select('id,solvedpapers_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->where('question_id', $qid);
         $this->db->where('solvedpapers_id', $qbid);
         $this->db->from('cmssolvedpapers_details');

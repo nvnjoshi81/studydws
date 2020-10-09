@@ -17,8 +17,7 @@ class File_model extends CI_Model {
     }
 
     public function detail($fileid) {
-        $this->db->select('id,displayname,filename,filepath,'                . 
-'filename_one,filepath_one,type,filetype,pagecount,is_deleted');
+        $this->db->select('id,displayname,filename,filepath,filename_one,filepath_one,type,filetype,pagecount,is_deleted');
         $this->db->where('id', $fileid);
         $this->db->from('cmsfiles');
         $query = $this->db->get();

@@ -9,7 +9,7 @@ function __construct()
     }
 function select_settings()
 {
-  $query = $this->db->query("select * from settings");
+  $query = $this->db->query("select * from settings");  // table settings not exist.
   return $query->row();
 
 }

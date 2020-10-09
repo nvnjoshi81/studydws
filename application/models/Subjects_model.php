@@ -15,7 +15,7 @@ class Subjects_model extends CI_Model
     
     public function getSubjects()
     {
-        $this->db->select('*');
+        $this->db->select('id,name,imagename,order,created,description,keywords,tagline');
         $this->db->from('cmssubjects');
         $this->db->order_by('name');
         $query = $this->db->get();
@@ -43,7 +43,7 @@ class Subjects_model extends CI_Model
     
     public function getSubject($id)
     {
-        $this->db->select('*');
+        $this->db->select('id,name,imagename,order,created,description,keywords,tagline');
         $this->db->from('cmssubjects');
         $this->db->where('id', $id);
         $query = $this->db->get();

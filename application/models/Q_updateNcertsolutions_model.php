@@ -245,7 +245,7 @@ class Ncertsolutions_model extends CI_Model {
         return $query->result();
     }
     public function checkQuestion($solid, $qid) {
-        $this->db->select('*');
+        $this->db->select('id,ncertsolutions_id,question_id,created_by,dt_created,modified_by,dt_modified,file_id');
         $this->db->where('question_id', $qid);
         $this->db->where('ncertsolutions_id', $solid);
         $this->db->from('cmsncertsolutions_details');

@@ -140,7 +140,7 @@ class Posting_Model extends CI_Model {
 
     public function getSearchPostings($search, $limit = 10, $start = 0) {
 
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,description,user_id,adtype,meta_keywords,meta_description,external_url,external_link,category_id,top_category_id,subject_id,chapter_id,language,published,views,hits,is_featured,dt_created,dt_modified,is_deleted,view_count');
         $this->db->from('postings');
         $this->db->where('published', 1);
         //$this->db->where('title like', '%'.$search.'%');
@@ -157,7 +157,7 @@ class Posting_Model extends CI_Model {
     }
 
     public function getPostingby($id) {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,description,user_id,adtype,meta_keywords,meta_description,external_url,external_link,category_id,top_category_id,subject_id,chapter_id,language,published,views,hits,is_featured,dt_created,dt_modified,is_deleted,view_count');
         $this->db->from('postings');
         $this->db->where('category_id', $id);
         $query = $this->db->get();
@@ -184,7 +184,7 @@ class Posting_Model extends CI_Model {
     }
 
     public function getPostinginfo($id) {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,description,user_id,adtype,meta_keywords,meta_description,external_url,external_link,category_id,top_category_id,subject_id,chapter_id,language,published,views,hits,is_featured,dt_created,dt_modified,is_deleted,view_count');
         $this->db->from('postings');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -734,7 +734,7 @@ if($query->num_rows()>0){
     }
 
     public function getNotesCount($exam_id = null, $subject_id = null, $chapter_id = null) {
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,description,user_id,adtype,meta_keywords,meta_description,external_url,external_link,category_id,top_category_id,subject_id,chapter_id,language,published,views,hits,is_featured,dt_created,dt_modified,is_deleted,view_count');
         $this->db->from('postings');
 
         if ($exam_id > 0) {
@@ -755,7 +755,7 @@ if($query->num_rows()>0){
         }
     }
     public function getNotesCount2($exam_id = null, $subject_id = null, $chapter_id = null) {
-        $this->db->select('*');
+        $this->db->select('id,article_id,category_id,top_category_id,subject_id,chapter_id,created_by,dt_created,dt_modified');
         $this->db->from('relatedpostings');
 
         if ($exam_id > 0) {

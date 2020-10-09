@@ -237,7 +237,7 @@ if($not_module_id>0){
     }
 
     public function getolExamFormula() {
-        $this->db->select('*');
+        $this->db->select('online_exam_formula_id,online_exam_formula_name,right_answer_marks,wrong_answer_marks');
         $this->db->from('cmsonlinetest_formula');
         $query = $this->db->get();
         // echo $this->db->last_query();
@@ -245,7 +245,7 @@ if($not_module_id>0){
     }
 
     public function getolExamCategory($exam_id=0) {
-        $this->db->select('*');
+        $this->db->select('id,name,exam_id,order,description,keywords,status,created');
         $this->db->from('cmsonlinetest_cat');
         if($exam_id>0){
         $this->db->where('exam_id',$exam_id);
@@ -283,7 +283,7 @@ public function OnlineTests_byCategory($exam_id = null, $subject_id = null, $cha
         }
         
     public function formula_detail($id) {
-        $this->db->select('*');
+        $this->db->select('online_exam_formula_id,online_exam_formula_name,right_answer_marks,wrong_answer_marks');
         $this->db->from('cmsonlinetest_formula');
         $this->db->where('online_exam_formula_id', $id);
         $query = $this->db->get();
@@ -479,7 +479,7 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
     }
 
     public function getRightAnswerMarks($test_id) {
-        $this->db->select('*');
+        $this->db->select('id,usertest_id,question_id,question_type,users_answer,correct_answer,is_correct,action_type,perclick_time_spent,questionmarks,usermarks,dt_created,dt_modified');
         $this->db->from('cmsusertest_detail');
         $this->db->where('usertest_id', $test_id);
         $this->db->where('is_correct', 1);
@@ -503,7 +503,7 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
 
 
     public function getwrongAnswerMarks($test_id) {
-        $this->db->select('*');
+        $this->db->select('id,usertest_id,question_id,question_type,users_answer,correct_answer,is_correct,action_type,perclick_time_spent,questionmarks,usermarks,dt_created,dt_modified');
         $this->db->from('cmsusertest_detail');
         $this->db->where('usertest_id', $test_id);
         $this->db->where('is_correct', 0);
@@ -575,7 +575,7 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
         return $query->result();
     }
     public function getAttempts($test_id,$user_id){
-        $this->db->select('*');
+        $this->db->select('id,user_id,test_id,exam_id,subject_id,chapter_id,time_remaining,time_taken,total_marks,obtain_marks,formula_id,right_answer_marks,wrong_answer_marks,reviewed_qus,attampted_ques,not_attampted_qus,total_qus,total_time,correct_ans,incorrect_ans,status,start_time,end_time,conducted_by,conducted_in,dt_created,is_deleted');
         $this->db->from('cmsusertest');
         $this->db->where('user_id', $user_id);
         $this->db->where('test_id', $test_id);
@@ -598,7 +598,7 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
     }
     
     public function getUserAnswerData($test_id,$question_id){
-        $this->db->select('*');
+        $this->db->select('id,usertest_id,question_id,question_type,users_answer,correct_answer,is_correct,action_type,perclick_time_spent,questionmarks,usermarks,dt_created,dt_modified');
         $this->db->from('cmsusertest_detail');
         $this->db->where('usertest_id', $test_id);
         $this->db->where('question_id', $question_id);

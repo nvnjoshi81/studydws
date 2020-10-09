@@ -11,7 +11,7 @@ class Customer_model extends CI_Model{
 	public function get_teacherlist($techerid=0)
 	{
 		
-		 $this->db->select('*');
+		 $this->db->select('id,teacher_id,firstname,lastname,gender,designation,email,mob');
             $this->db->from('cmsteachers');
 		if($limit_start || $limit_end){
 			$this->db->limit($limit_start, $limit_end);
@@ -48,7 +48,7 @@ class Customer_model extends CI_Model{
 	
 	function getCustomers($limit_start=null, $limit_end=null,$ordercol='id',$order='desc')
 	{
-            $this->db->select('*');
+            $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
             $this->db->from('cmscustomers');
 		if($limit_start || $limit_end){
 			$this->db->limit($limit_start, $limit_end);
@@ -74,7 +74,7 @@ class Customer_model extends CI_Model{
 	}
 	public function getCustomerDetails($id)
 	{
-		$this->db->select('*');
+		$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
 		$this->db->from('cmscustomers');
 		$this->db->where('id', $id); 
 		$query = $this->db->get();
@@ -111,7 +111,7 @@ class Customer_model extends CI_Model{
         return $this->db->insert_id();
     }
         public function getCustomerDetails_byparam($customer_id,$customer_email,$customer_mobile=NULL){
-            $this->db->select('*');
+            $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
             $this->db->from('cmscustomers');
             if($customer_id>0){
             $this->db->where('id',$customer_id);
@@ -138,7 +138,7 @@ $this->db->like('email',$customer_email);
 			 $limit_start=3;
              $limit_end=100;
 			 
-			$this->db->select('*');
+			$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
             $this->db->from('cmscustomers');
          
             
@@ -196,7 +196,7 @@ if($chk==1){
         }
         
          public function getCustomer_bydate($start_date,$end_date,$regiType='all'){
-            $this->db->select('*');
+            $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
             $this->db->from('cmscustomers');
             $this->db->where('created_dt >=', $start_date);
             $this->db->where('created_dt <=', $end_date);
@@ -212,7 +212,7 @@ if($chk==1){
         }
         
         public function getCustomer_xls_downlaod($start_date,$end_date,$regiType='all'){
-            $this->db->select('*');
+            $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
             $this->db->from('cmscustomers');
             $this->db->where('created_dt >=', $start_date);
             $this->db->where('created_dt <=', $end_date);
@@ -292,7 +292,7 @@ header('Cache-Control: max-age=0');
         $objWriter->save('php://output');
     }
 public function getSubscriber_bydate($start_date,$end_date){
-            $this->db->select('*');
+            $this->db->select('id,email,mobile,address,class,date');
             $this->db->from('cmssubscribers');
             $this->db->where('date >=', $start_date);
             $this->db->where('date <=', $end_date);
@@ -301,7 +301,7 @@ public function getSubscriber_bydate($start_date,$end_date){
             return $query->result();
         }
      public function getSubscriber_xls_downlaod($start_date,$end_date){
-            $this->db->select('*');
+            $this->db->select('id,email,mobile,address,class,date');
             $this->db->from('cmssubscribers');
             $this->db->where('date >=', $start_date);
             $this->db->where('date <=', $end_date);
@@ -314,7 +314,7 @@ public function getSubscriber_bydate($start_date,$end_date){
         
     public function getDetails($id)
 	{
-		$this->db->select('*');
+		$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
 		$this->db->from('cmscustomers');
 		$this->db->where('id', $id); 
 		$query = $this->db->get();
@@ -491,7 +491,7 @@ public function getSubscriber_bydate($start_date,$end_date){
         return true;
     }
 	public function getUserInfo($user_id){
-		$this->db->select('*');
+		$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
 		$this->db->from('cmscustomers');
 		$this->db->where('id',$user_id);
 		$query = $this->db->get();
@@ -508,7 +508,7 @@ public function getSubscriber_bydate($start_date,$end_date){
         return true;
     }
 	public function getAddresses($customer_id,$default_address_id=0){
-		$this->db->select('*');
+		$this->db->select('id,customer_id,address_name,address,address2,city,city_name,state,state_name,country_id,country_name,zipcode,is_default,mobile');
 		$this->db->from('cmscustomer_addresses');
 		$this->db->where('customer_id',$customer_id);
                 if($default_address_id > 0){
@@ -520,7 +520,7 @@ public function getSubscriber_bydate($start_date,$end_date){
 	
 	//
 	public function getShippingAddresses($shipping_id){
-		$this->db->select('*');
+		$this->db->select('id,customer_id,address_name,address,address2,city,city_name,state,state_name,country_id,country_name,zipcode,is_default,mobile');
 		$this->db->from('cmscustomer_addresses');
 		$this->db->where('id',$shipping_id);
 		//$this->db->where('is_default',0);
@@ -579,7 +579,7 @@ public function getSubscriber_bydate($start_date,$end_date){
     }
 	public function checkZip($zipcode)
 	{
-		$this->db->select('*');
+		$this->db->select('*');       // table cmscod_availability_pin not exist.
 		$this->db->from('cmscod_availability_pin');
 		$this->db->where('cod_pin',$zipcode);
 		$zip = $this->db->get();
@@ -587,7 +587,7 @@ public function getSubscriber_bydate($start_date,$end_date){
 	}
 	public function getDefaultAddress($user_id)
 	{
-		$this->db->select('*');
+		$this->db->select('id,customer_id,address_name,address,address2,city,city_name,state,state_name,country_id,country_name,zipcode,is_default,mobile');
 		$this->db->from('cmscustomer_addresses');
 		$this->db->where('is_default',1);
 		$this->db->where('customer_id',$user_id);
@@ -597,7 +597,7 @@ public function getSubscriber_bydate($start_date,$end_date){
 	}
 	public function getAddressDetail($id)
 	{
-		$this->db->select('*');
+		$this->db->select('id,customer_id,address_name,address,address2,city,city_name,state,state_name,country_id,country_name,zipcode,is_default,mobile');
 		$this->db->from('cmscustomer_addresses');
 		$this->db->where('id',$id);
 		//$this->db->where('customer_id',$user_id);
@@ -890,7 +890,7 @@ if($agree_terms_value=='yes'){
 	return $order_details->result();
     }
     public function verify($id,$email,$verification_code){
-        $this->db->select('*');
+        $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
         $this->db->where('id',$id);
         $this->db->where('email',$email);
         $this->db->where('verification_code',$verification_code);
@@ -907,7 +907,7 @@ if($agree_terms_value=='yes'){
         }
     }
     public function verifyotp($user_id,$otp) {
-        $this->db->select('*');
+        $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
         $this->db->where('id',$user_id);
         $this->db->where('otp',$otp);
         $this->db->where('otp_expiry >=',time());
@@ -923,7 +923,7 @@ if($agree_terms_value=='yes'){
         }
     }
     public function isFbUser($fbid){
-	$this->db->select('*');
+	$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
 	$this->db->where('fbid',$fbid);
 	$query = $this->db->get('cmscustomers');
 	if($this->db->count_all_results() > 0){
@@ -934,7 +934,7 @@ if($agree_terms_value=='yes'){
 	}
     }
     public function isTwitterUser($twitterid){
-	$this->db->select('*');
+	$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
 	$this->db->where('twitterid',$twitterid);
 	$query = $this->db->get('cmscustomers');
 	if($this->db->count_all_results() > 0){
@@ -945,7 +945,7 @@ if($agree_terms_value=='yes'){
 	}
     }
     public function isGooglePlusUser($googleplusid){
-	$this->db->select('*');
+	$this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
 	$this->db->where('googleplusid',$googleplusid);
 	$query = $this->db->get('cmscustomers');
 	if($this->db->count_all_results() > 0){

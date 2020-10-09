@@ -2,7 +2,7 @@
 class Orders_model extends CI_Model {
 
     function entercity() {
-        $this->db->select('*');
+        $this->db->select('*'); // table tbl_location not exist.
         $this->db->from('tbl_location');
         $query = $this->db->get();
         return $query->result();
@@ -78,6 +78,7 @@ class Orders_model extends CI_Model {
         }
         $this->db->where('A.order_no', $order_no);
         $query = $this->db->get();
+		//echo $this->db->last_query();		
         return $query->result();
     }
 
@@ -93,6 +94,7 @@ class Orders_model extends CI_Model {
         $this->db->order_by('A.id', 'desc');
         $this->db->where('A.user_id', $userid);
         $query = $this->db->get();
+		//echo $this->db->last_query();
         return $query->result();
     }
 //$config["per_page"], $page,$ordercol,$userid
@@ -107,7 +109,7 @@ class Orders_model extends CI_Model {
         return $query->num_rows(); 
     }
 
-function getsearchOrders_byid($order_id) {
+function getsearchOrders_byid($order_id,$orderstatus='') {
 
         $this->db->select('A.*,B.firstname,B.lastname,B.mobile,B.email,C.address,C.address_name');
         $this->db->from('cmsorders A');
@@ -119,7 +121,7 @@ function getsearchOrders_byid($order_id) {
         return $query->result();
     }
 
-    function getsearchOrdersByDate($fdate, $tdate,$orderby='all') {
+    function getsearchOrdersByDate($fdate, $tdate,$orderby='all',$orderstatus='') {
         $this->db->select('A.*,B.firstname,B.lastname,B.email,B.mobile,C.address,C.address_name,A.app_order');
         $this->db->from('cmsorders A');
         $this->db->join('cmscustomers B', 'A.user_id=B.id');
@@ -131,23 +133,26 @@ function getsearchOrders_byid($order_id) {
 		if($orderby=='web'){
         $this->db->where('A.app_order',0);
 		}
+		if($orderstatus>=0&&$orderstatus!='') {
+			$this->db->where('A.status',$orderstatus);
+		}
         $this->db->where('A.created_dt >=', $fdate);
         $this->db->where('A.created_dt <=', $tdate + 86439);
         $query = $this->db->get();
-        //echo $this->db->last_query();
+		//echo $this->db->last_query();
         return $query->result();
     }
 
     function getOrderDetails($id) {
-        $this->db->select('*');
+        $this->db->select('id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,is_bluedart_shippable,rendor_code,bluedart_awb_no,bluedart_weight,created_dt,modified_by,modified_dt');
         $this->db->from('cmsorders');
         $this->db->where('id', $id);
-        $query = $this->db->get();
+        $query = $this->db->get();		
         return $query->row();
     }
 
     function getOrders_status() {
-        $this->db->select('*');
+        $this->db->select('*');         // table cmsorders_status no exist.
         $this->db->from('cmsorders_status');
         $query = $this->db->get();
         return $query->row();
@@ -228,15 +233,14 @@ function getsearchOrders_byid($order_id) {
 
     public function getAllOrdersCount($franchid=0) {
 	if($franchid>0){
-	$query = $this->db->query('SELECT * FROM cmsorders where created_by='.$franchid);
+	$query = $this->db->query('SELECT id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,is_bluedart_shippable,rendor_code,bluedart_awb_no,bluedart_weight,created_dt,modified_by,modified_dt FROM cmsorders where created_by='.$franchid);
     return $query->num_rows();
 	}else{    
     return $this->db->count_all('cmsorders');
     }
 	}
 	
-	public function ordersCountByDate($start_date=0,$end_date=0,$orderby='all') {
-
+	public function ordersCountByDate($start_date=0,$end_date=0,$orderby='all',$orderstatus='') {
         $this->db->select('id');
         $this->db->from('cmsorders');
         if($start_date==null){
@@ -250,11 +254,16 @@ function getsearchOrders_byid($order_id) {
         }
 		
 		
-	if($orderby=='app'){
+		if($orderby=='app'){
         $this->db->where('app_order',1);
 		}
 		if($orderby=='web'){
         $this->db->where('app_order',0);
+		}
+		
+		
+		if($orderstatus>=0) {
+			$this->db->where('status',$orderstatus);
 		}
 		$query = $this->db->get();
 		//echo $this->db->last_query();
@@ -298,7 +307,7 @@ function getsearchOrders_byid($order_id) {
         if ($limit_start || $limit_end) {
             $this->db->limit($limit_start, $limit_end);
         }
-        $this->db->select('*');
+        $this->db->select('*');         // table order_tbl not exist.
         $this->db->from('order_tbl');
         $this->db->where('orderid', $legacy_id);
         $this->db->group_by('order_no');
@@ -317,7 +326,7 @@ function getsearchOrders_byid($order_id) {
 
     // webadmin cancellation
     public function getOrderItems($order_id) {
-        $this->db->select('*');
+        $this->db->select('id,order_id,product_id,quantity,price,type,offline,end_date,user_id');
         $this->db->where('order_id', $order_id);
         $items = $this->db->get('cmsorder_details');
         return $items->result();
@@ -424,7 +433,7 @@ function getsearchOrders_byid($order_id) {
 	}
 
     public function getCustomerDetails($user_id) {
-        $this->db->select('*');
+        $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
         $this->db->from('cmscustomers');
         $this->db->where('id', $user_id);
         $query = $this->db->get();

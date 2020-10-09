@@ -35,7 +35,7 @@ class Books_model extends CI_Model {
     }
 
     public function details($id) {
-        $this->db->select('*');
+        $this->db->select('id,name,exam_id,subject_id,chapter_id,language,created_by,dt_created,modified_by,dt_modified,is_deleted,view_count');
         $this->db->from('cmsbooks');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -44,7 +44,7 @@ class Books_model extends CI_Model {
 	
 	
 	   public function detail($id) {
-        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id');
+        $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id,A.language');
         $this->db->from('cmsbooks A');
         $this->db->join('cmsbooks_relations B','A.id=B.books_id','left');
         $this->db->where('A.id', $id);
@@ -76,7 +76,7 @@ class Books_model extends CI_Model {
     }
 
     public function getRelationDetail($relation_data_type) {
-        $this->db->select('*');
+        $this->db->select('id,books_id,exam_id,subject_id,chapter_id`,created_by,dt_created,modified_by,dt_modified');
         $this->db->from('cmsbooks_relations');
         $this->db->where('books_id', $relation_data_type);
         $query = $this->db->get();
@@ -136,7 +136,7 @@ class Books_model extends CI_Model {
         return $query->result();
     }
     public function getBooksList($exam_id = 0, $subject_id = 0) {
-        $this->db->select('*')->select('categories.name as exam')->select('cmssubjects.name as subject');
+        $this->db->select('cmsbooks_relations.id,cmsbooks_relations.books_id,cmsbooks_relations.exam_id,cmsbooks_relations.subject_id,cmsbooks_relations.chapter_id,cmsbooks_relations.created_by,cmsbooks_relations.dt_created,cmsbooks_relations.modified_by,cmsbooks_relations.dt_modified')->select('categories.name as exam')->select('cmssubjects.name as subject');
         $this->db->from('cmsbooks_relations');
         
         if ($exam_id > 0) {

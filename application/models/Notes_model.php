@@ -48,7 +48,7 @@ class   Notes_model extends CI_Model
 
     
     public function detail($id){
-        $this->db->select('*');
+        $this->db->select('id,name,exam_id,subject_id,chapter_id,language,created_by,dt_created,modified_by,dt_modified,is_deleted,view_count');
         $this->db->from('cmsnotes');
         $this->db->where('id',$id);
         $query=$this->db->get();
@@ -77,7 +77,7 @@ class   Notes_model extends CI_Model
     }
     
         public function getRelationDetail($relation_data_type){
-        $this->db->select('*');
+        $this->db->select('id,notes_id,exam_id,subject_id,chapter_id,created_by,dt_created,modified_by,dt_modified');
         $this->db->from('cmsnotes_relations');
         $this->db->where('notes_id',$relation_data_type);
 	    $query=$this->db->get();

@@ -40,7 +40,7 @@ public function verified($id,$verified){
 }
 
 public function getUsers($status=null,$limit=20,$start=0){
-        $this->db->select('*');
+        $this->db->select('*');         // table users not exist.
         $this->db->from('users');
         if(!empty($status)){
         $this->db->where('verified',$status);
@@ -51,14 +51,14 @@ public function getUsers($status=null,$limit=20,$start=0){
         return $query->result();
 }
 public function getUser($id){
-        $this->db->select('*');
+        $this->db->select('*');         // table users not exist.
         $this->db->from('users');
         $this->db->where('id',$id);
         $query = $this->db->get();
         return $query->row();
 }
 public function checkUser($email){
-        $this->db->select('*');
+        $this->db->select('*');         // table users not exist.
         $this->db->from('users');
         $this->db->where('email',$email);
         $query = $this->db->get();
@@ -70,7 +70,7 @@ public function checkUser($email){
         }
 }
 public function checkPassword($user_id,$password){
-            $this->db->select('*');
+            $this->db->select('*');             // table users not exist.
             $this->db->from('users');
             $this->db->where('id',$user_id);
             $this->db->where('password',md5($password));
@@ -129,7 +129,7 @@ public function createUser($companyname,$fname,$lname,$email,$password=null,$con
         }
 }
 public function getUserPostings($user_id){
-        $this->db->select('*');
+        $this->db->select('id,legacy_id,title,description,user_id,adtype,meta_keywords,meta_description,external_url,external_link,category_id,top_category_id,subject_id,chapter_id,language,published,views,hits,is_featured,dt_created,dt_modified,is_deleted,view_count');
         $this->db->from('postings');
         $this->db->where('user_id',$user_id);
         $this->db->order_by('dt_created','desc');
@@ -145,7 +145,7 @@ public function add_newaccount($data){
 } 
 public function login_admin($email,$password) {   
         //$this->output->enable_profiler(TRUE);
-        $this->db->select('*');
+        $this->db->select('id,email,password,pass,first_name,last_name,mobile,type,company,address,city,state,postcode,dt_created,dt_modified');
         $this->db->from('admin');
         $this->db->where('email',$email);
         $this->db->where('password',  sha1($password));
@@ -189,7 +189,7 @@ public function login_admin($email,$password) {
     }
     
     public function getlog($limit=50){
-        $this->db->select('*');
+        $this->db->select('id,email,userid,ipaddress,logintime,success');
         $this->db->from('loginlog');
         $this->db->limit($limit);
         $this->db->order_by('id','desc');
