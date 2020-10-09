@@ -1,15 +1,27 @@
+<?php
+
+?>
+
 <div id="wrapper">
   <div class="container">
     <div class="row">
       <?php $this->load->view('common/breadcrumb');
 
-      $qbdetails->language='hindi';
-
-	  	  if(isset($qbdetails->language)&&$qbdetails->language=='hindi'){
+	  	  if(isset($spdetails->language)&&$spdetails->language=='hindi'){
 $hindicss='class="hindifont"';
 $hindicss_number_q='class="hindicss_number_q"';
 $hindicss_number_a='class="hindicss_number_a"';
 $hindicss_text='class="hindicss_text"';
+}
+
+else if(isset($soldetails->language)&&$soldetails->language=='hindi') {
+	$hindicss='class="hindifont"';
+	$hindicss_number_q='class="hindicss_number_q"';
+	$hindicss_number_a='class="hindicss_number_a"';
+	$hindicss_text='class="hindicss_text"';
+}
+else {
+	
 }
 
 	  ?>
