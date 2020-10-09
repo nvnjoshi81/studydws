@@ -15,7 +15,7 @@ class Questionbank_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function detail1($id) {
+    public function detail($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('cmsquestionbank');
         return $query->row();
