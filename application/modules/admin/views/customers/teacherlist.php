@@ -42,11 +42,8 @@ input:focus, select:focus {
                   <!--
 				  <form id="" name="" method="post" action="<?php //echo base_url(); ?>admin/customers/reg_teacher" >
 				  -->
-							<form id="" name="" method="post" action="<?php echo base_url(); ?>admin/customers/<?php echo $formaction; ?>" >
+							<form id="" name="" method="post" action="<?php echo base_url(); ?>admin/customers/<?php echo $formaction; ?>">
                     <div class="container">
-					<div class="row">
-						<a href="<?php echo base_url(); ?>admin/customers/teacher_list">Teacher</a>
-					</div>
 					
 						<div class="row">
 <!-- teachers registration form -->					
