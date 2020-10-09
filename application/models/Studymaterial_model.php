@@ -41,8 +41,7 @@ class Studymaterial_model extends CI_Model {
         if ($chapter_id > 0) {
             $this->db->where('cmsstudymaterial_relations.chapter_id', $chapter_id);
         }
-        $this->db->join('cmsstudymaterial_details D', 'D.file_id=F.id');        
-        $this->db->join('cmsstudymaterial A','A.id=D.studymaterial_id');
+        $this->db->join('cmsstudymaterial_details D', 'D.file_id=F.id');$this->db->join('cmsstudymaterial A','A.id=D.studymaterial_id');
         $this->db->join('cmsstudymaterial_relations ', 'A.id=cmsstudymaterial_relations.studymaterial_id');
         $this->db->join('categories', 'cmsstudymaterial_relations.exam_id=categories.id', 'left');
         $this->db->join('cmssubjects', 'cmsstudymaterial_relations.subject_id=cmssubjects.id', 'left');
