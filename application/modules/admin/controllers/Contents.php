@@ -28,8 +28,10 @@ class Contents extends MY_Admincontroller {
         $this->data['examformula_array'] = $this->Onlinetest_model->getolExamFormula();
         $this->data['olcategory_array'] = $this->Onlinetest_model->getolExamCategory();
         $this->data['array_video_source'] = $this->Contents_model->getVideoSource();
-        $this->data['array_video_by'] = $this->Contents_model->getVideoBy();
-        $this->data['array_is_featured'] = $this->Contents_model->getIsFeatured();
+        
+		$this->data['array_video_by'] = $this->Contents_model->getVideoBy();
+		
+		$this->data['array_is_featured'] = $this->Contents_model->getIsFeatured();
         $this->data['array_status'] = $this->Contents_model->getStatus();
     }
 
