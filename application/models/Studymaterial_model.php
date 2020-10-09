@@ -161,11 +161,8 @@ class Studymaterial_model extends CI_Model {
     }
     
     public function detail($id) {
-<<<<<<< HEAD
         $this->db->select('A.id,A.name,A.language,B.exam_id,B.subject_id,B.chapter_id');
-=======
         $this->db->select('A.id,A.name,B.exam_id,B.subject_id,B.chapter_id,A.language');
->>>>>>> b17c50b467eeae3909aac5fdf90c61695cd6d88e
         $this->db->from('cmsstudymaterial A');
         $this->db->join('cmsstudymaterial_relations B','A.id=B.studymaterial_id','left');
         $this->db->where('A.id', $id);
