@@ -383,12 +383,13 @@ if(typeof(item.displayname)==='undefined'){
                 dataType:'json',
                 success:function(response) {
                     if(response.count > 0){
-					
+					//For Sub Subject
+					if(subject == 0){					
 				$('#sub_category option[value!="0"]').remove();
+					}
                     //var selectbox=$("#chapter");
-					
-                  $.each(response.subClass,function(subindex,subitem){
-                       $('#sub_category').append('<option value="'+subitem.id+'">' + subitem.name+ '</option>');
+                $.each(response.subClass,function(subindex,subitem){
+                $('#sub_category').append('<option value="'+subitem.id+'">' + subitem.name+ '</option>');
                 });
 						
                         $('#contentdata').show();

@@ -254,6 +254,62 @@ $chkcount=$chkcount+1;
         } 
 		
         $this->data['subject_chapters']=$data_array;
+		
+		$sub_chkcount=0;
+		
+		
+		
+		/*for getting sub Exam list for category table*/
+$this->data['sub_chaptersubjects'] = array();
+$this->data['sub_subjects_array'] = array();
+		    $sub_data_array=array();
+
+$subExamArray=$this->Examcategory_model->getSubExam($examid);
+if(isset($subExamArray)&&count($subExamArray)>0){  
+if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
+$subExamId=$subExamArray[0]->id; 
+}else{
+$subExamId=0;
+}
+$sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId); 
+   
+	if(count($sub_chaptersubjects) > 0){
+            foreach($sub_chaptersubjects as $sub_record){
+
+	if (!in_array($sub_record->sname, $sub_subjects_array)) {
+                    $sub_subjects_array[$sub_record->sid] = array('name' => $sub_record->sname);
+                    }
+						if ($subject_id > 0 && $subject_id == $sub_record->sid) {
+                        if (!in_array($sub_record->cname, $chapters_array)) {
+							if($sub_chkcount>0){
+							$chapters_array[$sub_record->cid] = array('name' => $sub_record->cname, 'count' => $sub_chkcount);
+							}
+                        } else {
+                        $chapters_array[$sub_record->cid]['count'] = $sub_chkcount;
+                        }
+                    }
+				if(array_key_exists($sub_record->sname, $sub_data_array)){
+                    array_push($sub_data_array[$sub_record->sname]['chapters'],array($sub_record->cid,$sub_record->cname));
+                }else{
+                    $sub_data_array[$sub_record->sname]['id']=$sub_record->sid;
+                    if(isset($sub_data_array[$sub_record->sname]['chapters'])&&($sub_chkcount>0)){
+                    array_push($sub_data_array[$sub_record->sname]['chapters'],array($sub_record->cid,$sub_record->cname));
+                    }else{
+                    $sub_data_array[$sub_record->sname]['chapters'][0]=array($sub_record->cid,$sub_record->cname);
+                    }
+                }
+	}
+	}
+}
+/*End sub exam lsit*/
+	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){ 
+        $this->data['sub_chaptersubjects'] = $sub_data_array;
+		$this->data['subExamArray'] = $subExamArray[0];
+	}else{ 
+        $this->data['sub_chaptersubjects'] = array();
+		$this->data['subExamArray'] = array();
+	}	
+		
 		 if (count($subjects_array) > 0) {
                 foreach ($subjects_array as $key => $value) {
                     $sm = $this->Studymaterial_model->getStudyMaterialCount($examid, $key, 0);
@@ -641,27 +697,6 @@ if($subject_id>0){
         $product_id=$isProduct->id;
         $user_id=$customer_id=$this->session->userdata('customer_id');
         $orderInfo=$this->Pricelist_model->getOrderInfo($product_id, $user_id);
-/*for getting sub Exam list for category table*/
-$this->data['sub_chaptersubjects'] = array();
-$subExamArray=$this->Examcategory_model->getSubExam($examid);
-if(isset($subExamArray)&&count($subExamArray)>0){  
-if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
-$subExamId=$subExamArray[0]->id; 
-}else{
-$subExamId=0;
-}
-$sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId); 
-
-	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){ 
-        $this->data['sub_chaptersubjects'] = $sub_chaptersubjects;
-		$this->data['subExamArray'] = $subExamArray[0];
-	}else{ 
-        $this->data['sub_chaptersubjects'] = array();
-		$this->data['subExamArray'] = array();
-	}
-}
-/*End sub exam lsit*/
-
 		
         $this->data['orderInfo'] = $orderInfo;
         }else{

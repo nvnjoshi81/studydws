@@ -110,6 +110,15 @@ class Questionbank_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+	
+    public function getSubClass($mainExamid) {
+	   $this->db->select('id,name,parent_id');
+        $this->db->from('categories');
+        $this->db->where('parent_id', $mainExamid);
+        $query = $this->db->get();
+        return $query->result();
+	}
+	
 
     public function getDetails_bymoduleID_file($mid) {
         $this->db->select('*');

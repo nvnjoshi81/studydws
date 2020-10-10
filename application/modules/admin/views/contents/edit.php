@@ -14,8 +14,6 @@
                     echo $content_type->name . ' - ' . $maincontent->name;
                 } else {
 					
-								echo 'rrrrrrrrrrrr'.$id; die;
-			echo 'rrrrrrrrrrrr'; die;
                     $this->session->set_flashdata('message', 'Information not Available!');
                     redirect('admin/contents/add');
                     die();

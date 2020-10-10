@@ -294,6 +294,7 @@ class Contents extends MY_Admincontroller {
 			 $relations_data = array(
             'category_id' => $exam_id,
             'top_category_id' => '21',
+            'subexam_id' => $subexam_id,
             'subject_id' => $subject_id,
             'article_id' => $module_id,
             'created_by' => $created_by_id,
@@ -378,9 +379,9 @@ class Contents extends MY_Admincontroller {
         $subject_id = $this->input->post('subject');
         $chapter_id = $this->input->post('chapter');
 		if(isset($subexam_id)&&$subexam_id>0){
-		$subject_id = $subexam_id;	
+		$subexam_id = $this->input->post('sub_category');	
 		}else{
-		$subject_id = $this->input->post('subject');	
+		$subexam_id = $this->input->post('subject');	
 		}
 		/*For Upload in hindi english language*/
        $language_post = $this->input->post('language');
@@ -478,6 +479,7 @@ class Contents extends MY_Admincontroller {
             $data = array(
                 'name' => $name,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
 				'language'=>$language_var,
@@ -652,6 +654,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'questionbank_id' => $questoin_bank_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -864,6 +867,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'samplepaper_id' => $sample_papers_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -1079,6 +1083,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'solvedpapers_id' => $solvedpapers_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -1488,6 +1493,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'ncertsolutions_id' => $ncertsolutions_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -1656,6 +1662,7 @@ class Contents extends MY_Admincontroller {
                 $relations_data = array(
                     'videolist_id' => $playlist_insert_id,
                     'exam_id' => $exam_id,
+                    'subexam_id' => $subexam_id,
                     'subject_id' => $subject_id,
                     'chapter_id' => $chapter_id,
                     'created_by' => $created_by_id,
@@ -1795,6 +1802,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'books_id' => $books_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -1854,6 +1862,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'studymaterial_id' => $studymaterial_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -2023,6 +2032,7 @@ class Contents extends MY_Admincontroller {
             $relations_data = array(
                 'studymaterial_id' => $studymaterial_insert_id,
                 'exam_id' => $exam_id,
+                'subexam_id' => $subexam_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
@@ -5273,6 +5283,8 @@ NOT USEFUL
 
         if ($show_content_type->name == 'Question Bank') {
             $contents = $this->Questionbank_model->getQuestionBank($examid, $subject_id, $chapter_id);
+						
+			$getSubClass = $this->Questionbank_model->getSubClass($examid);
         }
 
         if ($show_content_type->name == 'Sample Papers') {
@@ -5293,9 +5305,19 @@ NOT USEFUL
             $contents = $this->Posting_model->getArticlesForExams($examid, $subject_id, $chapter_id);
         }
 		
-		$subClass_array[] = array('id'=>'1','name'=>'ICSE');
-		
-		$subClass_array[] = array('id'=>'2','name'=>'RJ Board');
+		foreach($getSubClass as $skey=>$svalue){
+			if(isset($svalue->id)&&$svalue->id>0){
+			$subSubjectId=$svalue->id;
+			}else{
+			$subSubjectId=$svalue->id;
+			}
+			if(isset($svalue->name)&&$svalue->name!=''){
+			$subSubjectName=$svalue->name;
+			}else{
+			$subSubjectName=NULL;
+			}
+			$subClass_array[] = array('id'=>$subSubjectId,'name'=>$subSubjectName);
+		}
 		
 		$cntCount=count($contents);
         if ($cntCount > 0) {

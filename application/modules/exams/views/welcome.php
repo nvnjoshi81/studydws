@@ -35,7 +35,7 @@
                         $bookclass = array('bg-default','bg-primary','bg-warning','bg-info','bg-danger'); 
                         $outer_spcnt=0; 
                         if ($this->uri->segment(4) == '' && $this->uri->segment(3) != '') {
-                            //print_r($subject_chapters);
+                           
                             if (isset($subject_chapters) && count($subject_chapters) > 0) {
                                 ?>
                                 <!--Showing Subject Start-->
@@ -43,7 +43,6 @@
 								<div class="row">
 								<!--start Sub Class -->
 		<?php
-		
 									if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){
 										?>
 										    <div class="page-header text-center">
@@ -55,8 +54,9 @@ echo $subExamArray->name;
     </div> <!--class="row pack_sub"-->
     
 	<?php
-             foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
-		
+        foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
+		print_r($sub_subjectlist_key); echo '<br>----';
+		print_r($sub_subjectlist_value['chapters'][0]); 
 				 ?>								
 			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
 				<div class="">
@@ -72,12 +72,8 @@ echo $subExamArray->name;
                              ?>     	<div class="">
 									<?php  
 									echo "<a title='".$sub_subjectName."' href='" . base_url($this->uri->segment(1) . '/' . url_title($subExamArray->name, '-', true). '/' . $subExamArray->id . '/' . url_title($sub_subjectName, '-',true) . '/' . $sub_subjectid['id']) . "'>"; 
-									
-										echo "
-										<h4 class='text-primary'>{$sub_subjectName} 
-										</h4>
-										";
-	echo "</a>";										
+									echo "<h4 class='text-primary'>{$sub_subjectName}</h4>";
+									echo "</a>";										
 										?> 
 									</div>
 				</div>
@@ -86,15 +82,11 @@ echo $subExamArray->name;
 			 }
 			}
 			?>
-								
-								<!--End sub Class-->
-								
-    <div class="page-header text-center">
-        <h3 class="select_heading">Select Subject</h3>
+	<!--End sub Class-->
+	<div class="page-header text-center">
+    <h3 class="select_heading">Select Subject</h3>
     </div> <!--class="row pack_sub"-->
-    
-                                        
-             <?php
+    <?php
    //print_r($subject_chapters);
             $totalsolvedp=count($solvedp);
             //$totalsp=count($sp);
