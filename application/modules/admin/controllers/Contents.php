@@ -374,10 +374,16 @@ class Contents extends MY_Admincontroller {
         $var_filename_one = '';
         $var_filename_zero = '';
         $exam_id = $this->input->post('category');
+        $subexam_id = $this->input->post('sub_category');
         $subject_id = $this->input->post('subject');
         $chapter_id = $this->input->post('chapter');
+		if(isset($subexam_id)&&$subexam_id>0){
+		$subject_id = $subexam_id;	
+		}else{
+		$subject_id = $this->input->post('subject');	
+		}
 		/*For Upload in hindi english language*/
-       $language_post = $chapter_id = $this->input->post('language');
+       $language_post = $this->input->post('language');
         if(isset($language_post)&&$language_post!=''){
 			$language_var=$language_post;
 		}else{
@@ -4920,8 +4926,8 @@ NOT USEFUL
             $this->load->model('Questionbank_model');
             $this->load->model('Pricelist_model');
             $this->load->model('Examcategory_model');
-            $qb = $this->Questionbank_model->detail($id);
-            $qbdetails = $this->Questionbank_model->getQbDetails($id);
+            $qb = $this->Questionbank_model->detailsrelation($id);
+			$qbdetails = $this->Questionbank_model->getQbDetails($id);
             $pricelist_details_arr = $this->Pricelist_model->getDetails_bymoduleID($id);
             $uploaded_file_details = $this->Questionbank_model->getDetails_bymoduleID_file($id);
             $module_relation_details = $this->Questionbank_model->getRelationDetail($id);
@@ -5287,9 +5293,9 @@ NOT USEFUL
             $contents = $this->Posting_model->getArticlesForExams($examid, $subject_id, $chapter_id);
         }
 		
-		$subClass_array[] = array('subexam'=>'ICSE');
+		$subClass_array[] = array('id'=>'1','name'=>'ICSE');
 		
-		$subClass_array[] = array('subexam'=>'RJ Board');
+		$subClass_array[] = array('id'=>'2','name'=>'RJ Board');
 		
 		$cntCount=count($contents);
         if ($cntCount > 0) {
@@ -5303,8 +5309,7 @@ NOT USEFUL
             $response['data'] = array();
             $response['count'] = 1;
         }
-		
-		//$response['subClass'] = $subClass_array;
+		$response['subClass'] = $subClass_array;
         echo json_encode($response);
     }
 

@@ -174,10 +174,35 @@ echo generateSelectBox('category', $exams, 'id', 'name', 1 , 'class="form-contro
 ?>
                 </div>
             </div>
+			
+			
+			<!--sub_category-->
+			
+			
+			   <div class="col-sm-3">
+                <div class="form-group">
+                  
+<?php  
+          
+    $content_type_exam_id=0;                 
+if (isset($maincontent->exam_id))
+        {
+    $content_type_exam_id=$maincontent->exam_id;        
+
+    ?><input type="hidden" name="sub_category"  id="category"  value="<?php echo $content_type_exam_id;  ?>">
+	<?php
+    }else{
+    ?><label>Select Sub Exam</label>
+	<?php
+echo generateSelectBox('sub_category', $exams, 'id', 'name', 1 , 'class="form-control"',$content_type_exam_id); 
+        }
+?>
+ </div>
+            </div>
             <div class="col-sm-3">
                 <div class="form-group">
                    <?php
-     $content_type_subject=0;                 
+$content_type_subject=0;                 
 if (isset($maincontent->subject_id))
         {
     $content_type_subject=$maincontent->subject_id;

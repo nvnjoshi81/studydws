@@ -654,7 +654,7 @@ $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId);
 
 	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){ 
         $this->data['sub_chaptersubjects'] = $sub_chaptersubjects;
-		   $this->data['subExamArray'] = $subExamArray[0];
+		$this->data['subExamArray'] = $subExamArray[0];
 	}else{ 
         $this->data['sub_chaptersubjects'] = array();
 		$this->data['subExamArray'] = array();

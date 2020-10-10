@@ -625,10 +625,8 @@ $this->load->helper('text');
                 
         $chapters_array=array();        
         $chapters_array[]=array('productslist_html'=>$productslist_html,'productslist_count'=>count($productslist));
-        
         echo json_encode($chapters_array);
     }
-	
 	
 	 public function updateVideoAttr() {
 		/*videos/welcome/updateVideoAttr*/ 

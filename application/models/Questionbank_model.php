@@ -21,6 +21,16 @@ class Questionbank_model extends CI_Model {
         return $query->row();
     }
     
+		public function detailsrelation($id) {
+	    $this->db->select('A.id,A.name,A.language,A.is_deleted,A.view_count,B.questionbank_id,B.exam_id,B.subject_id,B.chapter_id');
+        $this->db->from('cmsquestionbank A');
+        $this->db->join('cmsquestionbank_relations B', 'B.questionbank_id=A.id', 'left');
+        $this->db->where('A.id', $id);
+        $query = $this->db->get();
+        return $query->row();
+	}
+	
+	
     public function checkqb($exam_id, $subject_id, $chapter_id) {
         $this->db->where('exam_id', $exam_id);
         $this->db->where('subject_id', $subject_id);

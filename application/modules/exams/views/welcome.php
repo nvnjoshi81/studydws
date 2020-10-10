@@ -49,17 +49,21 @@
 										    <div class="page-header text-center">
         <h3 class="select_heading">Select Sub Subject <?php if(isset($subExamArray->name)&&$subExamArray->name!=''){
 echo $subExamArray->name; 
-} ?></h3>
+///exams/12th-class/22
+}
+?></h3>
     </div> <!--class="row pack_sub"-->
     
 	<?php
              foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
+		
 				 ?>								
 			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
 				<div class="">
 						<?php  
+				$sub_subjectid=$sub_subjectlist_value->sid;
 		$sub_subjectnameArray=$sub_subjectlist_value->sname;
-                        if(strlen()>40){
+                        if(strlen($sub_subjectnameArray)>40){
                         $sub_subjectName=substr($sub_subjectnameArray,0,40).'..';
                          }else{
                         $sub_subjectName=$sub_subjectnameArray;
@@ -67,10 +71,13 @@ echo $subExamArray->name;
 //echo "<i class='fa fa-book fa-4x text-warning'></i>";
                              ?>     	<div class="">
 									<?php  
+									echo "<a title='".$sub_subjectName."' href='" . base_url($this->uri->segment(1) . '/' . url_title($subExamArray->name, '-', true). '/' . $subExamArray->id . '/' . url_title($sub_subjectName, '-',true) . '/' . $sub_subjectid['id']) . "'>"; 
+									
 										echo "
 										<h4 class='text-primary'>{$sub_subjectName} 
 										</h4>
-										"; 
+										";
+	echo "</a>";										
 										?> 
 									</div>
 				</div>
@@ -131,7 +138,7 @@ echo $subExamArray->name;
                         if(strlen($subjectlist_key)>40){
                         $subjectName=substr($subjectlist_key,0,40).'..';
                          }else{
-                             $subjectName=$subjectlist_key;
+                        $subjectName=$subjectlist_key;
                          }
 //echo "<i class='fa fa-book fa-4x text-warning'></i>";
                              ?>     

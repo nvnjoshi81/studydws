@@ -72,27 +72,26 @@ $minutes = floor(($init / 60) % 60);
 $seconds = $init % 60;
 				?>
 			<font style="font-family:'Courier New';font-size:'initial'">Video Duration-<?php 
-echo "$hours:$minutes:$seconds"; ?></font><?php 
+echo "$minutes:$seconds"; ?></font><?php 
 			}else if(isset($video->custom_video_duration)&&$video->custom_video_duration!=''){
 				
-	$init = $video->custom_video_duration;
+$init = $video->custom_video_duration;
 $hours = floor($init / 3600);
 $minutes = floor(($init / 60) % 60);
 $seconds = $init % 60;
 				?>
 			<font style="font-family:'Courier New'; font-size:'initial'">Video Duration-<?php 
-            echo "$hours:$minutes:$seconds";
-			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font><?php
-				
+			//$hours
+            echo "$minutes:$seconds";
+			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font>
+			<?php
 			}
 			if(isset($video->video_size)&&$video->video_size!=''){
-				?>
+			?>
 			<font style="font-family:'Courier New'"> | Video Size-<?php echo $video->video_size; ?></font><?php 
 			}
-		
 ?></h5>
    </div>
-
 </div>
 <?php
 }else if($resourceKey!=''&&$streamHostUrl!=''){
@@ -112,9 +111,9 @@ if($androidapp_link==''){
 
 "</p></div>"; ?>
 		  <div>
-		  
-		  <!--
-                        <img width="800px" height="430px" src="<?php //echo base_url('/assets/images/mozilla_message.png')?>" class="img-responsive">-->
+		<!--
+                        <img width="800px" height="430px" src="<?php //echo base_url('/assets/images/mozilla_message.png')?>" class="img-responsive">
+		-->
                     </div>
 		<?php
 	}else{
