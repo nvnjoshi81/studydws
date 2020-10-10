@@ -933,15 +933,42 @@ if (isset($module_file_details[0]->title))
     </div>
     <div class="form-group">
     <label>Video By (User Id)</label>
+    
+<select name="videoby" class="form-control">
+    <option value="">Select User Id</option>
        <?php
         if(isset($module_file_details[0]->video_by)){
         $video_byid = $module_file_details[0]->video_by;
         }else{
         $video_byid=0;
         }
-         echo generateSelectBox('video_by',$array_video_by, 'id', 'name', 0, 'class="form-control"',$video_byid);
-		
-	?>
+        
+        $videoby = (array)$array_video_by;
+        foreach ($videoby as $key=>$videovalue) {
+            //print_r($videovalue);
+            $videovalue->id;            
+            $videovalue->name;
+            $videovalue->gender;
+            if($videovalue->gender == "Male") {
+                echo $prefix = "Sir";
+            }           
+            if($videovalue->gender == "Female") {
+                echo $prefix = "Madam";
+            }
+
+            $disp_val = $videovalue->name." ".$prefix." - ".$videovalue->id;
+
+            ?>
+            <option value="<?php echo $key; ?>"><?php echo $disp_val; ?></option>
+        <?php
+    }
+?>
+    </select>
+   
+<?php
+   //echo generateSelectBox('video_by',$array_video_by, 'id', 'name', 0, 'class="form-control"',$video_byid);
+        
+    ?>
     </div> 
     <div class="form-group">
     <label>Video Status</label>
