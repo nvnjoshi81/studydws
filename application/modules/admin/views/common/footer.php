@@ -358,6 +358,7 @@ if(typeof(item.displayname)==='undefined'){
             return false;
         }
         var exam=$('#category').val();
+        var sub_exam=$('#sub_category').val();
         var subject=$('#subject').val();
         var chapter=$('#chapter').val();
         if(exam >  0 && subject > 0 && is_final==0){
@@ -382,6 +383,14 @@ if(typeof(item.displayname)==='undefined'){
                 dataType:'json',
                 success:function(response) {
                     if(response.count > 0){
+					
+				$('#sub_category option[value!="0"]').remove();
+                    //var selectbox=$("#chapter");
+					
+                  $.each(response.subClass,function(subindex,subitem){
+                       $('#sub_category').append('<option value="'+subitem.id+'">' + subitem.name+ '</option>');
+                });
+						
                         $('#contentdata').show();
                         $("#dataTables-example > tbody").html("");
                         var trHTML = '';
