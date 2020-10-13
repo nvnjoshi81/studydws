@@ -65,6 +65,7 @@ class Welcome extends Modulecontroller {
         
         
     }
+	
     public function category($category_name,$category_id){
         $childcategories=$this->Categories_model->getCategoryTree($category_id);
         $this->data['childcategories']=$childcategories;
@@ -108,9 +109,13 @@ class Welcome extends Modulecontroller {
         $this->data['content']='welcome';
 	$this->load->view('template',$this->data);
     }
+	
+
     public function article($category_name,$article_name,$article_id){        
        //update View Count
+	   
         $this->Pricelist_model->update_viewcount($article_id,'postings');
+		
         $this->load->helper('text');
         $postdetails=$this->Posting_model->getPostinginfo($article_id);
         $related=$this->Posting_model->getRelatedPostings($postdetails->category_id);
@@ -121,7 +126,7 @@ class Welcome extends Modulecontroller {
         //$this->data['styles']=array('ask/style/studyadda.askexpert.css');
         //print_r($previouspost);
         //print_r($nextpost);
-        $this->data['recentarticles']=$recentarticles;
+		$this->data['recentarticles']=$recentarticles;
         $this->data['related']=$related;
         $this->data['nextpost']=$nextpost;
         $this->data['previouspost']=$previouspost;
@@ -129,9 +134,8 @@ class Welcome extends Modulecontroller {
         $this->data['category']=$category;
         $this->data['article_id']=$article_id;
         $this->data['content']='details';
-	$this->load->view('template',$this->data);
+		$this->load->view('template',$this->data);
     }
-    
     public function archives($year,$month){
         // Update function below to get listings count by month and year
         $total_rows=$this->Posting_model->count_post_by_parent($this->custom_category_id,1,$year,$month);
@@ -174,13 +178,22 @@ class Welcome extends Modulecontroller {
         
         $this->data['listings']=$listings;
         $this->data['content']='welcome';
-	$this->load->view('template',$this->data);
+		$this->load->view('template',$this->data);
     }
+	
+	
     public function examarticle($exam_name,$subject_name,$chapter_name,$article_name,$article_id){
-        
-        $this->data['loadMathJax']='yes';
-        $article=$this->Posting_model->getExamArticleInfo($article_id);        
-	$this->data['relation']=$article[0];
+        $article=$this->Posting_model->getExamArticleInfo($article_id);
+		
+			$getlan=$article[0]->language;
+		if(isset($getlan)&&$getlan=="hindi") {
+			$this->data['loadMathJax']='no';
+		}
+		else {
+			$this->data['loadMathJax']='yes';
+		}
+		
+		$this->data['relation']=$article[0];
         $this->data['article']=$article[0];
            
        //update View Count
@@ -250,13 +263,23 @@ class Welcome extends Modulecontroller {
 	$this->load->view('template',$this->data);
     }
     
-    
+ 
      public function androidnotes($exam_name,$subject_name,$chapter_name,$article_name,$article_id){
             //echo $exam_name,'..',$subject_name,'..',$chapter_name,'..',$article_name,'..',$article_id; die;
+			
         $this->data['loadMathJax']='yes';
-        $article=$this->Posting_model->getExamArticleInfo($article_id);        
-	$this->data['relation']=$article[0];
+        
+		$article=$this->Posting_model->getExamArticleInfo($article_id);        
+		$getlan=$article[0]->language;
+		if(isset($getlan)&&$getlan=="hindi") {
+			$this->data['loadMathJax']='no';
+		}
+		else {
+			$this->data['loadMathJax']='yes';
+		}
+		$this->data['relation']=$article[0];
         $this->data['article']=$article[0];
+
            
        //update View Count
         //$this->Pricelist_model->update_viewcount($article_id,'postings');
