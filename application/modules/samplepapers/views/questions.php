@@ -5,7 +5,6 @@
      
       <?php 
       //print_r($spdetails); 
-
       if(isset($spdetails->language)&&$spdetails->language=='hindi') {
           $hindicss='class="hindifont"';
           $hindicss_number_q='class="hindicss_number_q"';
