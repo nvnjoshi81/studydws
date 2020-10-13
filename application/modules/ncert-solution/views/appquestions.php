@@ -28,6 +28,12 @@ function utf8replacer($captures) {
     return "\xC3".chr(ord($captures[3])-64);
   }
 }
+if(isset($soldetails->language)&&$soldetails->language=='hindi') {
+	$hindicss='class="hindifont"';
+	$hindicss_number_q='class="hindicss_number_q"';
+	$hindicss_number_a='class="hindicss_number_a"';
+	$hindicss_text='class="hindicss_text"';
+}
 ?>
 
 <div id="wrapper">
@@ -66,9 +72,9 @@ function utf8replacer($captures) {
             <ul class="grid">
             <?php $count=1;foreach($questions as $question){  ?>
                 <li  class="element-item page_<?php echo $question->filter;?>" >
-                    <p> <a href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php //echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));
+                    <<p> <div <?php echo $hindicss_number_q ;?> ><a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) </div> <div <?php echo $hindicss.' '.$hindicss_text ;?> > <?php //echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));
                     echo custom_strip_tags($question->question); 
-                    ?> </a></p>
+                    ?> </a></div></p>
                 <?php $answers=$this->Questions_model->answers($question->id);
                 if(count($answers) > 1){ 
                     $letters = range('A', 'Z');
