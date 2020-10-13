@@ -1,3 +1,12 @@
+<?php
+$sdl = $article->language=="hindi";
+if(isset($sdl)&&$sdl=='hindi') {
+	$hindicss='class="hindifont"';
+	$hindicss_number_q='class="hindicss_number_q"';
+	$hindicss_number_a='class="hindicss_number_a"';
+	$hindicss_text='class="hindicss_text"';
+}
+?>
 <div id="wrapper">
   <div class="container">
     <div class="row">
@@ -11,10 +20,11 @@
         </div>
         <div class="rev_article">
         <!--<p class="col-md-5"><strong>Category : </strong><?php echo $article->exam; ?></p>-->
-            
-        <div class="panel-body">
+
+			<div <?php echo $hindicss; ?> class="panel-body ">
             <p><?php echo $article->description;?></p>
-        </div>
+          </div>
+          </div>
         </div>
             <div class="art_nxt_prev">
         <?php

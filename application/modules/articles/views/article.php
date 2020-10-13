@@ -1,3 +1,12 @@
+<?php
+$sdl = $article->language;
+if(isset($sdl)&&$sdl=='hindi') {
+	$hindicss='class="hindifont"';
+	$hindicss_number_q='class="hindicss_number_q"';
+	$hindicss_number_a='class="hindicss_number_a"';
+	$hindicss_text='class="hindicss_text"';
+}
+?>
 <div id="wrapper">
   <div class="container">
     <div class="row">
@@ -10,16 +19,14 @@
           </div>-->
           <div class="rev_article"><p class="col-md-12"><?php echo $article->title;?></p>
           <p class="col-md-5"><strong>Category : </strong><?php echo $article->exam; ?></p>
-          <p class="col-md-7 pull-right text-right">
-          <?php //echo custom_date($article->dt_created); ?>
-          </p>
           </div>
-          <div class="panel-body">
+          <div <?php echo $hindicss; ?> class="panel-body ">
             <p><?php echo $article->description;?></p>
           </div>
         </div>
             <div class="art_nxt_prev">
         <?php
+
         if($previouspost){
               if($previouspost->title!=''){
                         $title_text=$previouspost->title;
