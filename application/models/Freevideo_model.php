@@ -18,6 +18,19 @@ class Freevideo_model extends CI_Model
 		$query = $this->db->get();
 		return $query->row();
     }
+	
+	public function getCommentlist($cmtid=0)
+	{
+		$this->db->select('*');
+		$this->db->from('comments');
+		$this->db->where('com_id',$cmtid); 
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	
+	/* ----- */
+	/* ----- */
   
     
 }
