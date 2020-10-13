@@ -1,13 +1,9 @@
-<?php
-
-?>
-
 <div id="wrapper">
   <div class="container">
     <div class="row">
       <?php $this->load->view('common/breadcrumb');
-
-	  	  if(isset($spdetails->language)&&$spdetails->language=='hindi'){
+	  
+	  	  if(isset($spdetails->language)&&$spdetails->language=='english'){
 $hindicss='class="hindifont"';
 $hindicss_number_q='class="hindicss_number_q"';
 $hindicss_number_a='class="hindicss_number_a"';
@@ -21,7 +17,6 @@ else if(isset($soldetails->language)&&$soldetails->language=='hindi') {
 	$hindicss_text='class="hindicss_text"';
 }
 else {
-	
 }
 
 	  ?>
@@ -58,6 +53,7 @@ else {
                                 $ac=0;
                             ?>
                         <?php 
+						
                         foreach($answers as $answer){ 
                             if($answer->is_correct==1){ 
                                 $correctAns[$answer->id]=$letters[$ac];

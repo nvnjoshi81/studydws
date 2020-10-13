@@ -58,7 +58,7 @@ if (isset($scripts) && count($scripts) > 0) {
     <?php }
 } ?>
 
-<?php if (isset($loadMathJax)) { ?>
+<?php if (isset($loadMathJax)&&$loadMathJax=='yes') { ?>
     <!--mathJax -->
     <script type="text/x-mathjax-config">
         //

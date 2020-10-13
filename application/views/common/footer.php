@@ -822,7 +822,7 @@ if (isset($scripts) && count($scripts) > 0) {
 <?php } ?>   
 <!-- Fix mozilla Issue - Install flash player www.studyadda.com/flashplayer24_xa_install.exe  OR https://admdownload.adobe.com/bin/live/flashplayer24_xa_install.exe
 -->
-<?php if (isset($loadMathJax)) { ?>
+<?php if (isset($loadMathJax)&&$loadMathJax=='yes') { ?>
     <!--mathJax -->
     <script type="text/x-mathjax-config">
         //
