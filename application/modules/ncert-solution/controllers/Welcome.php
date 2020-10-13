@@ -1,10 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Welcome extends Modulecontroller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Ncertsolutions_model');
         
     }
+	
     public function index($examname=null,$exam_id=0,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
         $this->load->model('Videos_model');
         $examdata=array();
@@ -85,7 +87,6 @@ class Welcome extends Modulecontroller {
             $this->data['borwsebysubjects']=$hasncertinsubject;
            
         }
-		
         if($subject_id > 0){
         $ncertsolutions=$this->Ncertsolutions_model->getNcertSolutions($exam_id,$subject_id,$chapter_id);
         }else{
@@ -131,7 +132,6 @@ class Welcome extends Modulecontroller {
         $this->data['content']='welcome';
         
         $data=$this->Ncertsolutions_model->getNcertSolution($exam_id,$subject_id);
-       
         $solutions_array=array();
         foreach($data as $result){
            
@@ -143,8 +143,10 @@ class Welcome extends Modulecontroller {
             }
         }
         $this->data['solutions_array']=$solutions_array;
+		
 	$this->load->view('template',$this->data);
     }
+	
     public function details($solution_name,$solution_id){ 
         $url_segments = $this->uri->segment_array();
         //update View Count
@@ -325,21 +327,27 @@ class Welcome extends Modulecontroller {
         //$this->data['videoListAll']=$videoListAll;
         
         $this->data['title']=$title;
-        $this->data['soldetails']=$soldetails;
+        $this->data['soldetails']=$soldetails;		
         $this->data['relation']=$relation[1];
         $this->data['questiontypes']=$questiontypes;
         $this->data['questions']=$questions;
         $this->data['exmeplar_questions']=$exmeplar_questions;
         $this->data['content']='questions';
-        $this->data['loadMathJax']='YES';
+		$getlan = $soldetails->language;
+		if(isset($getlan)&&$getlan=="hindi") {
+			$this->data['loadMathJax']='no';
+		}
+		else {
+			$this->data['loadMathJax']='yes';
+		}
 		
 		//print_r( $this->data['relation']);
 		//echo '[-===-=-]';
 	$this->load->view('template',$this->data);
     }
-    
     public function androiddetails($solution_name,$solution_id){
 			$urlcust_array=explode('-encid-',$solution_name);
+			
 			if(isset($urlcust_array[1])){
 				$urlcustid=base64_decode($urlcust_array[1]);
 			}else{
@@ -350,8 +358,10 @@ class Welcome extends Modulecontroller {
 		///echo $solution_id." ==jk   "; print_r($url_segments); die();
 		
          //update View Count
+		 
         $this->Pricelist_model->update_viewcount($solution_id,'cmsncertsolutions');
         array_pop($url_segments);
+		
         if(count($url_segments)==4){
             $url_segments[]='all';
         }
@@ -364,14 +374,15 @@ class Welcome extends Modulecontroller {
         $this->data['url_segments'] = $url_segments;
         $this->load->model('Questions_model');
         $this->load->model('Mergesection_model');
+		
         //$files=$this->Ncertsolutions_model->getFiles_withprice($solution_id);
         //$this->data['files']=$files;
         //9==ncert solution type
+		
         $relatedfiles=$this->Mergesection_model->getRelatedModule($solution_id,9,1);
     if(count($relatedfiles) == 1){
             $this->load->model('Studymaterial_model');
             $file_price_info = $this->Studymaterial_model->getinfo_formerge($relatedfiles[0]->related_module_id);
-   
          
              
              if($relatedfiles[0]->related_file_id > 0){
@@ -442,9 +453,15 @@ class Welcome extends Modulecontroller {
         $this->data['urlcustid']=$urlcustid;
         $this->data['questions']=$questions;
         $this->data['exmeplar_questions']=$exmeplar_questions;
-        $this->data['content']='appquestions';
-        $this->data['loadMathJax']='YES';
-	$this->load->view('template_mid',$this->data);
+        $this->data['content']='appquestions';		
+		$getlan = $soldetails->language;
+		if(isset($getlan)&&$getlan=="hindi") {
+			$this->data['loadMathJax']='no';
+		}
+		else {
+			$this->data['loadMathJax']='yes';
+		}
+		$this->load->view('template_mid',$this->data);
     }
     
     public function question($solname,$solid,$qid) {
