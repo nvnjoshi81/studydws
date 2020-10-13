@@ -1,3 +1,12 @@
+<?php
+$language = "hindi";
+if(isset($language)&&$language=='hindi'){
+$hindicss = "class='hindifont form-control'";
+}else{
+$hindicss='';
+}
+?>
+
 <?php 
 if(isset($question->id)){
 $questionid=$question->id;
@@ -97,9 +106,44 @@ $selectnone='';
             <div class="form-group"><label>Instructions Id:</label>&nbsp;<input type="text" name="instructions_id" value="<?php echo $question_instructions_id?>">&nbsp;From Instruction table</div>
             <div class="form-group"><label>Calculator:</label>&nbsp;<input type="radio" name="calce" id="none" value="0" <?php echo $selectnone; ?>>None &nbsp;<input type="radio" name="calce" id="normal" value="1" <?php echo $selectnormal; ?>>Normal &nbsp;<input type="radio" name="calce" id="scintific" value="2" <?php echo $selectscience; ?>>Scientific 
 			</div>
+
+<?php
+
+if($language=="hindi") {
+
+ ?>
+ <div class="form-group">
+                <label>Question</label>
+                <textarea rows="5" name="question" id="question" <?php echo $hindicss; ?>">
+				<?php echo $question_question;?></textarea> 
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea rows="3"  name="description"   id="description" <?php echo $hindicss; ?>><?php echo $question_description;?></textarea>
+            </div>
+            <?php 
+            $question_alphabet=array('A','B','C','D','E','F','G','H','I','J');
+            $cc=0;
+			if(isset($answers)){
+				foreach($answers as $answer){ ?>
+            <div class="form-group">
+                <label>Answer(<?php echo $question_alphabet[$cc]; ?>)&nbsp;&nbsp;<a style="color:red" href="<?php echo base_url('admin/content/deloption/'.$answer->id.'/'.$questionid.'/'.$typeidd.'/'.$modeidd);?>">Delete This Option <?php echo $question_alphabet[$cc]; ?></a></label>
+                <textarea rows="5"  name="answer_<?php echo $cc;?>"   id="answer_<?php echo $cc;?>" <?php echo $hindicss; ?>><?php echo $answer->answer;?></textarea>
+            </div>
+            <div class="form-group">
+                <label>Description (<?php echo $question_alphabet[$cc]; ?>)</label>
+                <textarea rows="5"  name="answer_description_<?php echo $cc;?>"   id="answer_description_<?php echo $cc;?>" <?php echo $hindicss; ?>><?php echo $answer->description;?></textarea>
+            </div> 
+            <?php $cc++; } }?>
+    
+  <?php
+}else {
+
+?>
+
             <div class="form-group">
                 <label>Question</label>
-                <textarea rows="5" name="question" id="question" class="form-control">
+                <textarea rows="5" name="question" id="question" class="form-control <?php echo $englishcss; ?>">
 				<?php echo $question_question;?></textarea>
             </div>
             <div class="form-group">
@@ -121,33 +165,42 @@ $selectnone='';
             </div> 
             <?php $cc++; } }?>
             
+          
+			
+<?php
+}
+?>
             <div class="form-group">
                 <label>Chapter ID</label>
                 <input type="text" name="chapter_id" value="<?php echo $question_chapter_id?>">
-            </div>
-            <input type="hidden" name="answer_count" value="<?php echo $cc; ?>">       
+            </div> <input type="hidden" name="answer_count" value="<?php echo $cc; ?>">       
             <button type="submit" class="btn btn-primary">Update</button>
           </form>
          
       </div>
       
 </div>
-   
-   
+  <?php
+   if($language=='hindi') { 
+   //some code
+   }else{
+?>
    
 <script type="text/javascript">
   tinymce.init({
     selector: 'textarea',
+    language: 'hi_IN',
     inline: false,
     height: 500,
     width:1000,
-  theme: 'modern',
-  plugins: [
+    plugins: [
     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
     'insertdatetime media nonbreaking save table contextmenu directionality',
     'emoticons template paste textcolor colorpicker textpattern imagetools '
   ],
+  toolbar3: 'fontselect',
+  font_formats: 'KrutiDev030=k010, Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n',
   toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
   toolbar2: 'print preview media | forecolor backcolor emoticons',
   image_advtab: true,
@@ -160,12 +213,17 @@ $selectnone='';
     external_plugins: { "filemanager" : "/filemanager/plugin.min.js"},
   content_css: [
     '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-    '//www.tinymce.com/css/codepen.min.css'
+    '//www.tinymce.com/css/codepen.min.css',
+    '//www.studyadda.com/assets/css/admin_style.css'
   ],
+  //theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
+//font_size_style_values : "10px,12px,13px,14px,16px,18px,20px",
+ // body, td, pre {color:#000; font-family:kruti-dev; font-size:14px; margin:8px;}
   automatic_uploads: true,
   relative_urls: false
   });
   </script>
+   <?php  } ?>
 <script>
     //CKEDITOR.replace( 'question');
    //CKEDITOR.replace( 'description');
