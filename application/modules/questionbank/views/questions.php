@@ -28,6 +28,7 @@ function utf8replacer($captures) {
     return "\xC3".chr(ord($captures[3])-64);
   }
 }
+
 if(isset($qbdetails->language)&&$qbdetails->language=='hindi'){
 $hindicss='class="hindifont"';
 $hindicss_number_q='class="hindicss_number_q"';
