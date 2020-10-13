@@ -197,7 +197,13 @@ class Welcome extends Modulecontroller {
         $this->data['questiontypes']=$questiontypes;
         $this->data['questions']=$questions;
         $this->data['content']='questions';
-        $this->data['loadMathJax']='YES';
+		$getlan = $spdetails->language;
+		if(isset($getlan)&&$getlan=="hindi") {
+			$this->data['loadMathJax']='no';
+		}
+		else {
+			$this->data['loadMathJax']='yes';
+		}
 	$this->load->view('template',$this->data);
     }
     
@@ -295,7 +301,13 @@ class Welcome extends Modulecontroller {
         $this->data['questiontypes']=$questiontypes;
         $this->data['questions']=$questions;
         $this->data['content']='appquestions';
-        $this->data['loadMathJax']='YES';
+        echo $getlan = $spdetails->language;
+		if(isset($getlan)&&$getlan=="hindi") {
+			$this->data['loadMathJax']='no';
+		}
+		else {
+			$this->data['loadMathJax']='yes';
+		}
 	$this->load->view('template_mid',$this->data);
     }
     
