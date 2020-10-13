@@ -22,13 +22,14 @@ if(isset($spdetails->language)&&$spdetails->language=='hindi') {
           $sections_cnt=count($sections);  
           if($sections_cnt>1){
           foreach( $sections as $section){  
-            $section_string = str_replace('&nbsp;','',trim($section->section_name)); ?>    
+            $section_string = str_replace('&nbsp;','',trim($section->section_name)); ?>
              <button class="btn btn-raised btn-success" data-filter=".<?php echo url_title($section->section,'',TRUE)?>"><i class="material-icons">play_arrow</i><?php echo $section_string;?></button>
           <?php } ?>
              <button class="btn btn-raised btn-success " data-filter=".element-item"><i class="material-icons">play_arrow</i>All</button>
           <?php } ?>
         </div>
-       
+           
+			
       </div> 
         <!-- fluid pandl -->
         <div class="col-md-9 col-sm-12">
@@ -50,7 +51,18 @@ if(isset($spdetails->language)&&$spdetails->language=='hindi') {
                     $letters = range('A', 'Z');
                     $ac=0;
                     foreach($answers as $answer){
-                    ?><p><?php echo $letters[$ac]?>) <?php if($questions_type=='Single Choice'){ ?><span><input onclick="checkSingleQus('<?php echo $answer->id; ?>','<?php echo $answer->is_correct; ?>')" type="radio" value="" name="q_opt" id="q_opt_<?php echo $answer->id; ?>"></span> <?php } echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer)); ?><span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
+                    ?><p>
+					<div style="clear:both; float:left; margin-right:15px; margin-top:8px;">
+					<?php echo $letters[$ac]?>) <?php if($questions_type=='Single Choice'){ ?><span><input onclick="checkSingleQus('<?php echo $answer->id; ?>','<?php echo $answer->is_correct; ?>')" type="radio" value="" name="q_opt" id="q_opt_<?php echo $answer->id; ?>"></span> 
+					<?php } 
+					?>
+					</div>
+					<div <?php echo $hindicss; ?>">
+					<?php
+					echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer)); 					
+					?>
+					</div>
+					<span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
         <i id="answrong_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:red; font-size: 22px; font-weight: bolder; margin-bottom: 2px;" >clear</i> </span></p><?php
                     $ac++;
                     } 

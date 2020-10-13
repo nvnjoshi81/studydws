@@ -1,3 +1,12 @@
+<?php
+if(isset($spdetails->language)&&$spdetails->language=='hindi') {
+    $hindicss='class="hindifont"';
+    $hindicss_number_q='class="hindicss_number_q"';
+    $hindicss_number_a='class="hindicss_number_a"';
+    $hindicss_text='class="hindicss_text"';
+}  
+?>
+
 <div id="wrapper">
   <div class="container">
     <div class="row">
@@ -32,7 +41,7 @@
 			if(isset($questions)&&count($questions)>0){
 	$count=1;foreach($questions as $question){  ?>
             <li class="element-item <?php echo url_title($question->section,'', TRUE)?>" >
-                <p><i class="material-icons">question_answer</i><?php echo $count;?>) <?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?> </p>
+                <p><div <?php echo $hindicss_number_q ;?> ><i class="material-icons">question_answer</i><?php echo $count;?>)</div> <div <?php echo $hindicss.' '.$hindicss_text ;?> ><?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?></div></p>
                 <?php $answers=$this->Questions_model->answers($question->id);
                 if(count($answers) > 1){ 
                         if(isset($question->type)){
@@ -43,7 +52,14 @@
                     $letters = range('A', 'Z');
                     $ac=0;
                     foreach($answers as $answer){
-                    ?><p><?php echo $letters[$ac]?>) <?php if($questions_type=='Single Choice'){ ?><span><input onclick="checkSingleQus('<?php echo $answer->id; ?>','<?php echo $answer->is_correct; ?>')" type="radio" value="" name="q_opt" id="q_opt_<?php echo $answer->id; ?>"></span> <?php } echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer)); ?><span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
+                    ?><p><?php echo $letters[$ac]?>) <?php if($questions_type=='Single Choice'){ ?><span><input onclick="checkSingleQus('<?php echo $answer->id; ?>','<?php echo $answer->is_correct; ?>')" type="radio" value="" name="q_opt" id="q_opt_<?php echo $answer->id; ?>"></span> 
+					<?php } 
+					?>
+					<div <?php echo $hindicss; ?>">
+					<?php
+					echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer)); 
+					?>
+					<span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
         <i id="answrong_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:red; font-size: 22px; font-weight: bolder; margin-bottom: 2px;" >clear</i> </span></p><?php
                     $ac++;
                     } 
