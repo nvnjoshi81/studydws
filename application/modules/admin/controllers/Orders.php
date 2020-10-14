@@ -71,7 +71,14 @@ class Orders extends MY_Admincontroller {
 		public function success_order(){
             $this->load->library('pagination');
                 $ordercol=$this->input->get('col');
-                $order=$this->input->get('order');
+                $order=$this->input->get('order');				
+				$start_date=$this->input->post('start_date');
+				$start_date_string = strtotime($start_date);
+				$end_date=$this->input->post('end_date');
+				$end_date_string = strtotime($end_date);
+				if($start_date_string == $end_date_string){
+				$end_date_string=$start_date_string+(3600*48);
+				}
                 if(!$ordercol){
                     $ordercol='id';
                 }if(!$order){
@@ -79,11 +86,9 @@ class Orders extends MY_Admincontroller {
                 }
                 /***** pgination _categories***   */
                 $total=$this->Orders_model->getAllSuccessOrdersCount();
-                $this->data['total']=$total;
+                
                 $config = array();
                 $config["base_url"] = base_url() . "admin/orders/success_order/";
-                $config["total_rows"] = $total;
-                $config["per_page"] = $this->config->item('records_per_page');
                 $config["uri_segment"] = 4;
                 $config["num_links"] = 5;
                 $config['first_link']='&lsaquo; First';
@@ -103,12 +108,6 @@ class Orders extends MY_Admincontroller {
                 $config['prev_tag_open'] = '<li>';
                 $config['prev_tag_close'] = '</li>';
                 $config['reuse_query_string'] = true;
-                $this->pagination->initialize($config);
-                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-                $this->data['page']=$page;
-                $this->data['ordercol']=$ordercol;
-                $this->data['order']=$order;
-                $this->data["links"] = $this->pagination->create_links();
                 //null !== func()
                 if(null !==$this->input->post('order_no')){
                     $order_no=$this->input->post('order_no');
@@ -117,10 +116,39 @@ class Orders extends MY_Admincontroller {
                 }
                 if($order_no>0){
 		$orders =$this->Orders_model->getsearchOrders($order_no); 
-                }else{
+                $ordercnt= count($orders);
+		$this->data['total']=$ordercnt;
+				
+				}
+/* for search success orders by date */
+				elseif(!$start_date_string=='' && !$end_date_string==''){
+		$orderstatus=1;
+		$regiType='app';	
+				
+		$orders =$this->Orders_model->getsearchOrdersByDate($start_date_string,$end_date_string,$regiType,$orderstatus); 
+		
+		$ordercnt= count($orders);
+		$this->data['total']=$ordercnt;
+		$config["per_page"] = $ordercnt;
+		$config["total_rows"] = $ordercnt;
+		  }
+		  
+		  /* count */
+				else{
+				$this->data['total']=$total;	
+                $config["total_rows"] = $total;
+                
+$config["per_page"] = $this->config->item('records_per_page');					
+					$this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                $this->data['page']=$page;
+                $this->data['ordercol']=$ordercol;
+                $this->data['order']=$order;
+              
+             $this->data["links"] = $this->pagination->create_links();
 		$orders =$this->Orders_model->getSuccessOrders($config["per_page"], $page,$ordercol,$order); 
                 }
-		$this->data['orders']=  $orders;
+				$this->data['orders']=  $orders;
                 $this->data['content']='orders/success_order';
                                
                 $this->load->view('common/template',$this->data);
@@ -440,7 +468,7 @@ class Orders extends MY_Admincontroller {
                     $order='desc';
                 }
 
-                /***** pgination _categories***   */
+                /***** pagination _categories***   */
 				if($userid>0){
                 $total=$this->Orders_model->getCsOrdersCount($userid);
                 }else{
