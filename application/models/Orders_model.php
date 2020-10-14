@@ -23,6 +23,24 @@ class Orders_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+	/*-- success order -- */
+	function getSuccessOrders($limit_start = null, $limit_end = null,$ordercol=NULL,$order=NULL) {
+        if ($limit_start || $limit_end) {
+            $this->db->limit($limit_start, $limit_end);
+        }
+		
+        $this->db->select('A.*,B.firstname,B.email,B.lastname,B.mobile,C.address,C.address_name');
+        $this->db->from('cmsorders A');
+        $this->db->join('cmscustomers B', 'A.user_id=B.id');
+        $this->db->join('cmscustomer_addresses C', 'A.shipping_id=C.id');
+        $this->db->order_by('A.id', 'desc');
+		$this->db->where('A.status',1);
+		$this->db->where('A.status',1);
+        $query = $this->db->get();		
+        return $query->result();
+    }
+	/* -- // success order  -- */
+	
     function getOrders_customerproduct($customerid,$productid) {
         $this->db->select('A.*,B.product_id');
         $this->db->from('cmsorders A');
@@ -239,6 +257,13 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
     return $this->db->count_all('cmsorders');
     }
 	}
+	
+	/* success order */
+	public function getAllSuccessOrdersCount() {
+	$query = $this->db->query('SELECT id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,is_bluedart_shippable,rendor_code,bluedart_awb_no,bluedart_weight,created_dt,modified_by,modified_dt FROM cmsorders where status=1');
+    return $query->num_rows();
+	}
+	/* // success order */
 	
 	public function ordersCountByDate($start_date=0,$end_date=0,$orderby='all',$orderstatus='') {
         $this->db->select('id');
