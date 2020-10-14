@@ -255,7 +255,7 @@ if (isset($orders)) {
                                          <td colspan="6">
                                              <?php
 echo "<h6><b>";
-//echo $data["links"] = $this->pagination->create_links() . "</b></h6>";
+echo $data["links"] = $this->pagination->create_links() . "</b></h6>";
 ?>
                                         </td>
                                      </tr>
