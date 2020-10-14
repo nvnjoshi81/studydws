@@ -2,7 +2,6 @@
 ob_start();
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Orders extends MY_Admincontroller {
-
         public function __construct(){
             parent::__construct();
             $this->load->model('Orders_model');
@@ -62,11 +61,72 @@ class Orders extends MY_Admincontroller {
                 }else{
 		$orders =$this->Orders_model->getOrders($config["per_page"], $page,$ordercol,$order); 
                 }
-		$this->data['orders']=  $orders;      
+		$this->data['orders']=  $orders;
                 $this->data['content']='orders/index';
                                
                 $this->load->view('common/template',$this->data);
         }
+		
+		/* -- success order --*/
+		public function success_order(){
+            $this->load->library('pagination');
+                $ordercol=$this->input->get('col');
+                $order=$this->input->get('order');
+                if(!$ordercol){
+                    $ordercol='id';
+                }if(!$order){
+                    $order='desc';
+                }
+                /***** pgination _categories***   */
+                $total=$this->Orders_model->getAllSuccessOrdersCount();
+                $this->data['total']=$total;
+                $config = array();
+                $config["base_url"] = base_url() . "admin/orders/success_order/";
+                $config["total_rows"] = $total;
+                $config["per_page"] = $this->config->item('records_per_page');
+                $config["uri_segment"] = 4;
+                $config["num_links"] = 5;
+                $config['first_link']='&lsaquo; First';
+                $config['first_tag_open'] = '<li>';
+                $config['first_tag_close'] = '</li>';
+                $config['last_link']='Last &rsaquo;';
+                $config['last_tag_open'] = '<li>';
+                $config['last_tag_close'] = '</li>';
+                $config['full_tag_open'] = '<ul class="pagination">';
+                $config['full_tag_close'] = '</ul>';
+                $config['num_tag_open'] = '<li>';
+                $config['num_tag_close'] = '</li>';
+                $config['cur_tag_open'] = '<li class="active"><a>';
+                $config['cur_tag_close'] = '</a></li>';
+                $config['next_tag_open'] = '<li>';
+                $config['next_tag_close'] = '</li>';
+                $config['prev_tag_open'] = '<li>';
+                $config['prev_tag_close'] = '</li>';
+                $config['reuse_query_string'] = true;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                $this->data['page']=$page;
+                $this->data['ordercol']=$ordercol;
+                $this->data['order']=$order;
+                $this->data["links"] = $this->pagination->create_links();
+                //null !== func()
+                if(null !==$this->input->post('order_no')){
+                    $order_no=$this->input->post('order_no');
+                }else{
+                    $order_no='';
+                }
+                if($order_no>0){
+		$orders =$this->Orders_model->getsearchOrders($order_no); 
+                }else{
+		$orders =$this->Orders_model->getSuccessOrders($config["per_page"], $page,$ordercol,$order); 
+                }
+		$this->data['orders']=  $orders;
+                $this->data['content']='orders/success_order';
+                               
+                $this->load->view('common/template',$this->data);
+        }
+		/* -- // success order --*/
+		
           public function searchorder(){
             $this->load->library('pagination');
                 $ordercol=$this->input->get('col');
@@ -324,6 +384,7 @@ class Orders extends MY_Admincontroller {
                 $this->data['content']='orders/test_attempt';
                 $this->load->view('common/template',$this->data);
               } 
+			  
               public function ord_products($product_id,$product_name=''){
                        if($product_name==''){
                            $product_name='NA';
@@ -378,6 +439,7 @@ class Orders extends MY_Admincontroller {
                 }if(!isset($order)){
                     $order='desc';
                 }
+
                 /***** pgination _categories***   */
 				if($userid>0){
                 $total=$this->Orders_model->getCsOrdersCount($userid);
