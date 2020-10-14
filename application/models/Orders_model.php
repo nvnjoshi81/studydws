@@ -27,15 +27,14 @@ class Orders_model extends CI_Model {
 	function getSuccessOrders($limit_start = null, $limit_end = null,$ordercol=NULL,$order=NULL) {
         if ($limit_start || $limit_end) {
             $this->db->limit($limit_start, $limit_end);
-        }
-		
+        }		
         $this->db->select('A.*,B.firstname,B.email,B.lastname,B.mobile,C.address,C.address_name');
         $this->db->from('cmsorders A');
         $this->db->join('cmscustomers B', 'A.user_id=B.id');
         $this->db->join('cmscustomer_addresses C', 'A.shipping_id=C.id');
         $this->db->order_by('A.id', 'desc');
 		$this->db->where('A.status',1);
-		$this->db->where('A.status',1);
+		$this->db->where('A.app_order',1);
         $query = $this->db->get();		
         return $query->result();
     }
@@ -158,7 +157,7 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
         $this->db->where('A.created_dt <=', $tdate + 86439);
         $query = $this->db->get();
 		//echo $this->db->last_query();
-        return $query->result();
+        return $query->result();	
     }
 
     function getOrderDetails($id) {
