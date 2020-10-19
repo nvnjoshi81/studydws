@@ -1,11 +1,9 @@
 <?php
  //Redirect user if user is not logged in.
   if($_SESSION['first_name']==''){ 
-      
-       redirect('admin/logout');
-   }
-
- ?>
+  redirect('admin/logout');
+  }
+?>
 <!--footer---->
 <style>
     .modal-backdrop {
@@ -469,17 +467,14 @@ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
                         $('#panel_chang_id').hide();
                         $('#submit_qus_list').hide();
                         $('#dataTables-example tbody').append(trHTML);
-						
-						/*subExHTML += '<table><tr><td></td><td><b>Select Sub Exam</b></td><td></td></tr>';  
+						subExHTML += '<table>';
+						subExHTML += '<tr><td colspan="10" ><b>Select Sub Exam</b></td></tr><tr>';  
 						    $.each(response.subClass,function(indexsub,itemsub){
-							subExHTML += '<tr><td></td><td><b>'+itemsub.subexam+'</b></td><td></td></tr>';  
-subExHTML +=  itemsub.subexam;
+							subExHTML += '<td><input type="checkbox" name="sub_category[]" value="'+itemsub.id+'" id="sub_category_'+itemsub.id+'"></td><td><b>'+itemsub.name+'</b></td><td></td>';  
 });
-		subExHTML += '</table>'; 
-		document.getElementById("displaySubExam").innerHTML = subExHTML;*/			
-		
-		//trHTML +='<tr><td>' + sid + '</td>'		
-                ///trHTML += '<td>' + edit + del + price + tag + merge +'</td></tr>';
+		subExHTML += '</tr></table>'; 
+		document.getElementById("displaySubExam").innerHTML = subExHTML;		
+
 						//Display sub Exam
                        // $('#displaySubExam').append(subExHTML);
                     }else{
@@ -770,7 +765,8 @@ subExHTML +=  itemsub.subexam;
         $('#contentdata').hide();
         $("#dataTables-example > tbody").html("");
         $('#pricedata').hide();
-        $('#price').val('');
+        $('#price').val('');  
+		$('#displaySubExam').val('');
         $('#modules_item_name').val('');
         $('#discounted_price').val('');
         $('#faction').val(0);
