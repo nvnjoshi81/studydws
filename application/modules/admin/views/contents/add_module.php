@@ -53,9 +53,7 @@ if(exam_time_dd<1){
 if(error_exist=='yes'){
     
 if(alert_message!=''){
-    
 alert(alert_message);
-    
 }
 return false;
 }
@@ -84,26 +82,26 @@ return false;
  });
  
 </script> 
-           <?php 
+<?php 
            
-           $studypdf_path=$this->config->item('studypdf_path');
-           $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].$studypdf_path;
+    $studypdf_path=$this->config->item('studypdf_path');
+    $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].$studypdf_path;
            
-           ?>
+?>
 <!--form add new categories-->
 <?php
 if (isset($maincontent->id))
 	{
     $form_url='admin/contents/edit_submit';
     $submit_button_text ='Add';
-        }else{
+    }else{
     $submit_button_text ='Submit';
     $form_url='admin/contents/add_submit';
-        }
+    }
 ?>
 <form  enctype="multipart/form-data" id="add_category_form" method="post" 
        action="<?php echo base_url().$form_url; ?>" onsubmit="return add_cont_validation();" >
-           <div class="col-lg-12 clr-bth">
+    <div class="col-lg-12 clr-bth">
      <?php
 if (isset($maincontent->id))
 	{
@@ -157,7 +155,6 @@ echo generateSelectBox('content_type', $content_type_array, 'id', 'name', 1, 'cl
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
-                  
 <?php               
     $content_type_exam_id=0;                 
 if (isset($maincontent->exam_id))
@@ -173,31 +170,6 @@ echo generateSelectBox('category', $exams, 'id', 'name', 1 , 'class="form-contro
         }
 ?>
                 </div>
-            </div>
-			
-			
-			<!--sub_category-->
-			
-			
-			   <div class="col-sm-3">
-                <div class="form-group">
-                  
-<?php  
-          
-    $content_type_exam_id=0;                 
-if (isset($maincontent->exam_id))
-        {
-    $content_type_exam_id=$maincontent->exam_id;        
-
-    ?><input type="hidden" name="sub_category"  id="category"  value="<?php echo $content_type_exam_id;  ?>">
-	<?php
-    }else{
-    ?><label>Select Sub Exam</label>
-	<?php
-echo generateSelectBox('sub_category', $exams, 'id', 'name', 1 , 'class="form-control"',$content_type_exam_id); 
-        }
-?>
- </div>
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
@@ -245,8 +217,32 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
      ?>
                 </div>
             </div>
-        </div> <?php
-        
+        </div> 
+		
+			<!--sub_category-->
+<div class="col-sm-12 col-md-12 col-xs-12 well">
+<!--subexam Dispaly area-->
+		<div class="col-sm-3" id="displaySubExam">
+               
+</div>
+</div>
+<?php
+      /* <div class="form-group">
+<?php  
+    $content_type_exam_id=0;                 
+if (isset($maincontent->exam_id))
+        {
+    $content_type_exam_id=$maincontent->exam_id;        
+
+    ?><input type="hidden" name="sub_category"  id="category"  value="<?php echo $content_type_exam_id;  ?>">
+	<?php
+    }else{
+    ?><label>Select Sub Exam</label>
+	<?php
+echo generateSelectBox('sub_category', $exams, 'id', 'name', 1 , 'class="form-control"',$content_type_exam_id); 
+        }
+?>
+</div>*/  
        // print_r($module_file_details[0]);
                 $flex_file_name='';
                 $pdf_file_name='';
@@ -949,17 +945,23 @@ if (isset($module_file_details[0]->title))
             $videovalue->id;            
             $videovalue->name;
             $videovalue->gender;
+			
+			if($video_byid ==$videovalue->id){
+			$selection='selected="selected"';
+			}else{
+			$selection='';	
+			}
             if($videovalue->gender == "Male") {
-                echo $prefix = "Sir";
+                 $prefix = "Sir";
             }           
             if($videovalue->gender == "Female") {
-                echo $prefix = "Madam";
+                $prefix = "Madam";
             }
 
             $disp_val = $videovalue->name." ".$prefix." - ".$videovalue->id;
 
             ?>
-            <option value="<?php echo $key; ?>"><?php echo $disp_val; ?></option>
+            <option value="<?php echo $videovalue->id; ?>" <?php echo $selection; ?> ><?php echo $disp_val; ?></option>
         <?php
     }
 ?>
@@ -1084,11 +1086,6 @@ echo base_url(); ?>/assets/videoimages/<?php  echo $video_image; ?>" width="25%"
  <button type="submit" class="btn btn-primary"><?php echo $submit_button_text; ?></button>
  </div> 
  </div>
-<div class="col-sm-6 well">
-<div class="col-sm-12 well" id="displaySubExam" > 
-<!--subexam-->
-</div>
-</div>
 </form>
 <script type="text/javascript">
   tinymce.init({

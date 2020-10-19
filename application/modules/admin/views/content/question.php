@@ -1,12 +1,3 @@
-<?php
-$language = "hindi";
-if(isset($language)&&$language=='hindi'){
-$hindicss = "class='hindifont form-control'";
-}else{
-$hindicss='';
-}
-?>
-
 <?php 
 if(isset($question->id)){
 $questionid=$question->id;
@@ -38,9 +29,9 @@ if($modeidd<1||$modeidd==''){
 	$modeidd=0;
 }
 if($calculator==0){
-	$selectnone='checked';
-	$selectscience='';
-	$selectnormal='';
+$selectnone='checked';
+$selectscience='';
+$selectnormal='';
 }elseif($calculator==1){
 $selectnormal='checked';
 $selectscience='';	
@@ -50,12 +41,17 @@ $selectscience='checked';
 $selectnormal='';	
 $selectnone='';
 }
+if(isset($language)&&$language=='hindi'){
+$hindicss = "class='hindifont form-control'";
+}else{
+$hindicss='';
+}
 ?>
 <!-- middle content-start -->
 <div id="page-wrapper">
    <div class="row">
       <div class="col-lg-6 text-left">
-         <h1 class="page-header">Question ID : <?php echo $questionid;?></h1>
+         <h1 class="page-header">Question ID : <?php echo $questionid;?>(<? echo $typename;?>)</h1>
          <?php 
          if($this->session->flashdata('message')){
              ?>
@@ -74,6 +70,7 @@ $selectnone='';
          
         ?>
       </div>
+	  
        <div class="col-lg-6 text-right">
            <h1 class="page-header"><?php if(isset($back_url)){ ?><a href="<?php echo $back_url; ?>"><< Back</a><?php  } ?></h1>
       </div>

@@ -1,6 +1,6 @@
 
 <?php 	
-$conn=mysqli_connect("localhost","root","","studyadda_local");
+$conn=mysqli_connect("localhost","studywhm_study","Study1dd1","studywhm_stdproduction");
 
 if (mysqli_connect_errno())
   {

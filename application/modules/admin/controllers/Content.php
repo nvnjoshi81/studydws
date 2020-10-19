@@ -11,6 +11,7 @@ class Content extends MY_Admincontroller {
             $this->load->model('Content_model');  
             $this->data['content_type']=$this->Content_model->getContentType();           
         }
+		
         public function index($page=0)
         {   
                 /***** pgination _categories***   */
@@ -87,10 +88,57 @@ class Content extends MY_Admincontroller {
 			$this->Content_model->delete_cmsanswers_byid($answerid);
                 $this->session->set_flashdata('message', 'Answers Option Deleted!');
 			  redirect('admin/content/editcontent/'.$qusid.'/'.$typeid.'/'.$modeidd);}
-        
-        public function editcontent($id,$type=0) {            
+       
+	   public function editcontent($id,$type=0,$moduleid=0) {            
             $type = urldecode($type);
-            //if(($type=='questions')||($type=='ncert solutions')||($type=='Question Bank')){ }
+			$all_lang='english';
+			$typename=="";
+            /* question bank */
+			if($type==7){ 
+			$this->load->model('Questionbank_model');
+			$question=$this->Questionbank_model->detailsrelation($moduleid);
+$all_lang=$question->language;			
+			$typename='Question Bank';
+			}
+			/* Notes (Article) */
+			else if($type==8){
+			$this->load->model('Posting_model');
+			$question=$this->Posting_model->getPostinginfo($moduleid);
+			$typename='Notes';	
+			$all_lang=$question->language;
+			}
+			/* Ncert Solutions */
+			else if($type==9){
+			$this->load->model('Ncertsolutions_model');
+			$question=$this->Ncertsolutions_model->detail($moduleid);
+			$typename='Ncert Solutions';
+			$all_lang=$question->language;			
+			}
+			/* Solved Papers */
+			else if($type==10){
+			$this->load->model('Solvedpapers_model');
+			$question=$this->Solvedpapers_model->detail($moduleid);
+			$typename='Solved Papers';	
+			$all_lang=$question->language;	
+			}
+			/* Books */
+			else if($type==4){
+			$this->load->model('Books_model');
+			$question=$this->Books_model->details($moduleid);
+//print_r($question);	
+			$typename='Books';		
+	$all_lang=$question->language;		
+			}
+			/* Sample Papers */
+			else if($type==6){
+			$this->load->model('Samplepapers_model');
+			$question=$this->Samplepapers_model->detail($moduleid);
+//print_r($question);	
+	$typename='Sample Papers';	
+	$all_lang=$question->language;		
+			}
+			
+			$this->data['language']=$all_lang;	
                 $this->load->model('Questions_model');
                 $question=$this->Questions_model->detail($id);
                 $answers=$this->Questions_model->answers($id);
@@ -103,7 +151,7 @@ class Content extends MY_Admincontroller {
                  $adata=array('question_id'=>$id,
                              'dt_created'=>$dt_modified_text,
                              'created_by'=>$modified_by_text);
-                 	
+                 
                 $adata=array();
                 if(isset($question)&&count($question)>0){
                 $this->data['question']=$question;
@@ -119,6 +167,8 @@ class Content extends MY_Admincontroller {
                 $this->data['answers']=array();
                 }
 			$this->data['type']=$type;
+			$this->data['loadMathJax']='yes';
+			$this->data['typename']=$typename;
             $this->data['content']='content/question';
             $this->load->view('common/template',$this->data);
         }

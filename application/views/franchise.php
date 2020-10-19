@@ -176,7 +176,7 @@
         </div>
         <br>
         <div class="">
-            <p><h3>For Franchise Enquiry Please Call Or Whatsapp at <strong>7440336762</strong></h3></p>
+            <p><h3>For Franchise Enquiry Please Write Us: <strong>franchise@studyadda.com</strong></h3></p>
             
         </div>
         

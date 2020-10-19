@@ -98,7 +98,9 @@ error_reporting(0);
 			{
 			    $returnValue['modules_item_name'] = $row['modules_item_name'];
 			}
-			$returnValue['expiry_date'] = $dt;
+			$date=date_create("2023-03-31");
+            $mm = date_format($date,"Y-m-d");
+			$returnValue['expiry_date'] = $mm;
             
 		}
 		return $returnValue;

@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -9,6 +8,13 @@ class SolvedPapers_model extends CI_Model {
         $this->db->where('id', $id);
         $query = $this->db->get('cmssolvedpapers');
 
+        return $query->row();
+    }
+	
+	public function getType($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->get('cmssolvedpapers');
+		//echo $this->db->last_query();
         return $query->row();
     }
 

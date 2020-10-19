@@ -375,13 +375,20 @@ class Contents extends MY_Admincontroller {
         $var_filename_one = '';
         $var_filename_zero = '';
         $exam_id = $this->input->post('category');
-        $subexam_id = $this->input->post('sub_category');
-        $subject_id = $this->input->post('subject');
+        $subexam_id_arr = $this->input->post('sub_category');
+		$subject_id = $this->input->post('subject');
         $chapter_id = $this->input->post('chapter');
-		if(isset($subexam_id)&&$subexam_id>0){
-		$subexam_id = $this->input->post('sub_category');	
+		if(isset($subexam_id_arr)){
+		if(count($subexam_id_arr)>1){
+			$subexam_id_count=count($subexam_id_arr);
+		$subexam_id = $this->input->post('sub_category');
 		}else{
-		$subexam_id = $this->input->post('subject');	
+		$subexam_id_count=1;
+		$subexam_id = $this->input->post('sub_category');
+		}	
+		}else{
+			$subexam_id_count=0;
+			$subexam_id =NULL;
 		}
 		/*For Upload in hindi english language*/
        $language_post = $this->input->post('language');
@@ -409,7 +416,7 @@ class Contents extends MY_Admincontroller {
             }
             if ((empty($_FILES['article_zip_file']['name'])) || ($_FILES['article_zip_file']['name'] == '')) {
                 $this->session->set_flashdata('message', 'Please Upload Zip file!');
-                redirect('admin/contents/add');
+                //redirect('admin/contents/add');
            }
                 $zip_field_name_html = 'article_zip_file';
         } else {
@@ -651,17 +658,41 @@ class Contents extends MY_Admincontroller {
         if ($add_content_type->name == 'Question Bank') {
             // Entry in DB
             $questoin_bank_insert_id = $this->Contents_model->add_question_bank($data);
-            $relations_data = array(
+			/*This entry will used for main exam display.In this case sub class entry will not work */
+				$relations_data= array(
                 'questionbank_id' => $questoin_bank_insert_id,
                 'exam_id' => $exam_id,
-                'subexam_id' => $subexam_id,
+                'subexam_id' => 0,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
                 'dt_created' => $date
             );
-
+			
             $this->Contents_model->add_relation_in_questionbank($relations_data);
+			/*This code entry will used for Sub exam display*/
+			if(isset($subexam_id_count)&&$subexam_id_count>0){
+				
+				
+			for($irc=0;$subexam_id_count>$irc;$irc++){			
+			
+			if(isset($subexam_id[$irc])&&$subexam_id[$irc]>0){
+				 $relations_data_arr= array(
+                'questionbank_id' => $questoin_bank_insert_id,
+                'exam_id' =>    $exam_id,
+                'subexam_id' => $subexam_id[$irc],
+                'subject_id' => $subject_id,
+                'chapter_id' => $chapter_id,
+                'created_by' => $created_by_id,
+                'dt_created' => $date
+            ); 
+			
+            $this->Contents_model->add_relation_in_questionbank($relations_data_arr);
+			}
+			}	
+			}
+			$relations_data_arr=NULL;
+			/*End Sub exam display*/
 
             if ($upload_type == 1) {
                 /* Upload zip section */
@@ -2910,6 +2941,7 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
         if ($edit_content_type->name == 'Solved Papers') {
             $solved_papers_data = array(
                 'name' => $name,
+                'language'=>$language_var,
                 'years' => $years,
                 'created_by' => $created_by_id,
                 'dt_created' => $date

@@ -23,6 +23,9 @@ class Orders_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+
+    
 	/*-- success order -- */
 	function getSuccessOrders($limit_start = null, $limit_end = null,$ordercol=NULL,$order=NULL) {
         if ($limit_start || $limit_end) {
@@ -161,7 +164,7 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
     }
 
     function getOrderDetails($id) {
-        $this->db->select('id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,is_bluedart_shippable,rendor_code,bluedart_awb_no,bluedart_weight,created_dt,modified_by,modified_dt');
+        $this->db->select('id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,rendor_code,created_dt,modified_by,modified_dt');
         $this->db->from('cmsorders');
         $this->db->where('id', $id);
         $query = $this->db->get();		
@@ -174,6 +177,7 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
         $query = $this->db->get();
         return $query->row();
     }
+
 
     #########
 
@@ -250,7 +254,7 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
 
     public function getAllOrdersCount($franchid=0) {
 	if($franchid>0){
-	$query = $this->db->query('SELECT id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,is_bluedart_shippable,rendor_code,bluedart_awb_no,bluedart_weight,created_dt,modified_by,modified_dt FROM cmsorders where created_by='.$franchid);
+	$query = $this->db->query('SELECT id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,rendor_code,created_dt,modified_by,modified_dt FROM cmsorders where created_by='.$franchid);
     return $query->num_rows();
 	}else{    
     return $this->db->count_all('cmsorders');
@@ -259,7 +263,7 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
 	
 	/* success order */
 	public function getAllSuccessOrdersCount() {
-	$query = $this->db->query('SELECT id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,is_bluedart_shippable,rendor_code,bluedart_awb_no,bluedart_weight,created_dt,modified_by,modified_dt FROM cmsorders where status=1');
+	$query = $this->db->query('SELECT id,order_no,session_id,user_id,order_items,order_qty,order_price,payment_mode,payment_status,status,docket_no,shipping_charges,cod_charges,final_amount,guest,shipping_id,agree_terms,txn_number,created_by,app_order,rendor_code,created_dt,modified_by,modified_dt FROM cmsorders where status=1');
     return $query->num_rows();
 	}
 	/* // success order */

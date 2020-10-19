@@ -1,23 +1,41 @@
 <div id="wrapper">
   <div class="container">
     <div class="row">
-      <?php $this->load->view('common/breadcrumb');
-	  
-	  	  if(isset($spdetails->language)&&$spdetails->language=='english'){
+      <?php //$this->load->view('common/breadcrumb');
+	  	  if(isset($qbdetails->language)&&$qbdetails->language=='hindi'){
 $hindicss='class="hindifont"';
 $hindicss_number_q='class="hindicss_number_q"';
 $hindicss_number_a='class="hindicss_number_a"';
 $hindicss_text='class="hindicss_text"';
-}
-
-else if(isset($soldetails->language)&&$soldetails->language=='hindi') {
+$languagevar='hindi';
+}else  if(isset($spdetails->language)&&$spdetails->language=='hindi'){
+$hindicss='class="hindifont"';
+$hindicss_number_q='class="hindicss_number_q"';
+$hindicss_number_a='class="hindicss_number_a"';
+$hindicss_text='class="hindicss_text"';
+$languagevar='hindi';
+}else if(isset($soldetails->language)&&$soldetails->language=='hindi') {
 	$hindicss='class="hindifont"';
 	$hindicss_number_q='class="hindicss_number_q"';
 	$hindicss_number_a='class="hindicss_number_a"';
 	$hindicss_text='class="hindicss_text"';
+	$languagevar='hindi';
+}elseif(isset($soldetails->language)&&$soldetails->language=='hindi'){
+
+$hindicss='class="hindifont"';
+	$hindicss_number_q='class="hindicss_number_q"';
+	$hindicss_number_a='class="hindicss_number_a"';
+	$hindicss_text='class="hindicss_text"';
+	$languagevar='hindi';
+	
+}else {
+	$hindicss='';
+	$hindicss_number_q='';
+	$hindicss_number_a='';
+	$hindicss_text='';	
+	$languagevar='english';
 }
-else {
-}
+
 	  ?>
       <!-- /. PAGE INNER  -->
       <div class="clearfix"></div>
@@ -35,7 +53,9 @@ else {
                         <?php 
 						if((isset($qcount))&&($qcount>0)){
                         echo $qcount.') ';
-						} ?><span  <?php echo $hindicss ; ?>><?php
+						} ?>
+						
+						<div><?php
                         if(isset($question->instructions_id ) && $question->instructions_id >  0){
                             $this->load->model("Instructions_model",'instruction');
                             $instruction=$this->instruction->getInstructionDetail($question->instructions_id);
@@ -43,22 +63,45 @@ else {
                             echo custom_strip_tags($instruction->description);
                             ?></p><?php
                         }
-                        echo custom_strip_tags($question->question)?>
+						 if($languagevar=='hindi'){
+						?>
+						<span <?php echo $hindicss ; ?>><?php	 
+                        echo $question->question;
+						?></span>
+						 <?php }else{
+						?><span><?php	 
+                        echo custom_strip_tags($question->question);
+						?>
 						</span>
+						<?php
+						 }
+						?>
+						</div>
                             <?php 
                             $correctAns=array();
                             if(count($answers) > 1){ 
                                 $letters = range('A','Z');
                                 $ac=0;
-                            ?>
-                        <?php 
                         foreach($answers as $answer){ 
                             if($answer->is_correct==1){ 
                                 $correctAns[$answer->id]=$letters[$ac];
                             }?>
-                            <p><?php echo $letters[$ac]?>) <span  <?php echo $hindicss ; ?>><?php //echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer));
+                            <p><?php echo $letters[$ac]?>) 
+							
+							<?php if($languagevar=='hindi'){
+?>
+<span  <?php echo $hindicss ; ?>><?php 
+                            echo $answer->answer; 
+                            ?></span>
+							<?php
+							}else{ 
+							?>
+							<span><?php //echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer));
                             echo custom_strip_tags($answer->answer); 
-                            ?></span></p>
+                            ?></span>
+							<?php } ?>
+							
+							</p>
                         <?php  $ac++; } ?>
                         <?php } ?>
                 </h1>          
@@ -74,10 +117,9 @@ else {
                      <?php //echo $answer->is_correct==1 ? $correctAns[$answer->id]:''; ?>
                       
                       <?php
-					  
-					    $countdes= count($answer->description);
+					    $countdes= count($answer->description); 
 if(isset($answer->description)){					  
-					  if($answer->description==''||$countdes<5||$answer->description=='Not Available'){
+					  if($answer->description==''||$countdes<1||$answer->description=='Not Available'){
 						  $SolutionDesc=NULL;
 					  }else{
 						  $SolutionDesc=$answer->description;
@@ -89,19 +131,43 @@ if(isset($answer->description)){
 					  
 					  if($SolutionDesc!=NULL){ 
 					  ?>
-                          <p class="ans_panel"><strong class="text-success">Solution : </strong></p><span  <?php echo $hindicss ; ?>>
+                          <p class="ans_panel"><strong class="text-success">Solution : </strong></p>
+						  <?php 
+						  if($languagevar=='hindi'){
+							  ?>
+						<span  <?php echo $hindicss ; ?>>
+                          <?php echo $answer->description; 
+                          ?></span>
+							  <?php
+						  }else{
+						  ?>
+						  <span>
                           <?php // iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->description));
                           echo custom_strip_tags($answer->description); 
-                          ?></span>
-                      <?php }      
+                          ?>
+						  </span>
+						  
+                      <?php } 
+					  }     
                       } ?>
-                  </div>  
-                      
+                  </div>
                   <?php }else{ ?>
                   <p class="ans_panel"><strong class="text-success">Answer: </strong> </p>
-                    <p> <?php foreach($answers as $answer){ ?><span  <?php echo $hindicss ; ?>>
+                    <p> <?php foreach($answers as $answer){ ?>
+					
+					<?php if($languagevar=='hindi'){ ?>
+					
+					<span  <?php echo $hindicss ; ?>>
+                     <?php echo  $answer->answer;?></span><br>
+					 
+					<?php }else{
+						?>
+					<span>
                      <?php echo  custom_strip_tags($answer->answer);?></span><br>
-                      <?php } ?>
+					 
+					<?php
+					} 
+				    } ?>
                     </p>
                   <?php } ?>                
               </li>  
@@ -140,7 +206,6 @@ if(isset($answer->description)){
                          <li class="radio">
                            <label>
                              <input type="radio" value="Wrong Answer" name="error">
-                             
                              Wrong Answer
                              </label>
                            </li>

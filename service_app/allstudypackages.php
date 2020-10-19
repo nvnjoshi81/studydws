@@ -82,7 +82,17 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			{
 			    $returnValue['image'] = $img;
 			}
-			$returnValue['id'] = $rows['id'];
+			$returnValue['id'] = $id = $rows['id'];
+			$user_id = $_REQUEST['user_id'];
+			$result_pack = mysqli_query($conn,"SELECT cmsorders.id FROM `cmsorders` INNER JOIN cmsorder_details ON cmsorder_details.order_id = cmsorders.id WHERE cmsorders.user_id = '$user_id' AND cmsorder_details.product_id = '$id' AND cmsorders.status = '1'");
+		    if(($rows = mysqli_fetch_array($result_pack)) > 0) 
+			{
+			    $returnValue['package_bought'] = 1;
+			}
+			else
+			{
+			    $returnValue['package_bought'] = 0;
+			}
 			}
 			return $returnValue;
 	}

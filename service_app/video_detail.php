@@ -43,7 +43,17 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 		$result = mysqli_query($conn,"SELECT * FROM cmsvideos where id = '$mar_id'");
 		if($row = mysqli_fetch_array($result)) 
 		{
-		$returnValue['title'] = preg_replace('/[^A-Za-z0-9]/', ' ', $row['title']);
+		//$returnValue['title'] = preg_replace('/[^A-Za-z0-9]/', ' ', $row['title']);
+		$str = $row['title'];
+		    $str = utf8_encode($str);
+            $str = strip_tags($str, '<img>,<table>,<td>,<tr>,<th>,<tbody>,<ul>,<li>'); 
+            $str = htmlentities($str, ENT_QUOTES, "UTF-8");
+            $str = preg_replace("!\r?\n!", "", $str);
+            $str = str_replace("&nbsp;", "", $str);
+            $str = str_replace("nbsp;", "", $str);
+            $str = str_replace("&amp;", "", $str);
+            $str = str_replace("\\", "", $str);
+            $returnValue['title'] = $str;
 			//$returnValue['title'] = $row['title'];
 		$returnValue['video_url_code'] = $row['video_url_code'];
 		$returnValue['video_source'] = $row['video_source'];
@@ -57,6 +67,9 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
             $str = htmlspecialchars_decode($str);
 			$returnValue['description'] = $str;
 			$returnValue['video_duration'] = $row['video_duration'];
+		
+			$returnValue['video_size'] = $row['video_size'];  
+			
 			$result1 = mysqli_query($conn,"SELECT * FROM user_video_story where video_id = '$mar_id'");
 		    if($rows = mysqli_fetch_array($result1)) 
 		    {
@@ -66,7 +79,7 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			$returnValue['views'] = $row['views'];
 			$returnValue['courtesy'] = $row['courtesy'];
 			$returnValue['video_tag'] = $row['video_tag'];
-			$returnValue['video_duration'] = $row['custom_video_duration'];
+		
 			$returnValue['custom_video_duration'] = $row['custom_video_duration'];
 			if($row['androidapp_link'] != "")
 			{
@@ -99,10 +112,40 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			 $las = $num%10;
 			 $imm = "http://dev.hybridinfotech.com/assets/frontend/images/";
 	$returnValue['video_image'] = $imm.$las.".png";
-			
+		
+		
+			$dx = array();
+			$dx =  all_dtl($conn,$mar_id);
+	
+	$returnValue['class'] = (count($dx)> 0)? $dx['class'] : "";
+	$returnValue['subject'] = (count($dx)> 0)? $dx['subject'] :"";
+	$returnValue['chapter'] = (count($dx)> 0)? $dx['chapter'] :"";
+		
 		
 		}
 		return $returnValue;
 	}
+	
+	
+		function all_dtl($conn,$id)
+        	{
+        	    $q = "select  c.name as class,s.name as subject,ch.name as chapter  from cmsvideolist_details as a join cmsvideolist_relations as b on a.videolist_id = b.videolist_id join categories as c on b.exam_id = c.id join
+        	            cmssubjects as s on b.subject_id = s.id join cmschapters as ch on b.chapter_id = ch.id where a.video_id = '$id'";
+        	      	$result = mysqli_query($conn, $q);
+        	      $job =array();
+        	      	if($row = mysqli_fetch_array($result)) 
+        		{	
+        	      	$job['class'] = $row['class'];
+        	      	$job['subject'] = $row['subject'];
+        	      	$job['chapter'] = $row['chapter'];
+        	      	
+        	      	
+        		}
+        	     return $job;   
+        	            
+        	}
+	
+	
+	
 	mysqli_close($conn);
 ?>

@@ -1,5 +1,3 @@
-
-
 <?php 
 
 	 include('../../service_app/config.php');
@@ -11,18 +9,14 @@
 		$postStatusString = "publish";
 
 if($exam_id){
-  
     $result = mysqli_query($conn, "SELECT * FROM `cmsncertsolutions_relations` WHERE `exam_id`='$exam_id' group by subject_id LIMIT 1");
 }	while($row = mysqli_fetch_array($result)) {
-			  $mar_id = $row['exam_id'];
+			$mar_id = $row['exam_id'];
 			$job = array();
 			$job = getcoursebycat($mar_id,$conn);
 			$subTmp[] = $job;
 		}
-	
-	
 		$tmp = $subTmp;
-	
 		echo json_encode($tmp);
 	//	mysqli_close();
 		

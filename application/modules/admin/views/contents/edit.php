@@ -12,8 +12,7 @@
 				}
                 if (isset($maincontent->name)) {
                     echo $content_type->name . ' - ' . $maincontent->name;
-                } else {
-					
+                }else {
                     $this->session->set_flashdata('message', 'Information not Available!');
                     redirect('admin/contents/add');
                     die();
@@ -25,7 +24,6 @@
                 ?>
                 <div class="alert alert-success"> <?php echo $this->session->flashdata('message') ?>
                 </div>
-
                 <?php
             }
 				//print_r($maincontent_name_array);
@@ -124,19 +122,19 @@
                                 </tr>
                             </thead>
                             <tbody><?php
-            $fid = 1;
-            foreach ($module_file_details as $file_details) {
+    $fid = 1;
+    foreach ($module_file_details as $file_details) {
                 ?>
                                     <tr class="success">
                                         <td><?php echo $fid; ?></td>
                                         <td><?php
-                            if ($content_type->name == 'Videos') {
+    if ($content_type->name == 'Videos') {
                                 //echo $file_details->filename;
-                            } else {
-                        ?>
+    } else {
+    ?>
     <a href="/admin/contents/getFileInfo/<?php echo $file_details->file_id; ?>" data-target="#myModal_edit_displayname" data-show="true" data-toggle="modal"><?php echo $file_details->displayname; ?></a>
-
-                    <?php }
+                    <?php 
+					}
                  ?>
                                         </td>
                                         <td><?php

@@ -2,7 +2,9 @@
     <div class="container">
 	</div>
 </footer>
+	
 <!-- /.container -->
+
 <!-- jQuery -->
 <script src="<?php echo get_assets('assets/frontend/js/jquery.js') ?>"></script>
 <script src="<?php echo get_assets('assets/frontend/js/bootstrap.min.js'); ?>"></script>
@@ -30,7 +32,10 @@
             alert('Password and Confierm Password Not Equal!');
             return false;
         }
+
     });
+
+
 </script>
 <script>
     $(document).ready(function () {

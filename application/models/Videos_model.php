@@ -524,6 +524,23 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
 
+    public function getAllVideos_size() {
+        $this->db->select('id,legacy_id,title,video_source,video_url_code,video_file_name,video_image,short_video,is_featured,description,video_by,status,views,courtesy,is_free,video_tag,video_duration,video_size,custom_video_duration,androidapp_link,amazonaws_link,amazon_cloudfront_domain,created_by,sort,dt_created,modified_by,dt_modified,view_count,like_count');
+        $this->db->from('cmsvideos');
+        $this->db->where('androidapp_link !=', '');
+        $this->db->where('video_duration', ''); 
+        $this->db->where('video_size', ''); 
+        $this->db->where('video_source', 'studyadda'); 
+
+        //$this->db->limit(200);
+        $query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->result();
+        }else{
+        return array();
+        }
+    }
+
  public function getAllVideos1() {
         $this->db->select('id,legacy_id,title,video_source,video_url_code,video_file_name,video_image,short_video,is_featured,description,video_by,status,views,courtesy,is_free,video_tag,video_duration,video_size,custom_video_duration,androidapp_link,amazonaws_link,amazon_cloudfront_domain,created_by,sort,dt_created,modified_by,dt_modified,view_count,like_count');
         $this->db->from('cmsvideos');

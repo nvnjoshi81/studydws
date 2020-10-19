@@ -65,7 +65,7 @@ class Categories_model extends CI_Model
     
     public function getPrentName($id)
     {
-        $this->db->select('id,name,order');
+        $this->db->select('id,name,order,parent_id,description,tagline');
         $this->db->from('categories');
         $this->db->where('id', $id);
         $query = $this->db->get();

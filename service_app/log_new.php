@@ -20,7 +20,7 @@ include("config.php");
     }
 
   if($first > $ran_no  AND $last > $ran_no)
-  $pac = "com.studyaddaapp";
+     $pac = "com.studyaddaapp";
   
      $self = "select * from diff where $ran_no BETWEEN first and last and pac = '$package'";
   $oppf = mysqli_query($conn, $self);
@@ -187,13 +187,13 @@ else if(!empty($_POST['contact']) && !empty($_POST['password']))
       }
       else
       {
-          echo json_encode(array("response"=>array('status'=>'false','msg'=>'Please enter correct OTP!')));
+          echo json_encode(array("response"=>array('status'=>'false','msg'=>'Please enter correct OTP!'))); die();
       }
 	 }
 	 }
 	 else
       {
-          echo json_encode(array("response"=>array('status'=>'false','msg'=>'Invalid Request')));
+          echo json_encode(array("response"=>array('status'=>'false','msg'=>'Invalid Request')));die();
       }
 	 $newarray = $data;
 	echo json_encode($newarray);
