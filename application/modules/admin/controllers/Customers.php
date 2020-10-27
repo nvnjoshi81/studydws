@@ -265,8 +265,7 @@ $user_key = $this->input->post('user_key');
              }else{
              $customers =$this->Customer_model->getSubscriber_bydate($start_date_string,$end_date_string); 
              $this->data['customers']=  $customers;  
-             }           
-             
+             }  
                 $this->data['content']='customers/subscriber_search';
                 $this->load->view('common/template',$this->data);
           }
@@ -308,24 +307,28 @@ $user_key = $this->input->post('user_key');
 		  //$this->data['user_info'] = $this->Customer_model->getCustomerDetails($user_id);
           $this->data['content']='customers/usercart';
           $this->load->view('common/template',$this->data);
-		} 
-
+		}
+		
     public function set_validity() {      
       $getstr = date('Y-m-d');
       $dtstr = strtotime($getstr);
       $offer_dt = $this->load->input->post('current_date');      
       $no_of_day = $this->load->input->post('current_day');
       $totaldays = "+".$no_of_day." days";
+	  $diff=strtotime($offer_dt) - strtotime($getstr);
+	  $dateDif= abs(round($diff/86400));
+		
       if (!$offer_dt=="") {
-        echo "Set by Date";
         $offerdtstr = strtotime($offer_dt);
+		$no_of_day=$dateDif;
+		//echo $no_of_day;
       }
-      if (!$no_of_day=="") {
-        echo "Set by Day";
-        $offerdtstr = strtotime($currentdt.$totaldays);
+      else if (!$no_of_day=="") {
+      $offerdtstr = strtotime($currentdt.$totaldays);
+      //echo $no_of_day."<br>";
       }
       $setval = array('value'=>$offerdtstr,'extra'=>$no_of_day,'created_dt'=>$dtstr);
       $this->Customer_model->setvalidity('ORDER_VALIDITY',$setval);
       redirect('admin/pricelist/pricechange');
-    }		 
+    }			
 }

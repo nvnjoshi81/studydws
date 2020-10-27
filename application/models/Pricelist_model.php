@@ -12,6 +12,10 @@ class Pricelist_model extends CI_Model {
         $this->db->update('cmspricelist', $data, array('id' => $id));
     }
 	
+	 public function updateorder($id, $data) {
+        $this->db->update('cmsorders', $data, array('id' => $id));
+    }
+	
     public function pkgupdate($id, $data) {
         $this->db->update('cmspackages_counter', $data, array('id' => $id));
     }
@@ -207,7 +211,7 @@ class Pricelist_model extends CI_Model {
 	
 	
 	 public function complemtry_order($type, $exam_id, $subject_id = 0, $chapter_id = 0) {
-     $this->db->select('cmspricelist.id as pid');
+     $this->db->select('cmspricelist.id as pid,price,discounted_price,type');
         $this->db->from('cmspricelist');
         $this->db->where('cmspricelist.type', $type);
      
@@ -318,7 +322,7 @@ class Pricelist_model extends CI_Model {
         return $query->result();
     }
     function getProducts_byid($id) {
-        $this->db->select('id,exam_id,subject_id,chapter_id,item_id,type,price,discounted_price,description,offline_status,image,app_image,modules_item_id,modules_item_name');
+        $this->db->select('id,exam_id,subject_id,chapter_id,item_id,type,price,discounted_price,description,offline_status,image,app_image,modules_item_id,modules_item_name,subscription_expiry,subscription_type');
         $this->db->from('cmspricelist');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -539,9 +543,8 @@ class Pricelist_model extends CI_Model {
         return $result;
 	}
 	
-	
      public function allproduct_by_content($contentType='all') {
-		$this->db->select('cmspricelist.image,cmspricelist.app_image,cmspricelist.modules_item_id,cmspricelist.id,cmspricelist.exam_id,cmspricelist.subject_id,cmspricelist.chapter_id,cmspricelist.item_id,cmspricelist.type,cmspricelist.price,cmspricelist.discounted_price,cmspricelist.description,cmspricelist.modules_item_name');
+		$this->db->select('cmspricelist.image,cmspricelist.app_image,cmspricelist.modules_item_id,cmspricelist.id,cmspricelist.exam_id,cmspricelist.subject_id,cmspricelist.chapter_id,cmspricelist.item_id,cmspricelist.type,cmspricelist.price,cmspricelist.discounted_price,cmspricelist.description,cmspricelist.modules_item_name,cmspricelist.subscription_type ,,cmspricelist.subscription_expiry');
         $this->db->from('cmspricelist');
         $this->db->join('categories', 'cmspricelist.exam_id=categories.id','left');
         $this->db->join('cmssubjects', 'cmspricelist.subject_id=cmssubjects.id','left');

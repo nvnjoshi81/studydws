@@ -390,6 +390,23 @@ class Contents extends MY_Admincontroller {
 			$subexam_id_count=0;
 			$subexam_id =NULL;
 		}
+		
+		//For subsubject Id
+		
+		$subsubject_id_arr = $this->input->post('sub_subject');
+		if(isset($subsubject_id_arr)){
+		if(count($subsubject_id_arr)>1){
+			$subsubject_id_count=count($subsubject_id_arr);
+		$subsubject_id = $this->input->post('sub_subject');
+		}else{
+		$subsubject_id_count=1;
+		$subsubject_id = $this->input->post('sub_subject');
+		}	
+		}else{
+			$subsubject_id_count=0;
+			$subsubject_id =NULL;
+		}
+		
 		/*For Upload in hindi english language*/
        $language_post = $this->input->post('language');
         if(isset($language_post)&&$language_post!=''){
@@ -487,6 +504,7 @@ class Contents extends MY_Admincontroller {
                 'name' => $name,
                 'exam_id' => $exam_id,
                 'subexam_id' => $subexam_id,
+				'subsubject_id'=>$subsubject_id,
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
 				'language'=>$language_var,
@@ -630,14 +648,14 @@ class Contents extends MY_Admincontroller {
                     }
                     
                     $article_data = array(
-                        'category_id' => $exam_id,
+                        'category_id'=> $exam_id,
                         'subject_id' => $subject_id,
                         'chapter_id' => $chapter_id,
-				        'language'=>$language_var,
-                        'user_id' => $created_by_id,
+				        'language'   =>    $language_var,
+                        'user_id'    => $created_by_id,
                         'dt_created' => $date,
-                        'title' => $artiTitle,
-                        'description' => $ans_text_var,
+                        'title'           => $artiTitle,
+                        'description'     => $ans_text_var,
                         'top_category_id' => '21',
                         'published' => '1'
                     );
@@ -658,28 +676,26 @@ class Contents extends MY_Admincontroller {
         if ($add_content_type->name == 'Question Bank') {
             // Entry in DB
             $questoin_bank_insert_id = $this->Contents_model->add_question_bank($data);
-			/*This entry will used for main exam display.In this case sub class entry will not work */
+			/*This entry will used for main exam display.In this case sub class/Exam and sub Subject entry will not work */
 				$relations_data= array(
                 'questionbank_id' => $questoin_bank_insert_id,
                 'exam_id' => $exam_id,
                 'subexam_id' => 0,
                 'subject_id' => $subject_id,
+				'subsubject_id' => 0,
                 'chapter_id' => $chapter_id,
                 'created_by' => $created_by_id,
                 'dt_created' => $date
             );
 			
             $this->Contents_model->add_relation_in_questionbank($relations_data);
-			/*This code entry will used for Sub exam display*/
-			if(isset($subexam_id_count)&&$subexam_id_count>0){
+			/*This code entry will used for Sub exam save*/
+			if(isset($subexam_id_count)&&$subexam_id_count>0){				
 				
-				
-			for($irc=0;$subexam_id_count>$irc;$irc++){			
-			
-			if(isset($subexam_id[$irc])&&$subexam_id[$irc]>0){
-				 $relations_data_arr= array(
+			for($irc=0;$subexam_id_count>$irc;$irc++){
+				$relations_data_arr= array(
                 'questionbank_id' => $questoin_bank_insert_id,
-                'exam_id' =>    $exam_id,
+                'exam_id'    => $exam_id,
                 'subexam_id' => $subexam_id[$irc],
                 'subject_id' => $subject_id,
                 'chapter_id' => $chapter_id,
@@ -687,10 +703,38 @@ class Contents extends MY_Admincontroller {
                 'dt_created' => $date
             ); 
 			
+			/*This code entry will used for Sub Subject display*/
+			if(isset($subsubject_id_count)&&$subsubject_id_count>0){	
+			for($irs=0;$subsubject_id_count>$irs;$irs++){
+			//save sub subject entry.
+			$relations_data_arr['subsubject_id']=$subsubject_id[$irs];
             $this->Contents_model->add_relation_in_questionbank($relations_data_arr);
+			}	
+			}else{
+			$relations_data_arr['subsubject_id']=0;	
+			//If Subject not selected save entry for subexam only
+			$this->Contents_model->add_relation_in_questionbank($relations_data_arr);
 			}
 			}	
+			}else{
+			/*This code entry will used to save Sub Subject entry when subexam not selected*/
+			if(isset($subsubject_id_count)&&$subsubject_id_count>0){	
+			for($irs=0;$subsubject_id_count>$irs;$irs++){	
+				$relations_subject_arr= array(
+                'questionbank_id' => $questoin_bank_insert_id,
+                'exam_id' =>    $exam_id,
+                'subexam_id' => 0,
+                'subject_id' => $subject_id,
+				'subsubject_id'=>$subsubject_id[$irs],
+                'chapter_id' => $chapter_id,
+                'created_by' => $created_by_id,
+                'dt_created' => $date
+            ); 
+            $this->Contents_model->add_relation_in_questionbank($relations_subject_arr);
+			}	
 			}
+			}
+			// Asigned as NULL so we can use this variable next	
 			$relations_data_arr=NULL;
 			/*End Sub exam display*/
 
@@ -5297,60 +5341,92 @@ NOT USEFUL
         $response = array();
         $content_array = array();
         $contents = '';
-        $show_content_type = $this->Content_model->getContentTypeDetail($type);
+        $show_content_type = $this->Content_model->getContentTypeDetail($type);		
+		$getSubClass = $this->Questionbank_model->getSubClass($examid);
+		if($subject_id>0){
+		$getSubSubject = $this->Questionbank_model->getSubSubject($examid, $subject_id);
+		}
         if ($show_content_type->name == 'Study Material') {
         //$contents = $this->Studymaterial_model->getStudyMaterial($examid, $subject_id, $chapter_id);
         $contents = $this->Studymaterial_model->getStudyMaterial_list($examid, $subject_id, $chapter_id,$type);
+		//$getSubSubject = $this->Studymaterial_model->getSubSubject($examid, $subject_id);
         }
         if ($show_content_type->name == 'Books') {
-        $contents = $this->Books_model->getBooks($examid, $subject_id, $chapter_id);
+        $contents = $this->Books_model->getBooks($examid, $subject_id, $chapter_id);	
+		//$getSubSubject = $this->Books_model->getSubSubject($examid, $subject_id);
         }
         if ($show_content_type->name == 'Videos') {
         $contents = $this->Videos_model->getVideos($examid, $subject_id, $chapter_id);
+//$getSubSubject = $this->Videos_model->getSubSubject($examid, $subject_id);
         }
 
         if ($show_content_type->name == 'Online Tests') {
         $contents = $this->Onlinetest_model->getOnlineTests($examid, $subject_id, $chapter_id);
+		//$getSubSubject = $this->Onlinetest_model->getSubSubject($examid, $subject_id);
         }
 
         if ($show_content_type->name == 'Question Bank') {
             $contents = $this->Questionbank_model->getQuestionBank($examid, $subject_id, $chapter_id);
-						
-			$getSubClass = $this->Questionbank_model->getSubClass($examid);
+			//$getSubSubject = $this->Questionbank_model->getSubSubject($examid, $subject_id);
         }
 
         if ($show_content_type->name == 'Sample Papers') {
             $contents = $this->Samplepapers_model->getSamplePapers($examid, $subject_id, $chapter_id);
+			//$getSubSubject = $this->Samplepapers_model->getSubSubject($examid, $subject_id);
         }
 
         if ($show_content_type->name == 'Solved Papers') {
             $contents = $this->Solvedpapers_model->getSolvedPapers($examid, $subject_id, $chapter_id);
+			//$getSubSubject = $this->Solvedpapers_model->getSubSubject($examid, $subject_id);
 		}
 
         if ($show_content_type->name == 'Ncert Solutions') {
             $contents = $this->Ncertsolutions_model->getNcertSolutions($examid, $subject_id, $chapter_id);
+			//$getSubSubject = $this->Ncertsolutions_model->getSubSubject($examid, $subject_id);		
         }
         if($show_content_type->name == 'Notes') {
            $contents = $this->Notes_model->getNotes($examid, $subject_id, $chapter_id);
+			//$getSubSubject = $this->Notes_model->getSubSubject($examid, $subject_id);
         }
         if ($show_content_type->name == 'Article') {
             $contents = $this->Posting_model->getArticlesForExams($examid, $subject_id, $chapter_id);
+			//$getSubSubject = $this->Posting_model->getSubSubject($examid, $subject_id);
         }
-		
+		/*For fatching Subclass Array*/
+		if(count($getSubClass)>0){
 		foreach($getSubClass as $skey=>$svalue){
 			if(isset($svalue->id)&&$svalue->id>0){
-			$subSubjectId=$svalue->id;
+			$subClassId=$svalue->id;
 			}else{
-			$subSubjectId=$svalue->id;
+			$subClassId=$svalue->id;
 			}
 			if(isset($svalue->name)&&$svalue->name!=''){
-			$subSubjectName=$svalue->name;
+			$subClassName=$svalue->name;
+			}else{
+			$subClassName=NULL;
+			}
+			$subClass_array[] = array('id'=>$subClassId,'name'=>$subClassName);
+		}
+	}
+		/*End for fatching Subclass Array*/
+		
+		/*For  fatching  Subsubject Array*/
+		if(count($getSubSubject)>0){
+		foreach($getSubSubject as $sskey=>$ssvalue){
+			if(isset($ssvalue->id)&&$ssvalue->id>0){
+			$subSubjectId=$ssvalue->id;
+			}else{
+			$subSubjectId=$ssvalue->id;
+			}
+			if(isset($ssvalue->name)&&$ssvalue->name!=''){
+			$subSubjectName=$ssvalue->name;
 			}else{
 			$subSubjectName=NULL;
 			}
-			$subClass_array[] = array('id'=>$subSubjectId,'name'=>$subSubjectName);
+			$subSubject_array[] = array('id'=>$subSubjectId,'name'=>$subSubjectName);
 		}
-		
+	}
+		/*End for fatching Subsubject Array*/
 		$cntCount=count($contents);
         if ($cntCount > 0) {
             foreach ($contents as $content) {
@@ -5363,7 +5439,9 @@ NOT USEFUL
             $response['data'] = array();
             $response['count'] = 1;
         }
+		
 		$response['subClass'] = $subClass_array;
+		$response['subSubject'] = $subSubject_array;
         echo json_encode($response);
     }
 

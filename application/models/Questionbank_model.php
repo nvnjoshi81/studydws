@@ -118,6 +118,14 @@ class Questionbank_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
 	}
+	  public function getSubSubject($mainExamid,$mainSubjectid) {
+	   $this->db->select('id,name,parent_id');
+        $this->db->from('cmssubjects');
+        $this->db->where('parent_id', $mainSubjectid);
+        $query = $this->db->get();
+        return $query->result();
+	}
+	
 	
 
     public function getDetails_bymoduleID_file($mid) {

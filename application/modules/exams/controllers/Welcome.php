@@ -154,10 +154,9 @@ class Welcome extends Modulecontroller {
         $testseries_Product = $this->Pricelist_model->getProduct($examid, $subject_id, $chapter_id, 3);
         $all_packages=array();
        if(count($all_packages)>0){
-                   $isProduct_array[]= $testseries_Product;
+       $isProduct_array[]= $testseries_Product;
        }
         $this->data['isProduct_array'] = $isProduct_array;
-        
         $data_array=array();
         $exam=  $this->Categories_model->getCategoryDetails($examid);
         $titleStr[]=addSuffix($exam->name,'Class');
@@ -262,9 +261,10 @@ $chkcount=$chkcount+1;
 		/*for getting sub Exam list for category table*/
 $this->data['sub_chaptersubjects'] = array();
 $this->data['sub_subjects_array'] = array();
-		    $sub_data_array=array();
 
+$sub_data_array=array();
 $subExamArray=$this->Examcategory_model->getSubExam($examid);
+$subSubjectArray=$this->Examcategory_model->getSubSubject($subject_id);
 if(isset($subExamArray)&&count($subExamArray)>0){  
 if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
 $subExamId=$subExamArray[0]->id; 
@@ -272,7 +272,6 @@ $subExamId=$subExamArray[0]->id;
 $subExamId=0;
 }
 $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId); 
-   
 	if(count($sub_chaptersubjects) > 0){
             foreach($sub_chaptersubjects as $sub_record){
 
@@ -301,14 +300,18 @@ $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId);
 	}
 	}
 }
-/*End sub exam lsit*/
+
+/*End sub exam list*/
+
+
 	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){ 
         $this->data['sub_chaptersubjects'] = $sub_data_array;
-		$this->data['subExamArray'] = $subExamArray[0];
+		$this->data['subExamArray'] = $subExamArray;
 	}else{ 
         $this->data['sub_chaptersubjects'] = array();
 		$this->data['subExamArray'] = array();
 	}	
+
 		
 		 if (count($subjects_array) > 0) {
                 foreach ($subjects_array as $key => $value) {
@@ -711,7 +714,79 @@ if($subject_id>0){
 	$this->load->view('template',$this->data);
     }
    
+    public function maincategory($examname,$examid,$subexamid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
+		
+		        
+        $urlChapter_name=NULL;
+         $isProduct_array=array();
+        $testseries_Product = $this->Pricelist_model->getProduct($examid, $subject_id, $chapter_id, 3);
+        $all_packages=array();
+       if(count($all_packages)>0){
+                   $isProduct_array[]= $testseries_Product;
+       }
+        $this->data['isProduct_array'] = $isProduct_array;
+        
+        $data_array=array();
+        $exam=  $this->Categories_model->getCategoryDetails($examid);
+        $titleStr[]=addSuffix($exam->name,'Class');
+        $this->data['selectedexam']=$exam;
+        $path=$examname.'/'.$examid;   
+		$this->load->model('Subjects_model');
+		$this->data['allsubject']=$this->Subjects_model->getSubjects();
+		
+        if($subject_id > 0){
+         
+            $this->data['selectedsubject']=$this->Subjects_model->getSubject($subject_id);
+            $path.='/'.$subjectname.'/'.$subject_id;
+            $titleStr[]=$this->data['selectedsubject']->name;
+        }
+        if($chapter_id > 0){
+            $this->load->model('Chapters_model');
+            $this->data['selectedchapter']=$this->Chapters_model->getChapter($chapter_id);
+            $path.='/'.$chapter_name.'/'.$chapter_id;
+            $titleStr[]=$this->data['selectedchapter']->name;
+            $urlChapter_name=$this->data['selectedchapter']->name;
+        }
+	   	
+/*Get only sub subject for given exam*/
+ echo $subexamid.'-------------====';
+ 
+ 
+$sub_data_array=array();
+$subExamArray=$this->Examcategory_model->getSubExam($examid);
+$subSubjectArray=$this->Examcategory_model->getSubSubject($subject_id);
+if(isset($subExamArray)&&count($subExamArray)>0){  
+if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
+$subExamId=$subExamArray[0]->id; 
+}else{
+$subExamId=0;
+}
+}
 
+
+
+/*End Get only */
+
+
+if(count($isProduct)>0){
+        $this->data['isProduct'] = $isProduct;
+        $product_id=$isProduct->id;
+        $user_id=$customer_id=$this->session->userdata('customer_id');
+        $orderInfo=$this->Pricelist_model->getOrderInfo($product_id, $user_id);
+		
+        $this->data['orderInfo'] = $orderInfo;
+        }else{
+        $this->data['isProduct'] = '';
+        }
+        $this->data['subject_id'] = $subject_id;
+        $this->data['examid'] = $examid;
+        $this->data['urlChapter_name']=$urlChapter_name;
+        $this->data['path']=$path;
+        $this->data['content']='welcomecategory';
+        $this->data['modulepath']=$path;
+	$this->load->view('template',$this->data);
+	
+   }
    
     public function cron_update_packagecount(){
     //die("Temporarily Off....in welcome exam");		
@@ -1434,7 +1509,17 @@ if($subject_id>0){
     }
     }
     
-    
+   public function cron_update_orderstatus(){
+	  /* 
+	   //SELECT * FROM `cmsorders` WHERE `created_dt` >1601487238 and `app_order`='1' and `status`='1' and `txn_number`=''
+	   
+	     $ord_update_array=array(
+             'status'=>0
+         );
+	   */
+	   
+	   echo 'done';
+   }
     
 }
 ?>

@@ -143,7 +143,7 @@ class Videos_model extends CI_Model {
     }
 
     public function getVideosList($id) {
-    $this->db->select('v.id,v.title,v.video_source,v.video_url_code,v.video_file_name,v.video_image,v.short_video,v.is_featured,v.description,v.video_image as display_image,d.videolist_id,d.video_id');        
+    $this->db->select('v.id,v.title,v.video_source,v.video_url_code,v.video_file_name,v.video_image,v.short_video,v.is_featured,v.description,v.video_image as display_image,v.amazon_cloudfront_domain,v.video_duration,v.custom_video_duration,v.video_size,d.videolist_id,d.video_id');        
     $this->db->from('cmsvideos v');
     $this->db->where('v.status',1);
         $this->db->where('v.video_tag!=','Career Point');

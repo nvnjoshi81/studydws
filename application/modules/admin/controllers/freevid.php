@@ -11,10 +11,17 @@ class Freevid extends MY_Admincontroller {
         {   
             $this->data['content']='freevid/index';
             $videolist=$this->Freevideo_model->getVideolist();
-            $this->data['video_id']=$videolist->video_id;
+            $this->data['video_id']=$videolist->video_id; 
+			$this->data['cron']='yes';
             $this->load->view('common/template',$this->data);
         }
-           
+            public function cron()
+        {   
+		    $this->data['content']='freevid/index';
+            //$videolist=$this->Freevideo_model->getVideolist();
+            $this->data['cron']='yes';
+            $this->load->view('common/template',$this->data);
+        }
         public function addfreevideo(){
          
          

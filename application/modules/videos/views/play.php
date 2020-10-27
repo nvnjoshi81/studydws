@@ -51,7 +51,8 @@ $handle = @fopen($remoteFile, 'r');
 			
 if(($androidapp_link!=''&&$andlink_exist=='yes')){
 			
-		?><video style="height: auto; width: 100%; max-width: 100%;" controls id='lockdown_sol'>
+?>
+<video style="height: auto; width: 100%; max-width: 100%;" controls controlsList="nodownload" id="lockdown_sol">
   <source src="<?php echo base_url('upload_files/'.$androidapp_link) ;?>" type="video/mp4">
   <source src="movie.ogg" type="video/ogg">
 Your browser does not support the video tag.
@@ -71,8 +72,25 @@ $hours = floor($init / 3600);
 $minutes = floor(($init / 60) % 60);
 $seconds = $init % 60;
 				?>
-			<font style="font-family:'Courier New';font-size:'initial'">Video Duration-<?php 
-echo "$minutes:$seconds"; ?></font><?php 
+			<font style="font-family:'Courier New';font-size:'initial'"><i title="Video Duration" class="glyphicon glyphicon-hourglass">
+                  </i><?php 
+
+if($init>120){ 
+echo gmdate("i:s", $video->video_duration); echo " Hours";	
+				
+			}else if($init<121){	
+			
+if($init<60){ 
+				echo "$init Minutes";	
+				}else{
+				
+echo gmdate("i:s", $video->video_duration); echo " Minutes";		
+				}			
+				
+			}
+			
+//echo "$minutes:$seconds";
+ ?></font><?php 
 			}else if(isset($video->custom_video_duration)&&$video->custom_video_duration!=''){
 				
 $init = $video->custom_video_duration;
@@ -80,15 +98,28 @@ $hours = floor($init / 3600);
 $minutes = floor(($init / 60) % 60);
 $seconds = $init % 60;
 				?>
-			<font style="font-family:'Courier New'; font-size:'initial'">Video Duration-<?php 
+			<font style="font-family:'Courier New'; font-size:'initial'"><i title="Video Duration" class="glyphicon glyphicon-hourglass">
+                  </i><?php 
 			//$hours
-            echo "$minutes:$seconds";
+           if($init>120){ 
+echo gmdate("i:s", $video->video_duration); echo " Hours";	
+				
+			}else if($init<121){	
+			
+if($init<60){ 
+				echo "$init Minutes";	
+				}else{
+				
+echo gmdate("i:s", $video->video_duration); echo " Minutes";		
+				}			
+				
+			}
 			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font>
 			<?php
 			}
 			if(isset($video->video_size)&&$video->video_size!=''){
 			?>
-			<font style="font-family:'Courier New'"> | Video Size-<?php echo $video->video_size; ?></font><?php 
+			<font style="font-family:'Courier New'"> | <i title="Video Size" class="glyphicon glyphicon-scale"></i> <?php echo $video->video_size; ?></font><?php 
 			}
 ?></h5>
    </div>
@@ -386,7 +417,6 @@ foreach($commentlist as $vc){ ?>
 		 } } ?>
          </div>
          </div>
-      
     </div>
   </div>
 </div>

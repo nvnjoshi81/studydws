@@ -29,6 +29,11 @@
                         }
                         } 
                         ?>
+						
+						<li>
+                        <a href="<?php echo base_url();?>admin/freevid"><i class="fa fa-list-alt fa-fw"></i>Cron Update</a>
+                        </li>
+						
 						<li>
                         <a href="<?php echo base_url();?>admin/listings/current_affairs"><i class="fa fa-list-alt fa-fw"></i>Current Affairs</a>
                         </li>

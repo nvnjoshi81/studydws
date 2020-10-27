@@ -1117,9 +1117,10 @@ function getBrowser()
     else {
         $version= $matches['version'][0];
     }
-
-    // check if we have a number
-    if ($version==null || $version=="") {$version="?";}
+    
+	// check if we have a number
+    
+	if ($version==null || $version=="") {$version="?";}
 
     return array(
         'userAgent' => $u_agent,
@@ -1128,4 +1129,21 @@ function getBrowser()
         'platform'  => $platform,
         'pattern'    => $pattern
     );
+} 
+
+function get_assets_cdn($filepath,$cdn='https://www.dewastimes.com/'){
+$break_host_array=substr($_SERVER['HTTP_HOST'],-3);
+if($break_host_array=='cal'){
+	$cdn=base_url();
 }
+	if(base_url()==''){
+	  $cdn=base_url();
+	}
+	  if(isset($cdn)&&$cdn!=''){
+		$cdn_path=$cdn;
+	  }else{
+		$cdn_path=base_url();  
+	  } 
+	  return $cdn_path.$filepath;
+	  
+  }

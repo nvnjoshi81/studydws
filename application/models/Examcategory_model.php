@@ -52,7 +52,25 @@ public function getSubExam($exam_id=0){
 	}
 }
 
-        
+
+public function getSubSubject($subject_id=0){
+//SELECT * FROM `categories` WHERE `parent_id` = $examid 
+  	if($subject_id>0){
+  $this->db->select('1id,name,order,parent_id,description');
+        $this->db->from('cmssubjects');
+        $this->db->where('parent_id', $subject_id);
+        $this->db->order_by('order','asc');
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        if($query->num_rows()>0){
+        return $query->result();
+        }else{
+        return array();
+        }
+	}else{
+		return array();
+	}
+}	  
     public function getAdminExamCatgeories(){
         $this->db->select('id,name,parent_id,description');
         $this->db->from('categories');
@@ -111,7 +129,7 @@ public function getSubExam($exam_id=0){
         }else{
         return array();
         }
-          }
+        }
     public function getExamChapters($id){
         $this->db->select('cmschapters.id as cid,cmschapters.name as cname,cmssubjects.id as sid, cmssubjects.name as sname, cmssubjects.imagename');
         $this->db->from('cmschapter_details cd ');

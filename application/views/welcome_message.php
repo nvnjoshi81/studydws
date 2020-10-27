@@ -17,7 +17,7 @@
     <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
   <div class="carousel-inner">
-      <div class="item active"> <img width="1326" height="483" src="<?php echo base_url('assets/frontend/images/studyadda2.jpg')?>" style="width:100%" data-src="" alt="Study Packages">
+      <div class="item active"> <img width="1326" height="483" src="<?php echo get_assets_cdn('assets/frontend/images/studyadda2.jpg')?>" style="width:100%" data-src="" alt="Study Packages">
       <div class="container">
         <div class="carousel-caption">
         <!--
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>      
-      <div class="item"> <img width="1326" height="483" src="<?php echo base_url('assets/frontend/images/studyadda3.jpg')?>" style="width:100%" data-src="" alt="Test Series">
+      <div class="item"> <img width="1326" height="483" src="<?php echo get_assets_cdn('assets/frontend/images/studyadda3.jpg')?>" style="width:100%" data-src="" alt="Test Series">
       <div class="container">
         <div class="carousel-caption slide2">
           <h1>Test Series</h1>
@@ -42,7 +42,7 @@
       </div>
     </div>
       
-    <div class="item"> <img width="1326" height="483" src="<?php echo base_url('assets/frontend/images/studyadda1.jpg')?>" style="width:100%" alt="First slide">
+    <div class="item"> <img width="1326" height="483" src="<?php echo get_assets_cdn('assets/frontend/images/studyadda1.jpg')?>" style="width:100%" alt="First slide">
       <div class="container">
         <div class="carousel-caption">
           <h1>Video Lectures</h1>
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="item"> <img width="1326" height="483" src="<?php echo base_url('assets/frontend/images/studyadda3.jpg')?>" style="width:100%" data-src="" alt="Second slide">
+    <div class="item"> <img width="1326" height="483" src="<?php echo get_assets_cdn('assets/frontend/images/studyadda3.jpg')?>" style="width:100%" data-src="" alt="Second slide">
       <div class="container">
         <div class="carousel-caption">
           <h1>Ncert Solutions</h1>

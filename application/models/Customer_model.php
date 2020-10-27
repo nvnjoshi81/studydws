@@ -31,6 +31,21 @@ class Customer_model extends CI_Model{
 		
 	}
 	
+		//Mahesh:-Teacher functions
+	
+	public function teacherbytid($techerid)
+	{
+		
+		 $this->db->select('id,teacher_id,firstname,lastname,gender,designation,email,mob');
+            $this->db->from('cmsteachers');
+			$this->db->where('teacher_id',$techerid);
+		$query = $this->db->get();
+		return $query->result();
+		
+	}
+	
+	
+	
 		public function edit_teacher($data,$id)
 	{
 		$this->db->where('id',$id);
@@ -605,7 +620,15 @@ public function getSubscriber_bydate($start_date,$end_date){
 		return $address_detail->row();
 	}
 	public function addOrder($user_id,$payment_mode,$final_amount,$shipping_charges,$cod_charges,$shipping_address_id,$agree_terms_value='no'){
-		     
+		
+		
+		$validity_days=ORDER_VALIDITY;
+		if(isset($validity_days)&&$validity_days>0){
+		//First set global value from macro	
+		$validity_dt=strtotime('+'.$validity_days.' days');
+		$validity_day=$validity_days;		
+		}
+		  
 			 $loginFranId = $this->session->userdata('loginFranId');
 			 if($loginFranId>0){
 				 $createdby=$loginFranId;
@@ -640,42 +663,75 @@ if($agree_terms_value=='yes'){
                               'guest'=> $isGuest, 
 							  'shipping_id'=>$shipping_address_id,
                               'agree_terms'=>$agree_terms_value,
-							  'validity_dt'=>'1680261071',
+							  'validity_dt'=>$validity_dt,
 							  'created_dt'=>time(),
 							  'created_by'=>$createdby);
-            
-//manisha1ravrani 9601649197
 			
-			$dataorderarray = $this->db->insert('cmsorders',$dataorder);		
+			$dataorderarray = $this->db->insert('cmsorders',$dataorder);
 			
 			$order_id = $this->db->insert_id();
 			$cart_items = $this->Cart_model->getCartItems($cart->id);
                         $type=0;
                         $offline_status=0;
-                        
-						
 /*Entry Order Detals table*/
 		foreach($cart_items as $item){
                     $product_info =  $this->Pricelist_model->getProducts_byid($item->product_id);
                    if(isset($product_info[0]->type)){
-                       $type= $product_info[0]->type; 
+                      $type= $product_info[0]->type; 
                    }
                    if(isset($product_info[0]->offline_status)){
                        $offline_status= $product_info[0]->offline_status; 
                    }
                    
 	$dataorderitems = array('order_id'=>$order_id,  				'product_id'=>$item->product_id,
-                		'quantity'=>$item->quantity,                                                        'offline'=>$item->offline,
-                                'price'=>$item->price,
-                                'type'=>$type,
-                                'offline'=>$offline_status);
+                		'quantity'=>$item->quantity,
+						'offline'=>$item->offline,
+                        'price'=>$item->price,
+                        'type'=>$type,
+                        'offline'=>$offline_status,
+						'end_date'=>$validity_dt,
+						'user_id'=>$user_id);
 				$dataorderitemsarray = $this->db->insert('cmsorder_details',$dataorderitems);
-					$cartexamid[]=$product_info[0]->exam_id;
+				$cartexamid[]=$product_info[0]->exam_id;
+				
+				$subscription_expiry=$product_info[0]->subscription_expiry;
+				$subscription_type=$product_info[0]->subscription_type;
         }
-	
 		
-		//Update in order details for video and test serise
+		if(isset($subscription_type)&&$subscription_type=='global'){
+		//set global value from macro	
+		
+		$validity_days=ORDER_VALIDITY;
+		$validity_dt=strtotime('+'.$validity_days.' days'); 
+		$validity_day=$validity_days;
+		
+		}else if(isset($subscription_type)&&$subscription_type=='local'){
+	    if(isset($subscription_expiry)&&$subscription_expiry>0){
+		//set local value from cmspricelist table
+		$validity_days=$subscription_expiry;
+		$validity_dt=strtotime('+'.$validity_days.' days'); 
+		$validity_day=$validity_days;
+		}else{
+				//set 1 year from todays date 	
+	    $validity_dt=strtotime('+365 days'); 
+		$validity_day='365';
+		}
+		}else{
+				//set 1 year from todays date 
+$validity_dt=strtotime('+365 days'); 
+$validity_day='365';				
+		}
+	
+	//Update in order details for video and test serise for complemntry 
+	 if($cart->cart_qty>3){
+		 $total_cartqty=$cart->cart_qty;
+	}else{
+		$total_cartqty=3;
+	}
+	 $validity_dt_array = array('order_qty'=>$total_cartqty,'validity_dt'=>$validity_dt,'validity_day'=>$validity_day);
+	 $updateorder_info = $this->Pricelist_model->updateorder($order_id,$validity_dt_array);
 	 
+	 //Ends Update in order
 		
 		foreach ($cartexamid as $crtitm_pid){
 			
@@ -690,16 +746,20 @@ if($agree_terms_value=='yes'){
                    if(isset($product_info_crt[0]->offline_status)){
                        $offline_status= $product_info_crt[0]->offline_status; 
                    }
-                   
+                   if(isset($vidarra->price)&&$vidarra->price>0){
+					   $cp_price=$vidarra->price;
+				   }else{
+					$cp_price=0;   
+				   }
 	$complematry_v = array('order_id'=>$order_id,  				
 	                     'product_id'=>$vidarra->pid,
                 		'quantity'=>1,
 						'offline'=>0,
-                        'price'=>0,
-                        'type'=>$type);
+                        'price'=>$cp_price,
+                        'type'=>$type,
+						'end_date'=>$validity_dt,
+						'user_id'=>$user_id);
 				$complematryarray = $this->db->insert('cmsorder_details',$complematry_v);
-				
-					
 		}
 		
 		//testseries Entry
@@ -707,27 +767,30 @@ if($agree_terms_value=='yes'){
 			if(isset($otarra->pid)){
                     $product_info_crt =  $this->Pricelist_model->getProducts_byid($otarra->pid);
 					
-					  if(isset($product_info_crt[0]->type)){
-                       $type= $product_info_crt[0]->type; 
-                   }
-                   if(isset($product_info_crt[0]->offline_status)){
-                       $offline_status= $product_info_crt[0]->offline_status; 
-                   }
-                   
-	$complematry = array('order_id'=>$order_id,  				'product_id'=>$otarra->pid,
-                		'quantity'=>1,    'offline'=>0,
-                                'price'=>0,
-                                'type'=>$type);
-				$complematryarray = $this->db->insert('cmsorder_details',$complematry);
-					
+					if(isset($product_info_crt[0]->type)){
+                    $type= $product_info_crt[0]->type; 
+                    }
+                    if(isset($product_info_crt[0]->offline_status)){
+                    $offline_status= $product_info_crt[0]->offline_status; 
+                    }
+                    if(isset($otarra->price)&&$otarra->price>0){
+					$ocp_price=$otarra->price;
+				   }else{
+					$ocp_price=0;   
+				   }
+	$complematry = array('order_id'=>$order_id,
+	                    'product_id'=>$otarra->pid,
+                		'quantity'=>1,    
+						'offline'=>0,
+                        'price'=>$ocp_price,
+                        'type'=>$type,
+						'end_date'=>$validity_dt,
+						'user_id'=>$user_id);
+						
+	$complematryarray = $this->db->insert('cmsorder_details',$complematry);
 		}
-		
 		}
-		
 		//update End
-		
-		
-		
         //product to showing in email
         if($item->offline==''){
             $item_offline=0;
@@ -739,8 +802,9 @@ if($agree_terms_value=='yes'){
                 $this->db->join('cmspricelist B','A.product_id=B.id');
 		$this->db->where('A.order_id',$order_id);
 		$default_order = $this->db->get();
-                $order_details_array = $default_order->result();
+        $order_details_array = $default_order->result();
         return array('order_id'=>$order_id,'order_no'=>$order_no,'order_items'=>$cart->cart_items,'order_qty'=>$cart->cart_qty,'offline'=>$item_offline,'shipping_charges'=>$shipping_charges,'final_amount'=>$final_amount,'product_id'=>$item->product_id,'order_details_array'=>$order_details_array,'order_price'=>$cart->cart_price);
+		
         
 	}
 	public function updatecustomerinfo($user_id,$userdata)
@@ -817,6 +881,8 @@ if($agree_terms_value=='yes'){
         $data=array('txn_number'=>$txn_number,'payment_status'=>$payment_status,'status'=>2);
         }
         $this->db->update('cmsorders',$data,array('id'=>$order_id,'order_no'=>$order_no));
+		
+		
                 $this->db->select("order_items,order_qty,payment_mode,shipping_charges,final_amount,order_price");
                 $this->db->from("cmsorders");
                 $this->db->where("id",$order_id); 

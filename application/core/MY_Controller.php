@@ -151,6 +151,13 @@ class MY_Controller extends CI_Controller {
                    if($macroarray->macro=='MACRO_OFFER_DATE'){
                       $this->data['MACRO_OFFER_DATE']=$macroarray->value;
                    }
+				   if($macroarray->macro=='ORDER_VALIDITY'){
+				$this->data['ORDER_VALIDITY_TIMESTAMP']=$macroarray->value;
+				define('ORDER_VALIDITY_TIMESTAMP',$macroarray->value);
+				$this->data['ORDER_VALIDITY']=$macroarray->extra;
+				define('ORDER_VALIDITY',$macroarray->extra); 
+					  
+                   }
                }
    //$this->output->enable_profiler(TRUE);
     

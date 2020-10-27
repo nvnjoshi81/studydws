@@ -104,19 +104,33 @@
                            <input type="text" name="lecture_duration" value=""  id="lecture_duration"/>
                 </div>
             </div> 
-           <div class="col-sm-4" > 
-            <div class="form-group">
-                          <label>Subscription Validity</label>
-                           <input type="text" name="subscription_validity" value=""  id="subscription_validity"/>
-                </div>
-            </div>
             <div class="col-sm-4"> 
                 <div class="form-group">
                           <label>Total Subscribers</label>
-                           <input type="text" name="total_subscribers" value=""  id="total_subscribers"/>
+                           <input type="text" name="total_subscribers" value="" id="total_subscribers"/>
                 </div>
             </div>
-               </div>   
+               </div>
+        <div class="col-sm-12">
+           <div class="col-sm-4" > 
+            <div class="form-group">
+                          <label>Subscription Type (Apply local)</label>
+<select name="subscription_type" id="subscription_type">
+  <option value="global">Global</option>
+  <option value="local">Local</option>
+</select>                
+                </div>
+            </div>
+			  <div class="col-sm-4" > 
+            <div class="form-group">
+                          <label>Subscription Validity(IN DAYS)</label>
+                           <input type="text" name="subscription_validity" value=""  id="subscription_validity"/>
+                </div>
+            </div> 
+			
+        
+				  <div>
+			   
             <input type='hidden' name='faction' id='faction' value='0'/>
             <div class="col-sm-6 pull-left">
                 <div class="form-group">    

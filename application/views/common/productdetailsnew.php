@@ -24,22 +24,26 @@ if($subscription_expiry>1){
 							if(isset($customer_id)&&$customer_id>0){
 									$order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$isProductid); 	
 		/*For getting main product buy or not*/
+		/*
 		if(isset($mainPrdlist[0]->productlist_id)){
 			$mainPrdId=$mainPrdlist[0]->productlist_id;
 		}else{
 			$mainPrdId=$isProductid;
 		}
-
-		$order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$mainPrdId);
+		$order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$mainPrdId);*/
 		}else{
 		$order_result=NULL;
 		}
-		if(isset($order_result->id)&&($order_result->id>0))
-                   {
-$product_brought='yes';
+		if(isset($order_result->id)&&($order_result->id>0)&&($order_result->status==1)){
+        $product_brought='yes';
 				   }else{					   
-$product_brought='no';
+        $product_brought='no';
 				   }
+				   $currenttimestmp=time();
+				   if($currenttimestmp>$newTimestamp){
+					 $product_brought='no';  
+				   }
+				   
             if(isset($orderInfo)&&$product_brought=='yes'){ 
 			$validity_years='+'.$validity.' years';
             $orderdate=$orderInfo->created_dt;
@@ -212,9 +216,10 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                     <?php } 
                 ?>
         </div>
-		
-		
 	</div>
+		<div class="text-center">
+                       <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time.Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b>
+						  </div>
 </div></div>
 </div>
 <!-- //customize card -->

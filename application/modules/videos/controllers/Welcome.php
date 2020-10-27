@@ -194,6 +194,17 @@ class Welcome extends Modulecontroller {
         if(isset($playlist->name)){
             $playlist_name=$playlist->name;
         }
+	
+		/* Mahesh:-For dispaly video info like time size and teacher name */
+			foreach ($videolist as $vl) {
+			$v_Id = $vl->id;
+			$videoId[$v_Id] = $this->Videos_model->getVideoDetails($v_Id,$vstatus=1);
+			$techerid=$videoId[$v_Id]->video_by;
+			$teacherInfo[$v_Id] = $this->Customer_model->teacherbytid($techerid);
+		}
+		/*End code Mahesh:-For dispaly video info like time size and teacher name */
+		$this->data['teacherInfo'] = $teacherInfo;
+		$this->data['videoId'] = $videoId;	
         $title = generateTitle('Online Videos for', $playlist, $playlist_name);
         $this->data['title'] = $title;
         $this->data['videolist'] = $videolist;

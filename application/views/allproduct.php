@@ -1,4 +1,6 @@
-<?php
+	<div class="text-center">
+                       <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time.Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b>
+						  </div><?php
 $customer_id=$this->session->userdata('customer_id');
 //$this->session->unset_userdata('loginFranId');
 if(isset($franchiseInfo)&&$franchiseInfo!=NULL){
@@ -8,7 +10,6 @@ if(isset($franchiseInfo)&&$franchiseInfo!=NULL){
         }else{
 		redirect(base_url('login'));
 		}
-
 	if(isset($franchiseInfo->company)){
 	$franchCompany=$franchiseInfo->company;
 	}else{

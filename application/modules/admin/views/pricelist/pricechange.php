@@ -126,8 +126,13 @@ $_POST[""];
             </div>-->
             
            <form name="pricelistform" id="pricelistform" action="<?php echo base_url('admin/pricelist/pricechange')?>" method="post" enctype="multipart/form-data">   
-            <div class="col-lg-12 alert alert-success" id="pricedata">
+            <div class="col-lg-12 alert alert-success" id="pricedata">     <div class="col-sm-6 pull-left">
+                <div class="form-group">    
+                <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>  
            <?php 
+		   
 		   if(isset($productlist)){
 			   $show_count=1;
 			   foreach($productlist as $pid=>$pval){
@@ -135,9 +140,13 @@ $_POST[""];
 				   
 			   ?>
                   <div class="col-sm-12">
-			<div class="col-sm-2">
+			<div class="col-sm-1">
                 <div class="form-group">
                     <label><?php echo $show_count; $show_count++; ?></label>
+					
+					<label>SQL ID&nbsp;<?php echo $pval->id; ?></label>
+<input type='hidden' id='faction_pricelist_id' name="faction_pricelist_id[]"  value='<?php echo $pval->id; ?>'/>
+
                 </div>
             </div>	  
 				  
@@ -147,23 +156,35 @@ $_POST[""];
                     <input required="true" name="modules_item_name[]" value="<?php echo $pval->modules_item_name; ?>"  id="modules_item_name">
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label>Product Price</label>
                     <input required="true"  type="text" name="price[]" value="<?php echo $pval->price; ?>"  id="price"/></div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="form-group">
                 <label>Discounted Price</label>
                 <input required="true"  type="text" name="discounted_price[]" value="<?php echo $pval->discounted_price; ?>"  id="discounted_price"/>
                 </div>
             </div>
-            <div class="col-sm-1">
-                <div class="form-group">
-                <label>SQL ID&nbsp;<?php echo $pval->id; ?></label>
-<input type='hidden' id='faction_pricelist_id' name="faction_pricelist_id[]"  value='<?php echo $pval->id; ?>'/>	
+			
+			
+			      <div class="col-sm-2"> <div class="form-group">
+                          <label>Subscription Type (Apply local)</label>
+<select name="subscription_type[]" id="subscription_type">
+  <option value="global">Global</option>
+  <option value="local">Local</option>
+</select>      </div>          
+                </div>	
+
+
+ <div class="col-sm-2" > 
+            <div class="form-group">
+                          <label>Subscription Validity(IN DAYS)</label>
+                           <input type="text" name="subscription_validity[]" value="<?php echo $pval->subscription_expiry; ?>"  id="subscription_validity"/>
                 </div>
-            </div>			
+            </div> 
+				
 		</div>        
 			   <?php 
 			   }

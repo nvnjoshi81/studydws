@@ -7,11 +7,11 @@
                 <?php
 				$segment_chpterseven =  $this->uri->segment(7);
                 $totalsolvedp=0;
-                if ($isProduct) {
-				                    
+                if ($isProduct) {   
 					//echo "This is product area.";
 //if($subject_id==''||$subject_id<1){                   
-				   $this->load->view('common/productdetailsnew'); //}
+				   $this->load->view('common/productdetailsnew'); 
+//}
 }
 				if($isProduct_array){
                 // $this->load->view('common/product_testseries');
@@ -43,25 +43,37 @@
 								<div class="row">
 								<!--start Sub Class -->
 		<?php
-									if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){
+									if(isset($subExamArray)&&count($subExamArray)>0){
 										?>
 										    <div class="page-header text-center">
-        <h3 class="select_heading">Select Sub Subject <?php if(isset($subExamArray->name)&&$subExamArray->name!=''){
-echo $subExamArray->name; 
-///exams/12th-class/22
-}
+        <h3 class="select_heading">Select Sub Class <?php
 ?></h3>
     </div> <!--class="row pack_sub"-->
     
 	<?php
+	
+	   foreach ($subExamArray as $sub_examlist_key =>$sub_examlist_value) {
+		   echo "<a title='".$sub_examlist_value->name."' href='" . base_url($this->uri->segment(1) . 'category/' . url_title($sub_examlist_value->name, '-', true). '/' . $sub_examlist_value->id) .'/'.$selectedexam->id. "'>"; 
+									echo "<h4 class='text-primary'>{$sub_examlist_value->name}</h4>";
+									echo "</a>";		   
+	   }
+	   }
+			?>
+	<!--End sub Class-->
+	<div class="page-header text-center">
+    <h3 class="select_heading">Select Subject</h3>
+    </div> <!--class="row pack_sub"-->
+	
+	<!--Start Display Sub subject-->
+	<?php
         foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
-		print_r($sub_subjectlist_key); echo '<br>----';
-		print_r($sub_subjectlist_value['chapters'][0]); 
+		///print_r($sub_subjectlist_key); echo '<br>----';
+		///print_r($sub_subjectlist_value['chapters'][0]); 
 				 ?>								
 			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
 				<div class="">
 						<?php  
-				$sub_subjectid=$sub_subjectlist_value->sid;
+		$sub_subjectid=$sub_subjectlist_value->sid;
 		$sub_subjectnameArray=$sub_subjectlist_value->sname;
                         if(strlen($sub_subjectnameArray)>40){
                         $sub_subjectName=substr($sub_subjectnameArray,0,40).'..';
@@ -73,19 +85,15 @@ echo $subExamArray->name;
 									<?php  
 									echo "<a title='".$sub_subjectName."' href='" . base_url($this->uri->segment(1) . '/' . url_title($subExamArray->name, '-', true). '/' . $subExamArray->id . '/' . url_title($sub_subjectName, '-',true) . '/' . $sub_subjectid['id']) . "'>"; 
 									echo "<h4 class='text-primary'>{$sub_subjectName}</h4>";
-									echo "</a>";										
-										?> 
+									echo "</a>";
+									?> 
 									</div>
 				</div>
 				</div>		
 				 <?php
-			 }
-			}
-			?>
-	<!--End sub Class-->
-	<div class="page-header text-center">
-    <h3 class="select_heading">Select Subject</h3>
-    </div> <!--class="row pack_sub"-->
+			 } ?>
+	<!--End Display Sub Class-->
+	
     <?php
    //print_r($subject_chapters);
             $totalsolvedp=count($solvedp);
@@ -124,8 +132,6 @@ echo $subExamArray->name;
 									$imagepath='assets/subject_image/gen-knowl.png';
 									}									
 									?>
-									
-									
 									<?php  
                         if(strlen($subjectlist_key)>40){
                         $subjectName=substr($subjectlist_key,0,40).'..';
@@ -134,7 +140,7 @@ echo $subExamArray->name;
                          }
 //echo "<i class='fa fa-book fa-4x text-warning'></i>";
                              ?>     
-							 <img class="img-responsive sub_img" src="<?php echo base_url($imagepath);?>">
+							 <img class="img-responsive sub_img" src="<?php echo get_assets_cdn($imagepath);?>" alt="<?php echo $subjectName; ?>">
 									<div class="sub_name">
 									<?php  
 										echo "<h4 class='text-primary' >{$subjectName} </h4>"; 
@@ -143,7 +149,6 @@ echo $subExamArray->name;
 									
 									<div class="total_modules">
 									<?php 
-                                  
                         if(isset($subjectArray_package[$subjectlist_value['id']])){
                       ?>
 					  <ul>
@@ -163,13 +168,11 @@ echo $subExamArray->name;
 				  echo $obj_totalpack =$pvalue->total_package;
 			} ?>+</strong></span>
         <?php
-             
         ?>
 		 </li>
 		 <?php
      } 
-	 }
-		 
+	 } 
   ?>
   </ul>
   <?php   
@@ -183,9 +186,6 @@ echo $subExamArray->name;
 			</div>
 			
 <!-- end of subject box -->
-	
-        
-                        
 						
 						<!-- // subject box -->
                                

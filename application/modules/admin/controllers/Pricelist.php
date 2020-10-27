@@ -21,6 +21,7 @@ class Pricelist extends MY_Admincontroller {
         public function index()
         {   
             $this->data['content']='pricelist/index';
+						
             $this->load->view('common/template',$this->data);
         }
         public function getPrice($type,$exam_id,$subject_id=0,$chapter_id=0){
@@ -84,7 +85,10 @@ class Pricelist extends MY_Admincontroller {
            $modules_item_name  =  $this->input->post('modules_item_name'); 
            $item_id =$this->input->post('item_id');
                    $no_of_dvds=$this->input->post('total_dvds'); 
-                   $no_of_lectures=$this->input->post('number_of_lectures'); 
+                   $no_of_lectures=$this->input->post('number_of_lectures'
+				   );
+				   
+$subscription_type=$this->input->post('subscription_type'); 				   
                    $subscription_expiry=$this->input->post('subscription_validity'); 
                    $no_of_subscribers=$this->input->post('total_subscribers'); 
                    $lecture_duration=$this->input->post('lecture_duration'); 
@@ -112,6 +116,7 @@ class Pricelist extends MY_Admincontroller {
                         'no_of_dvds'=>$no_of_dvds,
                         'no_of_lectures'=>$no_of_lectures,
                         'subscription_expiry'=>$subscription_expiry,
+						'subscription_type' => $subscription_type,
                         'no_of_subscribers'=>$no_of_subscribers,
                         'lecture_duration'=>$lecture_duration
                    );
@@ -154,6 +159,9 @@ class Pricelist extends MY_Admincontroller {
 			$modules_item_name_array = $this->input->post('modules_item_name');
 			$price_array = $this->input->post('price');
 			$discounted_price_array = $this->input->post('discounted_price');
+							   
+$subscription_type_array=$this->input->post('subscription_type'); 				   
+                   $subscription_expiry_array=$this->input->post('subscription_validity');
 			
 			if($action > 0){
 				$product_cnt=0;
@@ -167,13 +175,20 @@ class Pricelist extends MY_Admincontroller {
 			if(isset($discounted_price_array[$product_cnt])&&$discounted_price_array[$product_cnt]!=''){
 				$data['discounted_price']=$discounted_price_array[$product_cnt];
 			}
+			//subscription days and type
+			if(isset($subscription_type_array[$product_cnt])&&$subscription_type_array[$product_cnt]!=''){
+				$data['subscription_type']=$subscription_type_array[$product_cnt];
+			}
+			if(isset($subscription_expiry_array[$product_cnt])&&$subscription_expiry_array[$product_cnt]!=''){
+				$data['subscription_expiry']=$subscription_expiry_array[$product_cnt];
+			}
 			if($pval>0){
 $this->Pricelist_model->update($pval,$data);
 			}
 $product_cnt++;
 			}
-           redirect('admin/pricelist/pricechange');
-			  }
+            redirect('admin/pricelist/pricechange');
+			}
 			$this->data['productlist']=$productlist;
 			$this->data['content']='pricelist/pricechange';
             $this->load->view('common/template',$this->data);

@@ -2,7 +2,6 @@
 $segmentURL=$this->uri->segment(1);
 $currentModuleName=$this->router->fetch_module();
 $currentSegment=$this->uri->segment(1);
-
 //add segment name to hide in bellow sagment arr
 $sagmentArray=array('cart','search');
 if(in_array($currentSegment,$sagmentArray)){
@@ -27,36 +26,36 @@ if($this->router->fetch_module() != 'customer') { ?>
         <div class="col-md-12">
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6" >
                 <a href="<?php echo base_url('videos/jee-main-advanced/28') ?>" title="IIT JEE AIEEE Video Lectures">
-                    <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/1.png') ?>">
+                    <img width="176" height="151" class="img-responsive" src="<?php echo get_assets_cdn('assets/frontend/images/1.png') ?>">
                 </a>
             </div>
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6" >
                 <a href="<?php echo base_url('videos/neet/29') ?>" title="NEET Video Lectures">
-                <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/2.png') ?>">
+                <img width="176" height="151" class="img-responsive" src="<?php echo get_assets_cdn('assets/frontend/images/2.png') ?>">
                 </a>
             </div>
             
           
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/12th-class/22') ?>" title="12th Class Video Lectures">
-                    <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/3.png') ?>">
+                    <img width="176" height="151" class="img-responsive" src="<?php echo get_assets_cdn('assets/frontend/images/3.png') ?>">
                 </a>
             </div>
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/11th-class/23') ?>" title="11th Class Video Lectures">
-                    <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/4.png') ?>">
+                    <img width="176" height="151" class="img-responsive" src="<?php echo get_assets_cdn('assets/frontend/images/4.png') ?>">
                 </a>
             </div>
             
            
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/10th-class/24') ?>" title="10th Class Video Lectures">
-                    <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/5.png') ?>">
+                    <img width="176" height="151" class="img-responsive" src="<?php echo get_assets_cdn('assets/frontend/images/5.png') ?>">
                 </a>
             </div>
             <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6">
                 <a href="<?php echo base_url('videos/9th-class/30') ?>" title="9th Class Video Lectures">
-                    <img width="176" height="151" class="img-responsive" src="<?php echo base_url('assets/frontend/images/6.png') ?>">
+                    <img width="176" height="151" class="img-responsive" src="<?php echo get_assets_cdn('assets/frontend/images/6.png') ?>">
                 </a>
             </div>
         </div>
@@ -589,24 +588,36 @@ if(isset($segmentURL)){ ?><script async type="text/javascript" src="https://seal
 
 if($showFooterJs=='yes'){
  ?>
-<script src="<?php echo get_assets('assets/js/lightbox-plus-jquery.min.js'); ?>" ></script> 
+<script src="<?php echo get_assets_cdn('assets/js/lightbox-plus-jquery.min.js'); ?>" ></script> 
 <?php } ?>
 <!-- jQuery -->
-<script src="<?php echo get_assets('assets/frontend/js/jquery.js') ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/bootstrap.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo get_assets('assets/frontend/js/material.min.js'); ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/jquery.validator.min.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/jquery.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/bootstrap.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo get_assets_cdn('assets/frontend/js/material.min.js'); ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/jquery.validator.min.js') ?>"></script>
 <?php  if($showFooterJs=='yes'){ ?>
-<script src="<?php echo get_assets('assets/frontend/js/isotope-docs.min.js') ?>"></script> 
+<script src="<?php echo get_assets_cdn('assets/frontend/js/isotope-docs.min.js') ?>"></script> 
 <?php } ?>
-<script src="<?php echo get_assets('assets/frontend/js/toastr.min.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/toastr.min.js') ?>"></script>
 
-<script src="<?php echo get_assets('assets/frontend/js/jquery.lazyload.min.js') ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/common.min.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/jquery.lazyload.min.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/common.min.js') ?>"></script>
 <?php  if($showFooterJs=='yes'){  ?>
-<script src="<?php echo get_assets('assets/js/prettyPhoto.js') ?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo get_assets_cdn('assets/js/prettyPhoto.js') ?>" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript" charset="utf-8">
+<!--start Hide inspect element-->
+<?php if($segmentURL=='videos'){ ?>
+$(document).bind("contextmenu",function(e) {
+ e.preventDefault();
+});
+$(document).keydown(function(e){
+    if(e.which === 123){
+       return false;
+    }
+});
+<?php } ?>
+<!--start Hide inspect element-->
 			$(document).ready(function(){
 				$("area[rel^='prettyPhoto']").prettyPhoto();
 				
@@ -1684,12 +1695,12 @@ function addLikes(id,action,cid,ptyp) {
 }
 </script>
 
-<script src="<?php echo get_assets('assets/js/wow.min.js'); ?>" ></script> 
+<script src="<?php echo get_assets_cdn('assets/js/wow.min.js'); ?>" ></script> 
 <script>
 new WOW().init();
 </script>
 
-<script src="<?php echo get_assets('assets/js/wow.min.js'); ?>" ></script> 
+<script src="<?php echo get_assets_cdn('assets/js/wow.min.js'); ?>" ></script> 
 <script>
 new WOW().init();
 </script>

@@ -6,14 +6,14 @@
 <!-- /.container -->
 
 <!-- jQuery -->
-<script src="<?php echo get_assets('assets/frontend/js/jquery.js') ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/bootstrap.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo get_assets('assets/frontend/js/material.js'); ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/jquery.validator.js') ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/isotope-docs.min.js') ?>"></script> 
-<script src="<?php echo get_assets('assets/frontend/js/toastr.min.js') ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/pinterest_grid.js') ?>"></script>
-<script src="<?php echo get_assets('assets/frontend/js/common.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/jquery.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/bootstrap.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo get_assets_cdn('assets/frontend/js/material.js'); ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/jquery.validator.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/isotope-docs.min.js') ?>"></script> 
+<script src="<?php echo get_assets_cdn('assets/frontend/js/toastr.min.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/pinterest_grid.js') ?>"></script>
+<script src="<?php echo get_assets_cdn('assets/frontend/js/common.js') ?>"></script>
 <script>
     var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
     if (isChrome) {

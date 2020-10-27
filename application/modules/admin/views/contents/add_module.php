@@ -219,13 +219,20 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
             </div>
         </div> 
 		
-			<!--sub_category-->
+<!--sub_category-->
 <div class="col-sm-12 col-md-12 col-xs-12 well">
-<!--subexam Dispaly area-->
-		<div class="col-sm-3" id="displaySubExam">
+<!--subexam Display area-->
+<div style="background-color:rosybrown" class="col-sm-6" id="displaySubExam">
                
 </div>
+<!--subsubject Display area-->
+<div style="background-color:darkkhaki" class="col-sm-6" id="displaySubSubject">
+
 </div>
+
+</div>
+
+
 <?php
       /* <div class="form-group">
 <?php  

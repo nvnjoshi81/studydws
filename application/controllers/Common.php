@@ -311,7 +311,7 @@ if($f_formtotal!=$fc_total){
     }
       public function privacy(){
         $this->data['content']='privacy';
-        $this->load->view('template',$this->data);
+        $this->load->view('template_mid',$this->data);
     }
 	
       public function refund(){

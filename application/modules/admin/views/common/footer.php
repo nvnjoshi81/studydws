@@ -394,6 +394,7 @@ if(typeof(item.displayname)==='undefined'){
                         $("#dataTables-example > tbody").html("");
                         var trHTML = '';
 						var subExHTML = '';
+						var subSubHTML = '';
 						 var sid_total =0;
                         //trHTML += '<tr><td></td><td><b>Currently Showing Question Bank</b></td><td></td></tr>';                        
                         var sid =1;
@@ -467,16 +468,31 @@ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
                         $('#panel_chang_id').hide();
                         $('#submit_qus_list').hide();
                         $('#dataTables-example tbody').append(trHTML);
+						
+						//Display sub Exam
 						subExHTML += '<table>';
 						subExHTML += '<tr><td colspan="10" ><b>Select Sub Exam</b></td></tr><tr>';  
 						    $.each(response.subClass,function(indexsub,itemsub){
-							subExHTML += '<td><input type="checkbox" name="sub_category[]" value="'+itemsub.id+'" id="sub_category_'+itemsub.id+'"></td><td><b>'+itemsub.name+'</b></td><td></td>';  
+							subExHTML += '<td><input type="checkbox" name="sub_category[]" value="'+itemsub.id+'" id="sub_category_'+itemsub.id+'"></td><td><b>&nbsp;'+itemsub.name+'&nbsp;</b></td><td></td>';  
 });
 		subExHTML += '</tr></table>'; 
 		document.getElementById("displaySubExam").innerHTML = subExHTML;		
 
 						//Display sub Exam
                        // $('#displaySubExam').append(subExHTML);
+					   
+					   //Display sub Subject
+					   
+					   
+					   		subSubHTML += '<table>';
+						subSubHTML += '<tr><td colspan="10" ><b>Select Sub Subject</b></td></tr><tr>';  
+						    $.each(response.subSubject,function(indexsubs,itemsubs){
+							subSubHTML += '<td><input type="checkbox" name="sub_subject[]" value="'+itemsubs.id+'" id="sub_subject_'+itemsubs.id+'"></td><td><b>&nbsp;'+itemsubs.name+'&nbsp;</b></td><td></td>';  
+});
+		subSubHTML += '</tr></table>'; 
+		document.getElementById("displaySubSubject").innerHTML = subSubHTML;		
+
+					   //Display sub Subject
                     }else{
                         $('#dataTables-example tbody').html('');
                         $('#contentdata').hide();

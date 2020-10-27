@@ -53,7 +53,7 @@ class Cart extends MY_Controller {
 	}
 	
 	
-    public function confirm() {
+    public function confirm() { 
 		if(!$this->session->userdata('customer_id')){
             
         $this->session->set_userdata('redirecturl',base_url('cart/confirm'));
@@ -74,13 +74,13 @@ class Cart extends MY_Controller {
        $customer_info=  $this->Customer_model->getCustomerDetails($session_customer_id);
         if(!isset($shipping_address_id)){
             $this->session->set_userdata('redirect_to_cart', '');
-              //$this->session->set_userdata('redirect_to_cart', 'yes');
+            //$this->session->set_userdata('redirect_to_cart', 'yes');
             //$this->session->set_flashdata('message', 'Please Update Shipping Address first to Place Order!');
             //redirect('customer/addaddress');
             
         $dummy_address_array = array('customer_id' => $session_customer_id,
             'address_name' => $customer_info->firstname,
-            'address' => '01,Forest Colony sivil line  ',
+            'address' => '01,Forest Colony sivil line',
             'city' =>'1151',
             'city_name' =>'Dewas',
             'state' =>'22',
@@ -107,7 +107,11 @@ class Cart extends MY_Controller {
 	$this->data['shipping_address'] = $shipping_address;
 	   $payment_mode_three = $this->input->post('onlyccpayu'); 
 	   $datamobile=$customer_info->mobile; 
-	$this->data['mobile'] = $datamobile; /********************************************************************/
+	$this->data['mobile'] = $datamobile;
+
+//For  Bolt payment payumoney
+
+	/********************************************************************/
 	if(isset($payment_mode_three)&&$payment_mode_three=='4'){		
 	$this->data['payment_mode'] = $payment_mode_three;
 	/*hash geration payu*/

@@ -5,7 +5,7 @@ error_reporting(0);
     $tmp = array();
 	$subTmp = array();
 	$postStatusString = "publish";
-	header("Access-Control-Allow-Origin: *");
+	 header("Access-Control-Allow-Origin: *");
 
 	$result = mysqli_query($conn,"SELECT `cmsvideoslist`.`name`, `cmsvideoslist`.`display_image`, `cmsvideoslist`.`id`, `cmsvideolist_relations`.`id` as `v_relations_id`,
   `cmsvideolist_relations`.`exam_id`, `cmsvideolist_relations`.`subject_id`, `cmsvideolist_relations`.`chapter_id`, `categories`.`name` as `exam`, `cmssubjects`.`name` as `subject`,

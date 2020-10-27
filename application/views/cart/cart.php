@@ -67,7 +67,8 @@ function getCallbackUrl()
     <div style="position: relative; text-align: center; color: Black;" >
                                 <img height="150px" width="200px"  src="<?php echo base_url('assets/frontend/product_images/studypackage_blank.png'); ?>" alt="<?php echo $items['name'];?>" class="img-rounded img-responsive"> 
     
-<!--<span style="position: absolute;
+<!--
+<span style="position: absolute;
     top: 52%;
     left: 1%;
     padding-left: 8px;
@@ -76,9 +77,11 @@ function getCallbackUrl()
     /*transform: translate(-50%, -50%);*/">
       <h5>
      <?php 
-echo $items['name'];    
+//echo $items['name'];    
      ?></h5>
-  </span>--></div>
+  </span>
+  -->
+  </div>
                                 <?php
                                  }
                                  ?>

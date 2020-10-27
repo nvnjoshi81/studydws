@@ -62,38 +62,157 @@
 		</div>
     </div>
             </div>
-              <? } ?>    
+              <? }
+			  ?>    
             </div>
                
                   <!-- video gallery -->
     <div class="row vedio_bot_gal">
     <div class="col-lg-12 col-sm-12 col-md-12">
     <div class="row vid_list">
-    <?php if($videolist){ foreach($videolist as $video){ //print_r($video);?>
+    <?php if($videolist){ foreach($videolist as $video){
+if($video->video_source=='youtube'){ ?>
+<!---YOUTUBE VIDEO START-->
     <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
         <div class="pic wel_vid"> 
-            <a href="<?php echo base_url(implode('/', $url_segments).'/'.  url_title($video->title,'-',true).'/'.$video->id)?>" <?php if(!$this->session->userdata('customer_id')){ echo 'onclick="return showmsg();return false;"';}?>  title="<?php echo $video->title?>">
-                <?php if($video->video_source=='youtube'){ ?>
-                <img title="<?php echo $video->video_image; ?>" class="img-responsive" src="https://i.ytimg.com/vi/<?php echo $video->video_url_code?>/mqdefault.jpg"/>
-                <?php }else{ 
-				
-				if(isset($video->video_image)&&$video->video_image!=''){
-					$vImgOne=$video->video_image;
-				}else{
-					$vImgOne='image_'.$video->id.'.jpg';
-				}
-				
-				?>
-            <img class="img-responsive" title="<?php echo $vImgOne; ?>" src="<?php echo show_thumb($vImgOne,250,250);?>">
-                <?php } ?>
+            <a href="<?php echo base_url(implode('/', $url_segments).'/'.  url_title($video->title,'-',true).'/'.$video->id)?>" <?php if(!$this->session->userdata('customer_id')){ echo 'onclick="return showmsg();return false;"';}?>  title="<?php echo $video->title?>" >
+			    <img title="<?php echo $video->video_image; ?>" class="img-responsive" src="https://i.ytimg.com/vi/<?php echo $video->video_url_code?>/mqdefault.jpg"/>
+                <?php  ?>
             <p class="pic-caption bottom-to-top"> 
             <?php echo $video->title; ?> <br> <i class="material-icons">play_arrow</i></p> 
              </a>
              <h5 class="vid_prod_hed"><?php echo $video->title?></h5>
         </div> 
     </div>
-    <?php } 
-     } ?>
+		<!--YOUTUBE VIDEO ENDS-->
+    <?php }else{
+	?>
+ <!-- STUDYADDA VIDEO START  -->
+
+ <div class="col-md-6 col-xs-12 text-center">
+  <a href="<?php echo base_url(implode('/', $url_segments).'/'.  url_title($video->title,'-',true).'/'.$video->id)?>" <?php if(!$this->session->userdata('customer_id')){ echo 'onclick="return showmsg();return false;"';}?>  title="<?php echo $video->title?>">
+
+ <div class="video_thumb">
+ <?php
+ $singletinfo=$teacherInfo[$video->id];
+ 
+ $singletinfo[0]->gender;
+
+if($singletinfo[0]->gender=="Male") {
+	$tsuffix="Sir";
+}
+else {
+	$tsuffix="Madam";
+}
+
+
+ $videoId[$video->id]; 
+ //print_r($videoId[$video->id]);
+ 
+ $singlevinfo = $videoId[$video->id];
+ 
+ $title=$singlevinfo->title;
+ $subject=$singlevinfo->subject;
+ $chapter=$singlevinfo->chapter;
+ $exam=$singlevinfo->exam;
+ $taughtby=$singletinfo[0]->firstname." ".$singletinfo[0]->lastname." ".$tsuffix;
+ $video_duration=$singlevinfo->video_duration;
+ $video_size=$singlevinfo->video_size;
+ 
+ ?>  
+
+ <p><h2><b><span class="title"><?php echo $video->title; ?></span></b></h2></p>
+
+   <p>
+	<h2><b><?php echo "<span class='multicolortextsub sub'>".$subject."</span>"; ?>
+   </b></h2>
+   </p>
+   
+   <p>
+   <h4><b><?php echo "<span class='multicolortextexam exam'>".$exam; ?>
+   <?php 
+   if($taughtby!="") {
+	   echo "| <span class='multicolortextexam exam'>".ucwords($taughtby); 
+   }
+   else {
+	   echo "<span class='multicolortextexam exam'>".ucwords($taughtby); 
+   }
+	?>
+   </b></span></h4>
+   </p>
+<h5  title="Duration and Size" >  
+<?php
+
+if(isset($video->video_duration)&&$video->video_duration!=''){
+	$init = $video->video_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
+				?><i title="Video Duration" class="glyphicon glyphicon-hourglass">
+                  </i>
+			<font title="Video Duration" style="font-family:'Courier New';font-size:'initial'"><?php 
+
+if($init>120){ 
+echo gmdate("i:s", $video->video_duration); echo " Hours";	
+				
+			}else if($init<121){	
+			
+if($init<60){ 
+				echo "$init Minutes";	
+				}else{
+				
+echo gmdate("i:s", $video->video_duration); echo " Minutes";		
+				}			
+				
+			}
+			
+//echo "$minutes:$seconds";
+ ?></font><?php 
+			}else if(isset($video->custom_video_duration)&&$video->custom_video_duration!=''){
+				
+$init = $video->custom_video_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
+				?>
+			<font title="Video Duration" style="font-family:'Courier New'; font-size:'initial'"><i  title="Video Duration" class="glyphicon glyphicon-hourglass">
+                  </i> <?php 
+			//$hours
+           if($init>120){ 
+echo gmdate("i:s", $video->video_duration); echo " Hours";	
+				
+			}else if($init<121){	
+			
+if($init<60){ 
+				echo "$init Minutes";	
+				}else{
+				
+echo gmdate("i:s", $video->video_duration); echo " Minutes";		
+				}			
+				
+			}
+			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font>
+			<?php
+			}
+			if(isset($video->video_size)&&$video->video_size!=''){
+			?>
+			<font title="Video Size" style="font-family:'Courier New'"> | <i title="Video Size" class="glyphicon glyphicon-scale"></i> <?php echo $video->video_size; ?></font><?php 
+			}
+?></h5>
+<!--<div class="centered">Centered</div>-->
+</div>
+   
+   <p class="pic-caption bottom-to-top">
+            <?php echo $video->title; ?> <br> <i class="material-icons vdoplay">play_arrow</i></p> 
+             </a>
+             <h5 class="vid_prod_hed"><?php //echo $video->title?></h5>
+			 
+</div>          <!-- // video description -->
+<?php 
+	}
+	} 
+    }	
+?>
  </div>
         <div class="row recentvideo">
                 <?php 

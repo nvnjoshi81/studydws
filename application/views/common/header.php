@@ -85,7 +85,7 @@ ga('send', 'pageview');
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header togglepanel">
           
-      <div class="mob_lft_logo pull-left"><a href="<?php echo  base_url(""); ?>"><img alt="" src="<?php echo get_assets('assets/frontend/images/logo_mob.png');?>" class="img-responsive img-center mainpadding"></a></div>
+      <div class="mob_lft_logo pull-left"><a href="<?php echo  base_url(""); ?>"><img alt="" src="<?php echo get_assets_cdn('assets/frontend/images/logo_mob.png');?>" class="img-responsive img-center mainpadding"></a></div>
         <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class=" btn-raised navbar-toggle  pull-right mobbut" type="button">
           <span class="sr-only">
             Toggle navigation
@@ -106,7 +106,7 @@ ga('send', 'pageview');
               <?php echo count($this->cart->contents());?>
             </span>
             <span>
-              <img alt="" width="24" height="24" src="<?php echo get_assets('assets/frontend/images/cart.png');?>">
+              <img alt="" width="24" height="24" src="<?php echo get_assets_cdn('assets/frontend/images/cart.png');?>">
             </span>
             <p class="rs_img">
               <i class="fa fa-rupee">
@@ -377,7 +377,7 @@ Institutes
     <div class="container header-top_box">    
       <div class="col-lg-2 col-md-2 nopadding mob_no">
         <a href="<?php echo base_url();?>">
-          <img alt="" width="134" height="74" src="<?php echo get_assets('assets/frontend/images/logo_new.png');?>" class="img-responsive img-center mainpadding">
+          <img alt="" width="134" height="74" src="<?php echo get_assets_cdn('assets/frontend/images/logo_new.png');?>" class="img-responsive img-center mainpadding">
         </a>
       </div>
       <div class=" col-lg-offset-2 col-lg-4 col-md-4 mainpadding searchpanel">
@@ -464,7 +464,7 @@ Search.....
 
            <div class="col-xs-12 col-sm-12 col-lg-offset-1 col-lg-3 col-md-3 mainpadding  hidden-xs text-center">
      <a class="pur_course" target="_blank" title="Purchase Courses" href="<?php echo base_url('purchase-courses') ?>">
-     <img  style="margin-top:2px;" src="<?php echo base_url('/assets/images/discount.png')?>"></a>
+     <img  style="margin-top:2px;" src="<?php echo get_assets_cdn('assets/images/discount.png')?>"></a>
      </div>    
       </div>
       <nav role="navigation" class="navbar mainnav notoggle navbar-full">
@@ -509,6 +509,6 @@ Search.....
         </span>
      </div>
     <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/effect.css');?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/frontend/css/shape-oppo.css');?>">
-     <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/animate.css');?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo get_assets_cdn('assets/frontend/css/shape-oppo.css');?>">
+     <link rel="stylesheet" type="text/css" href="<?php echo get_assets_cdn('assets/css/animate.css');?>">
   </header>  

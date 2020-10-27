@@ -20,11 +20,8 @@ if(strpos($mystring, $word) !== false){
     <section>
    <div align="center">
     <object class="embed-responsive-item">
-    <video controls  controlsList="nodownload" poster="https://www.studyadda.com/assets/frontend/images/logo_new.png" style="position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  max-height: 100%;max-width: 100%;min-height:100%;">
+    <video id="vid" controls  controlsList="nodownload" poster="https://www.studyadda.com/assets/frontend/images/logo_new.png"
+    style="position: fixed;right: 0;bottom: 0;min-width: 100%;max-height: 100%;max-width: 100%;min-height:100%;" onclick="this.paused ? this.play() : this.pause();">
        <source src="https://studyadda.com/upload_files/<?php echo $mystring;?>" />
      </video>
    </object>
