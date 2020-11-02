@@ -83,7 +83,6 @@ return false;
  
 </script> 
 <?php 
-           
     $studypdf_path=$this->config->item('studypdf_path');
     $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].$studypdf_path;
            
@@ -128,6 +127,7 @@ if (isset($maincontent->id))
         {
            $maincontent_id=$maincontent->id;         
         }
+		
     $content_type_id=0;                 
     $price_table_id=0;                 
 if (isset($pricelist_details->id))
@@ -147,6 +147,15 @@ echo generateSelectBox('content_type_disabled', $content_type_array, 'id', 'name
    
 echo generateSelectBox('content_type', $content_type_array, 'id', 'name', 1, 'class="form-control" onChange="resetSelect();showOptions($(this).find(\'option:selected\').text());"',$content_type_id); 
         }
+		
+		
+		
+           if($content_type_id>0){
+            $newdata='no';
+        }else{
+            $newdata='yes';
+        }   
+		
 ?>
          <input type="hidden" name="module_id"  value="<?php echo $maincontent_id;  ?>" >
                     <input type="hidden" name="module_type_id"  value="<?php echo $content_type_id;  ?>" >
@@ -202,8 +211,7 @@ if (isset($maincontent->chapter_id))
         ?>  <label>Select Chapter</label><?php
 echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form-control" onchange="getContent(1);"',$content_type_chapter_id); 
     }
-        ?>
-                    
+    ?>              
     <?php if(isset($content_type_exam_id)){ ?>
     <input type="hidden" name="category_in_db"  value="<?php echo $content_type_exam_id; ?>" > 
     <?php  }  
@@ -218,22 +226,29 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
                 </div>
             </div>
         </div> 
-		
-<!--sub_category-->
+	<?php 
+	if($newdata=='yes'){
+	
+	?>
+	
+	<!--sub_category-->
 <div class="col-sm-12 col-md-12 col-xs-12 well">
 <!--subexam Display area-->
 <div style="background-color:rosybrown" class="col-sm-6" id="displaySubExam">
                
 </div>
+</div>
+
+<div class="col-sm-12 col-md-12 col-xs-12 well">
+
 <!--subsubject Display area-->
 <div style="background-color:darkkhaki" class="col-sm-6" id="displaySubSubject">
 
 </div>
-
 </div>
 
-
 <?php
+}
       /* <div class="form-group">
 <?php  
     $content_type_exam_id=0;                 
@@ -288,11 +303,7 @@ echo generateSelectBox('sub_category', $exams, 'id', 'name', 1 , 'class="form-co
 <div class="col-sm-12 col-md-12 col-xs-12 well">
 <div class="col-sm-6 well">
            <?php
-        if($content_type_id>0){
-            $newdata='no';
-        }else{
-            $newdata='yes';
-        }
+     
         if($newdata=='yes'){
         ?>
         <label id='studypackage_feed_lable'  ><font color="red">Check this box to Create Study Packages with this Module</font>&nbsp;&nbsp;<input type="checkbox"  name="studypackage_feed"  id="studypackage_feed" value="1" ></label><br>Create Study Packages with<font color="red"> Question Bank,Solved Paper and Note/Article </font>only
@@ -855,7 +866,7 @@ if (isset($maincontent->time))
      
       <div>
         <label>Video Name</label>
-        <input type="text" class="form-control" id="video_name" name="video_name" value="<?php
+        <input type="text" required='required' class="form-control" id="video_name" name="video_name" value="<?php
 if (isset($module_file_details[0]->title))
 	{
 	echo $module_file_details[0]->title;
@@ -937,8 +948,8 @@ if (isset($module_file_details[0]->title))
     <div class="form-group">
     <label>Video By (User Id)</label>
     
-<select name="videoby" class="form-control">
-    <option value="">Select User Id</option>
+<select name="video_by" class="form-control" required='required' >
+    <option value=" ">Select Teacher</option>
        <?php
         if(isset($module_file_details[0]->video_by)){
         $video_byid = $module_file_details[0]->video_by;

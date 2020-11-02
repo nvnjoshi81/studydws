@@ -91,13 +91,13 @@ $route['exams/(:any)/(:num)/(:any)/(:num)/(:any)/(:num)']="exams/welcome/main/$1
 $route['exams/(:any)/(:num)/(:any)/(:num)']="exams/welcome/main/$1/$2/$3/$4";
 $route['exams/(:any)/(:num)']="exams/welcome/main/$1/$2";
 $route['examscategory/(:any)/(:num)/(:num)']="exams/welcome/maincategory/$1/$2/$3";
+$route['examscategory/(:any)/(:num)/(:num)/(:any)/(:num)/(:num)']="exams/welcome/maincategory/$1/$2/$3/$4/$5/$6";
 $route['question-bank/(:any)/(:num)/(:num)']="questionbank/welcome/question/$1/$2/$3";
 $route['question-bank/details/(:any)/(:num)']="questionbank/welcome/details/$1/$2";
 $route['question-bank/(:any)/(:num)/(:any)/(:num)/(:any)/(:num)']="questionbank/welcome/index/$1/$2/$3/$4/$5/$6";
 $route['question-bank/(:any)/(:num)/(:any)/(:num)']="questionbank/welcome/index/$1/$2/$3/$4";
 $route['question-bank/(:any)/(:num)']="questionbank/welcome/index/$1/$2";
 $route['question-bank']="questionbank/welcome/index";
-
 $route['question-bank/(:any)/(:any)/(:num)']="questionbank/welcome/details/$2/$3";
 $route['question-bank/(:any)/(:any)/(:any)/(:num)']="questionbank/welcome/details/$3/$4";
 $route['question-bank/(:any)/(:any)/(:any)/(:any)/(:num)']="questionbank/welcome/details/$4/$5";

@@ -110,6 +110,7 @@ if (isset($question->title))
     </div>
     <div class="form-group">
     <label>Video description</label>
+
     <?php
       if(isset($question->description)){
         $description = $question->description;
@@ -117,20 +118,50 @@ if (isset($question->title))
         $description='';
                 
         }
+		
     ?>
     
     <input type="text" class="form-control" id="description" name="description" value="<?php echo $description; ?>">
     </div>
     <div class="form-group">
     <label>Video By (User Id)</label>
+<select name="video_by" class="form-control" required='required' >
+    <option value="">Select Teacher Id</option>
        <?php
-	   
-	   if(isset($question->video_by)){
+        if(isset($question->video_by)){
         $video_byid = $question->video_by;
         }else{
         $video_byid=0;
         }
-         echo generateSelectBox('video_by',$array_video_by, 'id', 'name', 0, 'class="form-control"',$video_byid);
+        $videoby = (array)$array_video_by;
+        foreach ($videoby as $key=>$videovalue) {
+            //print_r($videovalue);
+            $videovalue->id;            
+            $videovalue->name;
+            $videovalue->gender;
+			
+			if($video_byid ==$videovalue->id){
+			$selection='selected="selected"';
+			}else{
+			$selection='';	
+			}
+            if($videovalue->gender == "Male") {
+                 $prefix = "Sir";
+            }           
+            if($videovalue->gender == "Female") {
+                $prefix = "Madam";
+            }
+
+            $disp_val = $videovalue->name." ".$prefix." - ".$videovalue->id;
+
+            ?>
+            <option value="<?php echo $videovalue->id; ?>" <?php echo $selection; ?> ><?php echo $disp_val; ?></option>
+        <?php
+    }
+?>
+    </select>
+       <?php
+	  
     ?>
 
     </div> 

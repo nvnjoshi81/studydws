@@ -371,9 +371,8 @@ if(typeof(item.displayname)==='undefined'){
                        $('#chapter').append('<option value="'+item.id+'">' + item.name+ '</option>');
                   });
                 }
-            });
+         });
         }
-
         if(exam > 0){
             // GET content from correct table
             $.ajax({
@@ -392,10 +391,11 @@ if(typeof(item.displayname)==='undefined'){
 						
                         $('#contentdata').show();
                         $("#dataTables-example > tbody").html("");
+					
                         var trHTML = '';
 						var subExHTML = '';
 						var subSubHTML = '';
-						 var sid_total =0;
+						var sid_total =0;
                         //trHTML += '<tr><td></td><td><b>Currently Showing Question Bank</b></td><td></td></tr>';                        
                         var sid =1;
                         $.each(response.data,function(index,item){
@@ -470,32 +470,42 @@ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
                         $('#dataTables-example tbody').append(trHTML);
 						
 						//Display sub Exam
+						  if (response.subClass!= null){
 						subExHTML += '<table>';
 						subExHTML += '<tr><td colspan="10" ><b>Select Sub Exam</b></td></tr><tr>';  
 						    $.each(response.subClass,function(indexsub,itemsub){
 							subExHTML += '<td><input type="checkbox" name="sub_category[]" value="'+itemsub.id+'" id="sub_category_'+itemsub.id+'"></td><td><b>&nbsp;'+itemsub.name+'&nbsp;</b></td><td></td>';  
 });
 		subExHTML += '</tr></table>'; 
-		document.getElementById("displaySubExam").innerHTML = subExHTML;		
-
+		document.getElementById("displaySubExam").innerHTML = subExHTML;
+	document.getElementById("displaySubSubject").innerHTML ='<table></table>';  		
+					}else{
+		document.getElementById("displaySubExam").innerHTML = ''; 
+		document.getElementById("displaySubSubject").innerHTML = ''; 
+					}
 						//Display sub Exam
                        // $('#displaySubExam').append(subExHTML);
 					   
 					   //Display sub Subject
-					   
-					   
+					  if (response.subSubject != null){
 					   		subSubHTML += '<table>';
 						subSubHTML += '<tr><td colspan="10" ><b>Select Sub Subject</b></td></tr><tr>';  
 						    $.each(response.subSubject,function(indexsubs,itemsubs){
 							subSubHTML += '<td><input type="checkbox" name="sub_subject[]" value="'+itemsubs.id+'" id="sub_subject_'+itemsubs.id+'"></td><td><b>&nbsp;'+itemsubs.name+'&nbsp;</b></td><td></td>';  
 });
 		subSubHTML += '</tr></table>'; 
-		document.getElementById("displaySubSubject").innerHTML = subSubHTML;		
+		document.getElementById("displaySubSubject").innerHTML = subSubHTML;
+					  }else{
+						  
+						document.getElementById("displaySubSubject").innerHTML ='<table></table>';  
+					  }		
 
 					   //Display sub Subject
                     }else{
                         $('#dataTables-example tbody').html('');
                         $('#contentdata').hide();
+						document.getElementById("displaySubExam").innerHTML = '<table></table>';
+		document.getElementById("displaySubSubject").innerHTML ='<table></table>';  
                         //$('#pricedata').hide();
                     }
                 }
@@ -782,7 +792,8 @@ trHTML +='<td>'+mitm_id+'<br>PDF File ID-' + item.id + '</td>';
         $("#dataTables-example > tbody").html("");
         $('#pricedata').hide();
         $('#price').val('');  
-		$('#displaySubExam').val('');
+		document.getElementById("displaySubExam").innerHTML = '<table></table>';
+		document.getElementById("displaySubSubject").innerHTML = '<table></table>';
         $('#modules_item_name').val('');
         $('#discounted_price').val('');
         $('#faction').val(0);

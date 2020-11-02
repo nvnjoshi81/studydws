@@ -52,13 +52,12 @@ public function getSubExam($exam_id=0){
 	}
 }
 
-
 public function getSubSubject($subject_id=0){
 //SELECT * FROM `categories` WHERE `parent_id` = $examid 
   	if($subject_id>0){
-  $this->db->select('1id,name,order,parent_id,description');
+  $this->db->select('id,name,order,parent_id,description');
         $this->db->from('cmssubjects');
-        $this->db->where('parent_id', $subject_id);
+        $this->db->where('parent_id',$subject_id);
         $this->db->order_by('order','asc');
         $query = $this->db->get();
         //echo $this->db->last_query();

@@ -24,7 +24,7 @@
                   <!-- left panel -->
                   <div class="col-sm-12 col-md-12">
                   
-                  <div class="col-md-12 cont_log">
+                  <div class="col-lg-6 col-md-6 col-sm-6 cont_log">
                   <!--<div class="pull-right img-thumbnail contact-img"><img src="<?php echo base_url('assets/images/contact_img.jpg')?>" class="img-responsive" /></div>-->
                      <h3 class="text-danger">For general enquiry:- </h3>
 <span>  
@@ -49,6 +49,11 @@
 </span>-->
 <br/>
                   </div>
+				      
+                  <div class="col-lg-6 col-md-6 col-sm-6 cont_log">
+                  <h3 class="text-danger">Address:- </h3>
+				 1- Forest Colony, Moti Bunglow, behind SBI, Dewas, Madhya Pradesh 455001
+				  </div>
                       <div class="col-md-12 cont_log">         			  
                                 <div class="error-no2tice">
                                     <div id="error_box" class="oaerror danger" style="display:none;">

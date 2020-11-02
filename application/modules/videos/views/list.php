@@ -89,7 +89,7 @@ if($video->video_source=='youtube'){ ?>
 	?>
  <!-- STUDYADDA VIDEO START  -->
 
- <div class="col-md-6 col-xs-12 text-center">
+ <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center">
   <a href="<?php echo base_url(implode('/', $url_segments).'/'.  url_title($video->title,'-',true).'/'.$video->id)?>" <?php if(!$this->session->userdata('customer_id')){ echo 'onclick="return showmsg();return false;"';}?>  title="<?php echo $video->title?>">
 
  <div class="video_thumb">
@@ -97,11 +97,11 @@ if($video->video_source=='youtube'){ ?>
  $singletinfo=$teacherInfo[$video->id];
  
  $singletinfo[0]->gender;
-
+$tsuffix='';
 if($singletinfo[0]->gender=="Male") {
 	$tsuffix="Sir";
 }
-else {
+else if($singletinfo[0]->gender=="Female") {
 	$tsuffix="Madam";
 }
 
@@ -132,13 +132,13 @@ else {
    <h4><b><?php echo "<span class='multicolortextexam exam'>".$exam; ?>
    <?php 
    if($taughtby!="") {
-	   echo "| <span class='multicolortextexam exam'>".ucwords($taughtby); 
+	   echo "| <span class='multicolortextexam exam'>".ucwords($taughtby).''; 
    }
    else {
-	   echo "<span class='multicolortextexam exam'>".ucwords($taughtby); 
+	   echo "<span class='multicolortextexam exam'></span>"; 
    }
-	?>
-   </b></span></h4>
+	?></span>
+   </b></h4>
    </p>
 <h5  title="Duration and Size" >  
 <?php
@@ -174,25 +174,27 @@ $init = $video->custom_video_duration;
 $hours = floor($init / 3600);
 $minutes = floor(($init / 60) % 60);
 $seconds = $init % 60;
+if(isset($init)&&$init!=''){
 				?>
 			<font title="Video Duration" style="font-family:'Courier New'; font-size:'initial'"><i  title="Video Duration" class="glyphicon glyphicon-hourglass">
                   </i> <?php 
 			//$hours
-           if($init>120){ 
-echo gmdate("i:s", $video->video_duration); echo " Hours";	
+           if($init>121){ 
+echo gmdate("i:s", $init); echo " Minutes";	
 				
-			}else if($init<121){	
+			}else if($init<122){	
 			
 if($init<60){ 
 				echo "$init Minutes";	
 				}else{
 				
-echo gmdate("i:s", $video->video_duration); echo " Minutes";		
+echo gmdate("i:s", $init); echo " Minutes";		
 				}			
 				
 			}
 			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font>
 			<?php
+			}
 			}
 			if(isset($video->video_size)&&$video->video_size!=''){
 			?>

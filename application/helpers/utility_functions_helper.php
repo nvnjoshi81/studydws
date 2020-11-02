@@ -1086,14 +1086,13 @@ function getBrowser()
     elseif(preg_match('/Opera/i',$u_agent))
     {
         $bname = 'Opera';
-        $ub = "Opera";
+        $ub    = "Opera";
     }
     elseif(preg_match('/Netscape/i',$u_agent))
     {
         $bname = 'Netscape';
         $ub = "Netscape";
     }
-
     // finally get the correct version number
     $known = array('Version', $ub, 'other');
     $pattern = '#(?<browser>' . join('|', $known) .
@@ -1101,7 +1100,6 @@ function getBrowser()
     if (!preg_match_all($pattern, $u_agent, $matches)) {
         // we have no matching number just continue
     }
-
     // see how many we have
     $i = count($matches['browser']);
     if ($i != 1) {

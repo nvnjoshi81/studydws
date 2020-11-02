@@ -1,7 +1,7 @@
 <div id="wrapper">
     <div class="container">
         <div class="row">
-            <?php $this->load->view('common/breadcrumb'); 
+            <?php $this->load->view('common/breadcrumb');  
 			?>
             <div class="col-md-12 col-sm-12"> 
                 <?php
@@ -53,7 +53,7 @@
 	<?php
 	
 	   foreach ($subExamArray as $sub_examlist_key =>$sub_examlist_value) {
-		   echo "<a title='".$sub_examlist_value->name."' href='" . base_url($this->uri->segment(1) . 'category/' . url_title($sub_examlist_value->name, '-', true). '/' . $sub_examlist_value->id) .'/'.$selectedexam->id. "'>"; 
+		   echo "<a title='".$sub_examlist_value->name."' href='" . base_url($this->uri->segment(1) . 'category/' . url_title($sub_examlist_value->name, '-', true). '/' . $selectedexam->id) .'/'.$sub_examlist_value->id. "'>"; 
 									echo "<h4 class='text-primary'>{$sub_examlist_value->name}</h4>";
 									echo "</a>";		   
 	   }
@@ -67,8 +67,6 @@
 	<!--Start Display Sub subject-->
 	<?php
         foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
-		///print_r($sub_subjectlist_key); echo '<br>----';
-		///print_r($sub_subjectlist_value['chapters'][0]); 
 				 ?>								
 			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
 				<div class="">
@@ -95,7 +93,6 @@
 	<!--End Display Sub Class-->
 	
     <?php
-   //print_r($subject_chapters);
             $totalsolvedp=count($solvedp);
             //$totalsp=count($sp);
              foreach ($subject_chapters as $subjectlist_key =>$subjectlist_value) {
@@ -114,7 +111,6 @@
 		}
         ?>
 		<?php
-        //echo $showSub.'---'.$subjectlist_key;
              $bookclass_cnt= rand(0,3);
              if (count($subject_chapters[$subjectlist_key]) > 0 && $showSub=='yes') { ?>
 
@@ -130,9 +126,7 @@
 									$imagepath=$subimage_array[$subjectlist_value['id']];
 									}else{
 									$imagepath='assets/subject_image/gen-knowl.png';
-									}									
-									?>
-									<?php  
+									}  
                         if(strlen($subjectlist_key)>40){
                         $subjectName=substr($subjectlist_key,0,40).'..';
                          }else{
@@ -239,42 +233,84 @@ if(isset($outer_spcnt)&&$outer_spcnt>0){
 </div>               
     
             
-       <div class="clearfix"></div>    
+      <div class="clearfix"></div>    
     <?php
     //<!--End Showing Subject -->
 }
-?><?php
+?><!--Data For Chapter Page--><?php
 if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '') {
-    $subjectid = $selectedsubject->id;
+if(isset($subSubjectArray)&&count($subSubjectArray)>0){
+?>
+<div>
+<div class="page-header text-center">
+    <h3 class="select_heading">Select Sub Subject</h3>
+    </div> <!--class="row pack_sub"-->
+	
+	<!--Start Display Sub subject-->
+	<?php
+	        foreach ($subSubjectArray as $sub_subjectlist_key =>$sub_subjectlist_value) {
+				 ?>								
+			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
+			<div>
+		<?php  
+		$sub_subjectid=$sub_subjectlist_value->id;
+		$sub_subjectnameArray=$sub_subjectlist_value->name;
+                        if(strlen($sub_subjectnameArray)>40){
+                        $sub_subjectName=substr($sub_subjectnameArray,0,40).'..';
+                         }else{
+                        $sub_subjectName=$sub_subjectnameArray;
+                         }
+						 
+						 if(isset($subexamid_val)&&$subexamid_val>0){
+						 $subexamid=$subexamid_val;	 
+						 }else{
+						 $subexamid=0;
+						}
+						?>
+						<div>
+						<?php  
+						echo "<a title='".$sub_subjectName."' href='" . base_url($this->uri->segment(1) . 'category/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id . '/'.$subexamid.'/' . url_title($sub_subjectName, '-',true) . '/' . $subject_id. '/' . $sub_subjectid) . "'>"; 
+						echo "<h4 class='text-primary'>{$sub_subjectName}</h4>";
+						echo "</a>";
+						?> 
+						</div>
+				</div>
+				</div>		
+				 <?php
+			 } ?>
+	<!--End Display Sub Class-->
+</div> 
+	<?php
+}
+	$subjectid =   $selectedsubject->id;
     $subjectname = $selectedsubject->name;
-    //$chepter_array = $subject_chapters[$subjectname];
-   // $availableChapters = $chepter_array['chapters'];
+     //$chepter_array = $subject_chapters[$subjectname];
+    // $availableChapters = $chepter_array['chapters'];
     if (isset($chapters_array) && count($chapters_array) > 0) {
-        ?> 
-        <!--Showing Chapters Start-->
+    ?> 
+    <!--Showing Chapters Start-->
                                 <div class="col-md-12">
                                 <!--<div class="col-md-6">-->
                                 <div class="col-md-12 text-center bavl">
                                 <h2 class="select_heading">Select Chapter</h2>      
                                 </div>
         <?php
-		
         foreach ($chapters_array as $chapterlist_key => $chapterlist_value) {
 		if ($chapterlist_value['count'] > 0) {
         $short_chptername = str_split($chapterlist_value['name'],59);
         ?>
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-			<div class="box_shadow">
+		<div class="box_shadow">
 		<a href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id . '/' . url_title($subjectname, '-', true) . '/' . $subjectid . '/' . url_title($chapterlist_value['name'], '-', true) . '/' . $chapterlist_key); ?>">
 			<div class="offer offer1 offer-success col-item" style="height:110px;">
 				<div class="shape">
 					<div class="shape-text">
-						<span class="glyphicon glyphicon glyphicon-th"></span>
+				<span class="glyphicon glyphicon glyphicon-th"></span>
 						</div>
 				</div>
 				<div class="offer-content">
 					<h3 class="vid_prod_hed prod_hed1">
-						 <?php echo $short_chptername[0]; ?>
+					<?php echo $short_chptername[0]; ?>
 					</h3>
 				</div>
 			</div></a>
@@ -336,8 +372,128 @@ if ($segment_chpterseven>0) {  ?>
                     }else{
                         $chapter_segments='vidtital'.'-relationid-'.$v_relations_id;
                     }
-                    ?>
-                  <div class="col-xs-12 col-sm-2 col-md-2">
+                    ?>	  
+				
+				  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		  <a href="<?php echo base_url(implode('/', $url_segments).'/'.$chapter_segments.'/'. url_title($video->title,'-',true).'/'.$video->id)?>" <?php if(!$this->session->userdata('customer_id')){ echo 'onclick="return showmsg();return false;"';}?>  title="<?php echo $video->title?>">
+				  <!-- video description thumb -->
+				  <?php 
+				  //print_r($video);
+				  ?>
+<div class="video_thumb text-center">
+<?php
+$singletinfo=$teacherInfo[$video->id];
+ $singletinfo[0]->gender;
+
+$tsuffix='';
+if($singletinfo[0]->gender=="Male") {
+	$tsuffix="Sir";
+}
+else if($singletinfo[0]->gender=="Female") {
+	$tsuffix="Madam";
+}
+
+
+ $videoId[$video->id]; 
+ //print_r($videoId[$video->id]);
+ 
+ $singlevinfo = $videoId[$video->id];
+ 
+ $title=$singlevinfo->title;
+ $subject=$singlevinfo->subject;
+ $chapter=$singlevinfo->chapter;
+ $exam=$singlevinfo->exam;
+ $taughtby=$singletinfo[0]->firstname." ".$singletinfo[0]->lastname." ".$tsuffix;
+ $video_duration=$singlevinfo->video_duration;
+ $video_size=$singlevinfo->video_size;
+ ?>  
+ <p><h2><b><span class="multicolortext title"><?php echo $video->title; ?></span></b></h2></p>
+
+   <p>
+	<h2><b><?php echo "<span class='multicolortextsub sub'>".$subject."</span>"; ?>
+   </b></h2>
+   </p>
+   
+   <p>
+   <h4><b><?php echo "<span class='multicolortextexam exam'>".$exam; ?>
+   <?php 
+   if($taughtby!="") {
+	   echo "| <span class='multicolortextexam exam'>".ucwords($taughtby); 
+   }
+   else {
+	   echo "<span class='multicolortextexam exam'>".ucwords($taughtby); 
+   }
+	?>
+   </b></span></h4>
+   </p>
+<h5>  
+<?php
+
+if(isset($video->video_duration)&&$video->video_duration!=''){
+	$init = $video->video_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
+				?>
+			
+			<font style="font-family:'Courier New';font-size:'initial'"><i class="glyphicon glyphicon-hourglass"></i> <?php 
+
+if($init>120){ 
+echo gmdate("i:s", $video->video_duration); echo " Hours";	
+				
+			}else if($init<121){	
+			
+if($init<60){ 
+				echo "$init Minutes";	
+				}else{
+				
+echo gmdate("i:s", $video->video_duration); echo " Minutes";		
+				}			
+				
+			}
+			
+//echo "$minutes:$seconds";
+ ?></font><?php 
+			}else if(isset($video->custom_video_duration)&&$video->custom_video_duration!=''){
+				
+$init = $video->custom_video_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
+if(isset($init)&&$init!=''){
+				?>
+			<font style="font-family:'Courier New'; font-size:'initial'"><i class="glyphicon glyphicon-hourglass"></i> <?php 
+			//$hours
+           if($init>121){ 
+echo gmdate("i:s", $init); echo " Minutes";	
+			}else if($init<122){	
+			
+if($init<60){ 
+				echo "$init Minutes";	
+				}else{
+				
+echo gmdate("i:s", $init); echo " Minutes";		
+				}			
+				
+			}
+			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font>
+			<?php
+			}
+			}
+			if(isset($video->video_size)&&$video->video_size!=''){
+			?>
+			<font style="font-family:'Courier New'"> | <i class="glyphicon glyphicon-scale"></i>    <?php echo $video->video_size; ?></font>
+		<?php
+			}
+?>
+          	
+	<!--<div class="centered">Centered</div>-->
+</div>
+	<!-- // video description thumb -->
+				  </a>
+				  </div>
+			
+				  			  </h5>       <!-- <div class="col-xs-12 col-sm-2 col-md-2">
         <div class="col-item offer offer-success" style="height:160px;"> 
             <a href="<?php echo base_url(implode('/', $url_segments).'/'.$chapter_segments.'/'. url_title($video->title,'-',true).'/'.$video->id)?>" <?php if(!$this->session->userdata('customer_id')){ echo 'onclick="return showmsg();return false;"';}?>  title="<?php echo $video->title?>">
                 <?php if($video->video_source=='youtube'){ ?>
@@ -350,7 +506,7 @@ if ($segment_chpterseven>0) {  ?>
             </div>  
              </a> 
         </div> 
-    </div>
+    </div>-->
     <?php }  ?>
 			
 	</div>

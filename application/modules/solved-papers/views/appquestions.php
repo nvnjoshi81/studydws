@@ -39,9 +39,10 @@ if(isset($spdetails->language)&&$spdetails->language=='hindi') {
             <ul class="grid">
             <?php 
 			if(isset($questions)&&count($questions)>0){
-	$count=1;foreach($questions as $question){  ?>
-            <li class="element-item <?php echo url_title($question->section,'', TRUE)?>" >
-                <p><div <?php echo $hindicss_number_q ;?> ><i class="material-icons">question_answer</i><?php echo $count;?>)</div> <div <?php echo $hindicss.' '.$hindicss_text ;?> ><?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?></div></p>
+	$count=1; foreach($questions as $question){  ?>
+            <li class="element-item <?php echo url_title($question->section,'', TRUE)?>">
+                <p><div <?php echo $hindicss_number_q ;?> ><i class="material-icons">question_answer</i>
+				<?php echo $count;?>)</div> <div <?php echo $hindicss.' '.$hindicss_text ;?> ><?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?></div></p>
                 <?php $answers=$this->Questions_model->answers($question->id);
                 if(count($answers) > 1){ 
                         if(isset($question->type)){

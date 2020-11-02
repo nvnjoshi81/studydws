@@ -260,11 +260,13 @@ $chkcount=$chkcount+1;
 		
 		/*for getting sub Exam list for category table*/
 $this->data['sub_chaptersubjects'] = array();
-$this->data['sub_subjects_array'] = array();
+$this->data['subSubjectArray'] = array();
 
 $sub_data_array=array();
 $subExamArray=$this->Examcategory_model->getSubExam($examid);
 $subSubjectArray=$this->Examcategory_model->getSubSubject($subject_id);
+$this->data['subSubjectArray'] =$subSubjectArray;
+
 if(isset($subExamArray)&&count($subExamArray)>0){  
 if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
 $subExamId=$subExamArray[0]->id; 
@@ -709,12 +711,22 @@ if($subject_id>0){
         $this->data['examid'] = $examid;
         $this->data['urlChapter_name']=$urlChapter_name;
         $this->data['path']=$path;
+		
+		foreach ($videolist as $vl) {
+			$v_Id = $vl->id;
+			$videoId[$v_Id] = $this->Videos_model->getVideoDetails($v_Id,$vstatus=1);
+			$techerid=$videoId[$v_Id]->video_by;
+			$teacherInfo[$v_Id] = $this->Customer_model->teacherbytid($techerid);
+		}
+		
+		$this->data['teacherInfo'] = $teacherInfo;
+		$this->data['videoId'] = $videoId;
         $this->data['content']='welcome';
         $this->data['modulepath']=$path;
 	$this->load->view('template',$this->data);
     }
    
-    public function maincategory($examname,$examid,$subexamid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
+    public function maincategory($examname,$examid,$subexamid,$subjectname=null,$subject_id=0,$subsubject_id=0,$chapter_name=null,$chapter_id=0){
 		
 		        
         $urlChapter_name=NULL;
@@ -749,11 +761,10 @@ if($subject_id>0){
         }
 	   	
 /*Get only sub subject for given exam*/
- echo $subexamid.'-------------====';
  
  
 $sub_data_array=array();
-$subExamArray=$this->Examcategory_model->getSubExam($examid);
+$subExamArray=$this->Examcategory_model->getSubExam($examid,$subexamid);
 $subSubjectArray=$this->Examcategory_model->getSubSubject($subject_id);
 if(isset($subExamArray)&&count($subExamArray)>0){  
 if(isset($subExamArray[0]->id)&&$subExamArray[0]->id>0){
@@ -763,9 +774,8 @@ $subExamId=0;
 }
 }
 
-
-
-/*End Get only */
+$subexaminfo=$this->Questionbank_model->getSubSubject($examid,$subExamId); 
+ /*End Get only */
 
 
 if(count($isProduct)>0){
@@ -778,16 +788,15 @@ if(count($isProduct)>0){
         }else{
         $this->data['isProduct'] = '';
         }
+        $this->data['subexaminfo'] = $subexaminfo;
         $this->data['subject_id'] = $subject_id;
         $this->data['examid'] = $examid;
         $this->data['urlChapter_name']=$urlChapter_name;
         $this->data['path']=$path;
         $this->data['content']='welcomecategory';
         $this->data['modulepath']=$path;
-	$this->load->view('template',$this->data);
-	
+	    $this->load->view('template',$this->data);
    }
-   
     public function cron_update_packagecount(){
     //die("Temporarily Off....in welcome exam");		
         ini_set('memory_limit', '-1');
@@ -797,7 +806,7 @@ if(count($isProduct)>0){
          $qb_packages_count=$this->Videos_model->check_modules_package('','','question-bank','cmspackagesall_counter','root');
         $qb=$this->Questionbank_model->getQuestionBank();   
         $qbquestions=$this->Questionbank_model->getQuestionCount();
-         $qb_update_array=array(
+        $qb_update_array=array(
              'total_package'=>count($qb),
              'total_question'=>count($qbquestions),
              'module_type'=>'question-bank',

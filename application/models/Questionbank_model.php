@@ -66,6 +66,38 @@ class Questionbank_model extends CI_Model {
         return $query->result();
     }
 
+
+public function getSubSubject_indi($exam_id = null, $subexam_id=null, $subject_id = null, $chapter_id = null,$limit=null) {
+        $this->db->select('cmsquestionbank.name,cmsquestionbank.id,cmsquestionbank_relations.exam_id,cmsquestionbank_relations.subject_id,cmsquestionbank_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+
+        if ($exam_id > 0) {
+            $this->db->where('cmsquestionbank_relations.exam_id', $exam_id);
+        }
+		
+		
+        if ($subexam_id > 0) {
+            $this->db->where('cmsquestionbank_relations.subexam_id', $subexam_id);
+        }
+		
+        if ($subject_id > 0) {
+            $this->db->where('cmsquestionbank_relations.subject_id', $subject_id);
+        }
+        if ($chapter_id > 0) {
+            $this->db->where('cmsquestionbank_relations.chapter_id', $chapter_id);
+        }
+        $this->db->join('categories', 'cmsquestionbank_relations.exam_id=categories.id', 'left');
+        $this->db->join('cmssubjects', 'cmsquestionbank_relations.subject_id=cmssubjects.id', 'left');
+        $this->db->join('cmschapters', 'cmsquestionbank_relations.chapter_id=cmschapters.id', 'left');
+        $this->db->join('cmsquestionbank', 'cmsquestionbank.id=cmsquestionbank_relations.questionbank_id');
+        if($limit > 0){
+            $this->db->limit($limit);
+        }
+        $this->db->from('cmsquestionbank_relations');
+        $this->db->order_by('cmsquestionbank.id', 'desc');
+        $query = $this->db->get();
+       // echo $this->db->last_query();die;
+        return $query->result();
+    }
     public function getQuestionbankData($id) {
 
         $this->db->select('A.*,C.name as type,B.question_id');
@@ -117,17 +149,14 @@ class Questionbank_model extends CI_Model {
         $this->db->where('parent_id', $mainExamid);
         $query = $this->db->get();
         return $query->result();
-	}
-	  public function getSubSubject($mainExamid,$mainSubjectid) {
+	} 
+	  public function getSubSubject($mainSubjectid) {
 	   $this->db->select('id,name,parent_id');
-        $this->db->from('cmssubjects');
-        $this->db->where('parent_id', $mainSubjectid);
-        $query = $this->db->get();
-        return $query->result();
+       $this->db->from('cmssubjects');
+       $this->db->where('parent_id', $mainSubjectid);
+       $query = $this->db->get();
+       return $query->result();
 	}
-	
-	
-
     public function getDetails_bymoduleID_file($mid) {
         $this->db->select('*');
         $this->db->from('cmsquestionbank_details');
@@ -159,7 +188,8 @@ class Questionbank_model extends CI_Model {
         //echo $this->db->last_query();
         return $query->result();
     }
-        /*public function getQuestions($id) {
+    
+	/*public function getQuestions($id) {
         $this->db->select('A.*,C.name as type,D.answer,D.answer_extra,D.description,D.is_correct');
         $this->db->from('cmsquestions A');
         $this->db->join('cmsquestionbank_details B', 'B.question_id=A.id', 'left');

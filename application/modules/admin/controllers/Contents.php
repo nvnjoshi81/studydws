@@ -689,9 +689,11 @@ class Contents extends MY_Admincontroller {
             );
 			
             $this->Contents_model->add_relation_in_questionbank($relations_data);
+			
+			
+			
 			/*This code entry will used for Sub exam save*/
-			if(isset($subexam_id_count)&&$subexam_id_count>0){				
-				
+			if(isset($subexam_id_count)&&$subexam_id_count>0){	
 			for($irc=0;$subexam_id_count>$irc;$irc++){
 				$relations_data_arr= array(
                 'questionbank_id' => $questoin_bank_insert_id,
@@ -1715,7 +1717,8 @@ class Contents extends MY_Admincontroller {
         }
 
         /* Start Video section */
-        if ($add_content_type->name == 'Videos') {
+        if ($add_content_type->name == 'Videos') {			
+			
             //For Playlist
             $upload_type = $this->input->post('video_upload_type');
             if ($upload_type == "playlist") {
@@ -1746,12 +1749,28 @@ class Contents extends MY_Admincontroller {
                 $this->Contents_model->add_relation_in_videolist($relations_data);
                 $this->session->set_flashdata('message', 'Playlist Added!');
             } else {
+				
+				
+                $video_by = $this->input->post('video_by');
+				
+				if($video_by==''){
+ $this->session->set_flashdata('message', 'Please select Video By teacher name!');		
+		$previous = "javascript:history.go(-1)";
+if(isset($_SERVER['HTTP_REFERER'])) {
+    $previous = $_SERVER['HTTP_REFERER'];
+}
+$previous_array=explode("admin",$previous);
+				}
+				if(isset($previous_array[1])){
+				 redirect('admin/'.$previous_array[1]);
+				}else{
+					 redirect('admin/contents/add');	
+				}
                 //For Videos
                 $video_source = $this->input->post('video_source');
                 $video_url_code = $this->input->post('video_url_code');
                 $is_featured = $this->input->post('is_featured');
                 $description = $this->input->post('description');
-                $video_by = $this->input->post('video_by');
                 $videolist_by = 'Studyadda';
                 $status = $this->input->post('status');
                 $custom_video_duration = $this->input->post('custom_video_duration');
@@ -2286,15 +2305,20 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
         $type_match_the_coloumn = 11;
         $type = $this->input->post('content_type');
         $edit_content_type = $this->Content_model->getContentTypeDetail($type);
-        if ($edit_content_type->name == 'Videos') {
+		
+			$previous = "javascript:history.go(-1)";
+if(isset($_SERVER['HTTP_REFERER'])) {
+    $previous = $_SERVER['HTTP_REFERER'];
+}
+$previous_array=explode("admin",$previous);
+
+        if ($edit_content_type->name == 'Videos') {			
             $upload_type = 1;
             $form_validation_value = TRUE;
         } else {
-            $this->form_validation->set_rules('name', 'Name', 'required');
-
-            $form_validation_value = $this->form_validation->run();
+        $this->form_validation->set_rules('name', 'Name', 'required');
+        $form_validation_value = $this->form_validation->run();
         }
-
         $product_expiry_date=$this->input->post('product_expiry_date');
 		
 		/*For Upload in hindi english language*/
@@ -2304,11 +2328,15 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
 		}else{
 			$language_var='english';
 		}
-		
-		
+	
         if ($form_validation_value == FALSE) {
             $this->session->set_flashdata('message', 'Please enter name!');
+			if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
             redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
         } else {
             $item_id = 0;
             $is_deleted = 0;
@@ -2365,7 +2393,12 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
             $upload_type = 2;
             if ($upload_type == 1) {
                 $this->session->set_flashdata('message', 'Use Multiple Question Upload button for Online Tests zip Upload!');
-                redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+					if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
+			redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
             }
 
             $db_qus_pdf = $this->input->post('db_qus_pdf');
@@ -2379,7 +2412,12 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
                 if (substr($_FILES[$qus_pdf_field_name]['name'], -4) != '.pdf') {
                     $this->session->set_flashdata('message', 'UPLOAD ONLY ZIP FILE FOR ' . $qus_pdf_field_name);
                     //session message is set in function - upload_extract_file 
+						if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                     redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                     die();
                 }
                 $qus_pdf_file_name = upload_extract_file($zipfolder_path_one, $zipfolder_path_one, $qus_pdf_field_name, $extract = 'no');
@@ -2397,7 +2435,12 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
                 if (substr($_FILES[$ans_pdf_field_name]['name'], -4) != '.pdf') {
                     $this->session->set_flashdata('message', 'UPLOAD ONLY ZIP FILE FOR ' . $ans_pdf_field_name);
                     //session message is set in function - upload_extract_file 
+						if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                     redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                     die();
                 }
                 $ans_pdf_file_name = upload_extract_file($zipfolder_path_one, $zipfolder_path_one, $ans_pdf_field_name, $extract = 'no');
@@ -2415,7 +2458,12 @@ $this->session->set_flashdata('message', 'Merge Section Studymaterial Contents A
                 if (substr($_FILES[$solution_pdf_field_name]['name'], -4) != '.pdf') {
                     $this->session->set_flashdata('message', 'UPLOAD ONLY ZIP FILE FOR ' . $solution_pdf_field_name);
                     //session message is set in function - upload_extract_file 
+						if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                     redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                     die();
                 }
 
@@ -2574,7 +2622,12 @@ if(isset($dt_end)&&$dt_end!=''){
             if ($chaeck_space == 1) {
 
                 $this->session->set_flashdata('message', 'Please check your zip file.There may be space or special character in file name.');
+					if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                 redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                 die();
             }
 			
@@ -2585,7 +2638,12 @@ if(isset($dt_end)&&$dt_end!=''){
                 if ($extract_file_name == 'failed') {
                     $this->session->set_flashdata('message', 'Multiple Question Zip is not zip file.Please check.');
                     //session message is set in function - upload_extract_file 
+						if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                     redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                     die();
                 }
                 //fatch question answer from uploaded html folder 
@@ -2701,7 +2759,12 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                             $section = $section_array[1];
                         } else {
                             $this->session->set_flashdata('message', 'Please enter section in your doc file for Question Bank.');
+								if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                             redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                         }
 
                         $question_options = '';
@@ -2888,7 +2951,12 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                             } else {
 
                                 $this->session->set_flashdata('message', 'Please enter section in your doc file for sample paper.');
+									if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                                 redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                             }
 
                             $question_options = '';
@@ -3091,7 +3159,12 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                         } else {
 
                             $this->session->set_flashdata('message', 'Please enter section in your doc file .');
+								if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                             redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));
+			}
                         }
 
                         //If question type is NOT available in doc file than only use dropdown value.
@@ -3227,8 +3300,12 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                 /* Upload zip section */
 
                 $this->session->set_flashdata('message', 'Online Tests Can not be saved as pdf or doc!');
-
+	if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                 redirect('admin/contents/edit/' . $module_id . '/' . $module_type_id);
+			}
             } else {
 
 
@@ -3278,7 +3355,12 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                         } else {
 
                             $this->session->set_flashdata('message', 'Please Enter section name!');
+								if(isset($previous_array[1])){ 
+			      redirect('admin/'.$previous_array[1]);
+			}else{
+			
                             redirect('admin/contents/edit/' . $module_id . '/' . $module_type_id);
+			}
                         }
                         //If question type is NOT available in doc file than only use dropdown value.
 
@@ -3971,6 +4053,18 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
 
                 $this->session->set_flashdata('message', 'Playlist Updated!');
             } else {
+				//Condition Check for video teacher id
+				$video_by = $this->input->post('video_by');
+			if(isset($video_by)&&$video_by>0){
+			 $this->session->set_flashdata('message', 'Tecaher saved');	
+			}else{
+			$this->session->set_flashdata('message', 'Please Select Teacher Name in Video By!');
+			if(isset($previous_array[1])){ 
+			redirect('admin/'.$previous_array[1]);
+			}else{
+            redirect('admin/contents/edit/' . $this->input->post('module_id') . '/' . $this->input->post('module_type_id'));							
+		} 
+		}
                 //For Videos
                 $video_url_code = $this->input->post('video_url_code');
                 $is_featured = $this->input->post('is_featured');
@@ -3978,7 +4072,6 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                 $amazon_cloudfront_domain = $this->input->post('amazon_cloudfront_domain');
                 $video_source = $this->input->post('video_source');
 				$androidapp_link = $this->input->post('androidapp_link');
-	            $video_by = $this->input->post('video_by');
                 $status = $this->input->post('status');
                 $custom_video_duration = $this->input->post('custom_video_duration');
                 $amazonaws_link = $this->input->post('amazonaws_link');
@@ -4031,7 +4124,6 @@ $text_question_answer = get_content_array_by_zip($html_folder_name_path, $extrac
                     $common_file_name = $this->input->post('common_file_name_video');
 
                     if ($_FILES[$video_file_field_name]['name'] != '') {
-
                         $extract_file_name_one = upload_extract_file($videofolder_path, '', $video_file_field_name, $extract = 'no');
                         if (($extract_file_name_one != 'failed') && ($extract_file_name_one != '')) {
                             $var_filename_video = $extract_file_name_one;
@@ -5344,7 +5436,7 @@ NOT USEFUL
         $show_content_type = $this->Content_model->getContentTypeDetail($type);		
 		$getSubClass = $this->Questionbank_model->getSubClass($examid);
 		if($subject_id>0){
-		$getSubSubject = $this->Questionbank_model->getSubSubject($examid, $subject_id);
+		$getSubSubject = $this->Questionbank_model->getSubSubject($subject_id);
 		}
         if ($show_content_type->name == 'Study Material') {
         //$contents = $this->Studymaterial_model->getStudyMaterial($examid, $subject_id, $chapter_id);
@@ -5439,10 +5531,9 @@ NOT USEFUL
             $response['data'] = array();
             $response['count'] = 1;
         }
-		
 		$response['subClass'] = $subClass_array;
 		$response['subSubject'] = $subSubject_array;
-        echo json_encode($response);
+		echo json_encode($response);
     }
 
     public function getContentsFileInfo($module_id, $module_type_id) {
