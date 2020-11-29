@@ -811,7 +811,6 @@ function generateTitle($text,$relation,$modulename=null){
     if($modulename){
         $titleStr[]=$modulename;
     }
-    
     return implode(' ',$titleStr);
     
 }
@@ -1129,7 +1128,7 @@ function getBrowser()
     );
 } 
 
-function get_assets_cdn($filepath,$cdn='https://www.dewastimes.com/'){
+function get_assets_cdn($filepath,$cdn='https://www.studyadda.com/'){
 $break_host_array=substr($_SERVER['HTTP_HOST'],-3);
 if($break_host_array=='cal'){
 	$cdn=base_url();

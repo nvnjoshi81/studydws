@@ -25,6 +25,10 @@ class Welcome extends Modulecontroller {
         $this->load->helper('text');
     }
     public function index(){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
        $custom_category_id = $this->custom_category_id;
         $total_rows=$this->Posting_model->count_post_by_parent($custom_category_id);
         $config = array();
@@ -68,6 +72,10 @@ class Welcome extends Modulecontroller {
         
     }
     public function category($category_name,$category_id){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $childcategories=$this->Categories_model->getCategoryTree($category_id);
         $this->data['childcategories']=$childcategories;
         $category=$this->Categories_model->getCategoryDetails($category_id);
@@ -110,7 +118,11 @@ class Welcome extends Modulecontroller {
         $this->data['content']='welcome';
 	$this->load->view('template',$this->data);
     }
-    public function article($category_name,$article_name,$article_id){        
+    public function article($category_name,$article_name,$article_id){
+$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}        
        //update View Count
         $this->Pricelist_model->update_viewcount($article_id,'postings');
         $this->load->helper('text');
@@ -134,7 +146,11 @@ class Welcome extends Modulecontroller {
 	$this->load->view('template',$this->data);
     }
     
-    public function archives($year,$month){ 
+    public function archives($year,$month){
+$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}		
         $custom_category_id=$this->custom_category_id;
         // Update function below to get listings count by month and year
         $total_rows=$this->Posting_model->count_post_by_parent($custom_category_id,1,$year,$month);
@@ -179,6 +195,10 @@ class Welcome extends Modulecontroller {
 	$this->load->view('template',$this->data);
     }
     public function examarticle($exam_name,$subject_name,$chapter_name,$article_name,$article_id){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         
         $this->data['loadMathJax']='yes';
         $article=$this->Posting_model->getExamArticleInfo($article_id);        
@@ -214,7 +234,10 @@ class Welcome extends Modulecontroller {
 	$this->load->view('template',$this->data);
     }
     public function exams($examname = null, $exam_id = 0, $subjectname = null, $subject_id = 0, $chapter_name = null, $chapter_id = 0){
-       
+       $cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $examdata = array();
         if ($examname == null) {
             $title = getTitle('Notes', $this->data['examcategories']);

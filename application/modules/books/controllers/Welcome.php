@@ -5,6 +5,10 @@ class Welcome extends Modulecontroller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Books_model');
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
     }
 
     public function index($examname = null, $exam_id = 0, $subjectname = null, $subject_id = 0, $chapter_name = null, $chapter_id = 0) {

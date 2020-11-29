@@ -1,5 +1,9 @@
-	<div class="text-center">
-                       <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time.Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b>
+	<div class="text-center"><b><i><span class="text-primary">Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b> 
+                   <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time. All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.</span></i></b><br>
+					       <b><span class="text-primary">Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
+# Course runs only on Android app.<br>
+# Course validity is 31st March 2023.
+<br>#Course amount Non-Refundable!</em></span></b>
 						  </div><?php
 $customer_id=$this->session->userdata('customer_id');
 //$this->session->unset_userdata('loginFranId');

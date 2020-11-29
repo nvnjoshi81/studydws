@@ -70,7 +70,8 @@
          <script src="<?php echo base_url(); ?>assets/js/bootstrap-tagsinput.js"></script>  
 <!--jquery  For Date Picker -->    
 <script src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker.js"></script>      
-    
+ <!-- jQuery UI CSS -->
+   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">   
 </head>
 
 

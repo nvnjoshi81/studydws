@@ -199,7 +199,7 @@ class Posting_Model extends CI_Model {
     public function getPostingList($id = 0, $limit = 0, $start = 0, $status = NULL) {
 
         $this->db->limit($limit, $start);
-        $this->db->select('postings.id,title,postings.description,adtype,external_url,external_link,hits,published,dt_created,dt_modified,name');
+        $this->db->select('postings.id,postings.title,postings.description,postings.adtype,postings.external_url,postings.external_link,postings.hits,postings.published,postings.dt_created,postings.dt_modified,categories.name');
         $this->db->from('postings,categories');
         if ($id > 0) {
             $this->db->where('categories.id', $id);
@@ -208,7 +208,7 @@ class Posting_Model extends CI_Model {
         if ($status === 0) {
             $this->db->where('postings.published', 0);
         }
-        $this->db->order_by('dt_created', 'desc');
+        $this->db->order_by('postings.dt_created', 'desc');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {

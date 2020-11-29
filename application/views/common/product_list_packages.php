@@ -88,9 +88,16 @@ echo $isProduct->modules_item_name;
                  ?>
         </div>
         <p><span class="text-danger"><b>Note:<em color="red">Discount is available till 08 July 2020 only! Course amount Non-Refundable!</em></b></span>
-        <ul>
-        <li><b><i><span class="text-primary">The number of package may vary time to time.</span></i></b></li> 
-                <li><b><i><span class="text-primary">Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b></li>      
+        <ul>   <li>				
+				<b>Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
+# Course runs only on Android app.<br>
+#The number of package may vary time to time.<br>
+# Course validity is 31st March 2023.<br>
+# All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.
+<br>#Course amount Non-Refundable!
+<br>Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</em></b>
+				
+				</li>      
         </ul>           
         </p>
     </div>

@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-include('config.php');
+//include('config.php');
 ini_set('max_execution_time', 120);
 if(isset($_POST['product_type'])){
 $typeproduct=$_POST['product_type'];
@@ -13,7 +13,7 @@ $examid_post=$_POST['exam_id'];
 	$examid_post=0;
 }
 if(isset($_POST['subject_id'])){
-$subjectid_post=$_POST['subject_id'];
+            $subjectid_post= $_POST['subject_id'];
 }else{
 	$subjectid_post=0;
 }

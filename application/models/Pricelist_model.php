@@ -2,6 +2,43 @@
 
 class Pricelist_model extends CI_Model {
 
+
+/*by Mahesh*/
+
+	public function get_price_by_month($id) {
+		$this->db->select('parent_id,expiry_month,subscription_expiry,price,discounted_price,');
+		$this->db->from('cmssub_pricelist');
+		$this->db->where('parent_id',$id);  
+		$query = $this->db->get();
+		//echo $this->db->last_query(); 
+		if ($this->db->count_all_results() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+	}
+	public function get_subprice($id,$subscription_expiry) {
+		$this->db->select('id');
+		$this->db->from('cmssub_pricelist');
+		$this->db->where('parent_id',$id);
+		$this->db->where('subscription_expiry',$subscription_expiry);   
+		$query = $this->db->get();
+		//echo $this->db->last_query(); 
+		if ($this->db->count_all_results() > 0) {
+            return $query->row();
+        } else {
+            return false;
+        }
+	}
+	public function Create_subprice($final_subPrice) {
+			$this->db->insert('cmssub_pricelist',$final_subPrice);
+	}
+	
+	public function update_subprice($id,$final_subPrice) {
+		$this->db->where('id',$id);
+		$this->db->update('cmssub_pricelist',$final_subPrice);	
+	}
+
     public function add($data) {
         $this->db->insert('cmspricelist', $data);
         //echo $this->db->last_query();

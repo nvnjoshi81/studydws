@@ -36,10 +36,10 @@ class Welcome extends Modulecontroller {
             
                 $this->data['solpap_package']='';
                 $this->data['solpap_questions']='';  
+			
     }
     
-    public function index(){       
-        
+    public function index(){ 
         $this->data['path']='';
         $qb=$this->Questionbank_model->getQuestionBank();
         $this->data['qb']=$qb;
@@ -147,8 +147,7 @@ class Welcome extends Modulecontroller {
     }
 	
 	/*for subject and chapters*/
-    public function main($examname,$examid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
-        
+    public function main($examname,$examid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){        
         $urlChapter_name=NULL;
          $isProduct_array=array();
         $testseries_Product = $this->Pricelist_model->getProduct($examid, $subject_id, $chapter_id, 3);
@@ -311,7 +310,7 @@ $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId);
 		$this->data['subExamArray'] = $subExamArray;
 	}else{ 
         $this->data['sub_chaptersubjects'] = array();
-		$this->data['subExamArray'] = array();
+		$this->data['subExamArray'] = $subExamArray;
 	}	
 
 		
@@ -379,7 +378,7 @@ $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId);
         $this->data['productslist']=$filelist;
         }else{
         $filelist=$this->Studymaterial_model->getFilesProducts($examid,$subject_id,$chapter_id,$limitforblock);
-            $this->data['productslist']=$filelist;
+        $this->data['productslist']=$filelist;
         }
         $historyArray=array();
         foreach($filelist as $fd){
@@ -727,6 +726,10 @@ if($subject_id>0){
     }
    
     public function maincategory($examname,$examid,$subexamid,$subjectname=null,$subject_id=0,$subsubject_id=0,$chapter_name=null,$chapter_id=0){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
 		
 		        
         $urlChapter_name=NULL;
@@ -740,6 +743,15 @@ if($subject_id>0){
         
         $data_array=array();
         $exam=  $this->Categories_model->getCategoryDetails($examid);
+		if(isset($subexamid)&&$subexamid>0){
+        $subexamcat =  $this->Categories_model->getCategoryDetails($subexamid);
+		$subexamname=$subexamcat->name;
+		}else{
+		$subexamcat=NULL;	
+		$subexamname=NULL;
+		}
+		
+		
         $titleStr[]=addSuffix($exam->name,'Class');
         $this->data['selectedexam']=$exam;
         $path=$examname.'/'.$examid;   
@@ -774,9 +786,8 @@ $subExamId=0;
 }
 }
 
-$subexaminfo=$this->Questionbank_model->getSubSubject($examid,$subExamId); 
+$subexaminfo=$this->Questionbank_model->getSubSubject_withchapter($examid,$subExamId); 
  /*End Get only */
-
 
 if(count($isProduct)>0){
         $this->data['isProduct'] = $isProduct;
@@ -791,7 +802,9 @@ if(count($isProduct)>0){
         $this->data['subexaminfo'] = $subexaminfo;
         $this->data['subject_id'] = $subject_id;
         $this->data['examid'] = $examid;
-        $this->data['urlChapter_name']=$urlChapter_name;
+        $this->data['examname'] = $exam->name;
+        $this->data['subexamname'] = $subexamname;
+		$this->data['urlChapter_name']=$urlChapter_name;
         $this->data['path']=$path;
         $this->data['content']='welcomecategory';
         $this->data['modulepath']=$path;

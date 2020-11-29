@@ -3,7 +3,7 @@ class Welcome extends Modulecontroller {
     public function __construct() {
         parent:: __construct();
         $this->custom_category_id=12;
-        define('A_CATEGORY_ID',$this->custom_category_id);        
+        define('A_CATEGORY_ID',$this->custom_category_id);       
         $this->module_name='articles'; 
         $this->module_name_heading='Articles';
         define('MODULE_NAME_CF',$this->module_name); 
@@ -24,6 +24,10 @@ class Welcome extends Modulecontroller {
         $this->load->helper('text');
     }
     public function index(){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $total_rows=$this->Posting_model->count_post_by_parent($this->custom_category_id);
         $config = array();
         $config['per_page'] = 10;           
@@ -67,6 +71,10 @@ class Welcome extends Modulecontroller {
     }
 	
     public function category($category_name,$category_id){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $childcategories=$this->Categories_model->getCategoryTree($category_id);
         $this->data['childcategories']=$childcategories;
         $category=$this->Categories_model->getCategoryDetails($category_id);
@@ -111,7 +119,11 @@ class Welcome extends Modulecontroller {
     }
 	
 
-    public function article($category_name,$article_name,$article_id){        
+    public function article($category_name,$article_name,$article_id){ 
+$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}	
        //update View Count
 	   
         $this->Pricelist_model->update_viewcount($article_id,'postings');
@@ -137,6 +149,10 @@ class Welcome extends Modulecontroller {
 		$this->load->view('template',$this->data);
     }
     public function archives($year,$month){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         // Update function below to get listings count by month and year
         $total_rows=$this->Posting_model->count_post_by_parent($this->custom_category_id,1,$year,$month);
         $config = array();
@@ -183,6 +199,10 @@ class Welcome extends Modulecontroller {
 	
 	
     public function examarticle($exam_name,$subject_name,$chapter_name,$article_name,$article_id){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $article=$this->Posting_model->getExamArticleInfo($article_id);
 		
 			$getlan=$article[0]->language;
@@ -265,6 +285,10 @@ class Welcome extends Modulecontroller {
     
  
      public function androidnotes($exam_name,$subject_name,$chapter_name,$article_name,$article_id){
+		 $cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
             //echo $exam_name,'..',$subject_name,'..',$chapter_name,'..',$article_name,'..',$article_id; die;
 			
         $this->data['loadMathJax']='yes';
@@ -417,6 +441,10 @@ class Welcome extends Modulecontroller {
     }
     
     public function exams($examname = null, $exam_id = 0, $subjectname = null, $subject_id = 0, $chapter_name = null, $chapter_id = 0){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
        
         $examdata = array();
         if ($examname == null) {
@@ -507,17 +535,40 @@ class Welcome extends Modulecontroller {
       }
         $data = $this->Posting_model->getNotesList($exam_id, $subject_id,$chapter_id);
        $data2 = $this->Posting_model->getNotesList2($exam_id, $subject_id,$chapter_id);
-        
-       $unlimited_array=array_merge($data,$data2);
-       $limited_array=array_slice($unlimited_array,0,$plimit);
-       $this->data['notes']=$limited_array;
+$datacnt=count($data);
+$data2cnt=count($data2);       
+	   if(isset($datacnt)&&isset($data2cnt)&&($datacnt>0&&$data2cnt>0)){
+		  	   
+		   
+		 $unlimited_array=array_merge($data,$data2);
+		 
+		 foreach($merge_array as $merge_val){
+	if (in_array("15410", get_object_vars($merge_val)))
+  {
+  echo "Match found";
+  }
+else
+  {
+  echo "Match not found";
+  }
+}
+		// die;
+		}else{
+			
+			if($datacnt>0){
+			 $unlimited_array=$data;
+			}else if($data2cnt>0){
+		     $unlimited_array=$data2;
+			}
+		}
+	   $limited_array=array_slice($unlimited_array,0,$plimit);
+	   $this->data['notes']=$limited_array;
        $this->data['solutions_notes']=$unlimited_array;
         
         $solutions_array = array();
         foreach ($this->data['solutions_notes'] as $result) {
-
-            if (!array_key_exists($result->category_id, $solutions_array)) {
-                $solutions_array[$result->category_id] = array('name' => $result->exam, 'subjects' => array());
+        if (!array_key_exists($result->category_id, $solutions_array)) {
+        $solutions_array[$result->category_id] = array('name' => $result->exam, 'subjects' => array());
             }
             if (!array_key_exists($result->subject_id, $solutions_array[$result->category_id]['subjects'])) {
                 $solutions_array[$result->category_id]['subjects'][$result->subject_id] = array('id' => $result->subject_id, 'name' => $result->subject);

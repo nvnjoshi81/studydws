@@ -32,7 +32,9 @@ class Livestream extends MY_Admincontroller {
         ////////////////////////////////////////////////////////////////////////////////////////
                     // notifications masege
         //////////////////////////////////////////////////////////////////////////////////////////
-        
+      
+       
+       
         public function index_5(){
                
                      $data = $this->mcm->get_classes('categories');
@@ -65,10 +67,13 @@ class Livestream extends MY_Admincontroller {
 			 $temp_v =   explode(',', $id) ;
 			 $class_id = (count($temp_v)>0)? $temp_v[0] : "";
 			 $order_id = (count($temp_v)>0)? $temp_v[1] : "";
-			
-				$wh =['order'=>$id];
-            $q = "select * from cmssubjects where id in (SELECT subject_id FROM `cmschapter_details` WHERE `class_id` = '$class_id' and
-                    sortorder = '$order_id' GROUP by subject_id)";
+			     
+				$wh =['order'=>$id];       
+            /*$q = "select * from cmssubjects  where id in (SELECT subject_id FROM `cmschapter_details` WHERE `class_id` = '$class_id' and
+                    sortorder = '$order_id' GROUP by subject_id) ";*/
+         
+            $q = "select a.* from cmssubjects as a join cmschapter_details as b on a.id = b.subject_id   join cmspackages_counter as c on b.subject_id = c.subject_id
+                   AND total_package > '0' and b.class_id = c.exam_id   where b.class_id = '$class_id' group by b.subject_id  "; 
                 $res = $this->db->query($q)->result();
 		        
 			if(count($res) > 0)
@@ -138,15 +143,25 @@ class Livestream extends MY_Admincontroller {
 		{	$arr = explode('/', $date );
 			$date = $arr[2].'-'.$arr[1].'-'.$arr[0];		
 		}
-	    
-	              $img_name =''; 
+		
+		   // echo "<pre>"; print_r($_FILES['filename']); die();
+	        
+	              $img_name ='';         
                     if(isset($_FILES['filename']))
                     {
                         $img_name = rand(1000,9999).$_FILES['filename']['name'];
-                         $Path1 =  "assets/host_file/".$img_name; 
+                       //  $Path1 =  "../../assets/host_file/".$img_name;      
+                         $Path1 =  $_SERVER['DOCUMENT_ROOT']."/assets/host_file/".$img_name;      
+                        if($_FILES['filename']['error'] != 0 ) 
+                         {
+                             $dataTosend = ['status'=>false, 'msg' =>'Incorrect Image','body'=>''];
+                               echo json_encode($dataTosend); die();
+                         }
                			if(!move_uploaded_file($_FILES['filename']['tmp_name'],$Path1))
         				{      
         				    $img_name ="";
+        				    $dataTosend = ['status'=>false, 'msg' =>'Something Went Wrong Please Try Again','body'=>''];
+                               echo json_encode($dataTosend); die();
         				}
                     }
                    
@@ -173,7 +188,7 @@ class Livestream extends MY_Admincontroller {
 						 }*/
 						 
 						 
-						    	$res2 = $this->mcm->save_data ('meeting_tbl',$newdata2);
+						    	$res2 = $this->mcm->save_data('meeting_tbl',$newdata2);
                     				if($res2)
                     				{  
                                           $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> ''];
@@ -202,7 +217,7 @@ class Livestream extends MY_Admincontroller {
                          $url = "https://stream.studyadda.com/bigbluebutton/api/create?allowStartStopRecording=true&attendeePW=123&autoStartRecording=false&meetingID=".$res."&moderatorPW=12345&name=".$title1."&record=true&welcome=Welcome+to+studyadda&checksum=".$checksum;
            
            
-				 // echo $url; die();            
+				        
 				                    
                            if ($this->mcm->send_url_internal_meeting_id($url,$res))
                             {
@@ -223,7 +238,7 @@ class Livestream extends MY_Admincontroller {
                                     	
 			                	
 				}else{
-					    	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create','body'=>''];
+					    	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create..','body'=>''];
 			            	echo json_encode($dataTosend);
 						}
 				

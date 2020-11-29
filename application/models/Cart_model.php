@@ -18,11 +18,8 @@ class Cart_model extends CI_Model{
         $query = $this->db->get();        
         //echo $this->db->last_query();
 	return $query->result();
-        
         }
 
-		
-	
 	function getCartPricelistId($getCartPricelistId){
         $this->db->select('DISTINCT(uc.user_id) as user_id,uc.id,uc.cart_items,uc.cart_price,ci.quantity as qty, ci.cart_id,ci.product_id,ci.quantity,ci.price,p.modules_item_name as name,p.image');
         $result=$this->db->from('cmscart AS uc');

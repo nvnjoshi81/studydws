@@ -4,8 +4,10 @@ class Welcome extends Modulecontroller {
         parent:: __construct();
         $this->load->model('Samplepapers_model');
         $this->load->model('Chapters_model');
+		
     }
     public function index($examname=null,$exam_id=0,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
+		
         $examdata=array();
         if($examname==null){
             $title=getTitle('Sample Papers',$this->data['examcategories']);
@@ -101,10 +103,12 @@ class Welcome extends Modulecontroller {
 	$this->load->view('template',$this->data);
     }
     
-    public function details($spname,$spid){
-        
-        $segments = $this->uri->total_segments();
-        
+    public function details($spname,$spid){ 
+$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}	
+        $segments = $this->uri->total_segments();        
         $section=null;
         $chapter_id=null;
         if($segments == 4){ // Vieweing From exam
@@ -208,6 +212,10 @@ class Welcome extends Modulecontroller {
     }
     
     public function androiddetails($spname,$spid){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $segments = $this->uri->total_segments();
         $section=null;
         $chapter_id=null;
@@ -419,6 +427,10 @@ class Welcome extends Modulecontroller {
     }
     
     public function question($spname,$spid,$qid) {
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
        
         if($this->input->get('proxy') && $this->input->get('proxy')=='v2016'){
             $isvalid=true;

@@ -58,6 +58,13 @@
   <li class="list-group-item"><a target="_blank" class="btn btn-success" href="https://www.studyadda.com/videos/welcome/updateVideoAttr" role="button">Video Size</a> For video size and duration</li>
   
    <li class="list-group-item"><a target="_blank" class="btn btn-danger" href="https://www.studyadda.com/exams/welcome/cron_update_orderstatus" role="button">Order Update</a> For Paytm payment check.If transection id blank cancel the order</li>
+   
+   
+   <li class="list-group-item"><a target="_blank" class="btn btn-danger" href="https://www.studyadda.com/videos/Welcome/updateplaylist_attrib/ role="button">Playlist Update</a> For playlist video duration.will count al video for playlist and save</li>
+   
+   
+   
+   
 </ul>
  
 	 </div>

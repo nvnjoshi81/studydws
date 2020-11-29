@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+ob_start();
+defined('BASEPATH') OR exit('No direct script access allowed');
 class Cart extends MY_Controller {
     public function __construct() {
         parent::__construct();
@@ -54,12 +56,15 @@ class Cart extends MY_Controller {
 	
 	
     public function confirm() { 
-		if(!$this->session->userdata('customer_id')){
-            
-        $this->session->set_userdata('redirecturl',base_url('cart/confirm'));
+	$session_customer_id = $this->session->userdata('customer_id');
+		if(isset($session_customer_id)&&$session_customer_id>0){
+		   $session_customer_id = $this->session->userdata('customer_id');	
+		}else{
+        $this->session->set_userdata('redirecturl',base_url('cart/confirm'));		
         redirect(base_url('login'));
+		$session_customer_id=0;
         }
-        $session_customer_id = $this->session->userdata('customer_id');
+        
    
         $shipping_address_id_bysession =$this->Customer_model->getAddresses($session_customer_id);
         if($this->cart->total_items() == 0) redirect('/');

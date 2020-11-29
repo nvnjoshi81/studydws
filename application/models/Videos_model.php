@@ -13,7 +13,6 @@ class Videos_model extends CI_Model {
     public function update_modules_package($id,$data,$tablename){        
         $this->db->update($tablename, $data, array('id' => $id)); 
     }
-   
     public function check_modules_package($exam_id='',$subject_id='',$module_type,$tablename,$level=''){
        $this->db->select('id,total_package,total_question,module_type'); 
         $this->db->from($tablename);      
@@ -33,8 +32,7 @@ class Videos_model extends CI_Model {
         }else{
         return array();
         }
-    }
-    
+    }    
     public function get_modules_package($exam_id=0,$subject_id=0){
         if($exam_id > 0 && $subject_id>0) {
         $this->db->select('id,exam_id,exam_name,subject_id,subject_name,total_package,total_question,custom_total_package,custom_total_question,module_type'); 
@@ -98,7 +96,7 @@ class Videos_model extends CI_Model {
     }
 
     public function getVideos($exam_id = 0, $subject_id = 0, $chapter_id = 0,$limit=0) { 
-        $this->db->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id,cmsvideolist_relations.id as v_relations_id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
+        $this->db->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id,cmsvideoslist.playlist_duration,cmsvideoslist.custom_playlist_duration,cmsvideolist_relations.id as v_relations_id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
 
         if ($exam_id > 0) {
             $this->db->where('cmsvideolist_relations.exam_id', $exam_id, 'left');
@@ -141,6 +139,26 @@ class Videos_model extends CI_Model {
         return 0;
         }
     }
+
+    public function get_teacherVideos($teacher_id) {
+		/*Get Teachers video info*/
+        $this->db->select('cmst.id as tid,v.video_by,
+v.id,v.title,v.video_source,v.video_duration,v.custom_video_duration,v.video_size,vd.videolist_id');
+        $this->db->from('cmsteachers cmst');
+        $this->db->join('cmsvideos v', 'v.video_by=cmst.teacher_id');
+        $this->db->join('cmsvideolist_details vd', 'vd.video_id=v.id');
+        $this->db->where('cmst.teacher_id', $teacher_id);
+        $this->db->where('v.video_source', 'studyadda');
+        //$this->db->where('v.video_duration>',0);
+		$query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->result();
+        }else{
+        return 0;
+        }
+    }
+	
+	
 
     public function getVideosList($id) {
     $this->db->select('v.id,v.title,v.video_source,v.video_url_code,v.video_file_name,v.video_image,v.short_video,v.is_featured,v.description,v.video_image as display_image,v.amazon_cloudfront_domain,v.video_duration,v.custom_video_duration,v.video_size,d.videolist_id,d.video_id');        
@@ -356,7 +374,6 @@ class Videos_model extends CI_Model {
         $this->db->from('cmsvideoslist');
         $this->db->where('id', $id);
         $query = $this->db->get();
-        
         if($query->num_rows()>0){ 
         return $query->row();
         }else{
@@ -383,14 +400,12 @@ class Videos_model extends CI_Model {
     public function getVideosDetails($id,$vstatus=1) {
 		
 		if($vstatus==0){
-			$vstatus=0;
+		$vstatus=0;
 		}elseif($vstatus==2){
 		//2 for display all video		
         $vstatus=2;
 		}else{
-			
 		$vstatus=1;
-
 		}
      $this->db->select('V.id,title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,
 V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
@@ -414,7 +429,7 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         }
     }
     public function getMergeVideosDetails($id) {
-        $this->db->select('v.id,v.title as question,d.videolist_id,d.video_id');
+        $this->db->select('v.id,v.title as question,v.video_duration,v.video_size,d.videolist_id,d.video_id');
         $this->db->from('cmsvideos v');
         $this->db->join('cmsvideolist_details d', 'd.video_id=v.id');
         $this->db->where('d.videolist_id', $id);
@@ -427,7 +442,45 @@ V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration
         return array();
         }
     }
-    public function getDetails_bymoduleID_file($mid) {
+	
+	  public function allplaylist() {
+        $this->db->select('id,playlist_duration,custom_playlist_duration');
+        $this->db->from('cmsvideoslist');
+        $query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->result();
+        }else{
+        return array();
+        }
+    }
+	    public function getPlaylist_atrib($playlistid,$atrib='video_duration') {
+		//get sum of size or time duration $atrib='duration'
+		if(isset($atrib)&&$atrib=='video_duration'){
+		$this->db->select_sum('v.video_duration');
+		}else if(isset($atrib)&&$atrib=='custom_video_duration')
+			{
+		$this->db->select_sum('v.custom_video_duration'); 
+			}else{
+		$this->db->select('v.id,v.title as question,v.video_duration,v.video_size,d.videolist_id,d.video_id');
+		}
+        $this->db->from('cmsvideos v');
+        $this->db->join('cmsvideolist_details d', 'd.video_id=v.id');
+        $this->db->where('d.videolist_id', $playlistid);
+        $this->db->order_by("v.id", "desc");
+        $query = $this->db->get();
+        //echo $this->db->last_query(); die;
+if($query->num_rows()>0){
+if(isset($atrib)&&($atrib=='video_duration'||$atrib=='custom_video_duration')){
+	return $query->row();
+}else{
+	return $query->result();
+}			
+}else{
+    return array();
+    }
+}
+	
+public function getDetails_bymoduleID_file($mid) {
         $this->db->select('*');
         $this->db->from('cmsvideolist_details');
         $this->db->join('cmsvideos', 'cmsvideos.id=cmsvideolist_details.video_id');

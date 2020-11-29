@@ -2,13 +2,12 @@
 class Welcome extends Modulecontroller {
     public function __construct() {
         parent:: __construct();
-        $this->load->model('Questionbank_model');
-    }
+        $this->load->model('Questionbank_model');		
+	}
     public function index($examname=null,$exam_id=0,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
         $examdata=array();
         if($examname==null){
             $title=getTitle('Question Bank',$this->data['examcategories']);
-            
             $titleStr[]=$title;
         }else{
             $titleStr[]='Question Bank for';
@@ -110,6 +109,11 @@ class Welcome extends Modulecontroller {
     
     public function details($qbname,$qbid){  
         $this->load->model('Questions_model');
+		
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         //update View Count
         $this->Pricelist_model->update_viewcount($qbid,'cmsquestionbank');
         $qbdetails=$this->Questionbank_model->detail($qbid);
@@ -159,7 +163,6 @@ class Welcome extends Modulecontroller {
 			}
         }
         
-        
 $purchases=$this->session->userdata('purchases');
 $user_spOrder=$purchases[1];
 $qbid_orderd=array();
@@ -182,35 +185,7 @@ if(count($user_spOrder)>0){
 				$qbid_orderd=array();
 			}
             $this->data['showQB_dwn']='NO';
-            if (in_array($qbid, $qbid_orderd))
-            {
-			if($this->session->userdata('customer_id')=='150339'&&$subject_idqb=='10'&&$exam_idqb=='102'){
-			  $this->data['showQB_dwn']='YES';
-			}
-                        if($this->session->userdata('customer_id')=='147503'){
-                            //For Email-dikshasharmacps@gmail.com order id- 1549603121 
-                             $this->data['showQB_dwn']='NO';
-                            if($exam_idqb=='32'||$exam_idqb=='33'||$exam_idqb=='34'||$exam_idqb=='35'||$exam_idqb=='36'||$exam_idqb=='37'||$exam_idqb=='38'){
-			  $this->data['showQB_dwn']='YES';
-                            }
-			}
-						
-           if($this->session->userdata('customer_id')=='157685'){ 
-                            //For Email-rupi_18@yahoo.com order id- 1553326560 
-                             $this->data['showQB_dwn']='NO';
-                            if($exam_idqb=='24'){
-			  $this->data['showQB_dwn']='YES';
-                            }
-			}
-    if($this->session->userdata('customer_id')=='71696'){
-		$this->data['showQB_dwn']='YES'; 
-	}
-  } 
-  
-
-            //print_r($qbid_orderd);
-        
-        
+       
         /*Display related product for Question bank End */
         $this->data['title']=$title;
         $this->data['qbdetails']=$qbdetails;
@@ -314,7 +289,7 @@ if(count($user_spOrder)>0){
 				$url_spname=$spname;
 			}
 			
-				$appurl=substr($url_spname,-6);
+			$appurl=substr($url_spname,-6);
 			if($appurl=='appapi'){
 			$this->data['content']='common/appquestiondetail';
 			$this->load->view('template_mid',$this->data);

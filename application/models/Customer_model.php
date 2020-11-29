@@ -3,16 +3,12 @@ class Customer_model extends CI_Model{
     public function __construct() {
         $this->franchisetype=$this->session->userdata('usertype');
     }
-	
-	
 	//Teacher functions
-	
 	
 	public function get_teacherlist($techerid=0)
 	{
-		
-		 $this->db->select('id,teacher_id,firstname,lastname,gender,designation,email,mob');
-            $this->db->from('cmsteachers');
+	$this->db->select('id,teacher_id,firstname,lastname,gender,designation,email,mob');
+        $this->db->from('cmsteachers');
 		if($limit_start || $limit_end){
 			$this->db->limit($limit_start, $limit_end);
 		}
@@ -24,11 +20,8 @@ class Customer_model extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 		
-	}
-		
-               // $this->db->order_by($ordercol,$order);
-		
-		
+	}	
+    // $this->db->order_by($ordercol,$order);
 	}
 	
 		//Mahesh:-Teacher functions
@@ -41,10 +34,7 @@ class Customer_model extends CI_Model{
 			$this->db->where('teacher_id',$techerid);
 		$query = $this->db->get();
 		return $query->result();
-		
 	}
-	
-	
 	
 		public function edit_teacher($data,$id)
 	{
@@ -57,9 +47,6 @@ class Customer_model extends CI_Model{
         $this->db->insert('cmsteachers',$data);
         return $this->db->insert_id();
     }
-	
-	
-	
 	
 	function getCustomers($limit_start=null, $limit_end=null,$ordercol='id',$order='desc')
 	{
@@ -114,18 +101,17 @@ class Customer_model extends CI_Model{
 		$query = $this->db->get();
 		return $query->row();
         }
-        
-        public function editCustomerLegacy($data,$id){
+		
+    public function editCustomerLegacy($data,$id){
 		$this->db->where('id',$id);
 		$this->db->update('cmscustomers_legacy',$data);     
 		return;        
     }
-    
      public function addCustomerLegacy($data){
         $this->db->insert('cmscustomers_legacy',$data);
         return $this->db->insert_id();
     }
-        public function getCustomerDetails_byparam($customer_id,$customer_email,$customer_mobile=NULL){
+    public function getCustomerDetails_byparam($customer_id,$customer_email,$customer_mobile=NULL){
             $this->db->select('id,firstname,lastname,email,dob,mobile_legacy_no,mobile,password,status,is_social,fbid,twitterid,googleplusid,wallet_balance,alt_contact_no,is_app_registered,verification_code,otp,mobile_verified,otp_expiry,targate_exam,schoolid,usertype,user_key,device_id,order_success,last_login,last_activity,Guest,image,subject_id,city_id,legacy_id,created_dt,created_by,user_login_token,modified_dt,modified_by');
             $this->db->from('cmscustomers');
             if($customer_id>0){

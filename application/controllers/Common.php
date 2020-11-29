@@ -1,7 +1,9 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
+ob_start();
+defined('BASEPATH') OR exit('No direct script access allowed');
 class Common extends Modulecontroller {
     public function __construct() {
-        parent::__construct();
+    parent::__construct();
     }
     public function FranchiseUser_login() {  
         $bypass_login_id = $this->input->post('bypass_login_id');
@@ -157,22 +159,42 @@ if(!search_array($item->product_id, $this->cart->contents())){
         $this->load->view('template',$this->data);
     }
     public function about(){
+		$cache_minutes=$this->config->item('cache_minutes');
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='about';
         $this->load->view('template',$this->data);
     }
      public function payment_terms(){
+		 $cache_minutes=$this->config->item('cache_minutes');
+		 if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='payment_terms';
         $this->load->view('template',$this->data);
     }
     public function sitemap(){
+		$cache_minutes=$this->config->item('cache_minutes');
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='sitemap';
         $this->load->view('template',$this->data);
     }
     public function jobs(){
+		$cache_minutes=$this->config->item('cache_minutes');
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='jobs';
         $this->load->view('template',$this->data);
     }
       public function jobs_info(){ 
+	  $cache_minutes=$this->config->item('cache_minutes');
+	  if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->load->model('Contact_model');
         $email ='studyadda@gmail.com';
         $firstname = $this->input->post('guestname');
@@ -298,23 +320,43 @@ if($f_formtotal!=$fc_total){
     }
     
      public function whystudyadda(){
+		 $cache_minutes=$this->config->item('cache_minutes');
+		 if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='whystudyadda';
         $this->load->view('template',$this->data);
     }    
       public function test(){
-        $this->data['content']='test';
+		  $cache_minutes=$this->config->item('cache_minutes');
+        if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
+		$this->data['content']='test';
         $this->load->view('template',$this->data);
     }
       public function contact(){
-        $this->data['content']='contact';
+		  $cache_minutes=$this->config->item('cache_minutes');
+        if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
+		$this->data['content']='contact';
         $this->load->view('template',$this->data);
     }
       public function privacy(){
+		  $cache_minutes=$this->config->item('cache_minutes');
+		  if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='privacy';
         $this->load->view('template_mid',$this->data);
     }
 	
       public function refund(){
+		  $cache_minutes=$this->config->item('cache_minutes');
+		  if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='refund';
         $this->load->view('template',$this->data);
     }
@@ -324,10 +366,15 @@ if($f_formtotal!=$fc_total){
         $this->load->view('template',$this->data);
     }
      public function lalitsardana(){
+		 $cache_minutes=$this->config->item('cache_minutes');
+		 if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='lalitsardana';
         $this->load->view('template',$this->data);
     }
     public function allproduct($franchise_name=NULL,$franchise_id=0){
+		
 		$this->load->model('Admin_model');
         $this->data['content']='allproduct';
         //$vd_productslist = $this->Pricelist_model->getAllProducts(0, 0, 0, 2,0,'');
@@ -383,6 +430,10 @@ if($f_formtotal!=$fc_total){
         $this->load->view('template',$this->data);
     }
     public function cities($state_id){
+		$cache_minutes=$this->config->item('cache_minutes');
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->load->model('States_model');
         $cities=$this->States_model->cities($state_id);
         $html='';
@@ -392,12 +443,21 @@ if($f_formtotal!=$fc_total){
         }
         echo  $html;
     }
-     public function  download($file_key){
-?><p style='color:red'>Studypackages Are Available At Android App Only!</p><?php die();
+     public function  download($file_key){	
+?><?php 
+if($this->session->userdata('customer_id')&&$this->session->userdata('customer_id')=='71696'){
+
+
+}else{
+	?><p style='color:red'>Studypackages Are Available At Android App Only!</p><?php
+	die();
+}
 
         $this->load->model('File_model');
          $file_key =  decrypt($file_key);
-         $var_file = explode('.',$file_key); 
+         $var_file = explode('.',$file_key);
+
+		 
          if(array_key_exists(1,$var_file)&&$var_file[1]==$this->session->userdata('customer_id')){
          $file_detail = $this->File_model->detail($var_file[0]); 
          $this->load->helper('download'); 
@@ -405,6 +465,7 @@ if($f_formtotal!=$fc_total){
          if(isset($file_detail->filepath_one)&&$file_detail->filepath_one!=''){
          $existingPath=$file_detail->filename_one;
          }
+	
          if (isset($existingPath)&&file_exists($this->input->server('DOCUMENT_ROOT') . $existingPath.$file_detail->filename_one)) {
          $yExist='found';
          }else if (file_exists($this->input->server('DOCUMENT_ROOT') . '/upload/pdfs/'.$file_detail->filename_one)) { 
@@ -414,8 +475,9 @@ if($f_formtotal!=$fc_total){
          $yExist='notfound';
          $existingPath='notfound';
          }
-         
-         if (($yExist=='found')&&file_exists($this->input->server('DOCUMENT_ROOT') .$existingPath.$file_detail->filename_one)&&$file_detail->filename_one!='') {         
+         if (($yExist=='found')&&file_exists($this->input->server('DOCUMENT_ROOT') .$existingPath.$file_detail->filename_one)&&$file_detail->filename_one!='') {
+?><a href="<?php echo $existingPath.$file_detail->filename_one; ?>">download</a><?php die;
+			 
          force_download($this->input->server('DOCUMENT_ROOT') . $existingPath.$file_detail->filename_one, NULL);
          }else{
            echo "File not Found!";  
@@ -447,26 +509,37 @@ if($f_formtotal!=$fc_total){
      
      /*Download Online test Question , Answer and Solution PDF File*/
       public function  duplidownload_olsolution($file_key){}
+	  
+	  
+	  
       public function  download_olsolution($file_key){
          $file_key =  decrypt($file_key);
          $var_file = explode('c-h-e-c-k',$file_key); 
          if(array_key_exists(1,$var_file)&&$var_file[1]==$this->session->userdata('customer_id')){
             
-        $existingPath='/upload_files/';
+        $existingPath='/upload/pdfs/';
         $file_detail = $var_file[0];
-        if(isset($existingPath)&&file_exists($this->input->server('DOCUMENT_ROOT') . $existingPath.$file_detail)) {
+		
+		if(isset($file_detail)&&$file_detail!=''){
+		if(file_exists($this->input->server('DOCUMENT_ROOT') . $existingPath.$file_detail)) {
          $yExist='found';
          }else if (file_exists($this->input->server('DOCUMENT_ROOT') . '/upload/pdfs/'.$file_detail)) { 
          $yExist='found';
          $existingPath='/upload/pdfs/';
-         }else{
+         }
+		 
+		}else{
          $yExist='notfound';
          $existingPath='notfound';
          }   
+		 
          $this->load->helper('download'); 
          //echo $yExist.$existingPath.$file_detail;
          if (($yExist=='found')&&file_exists(FCPATH. $existingPath.$file_detail)&&($file_detail!='')) {         
          force_download($this->input->server('DOCUMENT_ROOT') . $existingPath.$file_detail, NULL);
+		 
+		// echo $yExist.$file_detail.'[E]';
+		 
          }else{
            echo "File not Found!";  
          }
@@ -485,6 +558,10 @@ if($f_formtotal!=$fc_total){
     }
     
     public function faq(){
+		$cache_minutes=$this->config->item('cache_minutes');
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='faq';
         $this->load->view('template',$this->data);
     }
@@ -496,6 +573,10 @@ if($f_formtotal!=$fc_total){
 	
     
     public function franchise(){
+		$cache_minutes=$this->config->item('cache_minutes');
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->data['content']='franchise';
         $this->load->view('template',$this->data);
     }
@@ -838,14 +919,7 @@ break;
 }
 	}
 }
-
-
 $di++;
 }
-
-	
-	
-    
-
 }
 

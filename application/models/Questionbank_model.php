@@ -157,6 +157,16 @@ public function getSubSubject_indi($exam_id = null, $subexam_id=null, $subject_i
        $query = $this->db->get();
        return $query->result();
 	}
+	
+	  public function getSubSubject_withchapter($examid,$subExamId) {   
+	   $this->db->select('cmschapter_details.id as cdi,cmschapter_details.class_id,cmschapter_details.subject_id,cmschapter_details.chapter_id,cmssubjects.name as subjectname,cmssubjects.id as sid');
+       $this->db->from('cmschapter_details');
+	     $this->db->join('cmssubjects', 'cmssubjects.id=cmschapter_details.subject_id', 'left');
+       //$this->db->where('subject_id', $subExamId);
+       $this->db->where('cmschapter_details.class_id', $subExamId);
+       $query = $this->db->get();
+       return $query->result();
+	}
     public function getDetails_bymoduleID_file($mid) {
         $this->db->select('*');
         $this->db->from('cmsquestionbank_details');

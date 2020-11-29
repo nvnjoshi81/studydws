@@ -148,11 +148,7 @@ input:focus, select:focus {
 			
 			<?php
 		}
-		?>
-		
-		
-					
-								
+		?>				
 							</select>
 							</div>
 						</div>
@@ -220,17 +216,10 @@ else {
 						</thead>
 						
 						<tbody>
-						
-						
-						<?php 
-							
-				//print_r($teacher);
-				
-				foreach ($teacher as $row) { 
-				//echo $row->firstname;
-				?>
-					
-						<tr>
+			<?php 
+			foreach ($teacher as $row) { 
+			?>
+			<tr>
 							<td><?php echo $row->teacher_id; ?></td>
 							<td><?php echo $row->firstname; ?></td>
 							<td><?php echo $row->lastname; ?></td>
@@ -240,24 +229,29 @@ else {
 							<td><?php echo $row->mob; ?></td>
 							<td class="text-center">
 								<a class="btn btn-primary" href="<?php echo base_url(); ?>admin/customers/teacher_list/<?php echo $row->id; ?>">Edit</a>
+								<?php if(isset($totalVid[$row->teacher_id])&&$totalVid[$row->teacher_id]>1){ ?>
+								<span>Total Video Duration- <b>
+								<?php
+$totalDuration_minit=floor($totalVidDuration[$row->teacher_id]);
+$hours = intdiv($totalDuration_minit, 60).':'. ($totalDuration_minit % 60);
+								echo $hours;  ?><b><br>[Total- min - <?php echo $totalDuration_minit; ?>]</span><br>
+								<span>Total Video- <b><?php echo $totalVid[$row->teacher_id];  ?><b></span>
+								<?php 
+								}else{
+								echo '<span>&nbsp;&nbsp;Entry Not Found!<br></span>';
+								} ?>
 							</td>
 						</tr>
 				<?php
-				}
-								
+				}			
 				?>
-				
-						</tbody>
+				</tbody>
 					</table>
 					</div>
 					</div>
 				</div>
-                
 				<hr>
-             
             </div>
             <!-- /.row -->
-            
         <!-- /#page-wrapper -->
-
     </div>

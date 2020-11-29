@@ -1,7 +1,7 @@
 <div id="wrapper">
     <div class="container">
         <div class="row">
-            <?php //$this->load->view('common/breadcrumb'); ?>
+            <?php $this->load->view('common/breadcrumb'); ?>
            <!-- <div class="col-md-3 col-sm-3">
                 <?php //$this->load->view('common/leftnav'); ?>
             </div>-->
@@ -99,6 +99,7 @@
                          </div>
                         
        <?php 
+	   
            if(isset($notes)&&count($notes)>0 ){ ?>            
 
 <div class="col-md-12">

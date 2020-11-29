@@ -177,7 +177,13 @@
     </tbody>
   </table>
     </div>
-    <a target="_blank" href="<?php echo base_url('Welcome/a/'.$order->user_id); ?>">View User's Order</a>
+    <a target="_blank" href="<?php echo base_url('Welcome/a/'.$order->user_id); ?>">View User's Order</a>		
+	<?php
+	$orderid = $order->id;
+	$customerid = $order->user_id;
+	?>
+	
+	<a target="_blank" href="<?php echo base_url(); ?>admin/orders/add_product/<?php echo $orderid.'/'.$customerid; ?>" class="pull-right btn btn-primary alert-info">Add Product</a>
 </div>
 <?php 
 

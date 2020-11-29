@@ -111,7 +111,11 @@
                         } ?>
                         <p class="product-description">
                             <?php echo $isProduct->description; ?> 
-                        </p><span class="text-danger"><b>Note:<em color="red">Discount is available till 08 July 2020 only!Course amount Non-Refundable!</em></b></span>
+                        </p><span class="text-danger"><b>Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
+# Course runs only on Android app.<br>
+# Course validity is 31st March 2023.<br>
+# All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.
+<br>#Course amount Non-Refundable!</em></b></span>
                         
                 </div>
             </div>

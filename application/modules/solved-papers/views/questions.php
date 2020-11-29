@@ -80,7 +80,10 @@ if(isset($spdetails->language)&&$spdetails->language=='hindi') {
         </div>
         <div class="col-md-3 col-sm-12">
         <div class="clearfix"></div>
-        <?php if(isset($linktostudypackage)){ ?>
+        <?php 
+		$linktostudypackage=base_url('purchase-courses');
+		
+		if(isset($linktostudypackage)){ ?>
         <div class="panel panel-primary rht_status_mat">
         <div class="panel-heading">
         <h4>Study Package</h4>
@@ -104,9 +107,9 @@ if(isset($spdetails->language)&&$spdetails->language=='hindi') {
                   <h5 class="vid_prod_hed"><?php echo $file->displayname?$file->displayname:$file->filename; ?></h5>
                      <h5 class="price-text-color">&nbsp; 
                          <?php if($isProduct->discounted_price > 0){ ?>
-      <i class="fa fa-inr"> </i> <del class="del_txt"> <?php echo $isProduct->price?></del> <?php echo $isProduct->discounted_price;
+      <?php //echo $isProduct->price?> <?php //echo $isProduct->discounted_price;
     }else{
-        echo $isProduct->price;
+        //echo $isProduct->price;
     }
     ?> </h5>
                 </div>

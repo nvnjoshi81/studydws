@@ -75,16 +75,15 @@ $(document).ready(function() {
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-            <div class="col-sm-12">
-            <a href="#" class="btn btn-success pull-right new-acc">New Categories</a>
+			
           <div class="row">
-         <div class="col-xs-5">
+         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
             <div class="input-group">
                  <form class="filter-form" method="post" action="<?php echo base_url(); ?>admin/categories/filter"  >
           <select name="cid" id="cid"class="form-control" >
                 <option value=0>All</option>
-                <?php foreach($allcategories as $cl) { ?>
+                <?php foreach($allcategories as $cl) { 
+				?>
   <option value="<?php echo $cl["id"] ?>"><?php echo $cl["name"]; ?></option>
 <?php } ?>
                 </select>
@@ -93,7 +92,7 @@ $(document).ready(function() {
                 </span></form>
             </div>
         </div>
-         <div class="col-xs-5">
+         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
             <div class="input-group">
                  <form class="filter-form" method="post" action="<?php echo base_url(); ?>admin/categories/search_filter"  >
                      <input type="text" name="catename" id="catename" class="form-control" >
@@ -102,21 +101,24 @@ $(document).ready(function() {
                 </span></form>
             </div>
         </div>
+		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+		<a href="#" class="btn btn-success new-acc">New Categories</a>
+		</div>
         </div>
 
-</div>
 
-<div class="col-lg-12 clr-bth">
-<!--form add new categories-->
-<?php 
-  //print_r($result); ?>
-
-<form class="new-cat-form"  id="add_category_form" method="post" action="<?php echo base_url(); ?>admin/categories/add_categories">
+<div class="row">
+<form class=""  id="add_category_form" method="post" action="<?php echo base_url(); ?>admin/categories/add_categories">
      <?php if(isset($result[0]->id)) { if($result[0]->id!=NULL){ ?>      
-    <h2>Edit Category</h2>
+    
      <?php } } else{ ?>
     <h2>New Category</h2>
      <?php }   ?>
+<h2>Edit Category</h2>
+<!--form add new categories-->
+<?php 
+  //print_r($result); ?>
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="form-group">
         <label>Category Name</label>
         <input type="text" class="form-control" id="name" name="name" value="<?php if(isset($result[0]->name)) { echo $result[0]->name; } ?>">
@@ -134,10 +136,16 @@ foreach($allcategories as $cl) { ?>
   <option value="<?php echo $cl["id"] ?>"><?php echo $cl["name"]; ?></option>
 <?php } ?>
 </select>
-    <div class="form-group">
+	</div>
+	
+	<div class="form-group">
         <label>Meta Description</label>
         <textarea rows="5" class="form-control" name="description"><?php if(isset($result[0]->description)) { echo $result[0]->description; } ?></textarea>
     </div>
+	
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
        <div class="form-group">
         <label>Meta Keywords</label>
         <textarea rows="5" class="form-control" name="keywords"><?php if(isset($result[0]->description)) { echo $result[0]->keywords; } ?></textarea>
@@ -146,21 +154,30 @@ foreach($allcategories as $cl) { ?>
         <label>Tag Line</label>
         <textarea rows="5" class="form-control" name="tagline"><?php if(isset($result[0]->description)) { echo $result[0]->tagline; } ?></textarea>
     </div>
-        </div>
+        
        <div class="form-group">
         <label>Link to Page</label>
         <input type="text" name="link" value="<?php if(isset($result[0]->link)) { echo $result[0]->link; } ?>">
     </div>
-     <input type="hidden" name="update" id="update" value="<?php if(isset($result[0]->id)) { echo $result[0]->id; } ?>">  
+</div>
+     <input type="hidden" class="form-control" name="update" id="update" value="<?php if(isset($result[0]->id)) { echo $result[0]->id; } ?>">  
      <?php if(isset($result[0]->id)) {if($result[0]->id!=NULL){ ?>
      <button type="submit" class="btn btn-primary">Edit Category</button>
      <?php } } else  { ?>
     <button type="submit" class="btn btn-primary">New Category</button>
      <?php }  ?>
 </form>
-                </div>
-          
-                <div class="col-lg-12">
+</div>				
+<!-- /.row -->
+
+	<!-- display sub category -->
+	<div class="row">
+	</div>
+	<!-- // display sub category -->
+
+<!-- extra -->
+<div class="row">
+	<div class="col-lg-12">
             
                     <div class="panel panel-default">
                         
@@ -175,9 +192,10 @@ foreach($allcategories as $cl) { ?>
                                             <th>Order</th>
                                             <th>Parent</th>
                                             <th>Action</th>
+											<th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    
                 <?php $i=1;
                 
                 if(isset($tocategories)) {
@@ -191,9 +209,10 @@ foreach($allcategories as $cl) { ?>
 			}else{
 				$parent_category='Parent';
 			}
-                        
-                        ?>  
-                                        
+						
+						
+						?>  
+                                 <tbody>       
                                 <tr class="odd gradeX">
                                     <td><?php echo $i.''; ?></td>
                                     <td><?php echo ''.$category->id.''; ?></td>
@@ -209,6 +228,9 @@ foreach($allcategories as $cl) { ?>
                                         <div style="display:none;" id="name-<?php echo $category->id;?>"><?php echo $category->name;?></div>
 		                        <div style="display:none;" id="desc-<?php echo $category->id;?>"><?php echo $category->description;?></div>
                                     </td>
+									<td class="text-center">
+									<a href="<?php echo base_url(); ?>admin/categories/sub_categories/<?php echo $category->id; ?>" class="alert-warning">Add Sub-Category</a>
+									</td>
                                 </tr>
                 <?php  $i++; }  } ?>                           
                                         
@@ -231,9 +253,6 @@ foreach($allcategories as $cl) { ?>
                 </div>
                 <!-- /.col-lg-6 -->
             </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
+	</div>
+</div>
+<!-- /#page-wrapper -->

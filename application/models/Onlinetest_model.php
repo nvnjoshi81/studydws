@@ -77,12 +77,55 @@ if($not_module_id>0){
         $this->db->order_by('A.id', 'desc');
         $query = $this->db->get();
         return $query->result();
+    }	
+	
+	function getoTestUser($otestid,$sortord_name,$sortord_type,$limit_start = null, $limit_end = null) {
+        if ($limit_start || $limit_end) {
+        $this->db->limit($limit_start, $limit_end);
+        }
+        $this->db->select('A.*,B.firstname,B.email,B.lastname,B.mobile,B.guest,C.name as testname,C.instructions,C.time');
+        $this->db->from('cmsusertest A');
+        $this->db->join('cmscustomers B', 'A.user_id=B.id');
+        $this->db->join('cmsonlinetest C', 'A.test_id=C.id');
+		$this->db->where('C.id', $otestid);
+		if($sortord_type=='marks'){
+	    $this->db->order_by('A.obtain_marks', $sortord_name);
+		}else if($sortord_type=='name'){
+		$this->db->order_by('B.firstname', $sortord_name);
+		}else{
+		$this->db->order_by('A.id', $sortord_name);
+		}
+        $query = $this->db->get();
+        return $query->result();
     }
+	
+	function olExamUsers($postData){
+		
+    $response = array();
+  
+    $this->db->select('id,name');
+
+    if($postData['search'] ){
+ 
+      // Select record
+      $this->db->where("name like '%".$postData['search']."%' ");
+      
+      $records = $this->db->get('cmsonlinetest')->result();
+
+      foreach($records as $row ){
+        $response[] = array("value"=>$row->id,"label"=>$row->name);
+      }
+ 
+    }
+    
+    return $response;
+  }
+	
+	
 	
     public function getQuestionCount($exam_id = null, $subject_id = null, $chapter_id = null) {
         $this->db->select('cmsonlinetest_details.id');
         $this->db->from('cmsonlinetest_relations');
-
         $this->db->join('cmsonlinetest_details', 'cmsonlinetest_details.onlinetest_id=cmsonlinetest_relations.onlinetest_id');
 
         if ($exam_id > 0) {
@@ -371,18 +414,15 @@ public function OnlineTests_byCategory($exam_id = null, $subject_id = null, $cha
     public function get_testinfo_by_customer($customer_id) {
         $this->db->select('A.id,A.status,A.dt_created,A.start_time,A.end_time,B.name');
         $this->db->from('cmsusertest A');
-        $this->db->join('cmsonlinetest B', 'B.id=A.test_id');
+        $this->db->join('cmsonlinetest B', 'B.id=A.test_id');		
+        $this->db->limit(500,1);
         $this->db->where('A.user_id', $customer_id);
         $this->db->order_by("A.id", "desc");
         $query = $this->db->get();
         //echo $this->db->last_query(); 
         return $query->result();
     }
-
-
-
 public function userpurchases($productid,$customer_id,$orderstatus=1){
-	
         $this->db->select('cmsorders.id as mainid');
 		$this->db->from('cmsorders');
         $this->db->join('cmsorder_details', 'cmsorders.id=cmsorder_details.order_id');
@@ -406,9 +446,9 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
     }
 	
     public function get_qusformula($usertestid,$question_id) {
-		
-		   $this->db->select('A.qus_formula_id,A.question_id,B.online_exam_formula_id,B.online_exam_formula_name,B.right_answer_marks,B.wrong_answer_marks');
-        $this->db->from('cmsonlinetest_details A');
+	$this->db->select('A.qus_formula_id,A.question_id,B.online_exam_formula_id,B.online_exam_formula_name,B.right_answer_marks,B.wrong_answer_marks');
+    
+    $this->db->from('cmsonlinetest_details A');
         $this->db->join('cmsonlinetest_formula B','B.online_exam_formula_id=A.qus_formula_id');
         $this->db->where('A.onlinetest_id', $usertestid);
 		$this->db->where('A.question_id', $question_id);
@@ -417,6 +457,7 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
         return $query->row();
 	
 	}
+	
     public function get_testdetail_byid($id,$question_id=0) {
         $this->db->select('D.*,Q.id as qid,Q.question,Q.description,Q.type,Q.type_extra,Q.section,Q.section_name,Q.instructions_id,Q.calculator,ut.test_id as usertestid');
         $this->db->from('cmsusertest_detail D');

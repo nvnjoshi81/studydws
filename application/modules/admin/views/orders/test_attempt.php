@@ -1,18 +1,31 @@
  <div id="page-wrapper">
-            <div class="row">
+               <div class="row">
                 <div class="col-lg-6">
-                    <h1 class="page-header">Orders (<?php echo $total?>)</h1>
+                    <h1 class="page-header">OnlineTest Info
+<?php
+if(isset($testinfo[0]->testname)&&$testinfo[0]->testname!=''){
+?>
+for 
+<?php echo $testinfo[0]->testname; 
+} ?></h1>
                 </div>
-                
+                    <div class="col-lg-6">
+					<div class="col-lg-6"><h1 class="page-header">Enter Test Name :</h1>
+					 <input type="text" id="autouser"> 
+					 </div>
+					 <div class="col-lg-6">
+                    <h1 class="page-header">Search By test id:</h1>
+		
+					<form enctype="multipart/form-data" id="search_onlinetest" name="search_onlinetest" method="post" action="<?php echo base_url('/admin/orders/test_seriesinfo')?>">    <input type="text" value="0" name="otid" id="otid" ><div></br><input type="submit" value="Submit"></div></form>
+					 </div>
+                </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-               <div class="col-lg-12">
-                    
+               <div class="col-lg-12">                    
                     <div class="panel">
-                        
-                        <!-- /.panel-heading -->
+					<!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -35,7 +48,6 @@
 $i = 1;
 if (isset($testinfo)) {
 	foreach ($testinfo as $order) { 
-         
 //if(($order->status==1)||($order->status==3)){
 // print_r($orders_status_array);
 	?><tr class="odd gradeX">

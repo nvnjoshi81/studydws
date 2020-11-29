@@ -14,11 +14,12 @@ class Welcome extends Modulecontroller {
             }
         }
         $this->load->helper('text');
+		
     }
 
     public function index($examname = null, $exam_id = 0, $subjectname = null, $subject_id = 0, $chapter_name = null, $chapter_id = 0) { 
 	
-    $s = $this->Pricelist_model->getsubject_product(2, 28, 2, 32); 
+  //$s = $this->Pricelist_model->getsubject_product(2, 28, 2, 32); 
 	   $scripts = array(base_url() . 'assets/frontend/js/jquery.shorten.min.js', base_url() . 'assets/frontend/js/slider.js');
         $this->data['scripts'] = $scripts;
         $examdata = array();
@@ -51,7 +52,6 @@ class Welcome extends Modulecontroller {
             $chapters_array = array();
             if (count($chaptersubjects) > 0) {
                 foreach ($chaptersubjects as $record) {
-
                     if (!in_array($record->sname, $subjects_array)) {
                         $subjects_array[$record->sid] = array('name' => $record->sname);
                     }
@@ -94,6 +94,14 @@ class Welcome extends Modulecontroller {
 
         $videos = $this->Videos_model->getVideosCount($exam_id, $subject_id, $chapter_id);
         $videos_inform = $this->Videos_model->getVideosduration($exam_id, $subject_id, $chapter_id);
+		/*Get playlist duration for class wise*/
+$playlistDuration=0;
+foreach($videos_inform as $palykey=>$palyval){
+$video_duration=$palyval->video_duration;
+$playlistDuration= $playlistDuration+$video_duration;	
+}
+	/* End Get playlist duration for class wise*/
+		
         $isProduct = $this->Pricelist_model->getProduct($exam_id, $subject_id, $chapter_id, 2);
         $product_id=0;
         if($isProduct){
@@ -114,6 +122,7 @@ class Welcome extends Modulecontroller {
 		$this->data['title'] = implode(' ', $titleStr);
         $this->data['h1title'] = implode(' ', $titleStr);
         $this->data['videos_inform'] =$videos_inform ;
+		$this->data['playlistDuration'] =$playlistDuration;
         $this->data['videos'] = $videos;
         $this->data['freevideos']=$freeVideos;
         $this->data['playlist'] = $playlist;
@@ -639,6 +648,61 @@ $this->load->helper('text');
         echo json_encode($chapters_array);
     }
 	
+		public function updateplaylist_attrib($playlist=0){
+		$callplaylist_array=$this->Videos_model->allplaylist();
+		if(isset($callplaylist_array)&&count($callplaylist_array)>0){
+		foreach($callplaylist_array as $allplaykey=>$allplayval){
+			$playlistid=$allplayval->id;
+			if(isset($allplayval->custom_playlist_duration)&&$allplayval->custom_playlist_duration>0){
+			$custom_videoduration=$allplayval->custom_playlist_duration;
+			}else{
+				$custom_videoduration=0;
+			}
+					if(isset($allplayval->playlist_duration)&&$allplayval->playlist_duration>0){
+			$videoduration=$allplayval->playlist_duration;
+					}else{
+			$videoduration=0;
+					}
+		//Get Playlist Id-
+		$playlist=$playlistid;
+		$video_duration_count='';
+		$video_size_count='';
+	if($playlist>0){
+	//get sum of size $atrib='custom_video_duration' or time duration $atrib='video_duration'
+
+	$custom_video_duration_array=$this->Videos_model->getPlaylist_atrib($playlist,$atrib='custom_video_duration');
+
+	if(isset($custom_video_duration_array)&&count($custom_video_duration_array)>0){
+		
+	$custom_video_duration=$custom_video_duration_array->custom_video_duration;
+	$update_playlist_cust=array(
+	'custom_playlist_duration'=>$custom_video_duration,
+	'dt_modified'=>time()
+	);
+	$this->Videos_model->update_modules_package($playlist,$update_playlist_cust,'cmsvideoslist');
+    echo "<br>Playlistid-".$playlist." Custom Duration Updated Successfully!<br>";
+	}
+	//video_duration Array
+	$video_duration_array=$this->Videos_model->getPlaylist_atrib($playlist,$atrib='video_duration');
+	if(isset($video_duration_array)&&count($video_duration_array)>0){
+	$video_duration=$video_duration_array->video_duration;
+	$update_playlist=array(
+	'playlist_duration'=>$video_duration,
+	'dt_modified'=>time()
+	);
+	$this->Videos_model->update_modules_package($playlist,$update_playlist,'cmsvideoslist');
+	echo "<br>Playlistid-".$playlist." Duration Updated Successfully!<br>";
+	}else{
+	$video_duration=0;
+	}	
+	//$size_array=$this->Videos_model->getPlaylist_atrib($playlist,$atrib='size');
+
+	}else{
+	echo "No Playlist Found!";
+	}
+		}
+	}
+	}	
 	 public function updateVideoAttr() {
 		/*videos/welcome/updateVideoAttr*/ 
         $allVideo = $this->Videos_model->getAllVideos();

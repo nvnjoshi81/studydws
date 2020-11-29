@@ -163,12 +163,27 @@ class Categories_model extends CI_Model
         
     }
     public function add_categories($data)
-    {
-        
+    {        
         $this->db->insert('categories', $data);
-        return;
-        
+        return;        
     }
+	
+	public function get_sub_cat($id) {
+		$parentId;
+		$this->db->select('id,name,order,parent_id');
+		$this->db->from('categories');
+		$this->db->where('parent_id',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	public function get_sub_cat1($id) {
+		$this->db->select('id,name,order,parent_id,description,keywords,tagline,link');$this->db->from('categories');
+		$this->db->where('id',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
     public function update_categories($data, $id)
     {
         $this->db->where('id', $id);

@@ -541,6 +541,42 @@ function getsearchOrders_byid($order_id,$orderstatus='') {
         //echo $this->db->last_query();
         return $query->num_rows();
     }
+	
+		// code by mahesh 
+	public function get_product() {
+		$this->db->select('id,modules_item_name,price,discounted_price');
+		$this->db->from('cmspricelist');
+		$this->db->where('cmspricelist.item_id',0); 
+		$this->db->where('cmspricelist.price>', 0);
+		$this->db->where('exam_id >', 0);
+		$type_array = array('2','3');
+		$this->db->where_in('cmspricelist.type', $type_array);
+		$this->db->where('subject_id', 0);
+		$this->db->order_by('modules_item_name','ASC');
+		//$this->db->limit(100);
+		$query=$this->db->get();
+		return $query->result();
+	}
+	
+	public function get_product_detail($product_id) {
+		$this->db->select('id,modules_item_name,type,price,discounted_price');
+		$this->db->from('cmspricelist');
+		$this->db->where('id',$product_id);
+		$query=$this->db->get();
+		return $query->result();
+	}
+	
+	
+	public function add_product($new_product) {
+		$this->db->insert('cmsorder_details',$new_product);
+	}
+	
+	public function update_pro_qty($orderId) {
+		$this->db->where('id', $orderId);
+		$this->db->set('order_items', 'order_items+1', FALSE);
+		$this->db->update('cmsorders');
+	}
+	
 
 }
 

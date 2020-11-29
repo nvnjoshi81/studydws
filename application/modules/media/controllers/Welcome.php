@@ -8,7 +8,10 @@ class Welcome extends MY_Controller {
         $articlecategories=$this->Categories_model->getCategoryTree(13);
         $this->data['articlecategories']=$articlecategories;
         $this->load->library('pagination');
-        //$archives=$this->Categories_model->getArticlesArchives();
+        $cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}//$archives=$this->Categories_model->getArticlesArchives();
         //$this->data['archives']=$archives;
         //$featured=$this->Posting_model->getFeaturedPostings(12);
         //$this->data['featured']=$featured;

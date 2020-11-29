@@ -1,5 +1,4 @@
 	<style>
-body{width:610;}
 .demo-table {width: 100%;border-spacing: initial;margin: 20px 0px;word-break: break-word;table-layout: auto;line-height:1.8em;color:#333;}
 .demo-table th {background: #81CBFD;padding: 5px;text-align: left;color:#FFF;}
 .demo-table td {border-bottom: #f0f0f0 1px solid;background-color: #ffffff;padding: 5px;}
@@ -106,31 +105,31 @@ echo gmdate("i:s", $video->video_duration); echo " Hours";
 				
 			}else if($init<121){	
 			
-if($init<60){ 
-				echo "$init Minutes";	
-				}else{
-				
-echo gmdate("i:s", $video->video_duration); echo " Minutes";		
-				}			
-				
-			}
+    if($init<60){ 
+	echo "$init Minutes";	
+	}else{	
+    echo gmdate("i:s", $video->video_duration); 
+	echo " Minutes";		
+	}			
+	}
 			//echo  gmdate("H:i:s", $video->custom_video_duration); ?></font>
 			<?php
 			}
-			if(isset($video->video_size)&&$video->video_size!=''){
+			if(isset($video->video_size)&&$video->video_size!='NAN'){
 			?>
-			<font style="font-family:'Courier New'"> | <i title="Video Size" class="glyphicon glyphicon-scale"></i> <?php echo $video->video_size; ?></font><?php 
+			<font style="font-family:'Courier New'"> | <i title="Video Size" class="glyphicon glyphicon-scale"></i> <?php 
+			echo $video->video_size; ?></font><?php 
 			}
-?></h5>
+?>
+</h5>
    </div>
 </div>
 <?php
 }else if($resourceKey!=''&&$streamHostUrl!=''){
 	//echo $yourbrowser.'=--------'; die;
-	if($yourbrowser !='Mozilla Firefox'){
-			echo "<div class='alert alert-warning'>
-  <strong>Warning!</strong> Video Could not be played.<p> Please Use Mozilla Firefox . 
-Your browser does not support the video tag.";
+  if($yourbrowser !='Mozilla Firefox'){
+  echo "<div class='alert alert-warning'>
+  <strong>Warning!</strong> Video Could not be played.<p> Please Use Mozilla Firefox .Your browser does not support the video tag.";
 
 if($androidapp_link==''){
 			echo "Error Code - DB_ENT_NOT_EX";

@@ -1,9 +1,10 @@
 <?php
+ob_start();
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 //defined('BASEPATH') OR exit('No direct script access allowed');
 class Welcome extends MY_Controller {
     public function __construct() { 
-        parent:: __construct(); 
+        parent:: __construct();  
         $this->load->model('Recommendations_model');
         $this->load->model('Customer_model');
         $this->load->model('Orders_model');
@@ -32,15 +33,22 @@ class Welcome extends MY_Controller {
                     $this->data['purchased_studymaterial'][$key] = $value;
                 }
             }
-        }        
-       if(null == $this->session->userdata('customer_id')){
-        redirect(base_url());
         }
-		
+$customer_id=$this->session->userdata('customer_id'); 
+if(isset($customer_id)&&$customer_id>0){
+	//check
+	$customer_id=$this->session->userdata('customer_id'); 
+}else{
+$customer_id=0;	
+       if(0 == $this->session->userdata('customer_id')||" "==$customer_id){
+        redirect(base_url('login'));
+        }
+}
 		 $customerDetails = $this->Customer_model->getCustomerDetails($this->session->userdata('customer_id'));
 		 if(isset($customerDetails->email)){
 		  $this->session->set_userdata('customer_email', $customerDetails->email);
-		 } 
+		 }
+
     }
 
 public function payUmoney_json(){

@@ -4,10 +4,14 @@ class Welcome extends Modulecontroller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Ncertsolutions_model');
-        
+		$this->load->model('Studymaterial_model');       
     }
 	
     public function index($examname=null,$exam_id=0,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->load->model('Videos_model');
         $examdata=array();
         
@@ -41,7 +45,7 @@ class Welcome extends Modulecontroller {
         }
         if($exam_id){
             $data_array=array();
-            $chaptersubjects=  $this->Examcategory_model->getExamChapters($exam_id);
+            $chaptersubjects=$this->Examcategory_model->getExamChapters($exam_id);
              $subjects_array = array();
               $chapters_array = array();
             if(count($chaptersubjects) > 0){
@@ -111,7 +115,7 @@ class Welcome extends Modulecontroller {
        // $studypacakge=$this->Ncertsolutions_model->getStudyPackage();
         $files=array();
         if(isset($studypacakge)){
-            $this->load->model('Studymaterial_model');
+           // $this->load->model('Studymaterial_model');
             $this->load->model('File_model');
             foreach($studypacakge as $package){
                 $files[] = $this->Studymaterial_model->getFiles($package->id);
@@ -172,7 +176,7 @@ class Welcome extends Modulecontroller {
 		
         if(count($relatedfiles) > 0){
 		foreach($relatedfiles as $rkey=>$rvalue){			
-        $this->load->model('Studymaterial_model');
+        //$this->load->model('Studymaterial_model');
 		
 		
 		
@@ -254,7 +258,7 @@ class Welcome extends Modulecontroller {
 		
         if(count($relatedfiles) > 0){
 		foreach($relatedfiles as $rkey=>$rvalue){			
-        $this->load->model('Studymaterial_model');
+        //$this->load->model('Studymaterial_model');
 		
                 $relation=$this->Studymaterial_model->getRelations($rvalue->related_module_id); 
 				
@@ -381,7 +385,7 @@ class Welcome extends Modulecontroller {
 		
         $relatedfiles=$this->Mergesection_model->getRelatedModule($solution_id,9,1);
     if(count($relatedfiles) == 1){
-            $this->load->model('Studymaterial_model');
+            //$this->load->model('Studymaterial_model');
             $file_price_info = $this->Studymaterial_model->getinfo_formerge($relatedfiles[0]->related_module_id);
          
              
@@ -472,7 +476,7 @@ class Welcome extends Modulecontroller {
         $this->data['files']=$files;
           $relatedfiles=$this->Mergesection_model->getRelatedModule($solid,9,1);
         if(count($relatedfiles) == 1){
-            $this->load->model('Studymaterial_model');
+           // $this->load->model('Studymaterial_model');
             if($relatedfiles[0]->related_file_id > 0){
                 $this->load->model('File_model');
                 $details=$this->File_model->getStudyPackageDetails($relatedfiles[0]->related_file_id);
@@ -552,6 +556,10 @@ class Welcome extends Modulecontroller {
             $this->data['linkurl']=base_url('ncert-solution/'.$url_solname.'/'.$solid);
             $this->data['linkurl_next']=base_url('ncert-solution/'.$url_solname.'_q'.$qcount_next.'/'.$solid);
             $this->data['linkurl_prev']=base_url('ncert-solution/'.$url_solname.'_q'.$qcount_prev.'/'.$solid);
+			
+			  $this->data['applinkurl_next']=base_url('appncert-solution/'.$url_solname.'_q'.$qcount_next.'/'.$solid);
+            $this->data['applinkurl_prev']=base_url('appncert-solution/'.$url_solname.'_q'.$qcount_prev.'/'.$solid);
+			
 			$this->data['qcount']=$qcount;
 			$this->data['ncertdetails']=$ncertdetails;
             $this->data['loadMathJax']='YES';

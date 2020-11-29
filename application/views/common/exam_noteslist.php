@@ -1,7 +1,15 @@
 <div class="row">
     <?php 
+	
+	  foreach ($notes as $qbid) {
+		  $qbidArray[$qbid->id]= $qbid->id;
+	  }
+	
     $count = 1;
         foreach ($notes as $qb) {
+			if($qbidArray[$qb->id]>0){
+				unset($qbidArray[$qb->id]);
+			
                         /*if ($count == 20 && $this->uri->total_segments() == 1)
                             break;
                          *
@@ -37,7 +45,8 @@
                             <div>
                                     <div class="offer-content">
                                         
-                                        <?php     $prdname_cnt=strlen($qb->title);
+                                        <?php     
+										$prdname_cnt=strlen($qb->title);
                  
                 $prdhead_cnt=$prdname_cnt;
         
@@ -65,6 +74,7 @@
     </a>
                         <?php
                         $count++;
+		}
                     }
                     ?>
 </div>

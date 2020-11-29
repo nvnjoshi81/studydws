@@ -4,8 +4,10 @@ class Welcome extends Modulecontroller {
         parent::__construct();
         $this->load->model('Solvedpapers_model');
         $this->load->model('Chapters_model');
+		
     }
     public function index($examname=null,$exam_id=0,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){
+		
         $order_by=null;
         $examdata=array();
         if($examname==null){
@@ -106,6 +108,10 @@ class Welcome extends Modulecontroller {
         
     }
     public function details($spname,$spid){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $segments = $this->uri->total_segments();
         //Start Get StudyPackageDetail
         $this->load->model('Mergesection_model');
@@ -213,6 +219,10 @@ class Welcome extends Modulecontroller {
     
     
     public function androiddetails($spname,$spid){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $segments = $this->uri->total_segments();
         //Start Get StudyPackageDetail
         $this->load->model('Mergesection_model');
@@ -420,6 +430,10 @@ class Welcome extends Modulecontroller {
 	$this->load->view('template_mid',$this->data);
     }
     public function question($spname,$spid,$qid) {
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
        //update View Count
         $this->Pricelist_model->update_viewcount($qid,'cmsquestions');
         if($this->input->get('proxy') && $this->input->get('proxy')=='v2016'){

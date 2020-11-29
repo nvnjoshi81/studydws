@@ -98,27 +98,29 @@ echo substr($isPrName->modules_item_name,0,-11);
                      $qb_section[$qbdata_array->subject][]=$qbdata_array;   
                     }
                     //print_r($qb_section);
-                    
+                   $qb_sectioncnt=1; 
                     foreach($qb_section as $key => $qbdata_arr){ if(isset($key)&&$key!=''){
                         ?>        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <div class="card-body">
+          <div class="card"><!--class="card-body"-->
+            <div>
                   <div class="panel panel-primary">
                 <div class="panel-heading">
-              <h4 class="card-title"><?php echo ucwords($key); ?> Test Series</h4>
+              <h4 class="card-title"><?php echo $qb_sectioncnt.') '.ucwords($key); ?> Test Series</h4>
                 </div>
 				</div>
               <ul>
                       <?php 
-                      
+                      $qb_sectioncnt++;
+					     $qbdatacnt=1;
                       foreach($qbdata_arr as $qbdata){
 						  if(isset($qbdata->subject)&&$qbdata->subject!='all'){
                           ?>
                     <li class="card-text">
-                        <i class="material-icons icon_bullet">picture_as_pdf</i>
                               <a href="<?php echo generateContentLink_custom('online-test',$qbdata->exam,$qbdata->subject,$qbdata->chapter,$qbdata->name,$qbdata->exam_id,$qbdata->subject_id,$qbdata->chapter_id,$qbdata->id);?>">
                             <?php
                             $testname = explode('Test on',$qbdata->name);
+							echo '('.$qbdatacnt.')';
+							$qbdatacnt++;
                            // echo $testname[0];
                                  if(isset($testname[1])){       
                                  echo $testname[1];

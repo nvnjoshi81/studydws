@@ -274,4 +274,10 @@ class="Clearfix"><?php   echo '<p>&nbsp;&nbsp;&nbsp;</p>';$count=0;
 
 <?php } 
 
- ?>
+ ?><b>Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
+# Course runs only on Android app.<br>
+#The number of package may vary time to time.<br>
+# Course validity is 31st March 2023.<br>
+# All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.
+<br>#Course amount Non-Refundable!
+<br>Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</em></b>

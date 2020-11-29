@@ -181,22 +181,115 @@ class Categories extends MY_Admincontroller {
         $parent_categories=$this->categories_model->getParentcategories();
         $categories=$this->categories_model->getcategories($selected_cat);
         $this->data['allcategories']=$this->categories_model->fetchCategoryTree();
-       // print_r($categories);
-       // die;
         $this->data['selected_cat']=$selected_cat;
         $this->data['categories']=$categories;
         $this->data['parent_categories']=$parent_categories;
 
-
-
             /*    edit categories */             
             $result=$this->categories_model->getPrentName($id);
-                   //print_r($result); die;
             $this->data['result']=$result;
             $this->data['content']='categories/categories';
             $this->load->view('common/template',$this->data);
                             
         }
+		
+		/* code by Mahesh */
+		public function sub_categories($id) {
+			$id;
+			$result=$this->categories_model->getPrentName($id);
+			
+			$this->data['result'] = $result;
+			
+			$parentId = $result[0]->parent_id;
+					
+			if($this->input->post('sub_cat')) {
+					
+				$sub_cat_name = $this->input->post('sub_cat_name');
+
+				$sub_cat_order = $this->input->post('sub_cat_order');
+
+				$sub_cat_parent = $this->input->post('sub_cat_parentId');
+
+				$sub_cat_description = $this->input->post('sub_cat_description');
+
+				$sub_cat_keywords = $this->input->post('sub_cat_keywords');
+
+				$sub_cat_tagline = $this->input->post('sub_cat_tagline');
+
+				$cat_link = $this->input->post('sub_cat_link');
+
+				$current_dt = date('Y-m-d h:i:sa');
+
+
+					$data = array('name'=>$sub_cat_name,
+					'order'=>$sub_cat_order,
+					'created'=>$current_dt,
+					'parent_id'=>$id,
+					'description'=>$sub_cat_description,
+					'keywords'=>$sub_cat_keywords,
+					'tagline'=>$sub_cat_tagline,
+					'link'=>$cat_link);
+					
+					$this->Categories_model->add_categories($data);
+					
+					echo "<script>alert('Sub-Category Added Successfully!');</script>";
+			}
+			
+			$get_sub_categories=$this->Categories_model->get_sub_cat($id);
+			
+			$this->data['get_sub_categories']=$get_sub_categories;	
+			
+			$this->data['content'] = 'categories/sub_categories';
+            
+			$this->load->view('common/template',$this->data);
+		}
+		
+		public function update_sub_categories($id) {
+			
+			$get_sub_categories=$this->Categories_model->get_sub_cat1($id);
+			
+			$this->data['get_sub_categories']=$get_sub_categories;
+			
+			if($this->input->post('update_sub_cat')) {
+				$id;
+				
+				$pid = $this->input->post('sub_cat_parentId');
+				
+				$sub_cat_name = $this->input->post('sub_cat_name');
+
+				$sub_cat_order = $this->input->post('sub_cat_order');
+
+				$sub_cat_description = $this->input->post('sub_cat_description');
+
+				$sub_cat_keywords = $this->input->post('sub_cat_keywords');
+
+				$sub_cat_tagline = $this->input->post('sub_cat_tagline');
+
+				$cat_link = $this->input->post('sub_cat_link');
+
+				$current_dt = date('Y-m-d h:i:sa');			
+
+				$data=array('name'=>$sub_cat_name,
+				'order'=>$sub_cat_order,
+				'description'=>$sub_cat_description,
+				'keywords'=>$sub_cat_keywords,
+				'tagline'=>$sub_cat_tagline,
+				'link'=>$cat_link,
+				'dt_modified'=>$current_dt);
+				
+				$this->Categories_model->update_categories($data, $id);
+				echo "<script>alert('Sub-Category Updated Successfully!');</script>";
+				
+				redirect('admin/categories/sub_categories/'.$pid);
+			}				
+			
+			$this->data['content'] = 'categories/update_sub_categories';
+			
+			$this->load->view('common/template',$this->data);
+		}
+		
+		/* // code by Mahesh */
+		
         public function delete($id)
         {
                 $this->categories_model->deleteCategory($id);

@@ -27,7 +27,7 @@
    
     $array1=array();
 	
-	if (!empty($_REQUEST['user_id']) &&!empty($get_api)) 
+	if (!empty($_REQUEST['user_id']) &&!empty($get_api) && !empty($_POST['transaction_id'])) 
 	{
     $user_id = $_REQUEST['user_id'];
     $video_id = $_REQUEST['video_id'];

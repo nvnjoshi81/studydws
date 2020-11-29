@@ -41,6 +41,79 @@ class Subjects extends MY_Admincontroller {
                 $this->data['content']='subjects/index';
                 $this->load->view('common/template',$this->data);
         }
+		
+	// code by Mahesh 
+	public function sub_subjects($id) {
+		
+		$this->data['subjects']=$this->Subjects_model->getSubject($id);
+		
+		$parentId=$this->input->post('parentId');
+		
+		if($this->input->post('add_sub_subject')) {
+			$name=$this->input->post('name');
+			$parentId=$this->input->post('parentId');
+			$order=$this->input->post('order');
+			$description=$this->input->post('description');
+			$keywords=$this->input->post('keywords');
+			$tagline=$this->input->post('tagline');
+			
+			$current_dt = date('Y-m-d h:i:sa');
+			
+			$data = array('name'=>$name,
+			'parent_id'=>$parentId,
+			'order'=>$order,
+			'created'=>$current_dt,
+			'description'=>$description,
+			'keywords'=>$keywords,
+			'tagline'=>$tagline);
+			
+			$this->Subjects_model->add_sub_subject($data);
+			echo "<script>alert('Subject Addded Successfully!');</script>";
+	
+		}	
+		
+		$sub_subjects = $this->Subjects_model->get_sub_subject($id); 
+		
+		$this->data['sub_subjects']=$sub_subjects;
+		
+		$this->data['content']='subjects/sub_subjects';
+		$this->load->view('common/template',$this->data);
+	}
+	
+	public function edit_sub_subjects($id) {
+		
+		$sub_subjects = $this->Subjects_model->getSubject($id);
+		
+		$this->data['sub_subjects']=$sub_subjects;
+		
+		if($this->input->post('edit_sub_subject')) {
+			
+			$name=$this->input->post('name');
+			$parentId=$this->input->post('parentId');
+			$order=$this->input->post('order');
+			$description=$this->input->post('description');
+			$keywords=$this->input->post('keywords');
+			$tagline=$this->input->post('tagline');
+			$current_dt = date('Y-m-d h:i:sa');
+			
+			$data = array('name'=>$name,
+			'order'=>$order,
+			'dt_modified'=>$current_dt,
+			'description'=>$description,
+			'keywords'=>$keywords,
+			'tagline'=>$tagline);
+			
+			$this->Subjects_model->update_sub_subjects($id,$data);
+			echo "<script>alert('Subject Updated Successfully!');</script>";
+			redirect('admin/subjects/sub_subjects/'.$parentId);
+		}
+		
+		$this->data['content']='subjects/edit_sub_subjects';
+		
+		$this->load->view('common/template',$this->data);
+	}
+	
+	
         public function add(){
 	$this->form_validation->set_rules('name', 'Name', 'required');
 	// $this->form_validation->set_rules('description', 'description','required');

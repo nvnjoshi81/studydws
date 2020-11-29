@@ -1,5 +1,12 @@
+<?php
+foreach($get_price_by_month as $key=>$val) {
+	//print_r($val[0]->price);
+	//echo "<br>";
+	//print_r($val[0]->discounted_price);
+	//echo "<br>";
+}
+?>
 <script>
-
 $(document).ready(function(){
 	$("#set_val_date").hide();
 	$("#set_val_day").hide();
@@ -14,12 +21,7 @@ $(document).ready(function(){
 	$("#set_val_date").hide();
   });
 });
-
 </script>
-
-<?php
-$_POST[""];
-?>
 
 <div id="page-wrapper" class="container" style="width:80%;">
     <div class="row">	
@@ -107,101 +109,151 @@ $_POST[""];
     });
 </script>
                 </div>
-		
 	
-	
-        <div class="col-lg-12">
-            <h1 class="page-header">Bulk Price List</h1>
-        </div>
                 <!-- /.col-lg-12 -->
     </div>
             <!-- /.row -->
     <div class="row">
-        <div class="col-sm-12">
-            <!--<div class="col-sm-3">
-                <div class="form-group">
-                    <label>Select Content Type</label>
-                    <?php //echo generateSelectBox('content_type',$content_type,'id','name',1,'class="form-control" onChange="resetSelect();"');?>
-                </div>
-            </div>-->
-            
-           <form name="pricelistform" id="pricelistform" action="<?php echo base_url('admin/pricelist/pricechange')?>" method="post" enctype="multipart/form-data">   
-            <div class="col-lg-12 alert alert-success" id="pricedata">     <div class="col-sm-6 pull-left">
-                <div class="form-group">    
-                <button class="btn btn-primary" type="submit">Save</button>
-                </div>
-            </div>  
-           <?php 
-		   
+	<form name="pricelistform" id="pricelistform" action="<?php echo base_url('admin/pricelist/pricechange')?>" method="post" enctype="multipart/form-data">
+	<div class="table-responsive">
+		<table class="table">
+		<caption><h1 class="text-center">Bulk Price List</h1></caption>
+<?php
+	$sub_price_array=$this->config->item('sub_price');
+	$yr = $sub_price_array[3];
+	$yr = $yr/12;
+?>
+		<thead>
+		<tr class="alert alert-info">
+			<th class="text-center">Sr.</th>
+			<th class="text-center">Product Name</th>
+			<th class="text-center">Price</th>
+			<th class="text-center"><?php echo $sub_price_array[0]; ?></th>
+			<th class="text-center"><?php echo $sub_price_array[1]." Months"; ?></th>
+			<th class="text-center"><?php echo $sub_price_array[2]." Months"; ?></th>
+			<th class="text-center"><?php echo $yr." year"; ?></th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php 
 		   if(isset($productlist)){
 			   $show_count=1;
+			   	   $arr_price_count=0;
 			   foreach($productlist as $pid=>$pval){
 				   if(($pval->exam_id>0)&&($pval->subject_id==0)&&($pval->item_id==0)){
-				   
 			   ?>
-                  <div class="col-sm-12">
-			<div class="col-sm-1">
-                <div class="form-group">
-                    <label><?php echo $show_count; $show_count++; ?></label>
-					
-					<label>SQL ID&nbsp;<?php echo $pval->id; ?></label>
-<input type='hidden' id='faction_pricelist_id' name="faction_pricelist_id[]"  value='<?php echo $pval->id; ?>'/>
-
-                </div>
-            </div>	  
-				  
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label>Product Name</label>        
-                    <input required="true" name="modules_item_name[]" value="<?php echo $pval->modules_item_name; ?>"  id="modules_item_name">
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label>Product Price</label>
-                    <input required="true"  type="text" name="price[]" value="<?php echo $pval->price; ?>"  id="price"/></div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                <label>Discounted Price</label>
-                <input required="true"  type="text" name="discounted_price[]" value="<?php echo $pval->discounted_price; ?>"  id="discounted_price"/>
-                </div>
-            </div>
-			
-			
-			      <div class="col-sm-2"> <div class="form-group">
-                          <label>Subscription Type (Apply local)</label>
-<select name="subscription_type[]" id="subscription_type">
-  <option value="global">Global</option>
-  <option value="local">Local</option>
-</select>      </div>          
-                </div>	
-
-
- <div class="col-sm-2" > 
-            <div class="form-group">
-                          <label>Subscription Validity(IN DAYS)</label>
-                           <input type="text" name="subscription_validity[]" value="<?php echo $pval->subscription_expiry; ?>"  id="subscription_validity"/>
-                </div>
-            </div> 
+			   
+		<tr>
+			<td>
+				<?php echo $show_count; $show_count++; ?>
+			</td>
+			<td>
+				<input type="text" class="form-control" required="true" name="modules_item_name[]" value="<?php echo $pval->modules_item_name; ?>"  id="modules_item_name">
+				<b><center>
+				<?php echo $pval->id; ?>
+				<input type='hidden' id='faction_pricelist_id' name="faction_pricelist_id[]"  value='<?php echo $pval->id; ?>'/>
+				</center></b>
+			</td>
+			<td>
+				<label class="control-label">Original Actual</label>
+				<input class="form-control" required="true"  type="text" name="price[]" value="<?php echo $pval->price; ?>"  id="price"/>				
+				<label class="control-label">Original Discount</label>
+				<input class="form-control" required="true"  type="text" name="discounted_price[]" value="<?php echo $pval->discounted_price; ?>"  id="discounted_price"/>
+			</td>
+			<td>
+				<label class="control-label">Date Actual</label>
 				
-		</div>        
+				<?php 
+				
+				 if(isset($get_price_by_month[$arr_price_count][0])){
+				   $coloum_zero=$get_price_by_month[$arr_price_count][0];
+				   }else{
+					$coloum_zero=0;   
+				   }		
+				?>
+				
+				<input class="form-control"  type="text" name="price_dt[]" value="<?php echo $coloum_zero->price; ?>"  id="price"/>
+				
+				<input class="form-control"  type="hidden" name="datevalue[]" value="<?php echo $sub_price_array[0]; ?>"  id="datevalue"/>
+
+				
+				<label class="control-label">Date Discount</label>
+				<input class="form-control"  type="text" name="discounted_price_dt[]" value="<?php echo $coloum_zero->discounted_price; ?>"  id="discounted_price"/>
+			</td>
+			<td>
+				<label class="control-label">Month 1 Actual</label>
+				<?php
+				if(isset($get_price_by_month[$arr_price_count][1])){
+				   $coloum_one=$get_price_by_month[$arr_price_count][1];
+				   }else{
+					$coloum_one=0;   
+				   }
+				?>
+				<input class="form-control" type="text" name="price_3m[]" value="<?php echo $coloum_one->price; ?>"  id="price"/>	
+				
+				<input class="form-control" type="hidden" name="monthone[]" value="<?php echo $sub_price_array[1]; ?>"  id="monthone"/>			
+				<label class="control-label">Month 1 Discount</label>
+				<input class="form-control" type="text" name="discounted_price_3m[]" value="<?php echo $coloum_one->discounted_price; ?>"  id="discounted_price"/>
+			</td>
+			<td>
+				<label class="control-label">Month 2 Actual</label>
+				<?php
+				if(isset($get_price_by_month[$arr_price_count][2])){
+				   $coloum_two=$get_price_by_month[$arr_price_count][2];
+				   }else{
+					$coloum_two=0;   
+				   }
+				?>
+				<input class="form-control" type="text" name="price_6m[]" value="<?php echo $coloum_two->price; ?>"  id="price"/>
+				
+				<input class="form-control"   type="hidden" name="monthtwo[]" value="<?php echo $sub_price_array[2]; ?>"  id="monthtwo"/>		
+		
+				<label class="control-label">Moonth 2 Discount</label>
+				<input class="form-control" type="text" name="discounted_price_6m[]" value="<?php echo $coloum_two->discounted_price; ?>"  id="discounted_price"/>
+			</td>
+			<td>
+				<label class="control-label">Month 3 Actual</label>
+				<?php
+				if(isset($get_price_by_month[$arr_price_count][3])){
+				   $coloum_three=$get_price_by_month[$arr_price_count][3];
+				   }else{
+					$coloum_three=0;   
+				   }
+				?>
+				<input class="form-control" type="text" name="price_1y[]" value="<?php echo $coloum_three->price; ?>"  id="price"/>
+
+<input class="form-control"   type="hidden" name="monththree[]" value="<?php echo $sub_price_array[3]; ?>"  id="monththree"/>					
+				<label class="control-label">Month 3 Discount</label>
+				<input class="form-control" type="text" name="discounted_price_1y[]" value="<?php echo $coloum_three->discounted_price; ?>"  id="discounted_price"/>
+			</td>
+		</tr>
+		
+	
+		
+		<!-- without table -->
+       
+           
+           
+                         
 			   <?php 
-			   }
+			   } 
+			   $arr_price_count++;
 			   } 
 			   }
-			   ?>				  
-               </div>   
-            <input type='hidden' name='faction' id='faction' value='<?php echo $pval->id; ?>'/>
-            <div class="col-sm-6 pull-left">
-                <div class="form-group">    
-                <button class="btn btn-primary" type="submit">Save</button>
-                </div>
-            </div>       
-            
-            <div class="col-lg-12"></div>
-        </div>
-        </div>
-        </form>
-		</div>
+			   ?>
+ <tr>
+				<td colspan="7" class="text-center">
+				<input type='hidden' name='faction' id='faction' value='<?php echo $pval->id; ?>'/>
+				
+					<button class="btn btn-primary btn-lg" type="submit">Save Price</button>
+				
+			</td>
+			</tr>			   
+</tbody>
+		<!-- // without table -->
+		
+        </table>
+	</div>
+	</form>
+</div>
 </div>

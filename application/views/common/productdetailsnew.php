@@ -24,26 +24,24 @@ if($subscription_expiry>1){
 							if(isset($customer_id)&&$customer_id>0){
 									$order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$isProductid); 	
 		/*For getting main product buy or not*/
-		/*
+		
 		if(isset($mainPrdlist[0]->productlist_id)){
 			$mainPrdId=$mainPrdlist[0]->productlist_id;
 		}else{
 			$mainPrdId=$isProductid;
 		}
-		$order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$mainPrdId);*/
+$order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$mainPrdId);
 		}else{
 		$order_result=NULL;
 		}
+		
+		
 		if(isset($order_result->id)&&($order_result->id>0)&&($order_result->status==1)){
         $product_brought='yes';
 				   }else{					   
         $product_brought='no';
 				   }
-				   $currenttimestmp=time();
-				   if($currenttimestmp>$newTimestamp){
-					 $product_brought='no';  
-				   }
-				   
+				  
             if(isset($orderInfo)&&$product_brought=='yes'){ 
 			$validity_years='+'.$validity.' years';
             $orderdate=$orderInfo->created_dt;
@@ -54,6 +52,11 @@ if($subscription_expiry>1){
 			}else{
 			$newTimestamp=$validityByproduct;
 			}
+			
+			$currenttimestmp=time();
+				   if($currenttimestmp>$newTimestamp){
+					 $product_brought='no';  
+				   }
 			
 			
                 ?><div class="row">
@@ -218,7 +221,12 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
         </div>
 	</div>
 		<div class="text-center">
-                       <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time.Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b>
+                       <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time.</span></i></b><br>
+					       <b><span class="text-primary">Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
+# Course runs only on Android app.<br>
+# Course validity is 31st March 2023.<br>
+# All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.
+<br>#Course amount Non-Refundable!</em></span></b><b><i><span class="text-primary">Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b> 
 						  </div>
 </div></div>
 </div>
@@ -485,16 +493,25 @@ echo $isProduct->modules_item_name;
     </div>-->
         <p>
             <span class="text-danger"><b>Note:
- <em color="red">Discount is available till 08 July 2020 only! Course amount Non-Refundable!</em></b></span>
+ <em color="red">Discount is available for today only! Course amount Non-Refundable!</em></b></span>
         <ul>
             <?php 
         if($this->router->fetch_module() == 'videos') {
+			
+			/*# Amount paid is non refundable/non adjustable.
+# Course runs only on Android app.
+# Course validity is 31st March 2023.
+# All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.*/
              ?>
                           <li><b><i><span class="text-primary">The number of DVD's and Lectures in the package may differ from the numbers shown.</span></i></b></li>
-                          <li><b><i><span class="text-primary">To all the subscribers of video courses of Lalit sardana Sir & Shweta Sardana Madam study packages, Sample Papers, Solved Papers of relevant target exam will be provided by studyadda as a complementary.</span></i></b></li> 
+                          <li><b><i><span class="text-primary">To all the subscribers of video courses study packages, Sample Papers, Solved Papers of relevant target exam will be provided by studyadda as a complementary.</span></i></b></li> 
           <?php  }else{ ?>
                 <li><b><i><span class="text-primary">The number of package may vary time to time.</span></i></b></li> 
-                <li><b><i><span class="text-primary">Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b></li>   
+                <li><b>Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
+# Course runs only on Android app.<br>
+# Course validity is 31st March 2023.<br>
+# All study content is copyrighted content of studyadda. Copying, reproducing is strictly prohibited.
+<br>#Course amount Non-Refundable!</em></b><b><i><span class="text-primary">Study packages are available in soft (PDF format) copy only. After buying you will be able to read over any android device (Mobile, tab etc.)</span></i></b></li>   
        <?php } ?>
         </ul>           
         </p>

@@ -312,7 +312,7 @@ if(isset($answer->description)){
         </div> 
         </div>
         <?php 
-              $showVidAdd='no';
+    $showVidAdd='no';
     if($showVidAdd=='yes'){  ?>
   <!-- right panel -->
         <div class="col-md-2 col-sm-2">

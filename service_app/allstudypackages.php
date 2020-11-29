@@ -90,10 +90,12 @@ if($subTmp){$tmp['status'] = "success";$tmp['data'] = $subTmp; }
 			    $returnValue['package_bought'] = 1;
 			}
 			else
-			{
+			{   
 			    $returnValue['package_bought'] = 0;
 			}
 			}
+			    $returnValue['exp_date'] = '2023-03-31';
+			        
 			return $returnValue;
 	}
 	mysqli_close($conn);

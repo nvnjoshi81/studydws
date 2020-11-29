@@ -14,9 +14,11 @@ class MY_Controller extends CI_Controller {
         $this->data['video_count']=0;
         //$this->output->enable_profiler(TRUE);
         //$this->db2 = $this->load->database('studyadda', TRUE);
+
+		
         if($this->session->userdata('customer_id')&& $this->session->userdata('customer_id')>1){
             $this->customer_id=$this->session->userdata('customer_id');
-            /*$customer_basket=$this->Customer_model->getBasket($this->customer_id);
+           $customer_id=$this->customer_id; /*$customer_basket=$this->Customer_model->getBasket($this->customer_id);
             $customer_info=$this->Customer_model->getRegInfo($this->customer_id);
             $this->load->model('Products_model');
             
@@ -26,8 +28,92 @@ class MY_Controller extends CI_Controller {
 		$cart_price=$cart_price+$product_price->products_price;
             }
             }*/
-        }
-        
+        }else{
+			$customer_id=0;
+		}
+		
+		
+		   
+   
+echo '<script type="text/javascript">
+var currentTime  = new Date();
+var hours = currentTime.getHours();
+var minutes = currentTime.getMinutes();
+
+var suffix = "AM";
+
+if (hours >= 12) {
+    suffix = "PM";
+    hours = hours - 12;
+}
+
+if (hours == 0) {
+    hours = 12;
+}
+
+if (minutes < 10) {
+    minutes = "0" + minutes;
+}
+var timeind =hours + ":" + minutes + " " + suffix;
+   var expires; 
+    var days=1;  
+	var name="indtime";
+	var value=timeind;
+        var date = new Date(); 
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
+        expires = "; expires=" + date.toGMTString(); 
+      
+    document.cookie = escape(name) + "=" +  
+        escape(value) + expires + "; path=/"; 
+
+</script>'; 
+ //$timeind = $_COOKIE["indtime"]; 
+		
+  $modulename=$this->router->fetch_module(); 
+$classname=$this->router->fetch_class();
+$methodname=$this->router->fetch_method();
+$curPageName=$modulename.'/'.$classname.'/'.$methodname;
+if($curPageName==''){
+	$curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1); 
+}		
+$ctime=date("h:i:sa");	
+
+$ctime=$ctime.'_ind_'.$timeind;
+$cdate=date("d/m/Y");
+$serverinfo=implode("<->",$_SERVER);	
+$cdate=$cdate.'_'.time();
+
+		
+		$analyticsdata=array(
+		'customerid'=>$customer_id,
+		'time'=>$ctime,
+		'pagename'=>$curPageName,
+		'pageurl'=>$_SERVER['REQUEST_URI'],
+		'details'=>$serverinfo,
+		'date'=>$cdate,
+		'from'=>'web'
+		);
+		$this->load->model('Admin_model');
+		//Do not save analytics
+		//$this->Admin_model->save_analytics($analyticsdata);
+		
+		//setcookie("indtime", "", time() - 3600);
+	    //$_COOKIE["indtime"]=''; 
+		/*
+		//For app
+$curPageUrl = $_SERVER['REQUEST_URI'];
+if(isset($_POST['user_id'])){
+$user_id = $_POST['user_id'];
+}else{
+	$user_id =0;
+}
+	  $self="INSERT INTO `analytics_app` (`customerid`, `time`, `pagename`, `pageurl`, `details`, `date`, `from`) VALUES ('$user_id', '$ctime', '$curPageName', '$curPageUrl', '$serverinfo', '$cdate', 'App')";
+  mysqli_query($conn, $self);
+  
+		*/
+		
+		
+		
         //$this->data['cart_price']=$cart_price;
         //$this->data['customer_basket']=$customer_basket;
         //$this->data['customer_info']=$customer_info;

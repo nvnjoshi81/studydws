@@ -1,4 +1,17 @@
- <div id="page-wrapper">
+<style type="text/css">
+#dataTables-example {
+	position:relative;
+}
+#count_by_register {
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-weight:18px;
+	font-weight:bold;
+}
+</style>
+
+<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Customers</h1>
@@ -46,7 +59,6 @@
                 <!-- /.col-lg-12 -->
                   <div class="col-lg-12 searchFrm">
                   <form id="search_customer_form" name="search_customer_form" method="post" action="<?php echo base_url(); ?>admin/customers/customer_by_date">
-
                     
                         <div class="form-group col-lg-3">
                                 <label>From Date </label>
@@ -57,7 +69,6 @@
                                     </span>
                                 </div>
                             </div>
-
                         <div class="form-group col-lg-3">
                                 <label>To Date</label>
                                 <div class='input-group date' id='datetimepicker7'>
@@ -84,10 +95,7 @@
                             <label class="" style="visibility: hidden">Submit</label>
                             <button type="submit" class="btn btn-primary form-control">Submit</button>
                         </div>
-					
-                      
                   </form>
-
 
                     <script type="text/javascript">
     $(function () {
@@ -102,12 +110,11 @@
         });
         $("#datetimepicker7").on("dp.change", function (e) {
             $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-             $('.datepicker').hide();
+            $('.datepicker').hide();
         });
-        
     });
 </script>
-                </div>
+</div>
                 
              
             </div>
@@ -116,16 +123,14 @@
                           
 
           
-                <div class="col-lg-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     
-                    <div class="panel">
+                    <div class="table-responsive">
                         
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper table-responsive">
+                        
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                    <thead>
-                                                    <tr><td colspan="6"> 
+                                                    <tr><td align="right" colspan="8"> 
                                                             
                                          <?php if (count($customers)>0) { 
                                    if(isset($start_date)&&isset($end_date)){
@@ -135,28 +140,60 @@
                                                                 }
                                                                 ?>
                                                         </td></tr>
-                                                </thead>
-                 <thead>
+                             
                                         <tr>
-                                            <th width='25'>Number</th>
-                                            <th width='25'>Id.</th>
-                                            <th>Name</th>
-                                             <th>Email</th>
-                                            <th>Mobile</th>
-                                            <th>Reg. Date</th>
-                                            <th>Register From</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Number</th>
+                                            <th class="text-center">Id.</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Email</th>
+											<th class="text-center">Mobile</th>
+                                            <th class="text-center">Reg. Date</th>
+                                            <th class="text-center">Register From</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                                <thead>
-                                                    <tr><td colspan="6">Total Count- <?php echo count($customers); ?></td></tr>
-                                                </thead>
+                                               
+                                                    
+		                       
                 <?php
+				
+				
+				
 $i = 1;
-if (count($customers)>0) {
-//print_r($customers);
-	foreach ($customers as $customer) { 
+$count=0;
+$csdb_count=count($customers);
+
+if ($csdb_count>0) {
+
+	$last_key = end(array_keys($customers));	
+	foreach ($customers as $customer) { 	
+	/* count */
+	$appregistered = $customer->is_app_registered;
+	if(!$appregistered=='1') {
+		$count++;
+	}
+	
+	
+if($i==$last_key){
+	?>
+	<tr id="count_by_register">
+		<td colspan="2"><?php
+		echo "Total - ".$csdb_count;
+		?></td>		
+		<td colspan="2"><?php
+		echo "By Web - ".$count;
+		?></td>		
+		<td colspan="2"><?php
+		$app = $csdb_count - $count;
+		echo "By App - ".$app;			
+		?></td>
+	</td>
+	</tr>
+	<?php
+	}
+	
+
 if($customer->is_app_registered=='1'&&$customer->device_id!=''){
     $register_point = "App";
 }else{
@@ -173,15 +210,18 @@ if($customer->is_social==0){
      $register_point = "Web Other";
     }
 }
-    }
-// print_r($chapters);
+    }	
 	?>
-                                    <tr class="odd gradeX">
-                                    <td><?php echo $i ; ?>)</td>
+                                    <tr>
+                                    <td><?php echo $i ; ?></td>
                                     <td><?php echo $customer->id;?></td>
-                                    <td><?php echo $customer->firstname.' '.$customer->lastname; ?></td>
-                                    <td><?php echo $customer->email?></td>
-                                    <td><?php echo $customer->mobile?></td>
+									<?php
+									$fullnm = $customer->firstname.' '.$customer->lastname;
+									$fnm = substr($fullnm,0,15);
+									?>
+                                    <td><?php echo $fnm; ?></td>
+                                    <td><?php echo substr($customer->email,0,25); ?></td>
+									<td ><?php echo $customer->mobile; ?></td>
                                     <td><?php
                                             if (!empty($customer->created_dt)) {
                                                 echo date('d/m/Y',$customer->created_dt);
@@ -190,16 +230,14 @@ if($customer->is_social==0){
                                         
                                         </td>
                                         <td><?php echo $register_point; ?></td>
-                                    <td class="center">
+                                    <td>
                                         
                                         <a href="<?php echo base_url();?>admin/customers/edit/<?php echo $customer->id;?>" >
                                             <i class="fa fa-edit cat-edit" ></i>
-                                        </a>
-                                     
+                                        </a>                                     
                                         <a href="<?php echo base_url(); ?>admin/customers/delete/<?php echo $customer->id;?>">
                                             <i class="fa fa-trash cat-del"></i>
-                                        </a>
-                                        
+                                        </a>                                        
                                         <a target="_blank" href="<?php
 echo base_url('Welcome/a/'.$customer->id); ?>"><i class="fa fa-edit cat-del"></i></a>
                                         
@@ -213,10 +251,11 @@ echo base_url('Welcome/a/'.$customer->id); ?>"><i class="fa fa-edit cat-del"></i
 }else{
     ?>
         
-<tr class="odd gradeX"><td colspan="6" >Customer Not Found!</td></tr>
+<tr class="odd gradeX"><td colspan="8" >Customer Not Found!</td></tr>
         <?php
     
 }
+
 ?>                          
                                         
                                  </tbody>
@@ -225,9 +264,9 @@ echo base_url('Welcome/a/'.$customer->id); ?>"><i class="fa fa-edit cat-del"></i
                             <!-- /.table-responsive -->
                             
                         <!-- /.panel-body -->
-                    </div>
+                    
                     <!-- /.panel -->
-                </div>
+                
                 <!-- /.col-lg-6 -->
             </div>
             <!-- /.row -->

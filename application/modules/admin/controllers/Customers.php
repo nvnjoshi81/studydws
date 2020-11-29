@@ -12,12 +12,37 @@ class Customers extends MY_Admincontroller {
 		/*For Displaylist*/
 		public function teacher_list($techerid=0){
 			
+            $this->load->model('Videos_model');
+            $this->load->model('Customer_model');
 			if(isset($techerid)&&$techerid>0){
 			 $teachervyid =$this->Customer_model->get_teacherlist($techerid); 	
 			$this->data['teachervyid']=  $teachervyid;   
 			}
-			
-                $teacher =$this->Customer_model->get_teacherlist(); 
+ 			
+            $teacher =$this->Customer_model->get_teacherlist(); 
+			foreach($teacher as $tkey => $tval){
+			$techerid_val=$tval->teacher_id;
+			$tVideoInfo =$this->Videos_model->get_teacherVideos($techerid_val); 			 
+			$tVideoInfo_array[$techerid_val]=$tVideoInfo;
+			$tVideoInfo_count[$techerid_val]=count($tVideoInfo);
+			if(isset($tVideoInfo_count[$techerid_val])){
+            $video_duration=0;				
+			foreach($tVideoInfo_array[$techerid_val] as $vinfoval){
+			if(isset($vinfoval->video_duration)&&$vinfoval->video_duration>0){
+			$video_duration_var=$vinfoval->video_duration;
+				}else{
+			$video_duration_var=0;
+				}
+			$video_duration=$video_duration+$video_duration_var;
+			}
+			$video_duration_count[$techerid_val]=$video_duration;
+			}
+			}
+			$this->data['totalVid']=   $tVideoInfo_count;   
+			$this->data['tVideoInfo_array']=  $tVideoInfo_array; 
+			$this->data['tVideoInfo_count']=  $tVideoInfo_count;
+            $this->data['totalVidDuration']=  $video_duration_count;
+				
                 $this->data['teacher']=  $teacher;      
                 $this->data['content']='customers/teacherlist';
                 $this->load->view('common/template',$this->data);
@@ -75,7 +100,11 @@ class Customers extends MY_Admincontroller {
 			
 			$teacher =$this->Customer_model->get_teacherlist(); 
 			$this->data['teacher'] = $teacher; 
-			$customers =$this->Customer_model->edit_teacher(); 
+			$customers =$this->Customer_model->edit_teacher();
+
+			//$this->data['totalVid']=  16;  
+            //$this->data['totalVidDuration']=  1900;   			
+		
 			$this->data['customers']=  $customers;      
 			$this->data['content']='customers/teacherlist';
 			$this->load->view('common/template',$this->data);
@@ -194,10 +223,9 @@ $user_key = $this->input->post('user_key');
                 $this->data['customers']= $customers;      
                 $this->data['content']='customers/search_customer';
                 $this->load->view('common/template',$this->data);
-        }
-           
-         public function customer_by_date(){
-      
+        }  
+    public function customer_by_date(){
+    ini_set('memory_limit', '-1');
                 $start_date =$this->input->post('start_date');
                 $end_date =$this->input->post('end_date');
                 $start_date_string = strtotime($start_date);
@@ -213,7 +241,6 @@ $user_key = $this->input->post('user_key');
                 $this->data['end_date']=$end_date;
                 $config = array();
                 $config["base_url"] = base_url() . "admin/customers/index/";
-                
              if(($start_date=='')||($end_date=='')){
              $this->session->set_flashdata('message','Please enter both date.');
              redirect(base_url('admin/customers'));
@@ -224,8 +251,7 @@ $user_key = $this->input->post('user_key');
              $customers =$this->Customer_model->getCustomer_bydate($start_date_string,$end_date_string,$regiType); 
              //$customers_downlaod =$this->Customer_model->getCustomer_xls_downlaod($start_date_string,$end_date_string); 
              $this->data['customers']=  $customers;  
-             }           
-             
+             }  
                 $this->data['content']='customers/search_customer';
                 $this->load->view('common/template',$this->data);
                 

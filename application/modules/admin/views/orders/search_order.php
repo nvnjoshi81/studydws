@@ -156,12 +156,12 @@ if (isset($orders)) {
 			$c_stt;
 			$cancel = $totalorder - $c_stt;
 		 ?>
-		<div class="col-lg-6">
-		<ul class="list-group list-inline text-left">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" >
+		<ul class="list-group list-inline text-center">
 			<li class="list-group-item hidden"></li>
-			<li class="list-group-item"><?php echo "Total Order - <b>".$totalorder."</b>"; ?></li>
-			<li class="list-group-item"><?php echo "Sucess Order - <b>".$c_stt."</b>"; ?></li>
-			<li class="list-group-item"><?php echo "Cancelled Order - <b>".$cancel."</b>"; ?></li>
+			<li class="list-group-item"><?php echo "Total - <b>".$totalorder."</b>"; ?></li>
+			<li class="list-group-item"><?php echo "Sucess - <b>".$c_stt."</b>"; ?></li>
+			<li class="list-group-item"><?php echo "Cancelled - <b>".$cancel."</b>"; ?></li>
 		</ul>
 		</div>
 		
@@ -171,19 +171,16 @@ if (isset($orders)) {
 			$subi;
 			$web = $totalorder-$subi;
 			?>
-			<div class="col-lg-6">
-			<ul class="list-group list-inline text-right">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			<ul class="list-group list-inline text-center">
 				<li class="list-group-item"><?php echo "Total Order - <b>".$totalorder."</b>"; ?></li>
-				<li class="list-group-item"><?php echo "Ordered by App - <b>".$subi."</b>"; ?></li>
-				<li class="list-group-item"><?php echo "Ordered by Web - <b>".$web."</b>"; ?></li>
+				<li class="list-group-item"><?php echo "App Order - <b>".$subi."</b>"; ?></li>
+				<li class="list-group-item"><?php echo "Web Order - <b>".$web."</b>"; ?></li>
 				<li class="list-group-item hidden"></li>
 			</ul>
 			</div>
-			
-			
-			
-		<?php }
-
+	<?php 
+	}
 	?>
 	</div>
 	<tr class="odd gradeX">

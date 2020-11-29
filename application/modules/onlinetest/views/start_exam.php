@@ -98,7 +98,8 @@ margin-top: 0px;" >
   <div class="card">
      <div id="proceed_test"><!--Point for start test scroll--></div> 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body"> <button class="btn btn-link" type="button"  style="text-decoration: underline;">
+	<!-- class="card-body"-->
+      <div> <button class="btn btn-link" type="button"  style="text-decoration: underline;">
         <!--data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"-->  General Instructions:
         </button>
 <ol>
@@ -163,7 +164,7 @@ margin-top: 0px;" >
       </h5>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
+      <div>
         <?php 
         if(isset($onlinetestinfo->instructions)){
         echo "<p>".$onlinetestinfo->instructions."</p>";
@@ -280,9 +281,30 @@ I have read and understood the instructions. All computer hardware allotted to m
                   </div>
                   <ul class="row startexampanel">
 <?php 
-
+$testvaluecnt=1;
 foreach($usertest_info as $testvalue){
-    echo "<li class='col-xs-12 col-sm-6 col-md-6'><i class='material-icons'>update</i>  <a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a></li>";
+	if(isset($testvalue->start_time)&&$testvalue->start_time!=''){
+		//$start_time=$testvalue->start_time;
+	}else{
+		//$start_time=0;
+	}
+	
+		if(isset($testvalue->dt_created)&&$testvalue->dt_created!=''){			
+		$dt_created=$testvalue->dt_created;
+		$dt_created =  date("F j, Y, g:i a",$dt_created);   
+	}else{
+		$dt_created=0;
+	}
+	
+
+    echo "<li class='col-xs-12 col-sm-6 col-md-6 text-primary'>";
+	
+	echo "<i class='material-icons'>update</i>";
+	echo "(".$testvaluecnt.")";
+	$testvaluecnt++;
+	echo "<a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a><br>[Attampted On : ".$dt_created." ]</li>";
+	
+
     
 }
 ?>

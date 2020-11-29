@@ -1,11 +1,6 @@
 <?php
 $this->load->helper('text');
-if($this->session->userdata('customer_id')=='127063'&&$this->uri->segment(3)=='28'&&$this->uri->segment(5)=='2'){
-$this->session->set_userdata('sub_purchases','yes');
-}
 if (count($productslist) > 0&& ($productslist[0] != '')) {
-
-		     
     ?>
     <div class="col-xs-12 col-md-12 prod_list_exam">
         <div class="col-md-12 text-center bavl"><h2 class="select_heading"> 
@@ -40,7 +35,10 @@ if (count($productslist) > 0&& ($productslist[0] != '')) {
             $testHeading='Recent '; 
          }
          
-        if ($this->uri->segment(1) == 'exams') { ?>
+        if ($this->uri->segment(1) == 'exams') { 
+		?>
+		
+		
     <a href="<?php echo $showAllUrl ;?>"  title="Click here for More >>" target="_blank"><?php 
     if(isset($urlChapter_name)&&($urlChapter_name!=NULL)){ 
          echo $heading_exam.' of '.$urlChapter_name ; 

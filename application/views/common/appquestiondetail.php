@@ -231,14 +231,18 @@ if(isset($answer->description)){
           <ul class="pager">
           <?php 
 		 
-		if(isset($linkurl_prev)&&$linkurl_prev!=''){
+		 
+		 if(isset($applinkurl_prev)&&$applinkurl_prev!=''){
+			$linkurl=$applinkurl_prev;  
+		  }else if(isset($linkurl_prev)&&$linkurl_prev!=''){
 			$linkurl=$linkurl_prev;  
 		  }  
 		  if($previousquestion){ ?>
                 <li class="btn btn-raised btn-warning"><a href="<?php echo $linkurl;?>/<?php echo $previousquestion->question_id ?>">Previous</a></li>
           <?php }
- if(isset($linkurl_next)&&$linkurl_next!=''){
-			  
+		  if(isset($applinkurl_next)&&$applinkurl_next!=''){
+			$linkurl=$applinkurl_next;  
+		  }else if(isset($linkurl_next)&&$linkurl_next!=''){
 		  $linkurl=$linkurl_next;
 		  }
 		  if($nextquestion){ ?>
@@ -249,27 +253,29 @@ if(isset($answer->description)){
         </div>
   <!-- right panel -->
         <div class="col-md-2 col-sm-2">
-		
-		         <?php if(isset($allquesgrid)&&(count($allquesgrid)>0)){ ?>
+		<?php if(isset($allquesgrid)&&(count($allquesgrid)>0)){ ?>
             <div class="rightadvertisepanel">
                 <p class="btn btn-raised btn-success">More Questions</p>
         <?php 
-        $count=1;foreach($allquesgrid as $question){  ?>
-                <span class="badge" style="padding: 4px"><a class="" href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name.'-appapi_q'.$count,'-',TRUE).'/'.$soldetails->id.'/'.$question->id?>" ><?php echo $count;?></a>
-  </span><?php $count++;
-  }
-            
-            ?>
+        $count=1; 
+		foreach($allquesgrid as $question){  ?>
+        <span class="badge" style="padding: 4px">
+				<a class="" href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name.'-appapi_q'.$count,'-',TRUE).'/'.$soldetails->id.'/'.$question->id?>" ><?php echo $count;?>
+				</a>
+        </span>
+		<?php 
+		$count++;
+  }         
+  ?>
             </div>
             <?php } ?>
             <?php 
 $url_array = explode('/', $_SERVER['REQUEST_URI']); ?>
              <div class="btn-group-vertical ques_mate_panel filter-button-group button-group rht_sorting_panel">
             <?php if(isset($linktostudypackage)){ ?>
-                <span class="pull-right"><a title="Download PDF" href="<?php echo $linktostudypackage;?>" style="text-decoration: none;color:#fff">
-                        
-                        <?php 
-                        
+                <span class="pull-right"><a title="Download PDF" 
+				href="<?php echo $linktostudypackage;?>" style="text-decoration: none;color:#fff">
+            <?php   
              if (file_exists($filepath.$filename.'/docs/'.$filename.'.pdf_1_thumb.jpg')) {
                 $imagePath = base_url($filepath.$filename.'/docs/'.$filename.'.pdf_1_thumb.jpg');
                 }else{

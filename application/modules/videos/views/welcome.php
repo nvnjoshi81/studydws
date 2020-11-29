@@ -31,6 +31,32 @@
 			<!--For Subject and chapter-->
 			
     <div class="row">
+	<?php
+	if(isset($playlistDuration)&&$playlistDuration>0){ ?>
+		<div class="clearfix"></div>
+			<div class="col-md-12">
+			
+				<span>Total Video Duration- <b>
+								<?php
+$totalDuration_minit=floor($playlistDuration);
+$hours = ''.intdiv($totalDuration_minit, 60) ;
+$minutes=($totalDuration_minit % 60);
+if($hours>0){
+	if($minutes>0){
+$totaltime=$hours.' Hours : '.$minutes.' Minutes';
+	}else{
+$totaltime=$hours.' Hours';		
+	}	
+}else{
+$totaltime= $minutes.' Minutes';	
+}
+								echo $totaltime;  ?></b>&nbspTotal Video - <b>411</b></span>
+			</div>
+		
+		
+		<?php 
+		}
+	?>
         <div class="container" style="background-color: #f7f9fa;">
          
 <?php if (!isset($selectedsubject) && isset($subjects_array)) { ?>                
@@ -45,7 +71,6 @@
                                             ?>
 											
 											<div class="sub_btn">
-											
                                             <a title="Video Lectures for <?php echo $value['name']; ?>" href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', TRUE) . '/' . $selectedexam->id . '/' . url_title($value['name'], '-', TRUE) . '/' . $key) ?>" class="subjectbtn btn btn-primary btn-sq-lg" type="button">
 											<i class='fa fa-book fa-5x'></i>
 
@@ -92,6 +117,7 @@ if($contant_avail=='no'){
 			
 <?php } ?>
         </div>
+		
 		<?php 
 		$segmet_two=$this->uri->segment(2);
 		
@@ -108,15 +134,16 @@ if($contant_avail=='no'){
 						 $totalVideo=$this->Videos_model->getPlaylistVideosCount($qb->id);
 						if(isset($totalVideo)&&$totalVideo>0){
 						
-                        if ($count == 9 && $this->uri->total_segments() == 1)
-                            break;
+                        if ($count == 9 && $this->uri->total_segments() == 1){
+						break;
+						}
 
                         if ($count > count($this->config->item('bgimages'))) {
                             $count = 1;
                         }
                         $index = $count - 1;
                          $vpUrl=generateContentLink('videos', $qb->exam, $qb->subject, $qb->chapter, $qb->name.'-relationid-'.$qb->v_relations_id, $qb->id); ?>
-                <a class="lazy_recent_video" href="<?php echo $vpUrl; ?>">
+            
                     
                     <div class="col-xs-6 col-sm-4 col-md-2">
                         <div class="col-item offer offer-success" style="height:140px;">                            
@@ -128,30 +155,75 @@ if($contant_avail=='no'){
                             <div>
                                
                                     <div class="offer-content">                 
-                                        
-                                        <h6 class="vid_prod_hed" title="<?php echo $qb->name; ?>"><?php echo $qb->name; ?></h6>       
+                                         <a class="lazy_recent_video" href="<?php echo $vpUrl; ?>">   
+                                        <h6 class="vid_prod_hed" title="<?php echo $qb->name; ?>"><?php echo $qb->name; ?></h6>  
+</a>										
                                     </div>
              
                                     <div class="separator btn_prod_ved">
-<div class="price"><h5 class="chepter-text-color"><?php echo $totalVideo; ?> Videos</h5></div>
-                                                          
-                                    </div>
+<div class="price"> <h5 class="chepter-text-color"><?php echo $totalVideo; ?> Videos
+<?php
+
+if(isset($qb->playlist_duration)&&$qb->playlist_duration>0){
+	$playlist_duration=$qb->playlist_duration;
+}elseif(isset($qb->custom_playlist_duration)&&$qb->custom_playlist_duration>0){
+	$playlist_duration=$qb->playlist_duration;
+}else{
+	$playlist_duration=0;
+}
+
+if(isset($playlist_duration)&&$playlist_duration>0){
+?>
+	<font style="font-family:'Courier New';font-size:'initial'"><i title="Video Duration" class="glyphicon glyphicon-hourglass">
+                  </i>
+<?php
+		$init = $playlist_duration;
+$hours = floor($init / 3600);
+$minutes = floor(($init / 60) % 60);
+$seconds = $init % 60;
+				?>
+		<?php 
+
+if($init>120){ 
+echo gmdate("i:s", $init); 
+echo " Hours";	
+		}else if($init<121){
+		if($init>59&&$init<121){
+		echo "$init hours";	
+		}else{
+if($init<60){ 
+	
+	echo "$init Minutes";	
+	
+	}else{
+				
+echo gmdate("i:s", $init);  echo " Minutes";		
+				}			
+				
+			}
+}
+?>	</font>
+			</span><?php
+}
+	?>
+</h5></div>                                               
+</div>
                                                             </div>
                         </div>
                     </div>
-                </a>
-                        <?php
-					$count++;
-					}
-                    }
+              
+                    <?php
 					
+					
+                    }
 					$playlistCnt=count($playlist);
 					if(isset($playlistCnt)&&$playlistCnt==1){
 					
 		redirect($vpUrl);
                 die;	
 					}
-					
+					$count++;
+					}
                 }else{
                     ?>
                     

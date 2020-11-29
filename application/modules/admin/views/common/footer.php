@@ -978,8 +978,36 @@ alert('Question Updated.');
 alert('Try Again.Filed.');
 	
 	}
-                }
-            });
     }
-	
+    });
+    }
+	</script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+	<!--Auto suggest online test -->
+	  $(document).ready(function(){  
+     $( "#autouser" ).autocomplete({
+      source: function( request, response ) {		
+       // Fetch data
+       $.ajax({
+        url: "<?=base_url()?>admin/orders/olExamList",
+        type: 'post',
+        dataType: "json",
+        data: {
+         search: request.term
+        },
+        success: function( data ) {
+         response( data );
+		}
+       });
+      },
+    select: function (event, ui) {
+	console.log(ui.item.value+'your message'+ui.item.label);
+       // Set selection
+       $('#autouser').val(ui.item.label); // display the selected text
+       $('#otid').val(ui.item.value); // save selected id to input
+       return false;
+      }
+     });
+  });
 </script>

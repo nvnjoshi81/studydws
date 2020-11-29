@@ -75,7 +75,7 @@ $timeresult =secondsToTime($onlinetestinfo->time);
   <div class="card">
     <div id="proceed_test"><!--Point for start test scroll--></div> 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">  
+      <div>  
         <!-- <button class="btn btn-link" type="button"  style="text-decoration: underline;">data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"</button>--> 
         <h3 class="text-center">General Instructions
 					<?php
@@ -160,7 +160,7 @@ $timeresult =secondsToTime($onlinetestinfo->time);
       </h5>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
+      <div>
        <?php 
          if(isset($onlinetestinfo->instructions)){
                              

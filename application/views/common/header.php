@@ -247,7 +247,7 @@ ga('send', 'pageview');
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hidden-xs" style="float:center">             
               <div class="hidden-xs col-xs-12 col-sm-6 col-lg-6 col-md-6 nopadding">                
                   <!-- login and signup -->
-                  <?php if($this->session->userdata('customer_id')){ ?> <div class="pull-right">
+                  <?php echo '--'.$this->session->userdata('customer_id').$_SESSION['customer_id'].'--'; if($this->session->userdata('customer_id')){ ?> <div class="pull-right">
                     <a title="Studyadda-My Library" href="<?php echo base_url(); ?>user/library"><i class="material-icons">person</i><strong><?php echo $this->session->userdata('customer_name');?></strong>
                     </a>        
                   </div>
@@ -372,7 +372,7 @@ Institutes
       </div>
       <!-- /.container -->
   </nav>
-  <header class="wow slideInDown" data-wow-duration="1s" data-wow-delay="0s">
+  <header>
     <!-- Header Carousel -->
     <div class="container header-top_box">    
       <div class="col-lg-2 col-md-2 nopadding mob_no">
@@ -382,7 +382,7 @@ Institutes
       </div>
       <div class=" col-lg-offset-2 col-lg-4 col-md-4 mainpadding searchpanel">
           <?php 
-          $showSearchTop='yes';
+          $showSearchTop='no';
           if($showSearchTop=='yes'){?>
         <div class="col-lg-12">
 <form name="mainsearch" id="mainsearch" action="<?php echo base_url('search')?>"  >
@@ -470,7 +470,7 @@ Search.....
       <nav role="navigation" class="navbar mainnav notoggle navbar-full">
         <div class="container">      
           <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-           <div class="col-md-12 col-md-12 col-sm-12 col-xs-6 wow slideInLeft" data-wow-delay="500ms"><ul class="nav navbar-nav toggle_nav">
+           <div class="col-md-12 col-md-12 col-sm-12 col-xs-6" ><ul class="nav navbar-nav toggle_nav">
               <?php $exam_cnt=1;
               $ts_lable_array=array('btn-default','btn-primary','btn-success','btn-info','btn-warning','btn-danger');
               foreach($mainexamcategories as $ex){ 
@@ -482,8 +482,7 @@ Search.....
                <?php 
     echo "<a href='".base_url('exams/'.url_title($ex->name,'-',true).'/'.$ex->id)."'>".trim(str_replace('Class','',$ex->name))."</a>"; ?>
               </li>
-              <?php
-          
+       <?php
        if($ex->id=='108'){
          ?><br><?php
        }
@@ -510,5 +509,5 @@ Search.....
      </div>
     <link rel="stylesheet" type="text/css" href="<?php echo get_assets('assets/css/effect.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo get_assets_cdn('assets/frontend/css/shape-oppo.css');?>">
-     <link rel="stylesheet" type="text/css" href="<?php echo get_assets_cdn('assets/css/animate.css');?>">
+     <!--<link rel="stylesheet" type="text/css" href="<?php echo get_assets_cdn('assets/css/animate.css');?>">-->
   </header>  

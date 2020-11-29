@@ -2,8 +2,7 @@
 include('config.php');
 
   date_default_timezone_set("Asia/Kolkata");   //India time (GMT+5:30)
-   $date = date('Y-m-d H:i:s');
-
+    $date = date('Y-m-d H:i:s');
     $title = $_REQUEST['title'];
     $msg = $_REQUEST['description'];     
     $tokens = $_REQUEST['token']; 

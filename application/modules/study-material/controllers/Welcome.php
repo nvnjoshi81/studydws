@@ -8,6 +8,7 @@ class Welcome extends Modulecontroller {
         $this->load->model('History_model');
     }
     public function index($examname = null, $exam_id = 0, $subjectname = null, $subject_id = 0, $chapter_name = null, $chapter_id = 0) {    
+	
         $examdata = array();
         if ($examname == null) {
             $title = getTitle('Study Packages', $this->data['examcategories']);
@@ -304,17 +305,14 @@ $this->load->helper('text');
                            
                            $productslist_html.=' <div class="info">';
                            
-                           
                                 $productslist_html.='<div class="row">
                                     <div class="price col-xs-12 col-md-12">';
 $st_productname=character_limiter($product->displayname ? $product->displayname : $product->modules_item_name, 40);                           
+                        $productslist_html.='<h5 class="vid_prod_hed">'.$st_productname.'</h5>';
                            
-                           $productslist_html.='<h5 class="vid_prod_hed">'.$st_productname.'</h5>';
-                           
-                           $productslist_html.='</div></div>';
-                           
-                           
-                           $productslist_html .='<div class="separator btn_prod_ved">
+						$productslist_html.='</div></div>';
+                         
+						$productslist_html .='<div class="separator btn_prod_ved">
                                         <p class="buy_btn">';
                            
                           $downloadurl = base_url('study-packages/download/'.encrypt($product->file_id.'.'.$this->session->userdata('customer_id')));
@@ -353,6 +351,10 @@ $st_productname=character_limiter($product->displayname ? $product->displayname 
     }
     
     public function details($smname, $smid) {
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $url_segments = $this->uri->segment_array();
         
         array_pop($url_segments);
@@ -398,6 +400,10 @@ if($examname_id<1||$examname_id==''){
     }
 
     public function show($filename, $fileid) {
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
          //update View Count
         $this->Pricelist_model->update_viewcount($fileid,'cmsfiles');
         $this->load->model('File_model');
@@ -475,6 +481,10 @@ if($examname_id<1||$examname_id==''){
     }
     
     public function showanswer($solname,$solid,$qid){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $studymatrerialsdetails=$this->Studymaterial_model->detail($solid);
 		$examname=$this->uri->segment(2);
 $examname_array=$this->Categories_model->getCategoriesbyname($examname); 

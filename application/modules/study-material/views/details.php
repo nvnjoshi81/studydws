@@ -23,12 +23,15 @@
     <div class="col-xs-12 col-sm-4 col-md-3 pdflistpanel">
             <div class="col-item">
             <div class="photo"> 
-               <?php if(isset($pro)){
+               <?php 
+			   	$linktostudypackage=base_url('purchase-courses');
+			   
+			   if(isset($pro)){
                ?>
-                <a href="<?php echo getProductLink($pro,'study-packages');?>">
+                <a href="<?php echo $linktostudypackage;?>">
             <?php }else{
                 ?>
-                    <a href="<?php echo base_url('study-packages/show/'.  url_title($file->displayname?$file->displayname:$file->filename,'-',true).'/'.$file->id)?>">
+                    <a href="<?php echo $linktostudypackage; ?>">
                         <?php
             }
             ?>
@@ -49,19 +52,22 @@
               <div class="info">
                 <div class="row">
                   <div class="price col-xs-12 col-md-12">
+<?php 
+$showprice='yes';
 
+?>
                     <h5 class="vid_prod_hed"><?php echo str_replace('_',' ',$file->displayname?$file->displayname:$file->filename)?></h5>
-<?php if($file->price>0){ ?>
+<?php if($file->price>0&&$showprice=='no'){ ?>
                     <h5 class="price-text-color">&nbsp;<i class="fa fa-inr"> </i> <del class="del_txt"> <?php echo $file->price?></del> <?php echo $file->discounted_price?> </h5>
 <?php } ?>
                   </div>
                  </div>
+				 <?php if($showprice=='no') {?>
+<!--
                 <div class="separator btn_prod_ved">
                    <?php if($file->price > 0){
                 ?>
-          <!-- <a href="<?php echo base_url('study-packages/show/'.  url_title($file->displayname?$file->displayname:$file->filename,'-',true).'/'.$file->id)?>" class="btn-md btn btn-raised btn-warning">Buy Now</a>
-            -->
-                       <p class="buy_btn">
+                              <p class="buy_btn">
             <?php if (!$this->session->userdata('purchases') || !in_array_r($file->id, $this->session->userdata('purchases'))) { ?>
                                             <button itemname="<?php echo str_replace('_',' ',$file->displayname?$file->displayname:$file->filename)?>" 
                                                     type="<?php echo $file->type ?>" 
@@ -83,8 +89,8 @@
             </p>
                                                   
                 <?php  } ?>
-                </div>
-
+                </div> -->
+				 <?php } ?>
                 <div class="clearfix"> </div>
               </div>
             </div>

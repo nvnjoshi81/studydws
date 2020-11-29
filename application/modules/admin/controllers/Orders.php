@@ -67,6 +67,68 @@ class Orders extends MY_Admincontroller {
                 $this->load->view('common/template',$this->data);
         }
 		
+		
+			// code by Mahesh 
+			/* Add product */
+		public function add_product($orderid,$customerid) {
+			
+			$product_name= $this->Orders_model->get_product();
+			
+			$this->data['orderid']=$orderid;
+			
+			$this->data['customerid']=$customerid;
+			
+			$this->data['product_name']=$product_name;
+			
+			$product_name = $this->input->post('product_name');
+			
+			echo $product_name;
+			
+			$this->data['content']='orders/add_product';
+						   
+			$this->load->view('common/template',$this->data);
+		}
+		
+	public function add_new_product() {
+			
+			$orderId = $this->input->post('orderId');
+			
+			$customerid=$this->input->post('customerid');
+			
+			$product_id = $this->input->post('product_id');
+			
+			$get_product_detail= $this->Orders_model->get_product_detail($product_id);
+		
+			$get_end_dt = $this->Orders_model->getOrderItems($orderId);
+			
+			$end_dt = $get_end_dt[0]->end_date;
+			
+			$type = $get_product_detail[0]->type;
+			
+			$price = $get_product_detail[0]->price;
+			
+			$discount_price = $get_product_detail[0]->discounted_price;
+			
+			$new_product =  array('order_id'=>$orderId,
+			'product_id'=>$product_id,
+			'quantity'=>'1',
+			'price'=>$price,
+			'discounted_price'=>$discount_price,
+			'type'=>$type,
+			'end_date'=>$end_dt);
+			
+			$this->Orders_model->add_product($new_product);
+			echo "<script>alert('Product Added Successfully!');</script>";
+			
+			$this->Orders_model->update_pro_qty($orderId);
+			
+			     $this->session->set_flashdata('message', 'Information Saved successfully!');
+			
+				redirect('admin/orders/edit/'.$orderId);
+		}
+		
+		
+		
 		/* -- success order --*/
 		public function success_order(){
             $this->load->library('pagination');
@@ -303,12 +365,8 @@ $config["per_page"] = $this->config->item('records_per_page');
                 $this->load->view('common/template',$this->data);
 			 }
 			 
-			 	 
 			 
-			 
-			 
-			 
-             public function order_status_edit(){
+        public function order_status_edit(){
                  $oId=$this->input->post('oId'); 
                  $customer_mobile=$this->input->post('customer_mobile'); 
                  $customer_email=$this->input->post('customer_email');  
@@ -341,7 +399,7 @@ $config["per_page"] = $this->config->item('records_per_page');
                 redirect('admin/orders/edit/'.$oId);
                 
              }
-              public function order_transfer(){
+        public function order_transfer(){
                 $oId=$this->input->post('oId'); 
                 $user_id=$this->input->post('user_id');
                 $shipping_id= $this->Orders_model->getOrderShippingAddress($user_id);
@@ -354,17 +412,48 @@ $config["per_page"] = $this->config->item('records_per_page');
                 
                 $order_status_data = array(
 			'user_id' => $user_id,
-                        'shipping_id' => $shipping_id
+            'shipping_id' => $shipping_id
 		);
                  
 		$this->Orders_model->transfer_order($oId,$order_status_data);
                 $this->session->set_flashdata('message', 'Order transfered to user id.=>'.$user_id);
                 redirect('admin/orders/edit/'.$oId);
               }
-              
-              public function test_series(){
-                  
-            $this->load->library('pagination');
+        public function test_seriesinfo($getotestid=0,$sortord_name='asc',$sortord_type='name'){
+			$postotestid=$this->input->post('otid');
+			if(isset($getotestid)&&$getotestid>0){
+			$otestid=$getotestid;
+			}elseif(isset($postotestid)&&$postotestid>0){
+			$otestid=$postotestid;
+			}else{
+		    $otestid=0;
+			}
+		$testdetail =$this->Onlinetest_model->detail($otestid); 
+        //$this->data['total']=$total;
+		$this->data['testdetail']=  $testdetail;
+		$testinfo =$this->Onlinetest_model->getoTestUser($otestid,$sortord_name,$sortord_type); 
+		$this->data['testinfo']=  $testinfo;
+		$this->data['sortord_name']=  $sortord_name;
+		$this->data['sortord_otest']=  $sortord_name;
+		$this->data['otestid']=  $otestid;		
+		$this->data['sortord_type']=  $sortord_type;
+        $this->data['content']='orders/test_seriesinfo';
+        $this->load->view('common/template',$this->data);
+				}
+				
+				
+				
+  public function olExamList(){
+    // POST data
+    $postData = $this->input->post();
+
+    // get data
+    $data = $this->Onlinetest_model->olExamUsers($postData);
+
+    echo json_encode($data);
+  }
+        public function test_series(){
+        $this->load->library('pagination');
                 $ordercol=$this->input->get('col');
                 $order=$this->input->get('order');
                 if(!$ordercol){

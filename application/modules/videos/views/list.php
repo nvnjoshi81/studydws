@@ -196,7 +196,7 @@ echo gmdate("i:s", $init); echo " Minutes";
 			<?php
 			}
 			}
-			if(isset($video->video_size)&&$video->video_size!=''){
+			if(isset($video->video_size)&&$video->video_size!='NAN'){
 			?>
 			<font title="Video Size" style="font-family:'Courier New'"> | <i title="Video Size" class="glyphicon glyphicon-scale"></i> <?php echo $video->video_size; ?></font><?php 
 			}

@@ -21,7 +21,6 @@ class Pricelist extends MY_Admincontroller {
         public function index()
         {   
             $this->data['content']='pricelist/index';
-						
             $this->load->view('common/template',$this->data);
         }
         public function getPrice($type,$exam_id,$subject_id=0,$chapter_id=0){
@@ -85,10 +84,7 @@ class Pricelist extends MY_Admincontroller {
            $modules_item_name  =  $this->input->post('modules_item_name'); 
            $item_id =$this->input->post('item_id');
                    $no_of_dvds=$this->input->post('total_dvds'); 
-                   $no_of_lectures=$this->input->post('number_of_lectures'
-				   );
-				   
-$subscription_type=$this->input->post('subscription_type'); 				   
+                   $no_of_lectures=$this->input->post('number_of_lectures'); 
                    $subscription_expiry=$this->input->post('subscription_validity'); 
                    $no_of_subscribers=$this->input->post('total_subscribers'); 
                    $lecture_duration=$this->input->post('lecture_duration'); 
@@ -116,7 +112,6 @@ $subscription_type=$this->input->post('subscription_type');
                         'no_of_dvds'=>$no_of_dvds,
                         'no_of_lectures'=>$no_of_lectures,
                         'subscription_expiry'=>$subscription_expiry,
-						'subscription_type' => $subscription_type,
                         'no_of_subscribers'=>$no_of_subscribers,
                         'lecture_duration'=>$lecture_duration
                    );
@@ -159,42 +154,259 @@ $subscription_type=$this->input->post('subscription_type');
 			$modules_item_name_array = $this->input->post('modules_item_name');
 			$price_array = $this->input->post('price');
 			$discounted_price_array = $this->input->post('discounted_price');
-							   
-$subscription_type_array=$this->input->post('subscription_type'); 				   
-                   $subscription_expiry_array=$this->input->post('subscription_validity');
 			
+			$price_dt_array = $this->input->post('price_dt');
+			$discounted_price_dt_array = $this->input->post('discounted_price_dt');
+			$date_array = $this->input->post('datevalue');
+			
+			$price_3m_array = $this->input->post('price_3m');
+			$discounted_price_3m_array = $this->input->post('discounted_price_3m');
+			$month_3m_array = $this->input->post('monthone');
+			
+			$price_6m_array = $this->input->post('price_6m');
+			$discounted_price_6m_array = $this->input->post('discounted_price_6m');
+			$month_6m_array = $this->input->post('monthtwo');
+			$price_1y_array = $this->input->post('price_1y');
+			$discounted_price_1y_array = $this->input->post('discounted_price_1y');	$year1_array = $this->input->post('monththree');		
+					
 			if($action > 0){
+				
 				$product_cnt=0;
 				foreach($faction_pricelist_id_array as $pkey=>$pval){
+					
+$sub_data=NULL;   
 			if(isset($modules_item_name_array[$product_cnt])&&$modules_item_name_array[$product_cnt]!=''){
 				$data['modules_item_name']=$modules_item_name_array[$product_cnt];
 			}
+			
 					if(isset($price_array[$product_cnt])&&$price_array[$product_cnt]!=''){
 				$data['price']=$price_array[$product_cnt];
 			}
 			if(isset($discounted_price_array[$product_cnt])&&$discounted_price_array[$product_cnt]!=''){
 				$data['discounted_price']=$discounted_price_array[$product_cnt];
-			}
-			//subscription days and type
-			if(isset($subscription_type_array[$product_cnt])&&$subscription_type_array[$product_cnt]!=''){
-				$data['subscription_type']=$subscription_type_array[$product_cnt];
-			}
-			if(isset($subscription_expiry_array[$product_cnt])&&$subscription_expiry_array[$product_cnt]!=''){
-				$data['subscription_expiry']=$subscription_expiry_array[$product_cnt];
-			}
+			}	
+					
 			if($pval>0){
-$this->Pricelist_model->update($pval,$data);
+				//cmsprice table entry
+			$this->Pricelist_model->update($pval,$data);
+			
+			
+			
+			if(isset($price_dt_array[$product_cnt])&&$price_dt_array[$product_cnt]!=''){
+				$sub_data_dt[]=array($price_dt_array[$product_cnt]);
+				
 			}
-$product_cnt++;
+			
+			if(isset($date_array[$product_cnt])&&$date_array[$product_cnt]!=''){
+			$sub_data_dt[]=array($date_array[$product_cnt]);				
 			}
-            redirect('admin/pricelist/pricechange');
+			
+			if(isset($discounted_price_dt_array[$product_cnt])&&$discounted_price_dt_array[$product_cnt]!=''){
+				$sub_data_dt[]=array($discounted_price_dt_array[$product_cnt]);
+			}	
+			
+			
+			$sub_data[]=$sub_data_dt;
+			
+			$sub_data3m=array();
+			if(isset($price_3m_array[$product_cnt])&&$price_3m_array[$product_cnt]!=''){
+				$sub_data3m[]=array($price_3m_array[$product_cnt]);
+				
 			}
+			
+			if(isset($month_3m_array[$product_cnt])&&$month_3m_array[$product_cnt]!=''){
+			$sub_data3m[]=array($month_3m_array[$product_cnt]);				
+			}
+			
+			if(isset($discounted_price_3m_array[$product_cnt])&&$discounted_price_3m_array[$product_cnt]!=''){
+				$sub_data3m[]=array($discounted_price_3m_array[$product_cnt]);
+			}	
+				$sub_data6m=array();
+			$sub_data[]=$sub_data3m;			
+			if(isset($price_6m_array[$product_cnt])&&$price_6m_array[$product_cnt]!=''){
+				$sub_data6m[]=array($price_6m_array[$product_cnt]);
+			}
+			if(isset($month_6m_array[$product_cnt])&&$month_6m_array[$product_cnt]!=''){
+			$sub_data6m[]=array($month_6m_array[$product_cnt]);				
+			}
+			if(isset($discounted_price_6m_array[$product_cnt])&&$discounted_price_6m_array[$product_cnt]!=''){
+				$sub_data6m[]=array($discounted_price_6m_array[$product_cnt]);
+			}
+
+			$sub_data[]=$sub_data6m;
+			$sub_data1y=array();
+			if(isset($price_1y_array[$product_cnt])&&$price_1y_array[$product_cnt]!=''){
+				$sub_data1y[]=array($price_1y_array[$product_cnt]);
+			}
+			if(isset($year1_array[$product_cnt])&&$year1_array[$product_cnt]!=''){
+			$sub_data1y[]=array($year1_array[$product_cnt]);
+			}
+			if(isset($discounted_price_1y_array[$product_cnt])&&$discounted_price_1y_array[$product_cnt]!=''){
+				$sub_data1y[]=array($discounted_price_1y_array[$product_cnt]);
+			}
+			
+			$sub_data[]=$sub_data1y;
+			/* for sub price with date and month */
+		
+				$ipp=0;
+			$final_subPrice='';	
+			foreach ($sub_data as $sub_data_val) { 
+			//print_r($sub_data_val);echo'<br><br>';	
+				$expiry_month=$sub_data_val[1][0];
+				
+				if($ipp==0) {
+				$expiry_dt=$sub_data_val[1][0];					
+					$date=date_create($expiry_dt);
+					$expiryDt=date_format($date,"Y-m-d");				
+					$today = date('Y-m-d');				
+					$date1=date_create($today);
+					$date2=date_create($expiryDt);
+					$diff=date_diff($date1,$date2);
+					$difference_bw = $diff->format("%a");
+					$get_days=$difference_bw;							
+				}else{				
+					$get_days=$sub_data_val[1][0]*30;
+				}
+				$ipp++;
+				if(!isset($pval)||$pval==''){
+					$pval=0;					
+				}
+				if(isset($sub_data_val[0][0])&&($sub_data_val[0][0]!='')) {
+					$subprice=$sub_data_val[0][0];
+				}
+				else {
+					$subprice=0;
+				}
+				
+				if(isset($sub_data_val[2][0])&&$sub_data_val[2][0]!='') {
+					$subdisprice=$sub_data_val[2][0];
+				}
+				else {
+					$subdisprice=0;
+				}
+				
+				if(!isset($get_days)||$get_days=='') {
+					$get_days==0;
+				}
+				
+				$created_dt=time();
+						$final_subPrice=array();
+						
+						
+				//$final_subPrice = array("parent_id"=>$pval,"expiry_month "=>$expiry_month,"price"=>$subprice,"discounted_price"=>$subdisprice,"subscription_expiry"=>$get_days);			
+				
+				
+				$final_subPrice['parent_id']=$pval;
+				$final_subPrice['expiry_month']=$expiry_month;
+				$final_subPrice['price']=$subprice;
+				$final_subPrice['discounted_price']=$subdisprice;
+				$final_subPrice['subscription_expiry']=$get_days;				
+				$modifiedby=$this->session->userdata('userid');
+				$get_sub_product=$this->Pricelist_model->get_subprice($pval,$get_days);
+				
+			
+						
+if(isset($get_sub_product->id)&&$get_sub_product->id>0){	
+	$final_subPrice['dt_modified']=$created_dt;
+	$final_subPrice['modified_by']=$modifiedby;	
+	
+	if(count($final_subPrice)>0){
+	$this->Pricelist_model->update_subprice($get_sub_product->id,$final_subPrice);
+	}		
+}else{
+	$final_subPrice['dt_created']=$created_dt;
+	$final_subPrice['modified_by']=$modifiedby;	
+	$this->Pricelist_model->Create_subprice($final_subPrice);	
+}	
+			}
+			}
+		
+			/* // for sub price with date and month */
+			
+			$product_cnt++;
+			}	 	
+           redirect('admin/pricelist/pricechange');
+			  }
 			$this->data['productlist']=$productlist;
+
+			foreach ($productlist as $porl) {
+				$get_price_by_month=$this->Pricelist_model->get_price_by_month($porl->id);
+				$get_price_by_month_array[]=$get_price_by_month;	
+			}	
+			$this->data['get_price_by_month']=$get_price_by_month_array;	
 			$this->data['content']='pricelist/pricechange';
             $this->load->view('common/template',$this->data);
 		}
 		
-			public function packagecountchange_edit(){
+		public function editproduct($id) {
+			$edit_product=$this->Pricelist_model->getProducts_byid($id);
+			$this->data['edit_product']=$edit_product;
+			$sub_pricelist=$this->Pricelist_model->getsub_pricelist($id);
+			$this->data['sub_pricelist']=$sub_pricelist;
+			$this->data['content']='pricelist/editproduct';
+			$this->load->view('common/template',$this->data);
+		}		
+		public function price_Validity() {
+			if($this->input->post('setValidity')) {
+				$parent_Id = $this->input->post('parent_Id');
+				$proName = $this->input->post('proName');
+				$pricevalidity = $this->input->post('pricevalidity');
+				$price = $this->input->post('price');
+				$dis_price = $this->input->post('dis_price');
+				$c_dt = date('d/M/Y');				
+				$data=array(
+				'parent_id'=>$parent_Id,
+				'name'=>$proName,
+				'subscription_expiry'=>$pricevalidity,
+				'price'=>$price,
+				'discounted_price'=>$dis_price,
+				'dt_created'=>$c_dt,
+				'modified_by'=>'',
+				'dt_modified'=>'',
+				);
+				$this->Pricelist_model->set_price_validity($data);
+				$this->session->set_flashdata('update_msg','Your information has been updated successfully');
+				redirect('admin/pricelist/editproduct/'.$parent_Id);	
+			}			
+			
+		}		
+		public function deletesubproduct($id,$pid) {
+			$this->Pricelist_model->delete_subpro($id);
+			$this->session->set_flashdata('update_msg','Sub-Product has been Deleted successfully');
+			redirect('admin/pricelist/editproduct/'.$pid);			
+		}		
+		public function updatesubproduct($id) {
+			$subpro_Id=$this->Pricelist_model->displaysubproductById($id);
+			$this->data['subpro_Id']=$subpro_Id;			
+			$this->data['sub_rowId']=$id;			
+			$this->data['content']='pricelist/updatesubproduct';
+			$this->load->view('common/template',$this->data);
+			
+			/* update */
+			if($this->input->post('updateValidity')) {
+				$sqlId=$this->input->post('sqlId');
+				$parent_Id = $this->input->post('parent_Id');
+				$proName = $this->input->post('proName');
+				$price = $this->input->post('price');
+				$dis_price = $this->input->post('dis_price');
+				$m_dt = date('d/M/Y');
+				//echo $parent_Id."<br>".$proName."<br>".$pricevalidity."<br>".$price."<br>".$dis_price;
+				
+				$data=array(
+				'parent_id'=>$parent_Id,
+				'name'=>$proName,
+				'price'=>$price,
+				'discounted_price'=>$dis_price,
+				'dt_modified'=>$m_dt,
+				);
+				$this->Pricelist_model->update_subproduct($sqlId,$data);
+				$this->session->set_flashdata('update_msg','Price for Sub-Product has been updated successfully');
+				redirect('admin/pricelist/updatesubproduct/'.$id);
+			/* // update */
+			}
+			
+		}		
+		public function packagecountchange_edit(){
 					
 			$exam_id = $this->input->post('hidden_exam_id');
 			$pkgcntlist=$this->Pricelist_model->pkgCount_byExam($exam_id); 
@@ -266,6 +478,8 @@ $product_cnt++;
 			
 		
 		}
+		
+		
 		
         
 }

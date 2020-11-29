@@ -11,6 +11,8 @@ include('config.php');
     $exam_id = $_POST['exam_id'];
     $type = $_POST['type'];
     $id = $_POST['id'];
+    $image = $_POST['image'];
+    
   $tokens = array($tokens);  
     //$g_tkn = mysqli_query($conn,"select * from user_tokens where user_id = '$user_id' limit 1");
            // while($mg_tkn = mysqli_fetch_array($g_tkn))
@@ -20,8 +22,8 @@ include('config.php');
     $opp = mysqli_query($conn, $inn); 
   
 //$push_notification_android="";
-push_notification_android($tokens,$title,$msg,$exam_id,$type,$id);
-function push_notification_android($tokens,$title,$msg,$exam_id,$type,$id) {
+push_notification_android($tokens,$title,$msg,$exam_id,$type,$id,$image);
+function push_notification_android($tokens,$title,$msg,$exam_id,$type,$id,$image) {
 $url = 'https://fcm.googleapis.com/fcm/send';
 $api_key = 'AAAAIVmGV8Y:APA91bHkI6zYMCqxo14P4--xh5Fjr36gi6Z1_vk8p9Zm-ituhRT9qJYfOKRPIzt-LTkJMJ8JuBEScDKgqpzZfMiFnAhBZ_nu7c6VNYQg2ut7XfKCcsXuhnva-nNHe2c23ZYAeLXmlwSX';
 $messageArray = array();
@@ -32,6 +34,7 @@ $messageArray["notification"] = array (
     'exam_id' => $exam_id,
     'type' => $type,
     'id' => $id,
+    'image'=>$image,
     'sound' => 'default', 
     'badge' => '1',
 );

@@ -13,12 +13,10 @@
                   <div class="clearfix"></div>
                   <div class="vediobody container">
                  <?php
-                 
  if($isProduct){
-     $this->load->view('common/shortproductdetails');
+ $this->load->view('common/shortproductdetails');
  }                
-
-                 ?>
+ ?>
                   <div class="well_flip">
                     <div class="lftgalpenal col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
 					<input type="hidden" <?php  echo "The file study$file->filename does not exist on server."; ?> >

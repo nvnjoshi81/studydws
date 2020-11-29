@@ -49,7 +49,25 @@ class Subjects_model extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
-    
+     
+	// code my Mahesh
+	public function add_sub_subject($data) {
+		$this->db->insert('cmssubjects',$data);
+	}
+	
+	public function get_sub_subject($id) {
+		$this->db->select('id,name,parent_id,order');
+		$this->db->from('cmssubjects');
+		$this->db->where('parent_id',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	public function update_sub_subjects($id,$data) {
+		$this->db->where('id',$id);
+		$this->db->update('cmssubjects',$data);
+	}
+	
     public function getSubjectsByExam($exam_id){
         $this->db->select('S.*');
         $this->db->from('cmschapter_details C');

@@ -1,3 +1,13 @@
+    <style>.subclass a {	
+	display: block;
+	background: #25cfaa7a;
+	padding: 20px;
+	border-left: 6px solid #FF5722;
+	text-decoration: none;
+	color: #2f2c2c;
+	text-shadow: #f4f9f4 5px 5px 5px;
+	font-size: 32px;
+}</style>
 <div id="wrapper">
     <div class="container">
         <div class="row">
@@ -19,12 +29,10 @@
                     if (isset($videoproductslist) && count($videoproductslist) > 0) {
                         ?><div class="clearfix"></div>  
                         <div class="row">
-                                        
-                        <?php
-                        //$this->load->view('common/videoproductslist');
+                        <?php //$this->load->view('common/videoproductslist');
                         ?> 
                         </div>
-                            <?php
+                        <?php
                         }                          
                 ?>
 				<div class="clearfix"></div>
@@ -42,37 +50,42 @@
                                 <div class="container">
 								<div class="row">
 								<!--start Sub Class -->
-		<?php
-									if(isset($subExamArray)&&count($subExamArray)>0){
-										?>
+<?php
+if(isset($subExamArray)&&count($subExamArray)>0){
+?>
 										    <div class="page-header text-center">
         <h3 class="select_heading">Select Sub Class <?php
 ?></h3>
     </div> <!--class="row pack_sub"-->
-    
+
 	<?php
 	
 	   foreach ($subExamArray as $sub_examlist_key =>$sub_examlist_value) {
-		   echo "<a title='".$sub_examlist_value->name."' href='" . base_url($this->uri->segment(1) . 'category/' . url_title($sub_examlist_value->name, '-', true). '/' . $selectedexam->id) .'/'.$sub_examlist_value->id. "'>"; 
-									echo "<h4 class='text-primary'>{$sub_examlist_value->name}</h4>";
-									echo "</a>";		   
+		   echo "<div class='col-lg-3 col-md-3 col-sm-6 col-xs-12'>
+		<div id='sub-class' class='subclass'><a title='".$sub_examlist_value->name."' href='" . base_url($this->uri->segment(1) . 'category/' . url_title($sub_examlist_value->name, '-', true). '/' . $selectedexam->id) .'/'.$sub_examlist_value->id. "'>"; 
+									echo "{$sub_examlist_value->name}";
+									echo "</a></div></div>";		   
 	   }
 	   }
+//echo 'Select Sub Subject:-'; print_r($subExamArray);
 			?>
 	<!--End sub Class-->
-	<div class="page-header text-center">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 page-header text-center">
     <h3 class="select_heading">Select Subject</h3>
     </div> <!--class="row pack_sub"-->
-	
-	<!--Start Display Sub subject-->
 	<?php
+	/*
+	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){
+		?>
+	<!--Start Display Sub subject-->
+		<?php
         foreach ($sub_chaptersubjects as $sub_subjectlist_key =>$sub_subjectlist_value) {
 				 ?>								
 			<div class="col-lg-4 col-lg-md-4 col-sm-12 col-xs-12">
 				<div class="">
 						<?php  
-		$sub_subjectid=$sub_subjectlist_value->sid;
-		$sub_subjectnameArray=$sub_subjectlist_value->sname;
+		$sub_subjectid=$sub_subjectlist_value->id;
+		$sub_subjectnameArray=$sub_subjectlist_key;
                         if(strlen($sub_subjectnameArray)>40){
                         $sub_subjectName=substr($sub_subjectnameArray,0,40).'..';
                          }else{
@@ -92,7 +105,8 @@
 			 } ?>
 	<!--End Display Sub Class-->
 	
-    <?php
+			<?php } */
+							
             $totalsolvedp=count($solvedp);
             //$totalsp=count($sp);
              foreach ($subject_chapters as $subjectlist_key =>$subjectlist_value) {
@@ -215,10 +229,9 @@ if(isset($totalsp)&&$totalsp>0){
 			</div>			
 		</div>
             
-                        <?php } ?>
+        <?php } ?>
             <!-- solved paper-->
-            
-                                        <?php 
+        <?php 
 if(isset($outer_spcnt)&&$outer_spcnt>0){
     
     ?>     
@@ -237,7 +250,9 @@ if(isset($outer_spcnt)&&$outer_spcnt>0){
     <?php
     //<!--End Showing Subject -->
 }
-?><!--Data For Chapter Page--><?php
+?><!--Data For Chapter Page-->
+<?php
+
 if ($this->uri->segment(6) == '' && $this->uri->segment(4) != '') {
 if(isset($subSubjectArray)&&count($subSubjectArray)>0){
 ?>
@@ -284,7 +299,7 @@ if(isset($subSubjectArray)&&count($subSubjectArray)>0){
 }
 	$subjectid =   $selectedsubject->id;
     $subjectname = $selectedsubject->name;
-     //$chepter_array = $subject_chapters[$subjectname];
+    //$chepter_array = $subject_chapters[$subjectname];
     // $availableChapters = $chepter_array['chapters'];
     if (isset($chapters_array) && count($chapters_array) > 0) {
     ?> 
@@ -293,7 +308,7 @@ if(isset($subSubjectArray)&&count($subSubjectArray)>0){
                                 <!--<div class="col-md-6">-->
                                 <div class="col-md-12 text-center bavl">
                                 <h2 class="select_heading">Select Chapter</h2>      
-                                </div>
+        </div>
         <?php
         foreach ($chapters_array as $chapterlist_key => $chapterlist_value) {
 		if ($chapterlist_value['count'] > 0) {
@@ -304,9 +319,9 @@ if(isset($subSubjectArray)&&count($subSubjectArray)>0){
 		<a href="<?php echo base_url($this->uri->segment(1) . '/' . url_title($selectedexam->name, '-', true) . '/' . $selectedexam->id . '/' . url_title($subjectname, '-', true) . '/' . $subjectid . '/' . url_title($chapterlist_value['name'], '-', true) . '/' . $chapterlist_key); ?>">
 			<div class="offer offer1 offer-success col-item" style="height:110px;">
 				<div class="shape">
-					<div class="shape-text">
+				<div class="shape-text">
 				<span class="glyphicon glyphicon glyphicon-th"></span>
-						</div>
+				</div>
 				</div>
 				<div class="offer-content">
 					<h3 class="vid_prod_hed prod_hed1">
@@ -319,14 +334,13 @@ if(isset($subSubjectArray)&&count($subSubjectArray)>0){
 <?php								}
 }
 ?></div>
-		<!--End Showing Chapters-->
+<!--End Showing Chapters-->
 <?php
     }
 	}
 ?>
                     <div class="clearfix"></div>
                     </div>
-				
 				<?php 
 if ($segment_chpterseven>0) {  ?>
  <!--Video content subject vise -->
@@ -480,7 +494,7 @@ echo gmdate("i:s", $init); echo " Minutes";
 			<?php
 			}
 			}
-			if(isset($video->video_size)&&$video->video_size!=''){
+			if(isset($video->video_size)&&$video->video_size!='NAN'){
 			?>
 			<font style="font-family:'Courier New'"> | <i class="glyphicon glyphicon-scale"></i>    <?php echo $video->video_size; ?></font>
 		<?php

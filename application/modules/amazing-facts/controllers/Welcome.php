@@ -7,7 +7,7 @@ class Welcome extends MY_Controller {
         $articlecategories=$this->Categories_model->getCategoryTree(13);
         $this->data['articlecategories']=$articlecategories;
         $this->load->library('pagination');
-        //$archives=$this->Categories_model->getArticlesArchives();
+       //$archives=$this->Categories_model->getArticlesArchives();
         //$this->data['archives']=$archives;
         //$featured=$this->Posting_model->getFeaturedPostings(12);
         //$this->data['featured']=$featured;
@@ -17,6 +17,10 @@ class Welcome extends MY_Controller {
         //$this->data['trending']=$trending;
     }
     public function index(){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $total_rows=$this->Posting_model->count_post_by_parent(13);
         $config = array();
         $config['per_page'] = 10;
@@ -60,6 +64,10 @@ class Welcome extends MY_Controller {
 	$this->load->view('template',$this->data);
     }
     public function category($category_name,$category_id){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $category=$this->Categories_model->getCategoryDetails($category_id);
         $total_rows=$this->Posting_model->count_category_post($category_id);
         $config = array();
@@ -101,6 +109,10 @@ class Welcome extends MY_Controller {
 	$this->load->view('template',$this->data);
     }
     public function article($category_name,$article_name,$article_id){
+		$cache_minutes=$this->config->item('cache_minutes');	
+		if(isset($cache_minutes)&&$cache_minutes>0){ 
+		$this->output->cache($cache_minutes);
+		}
         $this->load->helper('text');
         $postdetails=$this->Posting_model->getPostinginfo($article_id);
         $related=$this->Posting_model->getRelatedPostings($postdetails->category_id);
@@ -108,7 +120,6 @@ class Welcome extends MY_Controller {
         $category=$this->Categories_model->getCategoryDetails($postdetails->category_id);
         $nextpost=  $this->Posting_model->getNextPost($postdetails->id,$postdetails->category_id);
         $previouspost=  $this->Posting_model->getPreviousPost($postdetails->id,$postdetails->category_id);
-       
         $this->data['recentarticles']=$recentarticles;
         $this->data['related']=$related;
         $this->data['nextpost']=$nextpost;

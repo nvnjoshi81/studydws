@@ -19,6 +19,12 @@ class Admin_model extends CI_Model
         $this->db->insert('admin',$data);
         return $this->db->insert_id();
     }
+	
+	 public function save_analytics($data){
+        $this->db->insert('analytics_web',$data);
+        return $this->db->insert_id();
+    }
+	
     
     public function userPermissions($permissions) {
         $this->db->insert('cmsuserpermissions', $permissions);
