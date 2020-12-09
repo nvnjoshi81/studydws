@@ -12,7 +12,13 @@ class Cart extends MY_Controller {
 		
     }
     public function index() {
-        $this->load->model('Products_model');
+		 $studentid=$this->session->userdata('customer_id');
+			if(isset($studentid)&&$studentid>0){
+			$studentid=$this->session->userdata('customer_id');
+			}else{
+			redirect('login');
+			}
+		$this->load->model('Products_model');
         if($this->session->userdata('customer_id')){
             $defaultaddress = $this->Customer_model->getDefaultAddress($this->session->userdata('customer_id'));
             $this->data['default_address'] = $defaultaddress?$defaultaddress:null;
@@ -812,7 +818,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH']== 'com.studyaddaapp') {
  $this->data['status']='success';                           
                 $this->load->view('cart/std_appfailed',$this->data); 
    }
-   public function  std_appsuccess(){
+   public function std_appsuccess(){
  $this->data['status']='success';                           
                 $this->load->view('cart/std_appsuccess',$this->data); 
 }
