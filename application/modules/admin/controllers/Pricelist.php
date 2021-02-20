@@ -147,6 +147,7 @@ class Pricelist extends MY_Admincontroller {
 		
 		public function pricechange(){
 			$contentType=1;
+			$this->load->model('Cart_model');
             $productlist=$this->Pricelist_model->allproduct_by_content($contentType);  
 			$action = $this->input->post('faction');
 			$faction_pricelist_id_array = $this->input->post('faction_pricelist_id');
@@ -184,17 +185,19 @@ $sub_data=NULL;
 			}
 			if(isset($discounted_price_array[$product_cnt])&&$discounted_price_array[$product_cnt]!=''){
 				$data['discounted_price']=$discounted_price_array[$product_cnt];
+				$price_data=array('price'=>$discounted_price_array[$product_cnt]);
 			}	
 					
 			if($pval>0){
-				//cmsprice table entry
+			//cmsprice table entry
 			$this->Pricelist_model->update($pval,$data);
-			
-			
+			//Update shopping cart as per product price change
+			if(isset($pval)&&$pval>0){
+			$this->Cart_model->updateProdPrice($pval,$price_data);
+			}
 			
 			if(isset($price_dt_array[$product_cnt])&&$price_dt_array[$product_cnt]!=''){
 				$sub_data_dt[]=array($price_dt_array[$product_cnt]);
-				
 			}
 			
 			if(isset($date_array[$product_cnt])&&$date_array[$product_cnt]!=''){
@@ -303,9 +306,6 @@ $sub_data=NULL;
 				$final_subPrice['subscription_expiry']=$get_days;				
 				$modifiedby=$this->session->userdata('userid');
 				$get_sub_product=$this->Pricelist_model->get_subprice($pval,$get_days);
-				
-			
-						
 if(isset($get_sub_product->id)&&$get_sub_product->id>0){	
 	$final_subPrice['dt_modified']=$created_dt;
 	$final_subPrice['modified_by']=$modifiedby;	
@@ -324,7 +324,28 @@ if(isset($get_sub_product->id)&&$get_sub_product->id>0){
 			/* // for sub price with date and month */
 			
 			$product_cnt++;
-			}	 	
+			}	
+
+
+
+			/*Update Shopping cart for total amount*/
+			$allgetCart=$this->Cart_model->getCart();
+				
+				foreach($allgetCart as $cartkey=>$cartvals){
+					if(isset($cartvals->id)&&$cartvals->id>0){
+					$allgetCartsum=$this->Cart_model->getCartsum($cartvals->id);
+					if(isset($allgetCartsum->totalamount)&&$allgetCartsum->totalamount>0){
+						$data_array=array(
+							'cart_price'=>$allgetCartsum->totalamount,
+							'cart_items'=>$allgetCartsum->totalproduct
+						);
+							//$this->Cart_model->updatecmscart($cartvals->id,$data_array)
+						
+					}
+					}				
+				}			
+			
+			
            redirect('admin/pricelist/pricechange');
 			  }
 			$this->data['productlist']=$productlist;
@@ -332,7 +353,7 @@ if(isset($get_sub_product->id)&&$get_sub_product->id>0){
 			foreach ($productlist as $porl) {
 				$get_price_by_month=$this->Pricelist_model->get_price_by_month($porl->id);
 				$get_price_by_month_array[]=$get_price_by_month;	
-			}	
+			}
 			$this->data['get_price_by_month']=$get_price_by_month_array;	
 			$this->data['content']='pricelist/pricechange';
             $this->load->view('common/template',$this->data);

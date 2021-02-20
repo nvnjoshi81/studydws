@@ -26,8 +26,7 @@ class Examcategory_model extends CI_Model {
         }else{
         return array();
         }
-    }
-	
+    }	
 	
 /*for getting sub Exam list for category table*/
 
@@ -51,7 +50,6 @@ public function getSubExam($exam_id=0){
 		return array();
 	}
 }
-
 public function getSubSubject($subject_id=0){
 //SELECT * FROM `categories` WHERE `parent_id` = $examid 
   	if($subject_id>0){

@@ -1,4 +1,4 @@
- <?php
+ <?php error_reporting(0);
     if (!defined('BASEPATH'))    exit('No direct script access allowed');
 
 class Livestream extends MY_Admincontroller {
@@ -47,11 +47,11 @@ class Livestream extends MY_Admincontroller {
                      }
                        
                       // echo"<pre>"; print_r($arr); die();
-             $dataTOsend = ['class_list'=> $arr];   
+             $dataTOsend = ['class_list'=> $arr];       
                      //  $this->load->view('index', $dataTOsend );
                    
                      $this->data['class_list'] = $arr;
-                     $this->data['content'] = 'livestream/index';
+                     $this->data['content'] = 'livestream/index_5';
                      $this->load->view('common/template', $this->data);
                     
                      }
@@ -106,160 +106,56 @@ class Livestream extends MY_Admincontroller {
           
          }
           
-    public function add_Meeting()
-		{
-			$data = $this->input->post();
-		        
-		      // echo"<pre>"; print_r($data); die();
-		
-		   
-		          $title        =  $this->input->post('title');
-		          $comments     =  $this->input->post('comment');
-		          $subject      =  $this->input->post('subject');  
-		          $chapter      =  $this->input->post('chapter');
-		          $time         =  $this->input->post('time');	
-           	      $hosted_by      =  $this->input->post('hosted_by');
-           	       
-		          $date         =  $this->input->post('date');
-		          $my_class     =  $this->input->post('my_class');
-		          $url_type     =  $this->input->post('url_type');
-		          $you_tube_url =  $this->input->post('you_tube_url');
-		
-	//	echo $time. " ==jk== ".$date  	; die();
-		
-		if(empty($title) || empty($date) || empty($my_class)  || empty($url_type) || empty($time)  || empty($hosted_by) )
-		{
-		    	$dataTosend = ['status'=>false, 'msg' =>'All Field Required', 'body'=>''];
-			            	echo json_encode($dataTosend); die();
-		}
-       
-                     $temp_v =   explode(',', $my_class) ;
-        			 $class_id = (count($temp_v)>0)? $temp_v[0] : "";
-        			 $order_id = (count($temp_v)>0)? $temp_v[1] : "";
-        			 
-       
-       
-        if(isset($date))
-		{	$arr = explode('/', $date );
-			$date = $arr[2].'-'.$arr[1].'-'.$arr[0];		
-		}
-		
-		   // echo "<pre>"; print_r($_FILES['filename']); die();
-	        
-	              $img_name ='';         
-                    if(isset($_FILES['filename']))
-                    {
-                        $img_name = rand(1000,9999).$_FILES['filename']['name'];
-                       //  $Path1 =  "../../assets/host_file/".$img_name;      
-                         $Path1 =  $_SERVER['DOCUMENT_ROOT']."/assets/host_file/".$img_name;      
-                        if($_FILES['filename']['error'] != 0 ) 
-                         {
-                             $dataTosend = ['status'=>false, 'msg' =>'Incorrect Image','body'=>''];
-                               echo json_encode($dataTosend); die();
-                         }
-               			if(!move_uploaded_file($_FILES['filename']['tmp_name'],$Path1))
-        				{      
-        				    $img_name ="";
-        				    $dataTosend = ['status'=>false, 'msg' =>'Something Went Wrong Please Try Again','body'=>''];
-                               echo json_encode($dataTosend); die();
-        				}
-                    }
-                   
-                   if($url_type == '2') 
-                   {
-                        if($you_tube_url == "")
-                        {
-                            $dataTosend = ['status'=>false, 'msg' =>'Youtube Url Field Required ','body'=>''];
-                               echo json_encode($dataTosend); die();
-                            
-                        }
-                   
-                        	$newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,'chapter_id'=> $chapter,
-                        	               'subject_id'=> $subject,'description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
-                        	               'create_url'=> $you_tube_url,'url_type'=> '2'
-					                	 ];  
-				//		|| empty($chapter) || empty($subject)
-						/* if( empty($chapter))
-						 {
-						     	$newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,
-                        	               'subject_id'=> $subject,'description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
-                        	               'create_url'=> $you_tube_url,'url_type'=> '2'
-					                	 ]; 
-						 }*/
-						 
-						 
-						    	$res2 = $this->mcm->save_data('meeting_tbl',$newdata2);
-                    				if($res2)
-                    				{  
-                                          $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> ''];
-                                                            	echo json_encode($dataTosend); die();
-                                                            	
-                        			                	
-                        			}else{
-                        					 	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create','body'=>''];
-                        			            echo json_encode($dataTosend); die();
-                        					}
-						 
-                    } 
-                    
-                    	$newdata = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,'chapter_id'=> $chapter,
-                        	               'subject_id'=> $subject,'description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
-                        	               'url_type'=> '1'];
-                  
-      	        $res = $this->mcm->save_data ('meeting_tbl',$newdata);
-				if($res)
-				{       
-				           $title1 = str_replace(' ', '+', $title);
-				     
-				        $checksum = sha1("createallowStartStopRecording=true&attendeePW=123&autoStartRecording=false&meetingID=".$res.
-                                     "&moderatorPW=12345&name=".$title1."&record=true&welcome=Welcome+to+studyaddaDHtLLUf5qV5nWed8C8HNsnZArMFjSFJwWrtpRRp4I3I");
-
-                         $url = "https://stream.studyadda.com/bigbluebutton/api/create?allowStartStopRecording=true&attendeePW=123&autoStartRecording=false&meetingID=".$res."&moderatorPW=12345&name=".$title1."&record=true&welcome=Welcome+to+studyadda&checksum=".$checksum;
-           
-           
-				        
-				                    
-                           if ($this->mcm->send_url_internal_meeting_id($url,$res))
-                            {
-                                
-                                
-                                $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> ''];
-                                    	echo json_encode($dataTosend); die();
-                            }else{    
-                                    $this->db->where('meet_id', $res);
-                                    $this->db->delete('meeting_tbl');     
-                                
-                                    	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create','body'=>''];
-			                     	echo json_encode($dataTosend); die();
-                                }
-                         
-                          $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> ''];
-                                    	echo json_encode($dataTosend); die();
-                                    	
-			                	
-				}else{
-					    	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create..','body'=>''];
-			            	echo json_encode($dataTosend);
-						}
-				
-						
-		}
+   
     
       public function update_meeting()
          {    
                 $id = $this->uri->segment(4);
              
              $data = array();
-            
-            $q = "select a.*,c.name as class_name,s.name as subject_name,ch.name as chapter_name  from meeting_tbl as a join categories as c on a.class_id = c.id 
-                    join cmssubjects as s on a.subject_id = s.id join cmschapters as ch on a.chapter_id = ch.id where a.meet_id = $id ";        
-                    
+          
+             $q = "select a.*,c.name as class_name,s.name as subject_name,ch.name as chapter_name  from meeting_tbl as a join 
+                    categories as c on a.class_id = c.id left join cmssubjects as s on a.subject_id = s.id left join 
+                    cmschapters as ch on a.chapter_id = ch.id where a.meet_id = '$id' ";        
+              
              $data = $this->db->query($q)->result();
              
+             
+              $myClass = $this->mcm->get_classes('categories');
+                    
+                    $arr = array();    
+                     foreach($myClass as $val)
+                     {
+                         $arr [] = ['name'=> $val->name,'order'=>$val->order,'id'=>$val->id];
+                         
+                         
+                         
+                     }
+                       
+            
+             $qqq = "select a.* from cmssubjects as a join cmschapter_details as b on a.id = b.subject_id join cmspackages_counter 
+                    as c on b.subject_id = c.subject_id AND total_package > '0' and b.class_id = c.exam_id  where b.class_id in 
+                    (SELECT class_id from meeting_tbl where meet_id = '$id') group by b.subject_id";
+              $res_2 = $this->db->query($qqq)->result();
+		     
+		     
+		     
+		     
              if(count($data) > 0 )
-             {
-                   $this->data['my_data'] =  $data;   
-                    $this->data['content'] = 'livestream/update_meeting';
+             {      
+                 $my_class_id =$data[0]->class_id;
+                 $my_sub_id =$data[0]->subject_id;
+                   $qry = "SELECT *  FROM `cmschapters` WHERE `id` in (SELECT chapter_id  FROM `cmschapter_details` WHERE 
+                                  `class_id` = '$my_class_id' AND `subject_id` = '$my_sub_id')";
+                                  
+                   $this->data['chtr_list'] = $rr = $this->db->query($qry)->result();  
+                   
+               // echo $qry. "<pre>"; print_r($rr); die();
+                   
+                   $this->data['class_list'] =  $arr;   
+                   $this->data['sub_list']   =  $res_2;   
+                   $this->data['my_data']    =  $data;   
+                    $this->data['content']   = 'livestream/update_meeting';
                     $this->load->view('common/template', $this->data);
                  
                        
@@ -267,7 +163,7 @@ class Livestream extends MY_Admincontroller {
                       <script>      
                           alert("Invalid Meeting Id");
                           
-                          window.location.reload();
+                          window.location.href = "https://www.studyadda.com/admin/Livestream/upcoming_meetings" ;
                       </script>               
                    <?php      
                      }
@@ -296,7 +192,7 @@ class Livestream extends MY_Admincontroller {
 		
 	//	echo $time. " ==jk== ".$date  	; die();	
 		
-		if(empty($title) || empty($date) || empty($my_class)  || empty($url_type)|| empty($id) || empty($time) || empty($chapter) || empty($subject) || empty($hosted_by) )
+		if(empty($title) || empty($date) || empty($my_class)  || empty($url_type)|| empty($id) || empty($time)  || empty($hosted_by) )
 		{
 		    	$dataTosend = ['status'=>false, 'msg' =>'All Field Required', 'body'=>''];
 			            	echo json_encode($dataTosend); die();
@@ -332,21 +228,18 @@ class Livestream extends MY_Admincontroller {
                                echo json_encode($dataTosend); die();
                             
                         }
-                   
-                        	$newdata2 = [ 
-							'meet_name'     => $title,
-							'class_id' 		=> $class_id,
-							'order_id' 		=> $order_id,
-							'time'      	=> $time,
-							'chapter_id' 	=> $chapter,
-							'subject_id'    => $subject,
-							'description'   => $comments,
-							'date'		    => $date,
-							'image'         => $img_name,
-							'hosted_by'     => $hosted_by,
-							'create_url'    => $you_tube_url,
-							'url_type'      => '2'
-						 ];   
+                    if($img_name)
+                        {  
+                            $newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,
+                        	             'chapter_id'=> $chapter,'subject_id'=> $subject,'description'=> $comments,'date'=> $date,
+                        	              'image'=> $img_name,'hosted_by'=> $hosted_by,'create_url'=> $you_tube_url,'url_type'=> '2'
+					            	     ];  
+                         }else{
+                             $newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,
+                        	               'chapter_id'=> $chapter,'subject_id'=> $subject,'description'=> $comments,'date'=> $date,
+                        	               'hosted_by'=> $hosted_by,'create_url'=> $you_tube_url,'url_type'=> '2'
+					            	     ]; 
+                          }	 
 						    	$res2 = $this->mcm->update_data ('meeting_tbl',['meet_id'=>$id],$newdata2);
                     				if($res2)
                     				{  
@@ -443,10 +336,7 @@ class Livestream extends MY_Admincontroller {
                              $arr [] = ['name'=> $val->name,'order'=>$val->order,'id'=>$val->id];
                          }
                            
-                          /// echo"<pre>"; print_r($arr); die();
-                                 // $dataTOsend = ['class_list'=> $arr];
-    		      //  $this->load->view('upcoming_meeting',$dataTOsend);
-    		            
+                         
     		              $this->data['class_list'] = $arr;
                         $this->data['content'] = 'livestream/upcoming_meeting';
                         $this->load->view('common/template', $this->data);
@@ -474,14 +364,14 @@ class Livestream extends MY_Admincontroller {
         			 $data = array(); 
         		if(!empty($subject))
         		{
-        			 
+        			 //and a.date >= '$to_d_date'
         			$q = "select a.image,a.meet_id,a.meet_name,a.date,a.time,a.description,b.name as class_name,c.name as sub_name,d.name as chap_name from meeting_tbl as a left join categories as b on a.class_id = b.id left join 
         			      cmssubjects as c on a.subject_id = c.id left join cmschapters as d on a.chapter_id = d.id where 
-        			      a.class_id = '$class_id' and a.subject_id = '$subject' and a.date >= '$to_d_date' order by date desc "; 
+        			      a.class_id = '$class_id' and a.subject_id = '$subject'  order by date desc "; 
         		}else{
         		    	$q = "select a.image,a.meet_id,a.meet_name,a.date,a.time,a.description,b.name as class_name,c.name as sub_name,d.name as chap_name from meeting_tbl as a left join categories as b on a.class_id = b.id left join 
         			      cmssubjects as c on a.subject_id = c.id left join cmschapters as d on a.chapter_id = d.id where 
-        			      a.class_id = '$class_id' and a.date >= '$to_d_date' order by date desc "; 
+        			      a.class_id = '$class_id'  order by date desc "; 
         		    
         	        	}
         	        	
@@ -515,7 +405,7 @@ class Livestream extends MY_Admincontroller {
                       	        $dataTosend = ['status'=>true, 'msg' =>'Success', 'body'=>$job];
                 			            	echo json_encode($dataTosend); die();
                   }else{
-                            	$dataTosend = ['status'=>false, 'msg' =>'No date found', 'body'=>''];
+                            	$dataTosend = ['status'=>false, 'msg' =>'No Data Found', 'body'=>''];
                 			 	echo json_encode($dataTosend); die();
                          }
                     
@@ -755,6 +645,20 @@ class Livestream extends MY_Admincontroller {
 	    
 	    public function add_assessment()
 	        {
+	              $data = $this->mcm->get_classes('categories');
+                   
+                     
+                     $arr = array();    
+                     foreach($data as $val)
+                     {
+                         $arr [] = ['name'=> $val->name,'order'=>$val->order,'id'=>$val->id];
+                     }
+                       
+                      // echo"<pre>"; print_r($arr); die();
+           
+                   
+                     $this->data['class_list'] = $arr;
+	            
 	             $this->data['content'] = 'livestream/add_quiz';
                      $this->load->view('common/template', $this->data);
 	        }
@@ -1199,9 +1103,203 @@ if(isset($date)&&$date!=''){
          redirect('admin/notification');
      }
 	 
-	 
+	 /*===========jk work on 2020-12-12====================*/
+     public function index_7(){
+               
+                     $data = $this->mcm->get_classes('categories');
+                    // $data = $this->mcm->get_data('categories',[]);
+                           
+                     $arr = array();    
+                     foreach($data as $val)     
+                     {
+                         $arr [] = ['name'=> $val->name,'order'=>$val->order,'id'=>$val->id];
+                     }
+                             
+                      // echo"<pre>"; print_r($arr); die();
+             $dataTOsend = ['class_list'=> $arr];   
+                     //  $this->load->view('index', $dataTOsend );
+                          
+                     $this->data['class_list'] = $arr;
+                     $this->data['content'] = 'livestream/index_5';
+                     $this->load->view('common/template', $this->data);
+                    
+                     }
     
+     public function add_Meeting()
+		{
+			$data = $this->input->post();
+		        
+             ///echo"<pre>"; print_r($data); die();
+		
+		   
+		          $title        =  $this->input->post('title');
+		          $comments     =  $this->input->post('comment');
+		          $subject      =  $this->input->post('subject');  
+		          $chapter      =  $this->input->post('chapter');
+		          $time         =  $this->input->post('time');	
+           	      $hosted_by      =  $this->input->post('hosted_by');
+           	       
+		          $date         =  $this->input->post('date');
+		          $my_class     =  $this->input->post('my_class');
+		          $url_type     =  $this->input->post('url_type');
+		          $you_tube_url =  $this->input->post('you_tube_url');
+		
+	//	echo $time. " ==jk== ".$date  	; die();
+		
+		if(empty($title) || empty($date) || empty($my_class)  || empty($url_type) || empty($time)  || empty($hosted_by) )
+		{
+		    	$dataTosend = ['status'=>false, 'msg' =>'All Field Required', 'body'=>''];
+			            	echo json_encode($dataTosend); die();
+		}
+       
+                   
+                // echo"<pre>"; print_r($my_class); die();
+                     
+        			 
+       
+       
+        if(isset($date))
+		{	$arr = explode('/', $date );
+			$date = $arr[2].'-'.$arr[1].'-'.$arr[0];		
+		}
+		
+		   // echo "<pre>"; print_r($_FILES['filename']); die();
+	        
+	              $img_name ='';         
+                    if(isset($_FILES['filename']))
+                    {
+                        $img_name = rand(1000,9999).$_FILES['filename']['name'];
+                       //  $Path1 =  "../../assets/host_file/".$img_name;      
+                         $Path1 =  $_SERVER['DOCUMENT_ROOT']."/assets/host_file/".$img_name;      
+                        if($_FILES['filename']['error'] != 0 ) 
+                         {
+                             $dataTosend = ['status'=>false, 'msg' =>'Incorrect Image','body'=>''];
+                               echo json_encode($dataTosend); die();
+                         }
+               			if(!move_uploaded_file($_FILES['filename']['tmp_name'],$Path1))
+        				{      
+        				    $img_name ="";
+        				    $dataTosend = ['status'=>false, 'msg' =>'Something Went Wrong Please Try Again','body'=>''];
+                               echo json_encode($dataTosend); die();
+        				}
+                    }
+                   
+                   if($url_type == '2') 
+                   {
+                        if($you_tube_url == "")
+                        {
+                            $dataTosend = ['status'=>false, 'msg' =>'Youtube Url Field Required ','body'=>''];
+                               echo json_encode($dataTosend); die();
+                            
+                        }
+                   
+                        
+	
+						/* if( empty($chapter))
+						 {
+						     	$newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,
+                        	               'subject_id'=> $subject,'description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
+                        	               'create_url'=> $you_tube_url,'url_type'=> '2'
+					                	 ]; 
+						 }*/
+						 $wx = array();
+						 $my_row = 1;
+					     foreach($my_class as $co_val)
+						 {
+						     $temp_v2 =   explode('__', $co_val) ; 
+						      $class_id5 = (count($temp_v2)>0)? $temp_v2[0] : "";
+    			             $order_id5 = (count($temp_v2)>0)? $temp_v2[1] : "";
+    			             
+        			             if($my_row == 1)
+        			             {
+				                	$newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id5,'order_id'=> $order_id5,'time'=> $time,'chapter_id'=> $chapter,
+                	               'subject_id'=> $subject,'description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
+                	               'create_url'=> $you_tube_url,'url_type'=> '2'
+			                	 ]; 
+					                	 
+    			                  }else{
+    			                         $newdata2 = [ 'meet_name'=> $title,'class_id'=> $class_id5,'order_id'=> $order_id5,'time'=> $time,'chapter_id'=> '',
+                        	                             'subject_id'=> '','description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
+                        	                            'create_url'=> $you_tube_url,'url_type'=> '2']; 
+    			                    
+    			                            }
+    			             
+    			             
+    			             $my_row++;
+    			             
+						    	$res2 = $this->mcm->save_data('meeting_tbl',$newdata2);
+						            if($res2)
+						            {   $wx[] = $res2;
+						              }else{
+        						                       foreach($wx as $open_id) 
+        						                       {
+        						                         $this->db->where('meet_id', $open_id);
+                                                           $this->db->delete('meeting_tbl');     
+        						                        }
+        						               $wx = []; 
+        						               break;
+						                    }
+						    	
+						 }	
+						    	
+						    	
+						    	
+                    				if(count($wx)>0 )
+                    				{  
+                                          $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> $wx];
+                                                            	echo json_encode($dataTosend); die();
+                                                            	
+                        			                	
+                        			}else{
+                        					 	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create','body'=>''];
+                        			            echo json_encode($dataTosend); die();
+                        					}
+						 
+                    } 
+                    
+                    	$newdata = [ 'meet_name'=> $title,'class_id'=> $class_id,'order_id'=> $order_id,'time'=> $time,'chapter_id'=> $chapter,
+                        	               'subject_id'=> $subject,'description'=> $comments,'date'=> $date,'image'=> $img_name,'hosted_by'=> $hosted_by,
+                        	               'url_type'=> '1'];
+                  
+      	        $res = $this->mcm->save_data ('meeting_tbl',$newdata);
+				if($res)
+				{       
+				           $title1 = str_replace(' ', '+', $title);
+				     
+				        $checksum = sha1("createallowStartStopRecording=true&attendeePW=123&autoStartRecording=false&meetingID=".$res.
+                                     "&moderatorPW=12345&name=".$title1."&record=true&welcome=Welcome+to+studyaddaDHtLLUf5qV5nWed8C8HNsnZArMFjSFJwWrtpRRp4I3I");
 
+                         $url = "https://stream.studyadda.com/bigbluebutton/api/create?allowStartStopRecording=true&attendeePW=123&autoStartRecording=false&meetingID=".$res."&moderatorPW=12345&name=".$title1."&record=true&welcome=Welcome+to+studyadda&checksum=".$checksum;
+           
+           
+				        
+				                    
+                           if ($this->mcm->send_url_internal_meeting_id($url,$res))
+                            {
+                                
+                                
+                                $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> ''];
+                                    	echo json_encode($dataTosend); die();
+                            }else{    
+                                    $this->db->where('meet_id', $res);
+                                    $this->db->delete('meeting_tbl');     
+                                
+                                    	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create','body'=>''];
+			                     	echo json_encode($dataTosend); die();
+                                }
+                         
+                          $dataTosend = ['status'=>true, 'msg' => 'Meeting Created  Successfully','body'=> ''];
+                                    	echo json_encode($dataTosend); die();
+                                    	
+			                	
+				}else{
+					    	$dataTosend = ['status'=>false, 'msg' =>'Meeting  Not Create..','body'=>''];
+			            	echo json_encode($dataTosend);
+						}
+				
+						
+		
+		}
 }
 
 ?>

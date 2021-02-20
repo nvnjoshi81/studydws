@@ -1,14 +1,25 @@
  <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-4">
-                   <h1>Edit Account Information</h1> <?php //print_r($user_info);
+                   <h1>Edit Account Information</h1> 
+		<?php	   
          if($this->session->flashdata('update_msg')){
         ?>
              <div class="alert alert-success"> <?php echo $this->session->flashdata('update_msg'); 
-			 if(isset($user_info->email)){ echo ' for '.$user_info->email; }else{ echo $user_info->firstname; }  ?> </div>
+			 if(isset($user_info->email)){ 
+			 echo ' for '.$user_info->email; 
+			 }else{ 
+			 echo $user_info->firstname; 
+			 }  ?> </div>
             <?php 
          }
-         ?>
+$regdate=$user_info->created_dt;
+if(isset($regdate)&&$regdate>0){
+$regdate_format=date('d/m/Y',$regdate);
+}else{
+$regdate_format=NULL;
+}        
+		?>
                 </div>
                 <div class="col-lg-2">
 				<a href="<?php echo base_url(); ?>admin/orders/cs_orders/<?php echo $user_info->id; ?>" target="_blank">
@@ -43,7 +54,13 @@
     <div class="my-account">
     
 		<div class="subline-title">
-			<h4>Account Information</h4>
+			<h4>Account Information</h4><?php 
+			
+			if($regdate_format!=NULL){
+				echo ' Reg. Date - <font color="red">'.$regdate_format.'</font>';
+			}
+			
+			?>
 		</div>
 		<?php if($user_info) {?>
 		 <form role="form" action="<?php echo base_url(); ?>admin/customers/updatecustomer" name="update_customer_info" id="update_customer_info" method="post">
@@ -159,10 +176,10 @@ if($user_info->is_app_registered==1){
                         <div class="panel-body">
                             <div class="dataTable_wrapper table-responsive">
     <div class="subline-title">
-            <h5>ADDITIONAL ADDRESSES ENTRIES</h5>
             <?php 
             if($user_info_default_address){ ?>
             <?php  ?>
+			<h5>ADDITIONAL ADDRESSES ENTRIES</h5>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <div style="font-weight:bold;">Address</div>
@@ -177,10 +194,8 @@ if($user_info->is_app_registered==1){
               </div>
             </div>
             <?php 
-            
-            } else{
-					echo "User do not have additional addresses.";
-				} ?>
+            } 
+			?>
           </div>
                             </div>
                             
@@ -210,7 +225,7 @@ if($user_info->is_app_registered==1){
                <span class="material-input"></span>
             </div>   
 			<?php } ?>
-                </div>
+                </div> <a target="_blank" href="<?php echo base_url('Welcome/a/'.$user_info->id); ?>">View User's Order</a>		
                      </div>
                 </div>
             <!-- /.row -->

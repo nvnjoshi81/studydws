@@ -396,7 +396,7 @@ if(typeof(item.displayname)==='undefined'){
 						var subExHTML = '';
 						var subSubHTML = '';
 						var sid_total =0;
-                        //trHTML += '<tr><td></td><td><b>Currently Showing Question Bank</b></td><td></td></tr>';                        
+                        //trHTML += '<tr><td></td><td><b>Currently Showing Question Bank</b></td><td></td></tr>';  
                         var sid =1;
                         $.each(response.data,function(index,item){
                             var mitm_id='';
@@ -1011,3 +1011,6 @@ alert('Try Again.Filed.');
      });
   });
 </script>
+
+
+

@@ -102,7 +102,9 @@ $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].'/upload/pdfs/';
             ?>
 <div class="col-md-6 col-lg-12 col-sm-3 app_word_wrap">
                 <div>
-                    <?php foreach($sections as $key=>$value){ ?>
+                    <?php 
+					if(count($sections)>1){
+					foreach($sections as $key=>$value){ ?>
                     <div>
                         <h4><?php echo $key;?></h4>
                         <?php $cc=1;foreach($value['questions'] as $key1=>$value1){ ?>
@@ -130,7 +132,7 @@ $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].'/upload/pdfs/';
                         </div>
                         <?php $cc++;} ?>
                     </div>
-                    <?php } ?>
+                    <?php }} ?>
                 </div>
    </div>
             

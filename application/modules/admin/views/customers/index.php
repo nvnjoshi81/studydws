@@ -140,7 +140,7 @@
                                     <thead>
                                         <tr><th width='50'>
                                                 Id. 
-                                            <?php if($ordercol=='id'){ 
+<?php if($ordercol=='id'){ 
                                                 if($order=='desc'){ ?>
                                                     <a href="<?php echo current_url()?>?col=id&order=asc"><i class="fa fa-sort-desc pull-right"></i></a>
                                                <?php }else{ ?>

@@ -198,12 +198,36 @@ $cache_minutes=$this->config->item('cache_minutes');
     }
 	
 	
-    public function examarticle($exam_name,$subject_name,$chapter_name,$article_name,$article_id){
+    public function examarticle($exam_name,$subject_name,$chapter_name,$article_name,$article_id){ 
 		$cache_minutes=$this->config->item('cache_minutes');	
 		if(isset($cache_minutes)&&$cache_minutes>0){ 
 		$this->output->cache($cache_minutes);
 		}
-        $article=$this->Posting_model->getExamArticleInfo($article_id);
+		/*get Correct EXam name from multple*/
+		$uri = current_url();
+		$uri_link=explode('notes/',$uri);
+		$uri_array=explode('/',$uri_link[1]);
+		if(isset($uri_array[0])&&$uri_array[0]!=''){
+		$uri_replace=str_replace("-"," ",$uri_array[0]);
+		$urisubstr=$uri_replace;	
+$uri_classname_array=$this->Categories_model->getCatebyname($urisubstr);
+if(isset($uri_classname_array)&&count($uri_classname_array)>0){
+	$uri_classname_id=$uri_classname_array->id;
+}else{
+	$urisubstr=substr($uri_replace,0,2);
+	$uri_classname_array=$this->Categories_model->getCatebyname($urisubstr);
+	$uri_classname_id=$uri_classname_array->id;
+}
+	}else{
+	$uri_classname_id=0;
+		}
+		/*End get Correct EXam name from multple*/
+		if(isset($uri_classname_id)&&$uri_classname_id>0){
+        $article=$this->Posting_model->getExamArticleInfo($article_id,$uri_classname_id); 
+
+		}else{
+		$article=$this->Posting_model->getExamArticleInfo($article_id); 	
+		}
 		
 			$getlan=$article[0]->language;
 		if(isset($getlan)&&$getlan=="hindi") {

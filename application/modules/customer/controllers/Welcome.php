@@ -72,6 +72,9 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') == 0){
 }
 
     public function logout() {
+		
+		  $usertype=$this->session->userdata('userid');
+		 
 		        $this->session->unset_userdata('logged_in');
                 $this->session->unset_userdata('customer_id');
                 $this->session->unset_userdata('customer_name');
@@ -86,8 +89,13 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') == 0){
 	        $dir_salesadmin=$this->config->item('dir_salesadmin');; 
 	        redirect(base_url($dir_salesadmin.'/add_student'));
 	  }else{
+		if($usertype==1){
+	    //Do not remove all session
+		}else{
 		$this->session->unset_userdata('userid');
-		$this->session->sess_destroy();
+		$this->session->sess_destroy();  
+		}
+	
 	   }
         redirect(base_url());
     }

@@ -330,6 +330,7 @@ $user_key = $this->input->post('user_key');
  		 public function prdcustcart($priclist_id){
 		  $this->load->model('Cart_model');
           $this->data['user_productCart'] = $this->Cart_model->getCartPricelistId($priclist_id); 
+		   $this->data['orderproduct_id'] = $priclist_id;
 		  //$this->data['user_info'] = $this->Customer_model->getCustomerDetails($user_id);
           $this->data['content']='customers/usercart';
           $this->load->view('common/template',$this->data);
@@ -338,12 +339,11 @@ $user_key = $this->input->post('user_key');
     public function set_validity() {      
       $getstr = date('Y-m-d');
       $dtstr = strtotime($getstr);
-      $offer_dt = $this->load->input->post('current_date');      
-      $no_of_day = $this->load->input->post('current_day');
+      $offer_dt = $this->load->input->post('current_date');$no_of_day = $this->load->input->post('current_day');
       $totaldays = "+".$no_of_day." days";
 	  $diff=strtotime($offer_dt) - strtotime($getstr);
 	  $dateDif= abs(round($diff/86400));
-		
+	
       if (!$offer_dt=="") {
         $offerdtstr = strtotime($offer_dt);
 		$no_of_day=$dateDif;

@@ -109,7 +109,7 @@ $route['videos/(:any)/(:num)/(:any)/(:num)']="videos/welcome/index/$1/$2/$3/$4";
 $route['videos/(:any)/(:num)']="videos/welcome/index/$1/$2";
 $route['videos']="videos/welcome/index";
 $route['videos/play/(:any)/(:num)']="videos/welcome/play/$1/$2";
-
+$route['videos/livevideo/(:any)/(:num)']="videos/welcome/livevideo/$1/$2";$route['videos/livevideo/(:any)']="videos/welcome/livevideo/$1";
 $route['videos/(:any)/(:any)/(:any)/(:any)/(:any)/(:num)']="videos/welcome/play/$5/$6";
 $route['videos/(:any)/(:any)/(:num)']="videos/welcome/playlist/$2/$3";
 $route['videos/(:any)/(:any)/(:any)/(:num)']="videos/welcome/playlist/$3/$4";
@@ -245,6 +245,8 @@ $route['payment_terms']='common/payment_terms';
 $route['about']='common/about';
 $route['jobs']='common/jobs';
 $route['faq']='common/faq';
+$route['hindi/(:any)/(:any)']='common/hindi/$1/$2';
+
 $route['howtouse']='common/meating';
 $route['sitemap']='common/sitemap';
 $route['franchise_welcome']='common/franchise_regi';

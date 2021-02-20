@@ -23,12 +23,10 @@ class   Notes_model extends CI_Model
         $this->db->order_by('cmsnotes.id','desc');
         $query=$this->db->get();
         return $query->result();*/
-            
-            
               $this->db->select('postings.id as id,postings.title as name,postings.category_id,postings.subject_id,postings.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->from('postings');
         if ($exam_id > 0) {
-            $this->db->where('category_id', $exam_id);
+        $this->db->where('category_id', $exam_id);
         }
         if ($subject_id > 0) {
             $this->db->where('subject_id', $subject_id);

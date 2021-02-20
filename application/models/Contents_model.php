@@ -15,12 +15,24 @@ class Contents_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function update_question_bank($id, $data) {
+    public function update_question_bank($data,$id) {
 
         $this->db->update('cmsquestionbank', $data, array('id' => $id));
     }
 	
-	
+	 public function showhindi($id=0,$language) {
+		 $this->db->select('categories.*, categories_language.language,categories_language.catname');
+        $this->db->from('categories');
+        $this->db->join('categories_language', 'categories_language.categories_id=categories.id');        
+        if($id>0){
+		 $this->db->where('categories.id', $id);
+		$this->db->where('categories_language.language ', $language); }else{
+		$this->db->where('categories_language.language ', $language); 
+		 }
+
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function update_SortChapter($content_type,$exam_id,$subject_id,$chapter_id,$chapter_sortid) {
 //echo "<br><--->".$content_type,'content_type<br>',$exam_id,'exam_id<br>',$subject_id,'subject_id<br>',$chapter_id,'chapter_id<br>',$chapter_sortid,'chapter_sortid<br>',"<--->";
 

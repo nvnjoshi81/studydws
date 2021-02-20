@@ -1,5 +1,21 @@
 <div id="page-wrapper">
-            <div class="row">
+         	<div class="row">
+		<!--Menue bar-->
+		
+		<div class="col-lg-12">
+		<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	   <a class="navbar-brand" href="<?php echo base_url('admin/orders');?>">All Orders</a>
+    </div>
+    <ul class="nav navbar-nav">
+     <li><a href="<?php echo base_url('admin/orders/success_orderproduct');?>">Product Ordered</a></li></li>
+      <li><a href="<?php echo base_url('admin/orders/searchord');?>">Search By Date</a></li> <li><a href="<?php echo base_url('admin/orders/success_order');?>">All Success order</a>
+	  </li>
+    </ul>
+  </div>
+</nav>
+		</div>
                 <div class="col-lg-6">
                     <h1 class="page-header">Orders Result<?php if(isset($totalorder)){
 						
@@ -34,7 +50,8 @@
                                 <div class='input-group date' id='datetimepicker7'>
                                     <input type='text' class="form-control" id="end_date" name="end_date"  />
                                     <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    <span class="glyphicon glyphicon-calendar">
+									</span>
                                     </span>
                                 </div>
                             </div>
@@ -43,15 +60,19 @@
                         <div class="form-group">
         <label class="control-label">Type</label>
 			<div class="form-control">
-				<span class="new-list-spn"><input type="radio" name="regiType" value="web"> <span>Web</span></span>
+				<span class="new-list-spn"><input type="radio" name="regiType" value="web">
+				<span>Web</span></span>
 				<span class="new-list-spn"><input type="radio" name="regiType" value="app"> <span>App</span></span>
-				<span class="new-list-spn"><input type="radio" name="regiType" value="all" checked="checked"> <span>All</span></span>
-			</div>
+				<span class="new-list-spn">
+				<input type="radio" name="regiType" value="all" checked="checked">
+				<span>All</span>
+				</span>
+	</div>
     </div>
 	</div>
-	
-	<?php //print_r($orders_status_array); ?>
-	
+	<?php 
+	//print_r($orders_status_array); 
+	?>
 	<div class="col-lg-3 col-md-3 col-xs-12">
 		<div class="form-group">
 			<label class="control-label">Status</label>

@@ -1,13 +1,19 @@
 <?php
+
+foreach($purchased as $pk=>$pv){
+	foreach($pv as $productkey=>$productval){
+	$orderProduct[]=$productval;
+	}
+}
     if(!isset($isProduct->id)){
            $products_id='';
        }else{
            $products_id=$isProduct->id;
-       }
+       }	
+	   
 	   $schoolid=$customer_info->schoolid;
-	  
 	   $showResult='yes';
-       if(!$this->session->userdata('purchases') || !in_array_r($products_id,$this->session->userdata('purchases'))){
+       if(!$orderProduct || !in_array_r($products_id,$orderProduct)){
 	   $showResult='no';
 	   }
 	   if($schoolid==1){
@@ -17,6 +23,7 @@
 		if(isset($cid)){
 		$session_customer_id=$this->session->userdata('customer_id');
 		}	
+		
 	   if($showResult=='no'){
        ?>
 <div id="wrapper">
@@ -27,8 +34,64 @@
     <!-- row well well-sm well-lg-->
     <div class="viewDownMsg">                   
     <div class="col-xs-12 col-md-12 text-center">
+		<ul class="list-inline" style="font-weight:bold;" >
+		<li><?php 
+	if(isset($examInfo)){
+	if(isset($examInfo->name)&&$examInfo->name!=''){
+	$testExamname = $examInfo->name;
+	}else{
+		if(isset($examInfo[0])){
+		$testExamname = $examInfo[0]->name;	
+		}else{
+		$testExamname ='Online Test';
+		}
+	}
+	}else{
+	if(isset($examInfo[0])){
+	$testExamname = $examInfo[0]->name;
+	}else{
+	$testExamname = 'All';
+	}
+	} 
+	echo $testExamname;
+	?>
+		</li>
+		<li><?php 
+		echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		if(isset($subjectsInfo)){
+			$testSubjectname = $subjectsInfo->name;
+		}else{
+			$testSubjectname='All';
+			$testSubjectname='All';
+			
+		} echo $testSubjectname; ?></li><li><?php 
+		echo '<i class="material-icons">subdirectory_arrow_right
+</i>';
+		if(isset($chaptersInfo)){
+			$testChaptername= $chaptersInfo->name;
+		}else{
+			$testChaptername= 'All';
+			
+		}
+		echo $testChaptername;
+		?></li><li><?php 	echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		$name=$onlinetest_info->name;
+		if(isset($name)){
+			$testname = $name;
+		}else{
+		$testname = 'N.A.';
+		} 
+		echo $testname;
+		?>
+</li>
+</ul>
             <span class="ts-btn">
-            <h3>In Order to view and download Result, Question paper, Answers-key, Solution and Analytical Reports <a href="<?php echo base_url('exams/'.url_title($examname,'-',TRUE).'/'.$exam_id)?>" ><button type="button" class=" btn-md btn btn-success btn-raised btn-lg">You Need To Buy This Series </button></a>.</h3>
+            <h3>In Order to view and download Result, Question paper, Answers-key, Solution and Analytical Reports.<a href="<?php 
+			echo base_url('exams/'.url_title($examname,'-',TRUE).'/'.$exam_id)?>" ><button type="button" class=" btn-md btn btn-success btn-raised btn-lg">You Need To Buy This Series.</button></a>.</h3>
               </span> 
     </div>
     </div>
@@ -147,15 +210,30 @@ $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].'/upload/pdfs/';
  <div class="panel panel-default">
  <!--ReTest -->
  
-	<ul class="list-inline" style="font-weight:bold;" ><li><?php 
+	<ul class="list-inline" style="font-weight:bold;" >
+<li><?php 
 	if(isset($examInfo)){
-			$testExamname = $examInfo->name;
+	if(isset($examInfo->name)&&$examInfo->name!=''){
+	$testExamname = $examInfo->name;
+	}else{
+		if(isset($examInfo[0])){
+		$testExamname = $examInfo[0]->name;	
 		}else{
+		$testExamname ='Online Test';
+		}
+	}
+	}else{
+			if(isset($examInfo[0])){
+			$testExamname = $examInfo[0]->name;
+			}else{
 			$testExamname = 'All';
-			
+			}
 		} 
 		echo $testExamname;
-		?></li><li><?php 
+		?>
+		</li>
+		</li>
+	<?php 
 		echo '<i class="material-icons">
 subdirectory_arrow_right
 </i>';
@@ -184,20 +262,16 @@ subdirectory_arrow_right
 			$testname = $name;
 		}else{
 		$testname = 'N.A.';
-			
 		} 
-		
 		echo $testname;
 		?>
 </li>
-<li style="align:right;" ><?php	echo '<i class="material-icons">
-subdirectory_arrow_right
-</i>';
-?>
-			   <a class="btn btn-lg btn-md btn-success btn-raised pull-right" href='<?php echo base_url('online-test/'.url_title($testExamname,'-',TRUE).'/'.url_title($testSubjectname,'-',TRUE).'/'.url_title($testChaptername,'-',TRUE).'/'.url_title($testname,'-',TRUE).'/'.$onlinetest_info->id);?>'>Test Again<i class="material-icons">
+</ul>
+<p>
+ <a class="btn btn-lg btn-md btn-success btn-raised pull-right" href='<?php echo base_url('online-test/'.url_title($testExamname,'-',TRUE).'/'.url_title($testSubjectname,'-',TRUE).'/'.url_title($testChaptername,'-',TRUE).'/'.url_title($testname,'-',TRUE).'/'.$onlinetest_info->id);?>'>Test Again<i class="material-icons">
 autorenew
-</i></a></li>
- </ul> 
+</i></a>
+</p> 
 <?php 
 if(isset($ot_filedetail->filename_one)&&$ot_filedetail->filename_one!=''){
     $common_pdf=$ot_filedetail->filename_one;
@@ -205,15 +279,15 @@ if(isset($ot_filedetail->filename_one)&&$ot_filedetail->filename_one!=''){
 $qus_pdf_count=strlen($common_pdf); 
 if (($qus_pdf_count>4)&&is_readable(FCPATH.$pdf_file_path_common.$common_pdf)) {
 	
-               echo "<ul class='nav nav-pills'><li><a class='btn btn-raised btn-lg btn-warning' href='".base_url('online-test/getresult/'.encrypt($common_pdf.'c-h-e-c-k'.$session_customer_id))."' target='_blank'>Download Solution File</a></li></ul>";
+ echo "<ul class='nav nav-pills'><li><a class='btn btn-raised btn-lg btn-warning' href='".base_url('online-test/getresult/'.encrypt($common_pdf.'c-h-e-c-k'.$session_customer_id))."' target='_blank'>Download Solution File</a></li></ul>";
 }else{
-	echo "<ul class='nav nav-pills'>";
+	//echo "<ul class='nav nav-pills'>";
 	if($ot_filedetail->filename_one==''){
-	 echo "<li><a class='btn btn-raised btn-lg btn-warning'>Error Code - DB_ENT_NOT_EX</a></li>";
+	// echo "<li><a class='btn btn-raised btn-lg btn-warning'>Error Code - DB_ENT_NOT_EX</a></li>";
 	}else{
-	 echo "<li><a class='btn btn-raised btn-lg btn-warning'>Error Code - FILE_ENT_NOT_EX</a></li>";
+	// echo "<li><a class='btn btn-raised btn-lg btn-warning'>Error Code - FILE_ENT_NOT_EX</a></li>";
 	}
-	echo "</ul>";
+	//echo "</ul>";
 }
 } 
 
@@ -271,7 +345,6 @@ $solution_pdf_count=strlen($solution_pdf);
                          <li class="radio">
                            <label>
                              <input type="radio" value="Wrong Answer" name="error">
-                             
                              Wrong Answer
                              </label>
                            </li>
@@ -388,7 +461,7 @@ bar_chart
             <div class="tab-content" >
                 <div role="tabpanel" class="tab-pane active" id="overall">
                     <div class="table-responsive" 
-					><div style=" overflow-y: scroll; 
+ 					><div style=" overflow-y: scroll; 
   height: 300px;">
                     <table class="table table-hover table-responsive"  
 					>
@@ -608,12 +681,11 @@ subdirectory_arrow_right
 									
 									if(isset($usertest_result_info->time_remaining)&&$usertest_result_info->time_remaining>0){
 									$result_time_remaining=$usertest_result_info->time_remaining;	
-									}else{
-									$result_time_remaining=1;	
+									}else{	$result_time_remaining=1;	
 									}
 									?>
                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<?php echo $result_time_taken; ?>" aria-valuemin="0" aria-valuemax="<?php echo $result_time_taken+$result_time_remaining;?>" style="width: <?php echo ($result_time_taken/($result_time_taken+$result_time_remaining))*100; ?>%">
+                                    <div class="progress-bar progress-bar-timetaken" role="progressbar" aria-valuenow="<?php echo $result_time_taken; ?>" aria-valuemin="0" aria-valuemax="<?php echo $result_time_taken+$result_time_remaining;?>" style="width: <?php echo ($result_time_taken/($result_time_taken+$result_time_remaining))*100; ?>%">
                                     <span class="sr-only"><?php echo ($result_time_taken/($result_time_taken+$result_time_remaining))*100; ?>% Complete (success)</span>
                                     <span class="sr-only"><?php echo ($result_time_taken/($result_time_taken+$result_time_remaining))*100; ?>% Complete (success)</span>
                                     </div>
@@ -652,7 +724,9 @@ subdirectory_arrow_right
                     <p>&nbsp;</p>
                     <div class="col-md-12 text-center" style="border: 1px solid #ccc; " >
                         <?php
-//print_r($sections);						
+//print_r($sections);	
+
+if(count($sections)>1){
                         $cc=0;foreach($sections as$k=>$v){ ?>
                         <?php $secion_total=$v['correct']+$v['incorrect']+$v['not_attempted'];
                         $total_marks=$secion_total*$usertest_result_info->right_answer_marks;
@@ -680,7 +754,7 @@ subdirectory_arrow_right
                                 </div>
                                 <div class="col-sm-6 nopadding">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $v['correct']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $secion_total;?>" style="width: <?php echo ($v['correct']/$secion_total)*100; ?>%">
+                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<?php echo $v['correct']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $secion_total;?>" style="width: <?php echo ($v['correct']/$secion_total)*100; ?>%">
                                             <span class="sr-only"><?php echo ($v['correct']/$secion_total)*100; ?>% Complete (success)</span>
                                         </div>
                                     </div>     
@@ -711,7 +785,7 @@ subdirectory_arrow_right
                                 </div>
                                 <div class="col-sm-6 nopadding">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<?php echo $v['not_attempted']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $secion_total;?>" style="width: <?php echo ($v['not_attempted']/$secion_total)*100; ?>%">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?php echo $v['not_attempted']; ?>" aria-valuemin="0" aria-valuemax="<?php echo $secion_total;?>" style="width: <?php echo ($v['not_attempted']/$secion_total)*100; ?>%">
                                             <span class="sr-only"><?php echo ($v['not_attempted']/$secion_total)*100; ?>% Complete (success)</span>
                                         </div>
                                     </div>
@@ -812,7 +886,7 @@ subdirectory_arrow_right
                                                     chart.draw(data, options);
                                                 }
                                             </script>
-                        <?php $cc++; } ?>
+			 <?php $cc++; } } ?>
                     </div>
                 </div>
              
@@ -823,7 +897,20 @@ subdirectory_arrow_right
                     <div class="col-md-12">
                         <h4><?php echo $key;?></h4>
                         <?php $cc=1;foreach($value['questions'] as $key1=>$value1){ ?>
-                        <div class="oaerror <?php if($value1['answered_correctly']==1){ echo 'success'; }elseif($value1['answered_correctly']==2){ echo '';}elseif($value1['answered_correctly']==0){ echo 'danger';}?>">
+                      <?php
+						if($value1['answered_correctly']==1){ 
+						$solcssname='success'; 
+						$solcolorname='green';
+						}elseif($value1['answered_correctly']==2){
+						$solcssname= '';
+						$solcolorname='green';
+						}elseif($value1['answered_correctly']==0){
+						$solcssname= 'danger';
+						$solcolorname='green';
+						}
+						?>
+						
+                      <div class="oaerror <?php echo $solcssname; ?>" style="width: 700px; border: 2px solid green; margin-bottom: 20px;">
                             <strong><?php echo $cc;?>) &nbsp;</strong>
                             
                                 <?php echo $value1['question'];?>
@@ -849,8 +936,8 @@ subdirectory_arrow_right
 						$explanArray[]=$answer->description;
 						} $t++;
 						}
-						?><li style="border-top: 1px dashed #8c8b8b">
-						</li></ul><?php
+						?></ul>
+							 <p style="border-top: 1px dashed #8c8b8b;margin-top: 12px;">&nbsp;</p><?php
 //Display Answer Solution
 						if(isset($explanArray)&&count($explanArray)>0){
 						?>

@@ -49,18 +49,20 @@
 	 
 	 <p>PLEASE DO NOT RUN BOTH CRON FILE SIMULTANEOUSLY </p>
 	 <ul class="list-group">
-  <li class="list-group-item"> <a target="_blank" class="btn btn-primary" href="https://www.studyadda.com/exams/welcome/cron_update_packagecnt_byexamid" role="button">Package Count</a> Exam Wise Package Count</li>
-   <!-- <li class="list-group-item"> <a target="_blank" class="btn btn-primary" href="https://www.studyadda.com/exams/welcome/cron_update_packagecount" role="button">All Package Count</a></li>
+  <li class="list-group-item"> <a target="_blank" class="btn btn-primary" href="<?php echo base_url('exams/welcome/cron_update_packagecnt_byexamid'); ?>" role="button">Package Count</a> Exam Wise Package Count</li>
+  
+ <li class="list-group-item"> <a target="_blank" class="btn btn-primary" href="<?php echo base_url('exams/welcome/cron_update_packagecnt_bysubjectid'); ?>" role="button">Package Count</a> Subject Wise Package Count</li> 
+<!-- <li class="list-group-item"> <a target="_blank" class="btn btn-primary" href="https://www.studyadda.com/exams/welcome/cron_update_packagecount" role="button">All Package Count</a></li>
 <li class="list-group-item"> <a target="_blank" class="btn btn-primary" href="https://www.studyadda.com/exams/welcome/cron_update_packagecnt_bysubjectid" role="button">Subject Package Count</a></li>-->
 </ul>
 	 
 	 <ul class="list-group">
-  <li class="list-group-item"><a target="_blank" class="btn btn-success" href="https://www.studyadda.com/videos/welcome/updateVideoAttr" role="button">Video Size</a> For video size and duration</li>
+  <li class="list-group-item"><a target="_blank" class="btn btn-success" href="<?php echo base_url('videos/welcome/updateVideoAttr'); ?>" role="button">Video Size</a> For video size and duration</li>
   
-   <li class="list-group-item"><a target="_blank" class="btn btn-danger" href="https://www.studyadda.com/exams/welcome/cron_update_orderstatus" role="button">Order Update</a> For Paytm payment check.If transection id blank cancel the order</li>
+   <li class="list-group-item"><a target="_blank" class="btn btn-danger" href="<?php echo base_url('exams/welcome/cron_update_orderstatus'); ?>" role="button">Order Update</a> For Paytm payment check.If transection id blank cancel the order</li>
    
    
-   <li class="list-group-item"><a target="_blank" class="btn btn-danger" href="https://www.studyadda.com/videos/Welcome/updateplaylist_attrib/ role="button">Playlist Update</a> For playlist video duration.will count al video for playlist and save</li>
+   <li class="list-group-item"><a target="_blank" class="btn btn-danger" href="<?php echo base_url('videos/Welcome/updateplaylist_attrib/'); ?>" role="button">Playlist Update</a> For playlist video duration.will count al video for playlist and save</li>
    
    
    

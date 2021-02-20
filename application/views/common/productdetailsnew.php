@@ -111,7 +111,7 @@ $order_result=$this->Orders_model->getOrders_customerproduct($customer_id,$mainP
 
 	<!-- customize card -->
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	<div class="card card2">
+	<div class="card card1">
 		
 		<img src="<?php echo base_url('assets/images/weball_product/'.$isProduct->image);?>" alt="<?php echo $isProduct->modules_item_name; ?>" class="img-responsive img-purchase1">
 		
@@ -220,7 +220,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                 ?>
         </div>
 	</div>
-		<div class="text-center">
+		<div class="text-center noteprod">
                        <b><i><span class="text-primary">The number of Lectures in the package may differ from the numbers shown.The number of package may vary time to time.</span></i></b><br>
 					       <b><span class="text-primary">Note:<em color="red"># Amount paid is non refundable/non adjustable.<br>
 # Course runs only on Android app.<br>

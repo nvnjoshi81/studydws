@@ -291,7 +291,6 @@ class Samplepapers_model extends CI_Model
     }
     
 public function getFiles_merge($smid){
-        
         $this->db->select('cmsfiles.filename,cmssamplepapers_details.file_id,cmsfiles.displayname');
         $this->db->from('cmssamplepapers_details');
         $this->db->join('cmsfiles','cmsfiles.id=cmssamplepapers_details.file_id');

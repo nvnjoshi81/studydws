@@ -43,11 +43,45 @@ class Welcome extends MY_Controller {
 
 
         $this->data['veri_image'] = $cap;
+		
+				
+		$this->load->library('user_agent');
 
-        $this->data['content'] = 'index';
+if ($this->agent->platform())
+{
+        $agent = $this->agent->platform();
+	
+}
+elseif ($this->agent->is_robot())
+{
+        $agent = $this->agent->platform();
+}
+elseif ($this->agent->is_mobile())
+{
+        $agent = $this->agent->platform();
+}
+else
+{
+        $agent = 'Unidentified User Agent';
+}
+
+if($agent=='Android'){
+	$this->data['content'] = 'mobile_index';
+    $this->load->view('template_mobile', $this->data);
+}else{
+		$this->data['content'] = 'index';
+		
+        $this->load->view('template', $this->data);
+}
+
+//echo $agent;
+
+//echo $this->agent->platform(); // Platform info (Windows, Linux, Mac, etc.)
+		
+	
+		
         //$this->data['page_meta_keywords'] = $this->config->item('page_meta_keywords');
         //$this->data['page_meta_description'] = $this->config->item('page_meta_description');
         //$this->data['page_title'] = 'Online Shopping: Shop Online for Food, Herbal cosmetics, Juices, Ayurvedic medicines, Books, CD, DVD - Patanjaliayurved.net';
-        $this->load->view('template', $this->data);
     }
 }

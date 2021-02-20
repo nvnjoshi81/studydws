@@ -36,6 +36,16 @@
                $orderp_price='';
            }
 		   
+		   
+           if(isset($orders_products_array->paytype)){
+            $paytype=$orders_products_array->paytype;
+               
+           }else{
+            $paytype='';
+           }
+		   
+		   
+		   
 		   if(isset($orders_products_array->odid)){
             $odid=$orders_products_array->odid;
                
@@ -85,8 +95,32 @@ echo base_url(); ?>/admin/orders/order_price_edit">
  	    <div class="form-group" >
         <label>Order Product Price&nbsp;</label><span class="new-list-spn"><input type="text" name="orderproductprice" id="orderproductprice" value="<?php echo $orderp_price; ?>" ></span>
     </div>
-	 
-
+	
+        <label>Pay Type&nbsp;</label>
+	<div class="form-group">
+	<?php 
+	$order_paytype=$this->config->item('order_paytype');
+	if(isset($order_paytype)){
+	?>
+		<span class="new-list-spn">
+		<select name="paytype" id="paytype">
+		<?php foreach($order_paytype as $ordkey=>$ordval ){ 
+		
+		if($ordval==$paytype){
+		$selected='selected=selected';	
+		}else{
+		$selected='';
+		}
+		?>
+		<option <?php echo $selected; ?> value="<?php echo $ordval ; ?>"><?php echo ucfirst($ordval) ; ?>
+		</option>
+		<?php } ?>
+		</select>
+		</span>
+	<?php } ?>
+    </div>
+	 </div> 
+  <div class="col-lg-6 col-md-6 col-sm-6 clr-bth">
     <button type="submit" class="btn btn-primary">Submit</button>          
          </div>       
   </form>           

@@ -50,7 +50,7 @@
             <ul class="grid">
             <?php $count=1;foreach($questions as $question){  ?>
                 <li  class="element-item <?php echo url_title($question->section,'', TRUE)?>" >
-                    <p><div <?php echo $hindicss_number_q ;?> ><a href="#"><i class="material-icons">question_answer</i><?php echo $count;?>)</div> <div <?php echo $hindicss.' '.$hindicss_text ;?> > <?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?> </a></div></p>
+                    <p><div <?php echo $hindicss_number_q ;?> ><a href="#"><i class="material-icons">question_answer</i><?php echo $count;?>)</div> <div <?php echo $hindicss.' '.$hindicss_text ;?> > <?php echo custom_strip_tags($question->question);?> </a></div></p>
                 <?php $answers=$this->Questions_model->answers($question->id);
                 if(count($answers) > 1){ 
                     $letters = range('A', 'Z');
@@ -68,7 +68,7 @@
 						<?php } ?>
 						<div style="float:left;" <?php echo $hindicss; ?>>
 						<?php
-						echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer));   ?><span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
+						echo  custom_strip_tags($answer->answer);   ?><span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
 						</div>
         <i id="answrong_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:red; font-size: 22px; font-weight: bolder; margin-bottom: 2px;" >clear</i> </span></p><?php  if($answer->is_correct==1){  
                         $correctAns[$answer->id]=$letters[$ac];

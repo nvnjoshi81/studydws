@@ -27,6 +27,19 @@
         <?php //foreach($my_orders as $orders){ ?>
         <tr>
             <td colspan="2"><strong>Order # : <?php echo $order->order_no; ?>  | Order Date : <?php echo formatDate($order->created_dt); ?></strong>
+			<?php 
+			if(isset($order->paytmorderid)&&$order->paytmorderid!=''){
+				 ?>
+			<br><strong>| Paytm TXN Id : <?php echo $order->txn_number; 
+			?>
+			</strong>
+			<?php
+			}
+		
+			if(isset($order->paytmorderid)&&$order->paytmorderid!=''){
+			?>	<br><strong>
+			| Paytm Order Id : <?php echo $order->paytmorderid;?></strong>
+			<?php } ?>	
             </td>
             
             <td>

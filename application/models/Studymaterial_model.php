@@ -331,8 +331,7 @@ class Studymaterial_model extends CI_Model {
         //echo $this->db->last_query(); die; 
         return $query->result();
     }
-
-    public function getRelations($id,$examid=0) {
+	public function getRelations($id,$examid=0) {
         $this->db->select('*')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->from('cmsstudymaterial_relations');
         $this->db->join('categories', 'cmsstudymaterial_relations.exam_id=categories.id', 'left');

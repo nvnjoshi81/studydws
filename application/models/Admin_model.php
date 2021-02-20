@@ -15,6 +15,11 @@ class Admin_model extends CI_Model
         $query=$this->db->get();
         return $query->row();
     }
+	
+	
+	
+	
+	
     public function createUser($data){
         $this->db->insert('admin',$data);
         return $this->db->insert_id();

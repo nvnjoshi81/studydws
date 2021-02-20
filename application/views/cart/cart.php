@@ -10,13 +10,42 @@ function getCallbackUrl()
  }else{
 	 //redirect('/');
 }
+//print_r($this->cart->contents());
+
+/**** Use: ****/
+  
+  //$data[] = array(  
+     // 'id' => 2011509,
+      //'qty' => 7777,
+     // 'name' => 'nvn',
+	 // 'options'=>array('offline'=>0),
+      //'rowid' => 'dhedu3k3mhdu2nvn'
+  //);
+  //$this->cart->update_all($data);
+  /*
+  OR
+  
+  $data = array(
+       array(
+           'rowid' => 'dlk2jkduvk2d',
+           'name' => 'world'
+       ),
+       array(
+           'rowid' => 'dklg3h211kd',
+           'price' => 25.50
+       )
+  );*/
+  
+  //$this->cart->update_all($data);
+  
+ 
 ?>
 <div class="container">
   <div class="row">
     <?php if($this->session->flashdata('update_msg')){ ?>
     <div class="alert alert-success alert-dismissible" id="success-alert" role="alert"> <strong><?php echo $this->session->flashdata('update_msg'); ?></strong> </div>
-    <?php } ?>
-    <?php $this->load->view('common/breadcrumb');
+    <?php } 
+	$this->load->view('common/breadcrumb');
     ?>
     <?php 
          if($this->session->flashdata('message')){

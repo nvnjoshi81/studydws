@@ -193,8 +193,8 @@ ga('send', 'pageview');
         <a class="btn-xs btn btn-success btn-raised btn-sm" href="<?php echo base_url('login');?>" title="Studyadda-SignUp">
         Sign Up
         </a> 
-        <a title="Featured Videos" class="btn btn-sm btn-warning btn-raised mob_btn" href="<?php echo base_url('featured-videos');?>">Demo Videos</a>     
-      
+        <a title="Featured Videos" class="btn btn-sm btn-warning btn-raised mob_btn" href="<?php echo base_url('featured-videos');?>">Demo Videos</a>  
+ <a title="Featured Videos" class="btn btn-sm btn-danger btn-raised mob_btn" href="<?php echo base_url('videos/livevideo/play');?>">Live Videos</a>  		
 	  <a style="" title="Android Application" class="btn btn-sm btn-warning btn-raised mob_btn" title="Studyadda App" href="https://play.google.com/store/apps/details?id=com.studyaddaapp&pageId=none&rdid=com.studyaddaapp&pli=1">
 		  <i class="material-icons" style="font-size:12px;">android</i>
 		  Android Application
@@ -241,7 +241,7 @@ ga('send', 'pageview');
   <a target="_blank" title="Demo Videos" href="<?php echo base_url('featured-videos'); ?>">
     <button class="btn-xs btn-raised btn-primary"><i class="material-icons">video_library</i>Demo Videos</button>
   </a>
-
+ <a title="Featured Videos" class="btn btn-sm btn-danger btn-raised mob_btn" href="<?php echo base_url('videos/livevideo/play');?>">Live Videos</a>  
 </div>  
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hidden-xs" style="float:center">             
@@ -382,7 +382,7 @@ Institutes
       </div>
       <div class=" col-lg-offset-2 col-lg-4 col-md-4 mainpadding searchpanel">
           <?php 
-          $showSearchTop='no';
+          $showSearchTop='yes';
           if($showSearchTop=='yes'){?>
         <div class="col-lg-12">
 <form name="mainsearch" id="mainsearch" action="<?php echo base_url('search')?>"  >
@@ -467,7 +467,7 @@ Search.....
      <img  style="margin-top:2px;" src="<?php echo get_assets_cdn('assets/images/discount.png')?>"></a>
      </div>    
       </div>
-      <nav role="navigation" class="navbar mainnav notoggle navbar-full">
+      <nav role="navigation" class="navbar" style="background:rgba(11,73,5,.9) !important;border-radius:0;margin-bottom:0;" >
         <div class="container">      
           <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
            <div class="col-md-12 col-md-12 col-sm-12 col-xs-6" ><ul class="nav navbar-nav toggle_nav">
@@ -483,8 +483,8 @@ Search.....
     echo "<a href='".base_url('exams/'.url_title($ex->name,'-',true).'/'.$ex->id)."'>".trim(str_replace('Class','',$ex->name))."</a>"; ?>
               </li>
        <?php
-       if($ex->id=='108'){
-         ?><br><?php
+       if($ex->id=='132'){
+         ?><br><br><br><?php
        }
               $exam_cnt++;
              // }

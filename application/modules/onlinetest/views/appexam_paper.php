@@ -103,6 +103,19 @@ span[aria-label]:hover:after {
   opacity:1;
   transition-delay:1.5s;
 }
+
+.badge-review-save {
+	background-color: fe79ea !important;
+}
+
+.badge-danger {
+	background-color: f63f1c !important;  
+}
+.badge-review-notsave { 
+	background-color: 783aab !important;
+}
+
+
  </style>
  	
     <!-- Header Carousel -->
@@ -135,7 +148,7 @@ $encoded_custid=0;
 }
 //$encoded_custid = base64_encode($customer_id);
         ?><br>
-        <a class="btn-sm btn btn-success btn-raised btn-xs"  href="#" onClick="only_paper_submit('<?php echo $usertest_id; ?>','<?php echo $encoded_custid; ?>');">Submit Test</a>
+        <a class="btn-lg btn btn-success btn-raised btn-xs"  href="#" onClick="only_paper_submit('<?php echo $usertest_id; ?>','<?php echo $encoded_custid; ?>');">SUBMIT TEST</a>
  </div>
  <div>
 					  
@@ -145,7 +158,7 @@ $encoded_custid=0;
 		 <i onclick="show_review_body();" id="btnright_question_review" class="glyphicon glyphicon-th icon-2x" title="Question Review">
 		 </i>
 		 </a>
-		 -->
+		 --><br>
          <a href="#" title="Show Complete Paper" class="btn btn-info btn-lg"><i id="btnright_complete_paper" onClick="show_complete_paper();" class="glyphicon glyphicon-book icon-4x" title="Show Complete Paper"></i> </a>&nbsp;&nbsp;
          <?php if(isset($instruction_detail)&&$instruction_detail!=''){ ?>
          <a href="#" title="Instruction"><i onClick="show_instruction();"  id="btnright_instruction" class="glyphicon glyphicon-list-alt icon-2x" title="Instructions"></i></a> 
@@ -567,12 +580,14 @@ $single_gridans=$answer_array[$question_id][$answer_count];
                           <span class="input-grp-btn btn_online_exam">
                           <a class="btn-md btn btn-default btn-raised btn-md btn-sm btn-lg" onclick="previous_only(<?php echo $question_count; ?>,<?php echo $current_question_id ; ?>);"><?php echo "<< BACK"; ?></a>
                           </span>
-                          <?php  } ?>
+                          <?php  }   if($total_question_count>$question_count){ 
+						  ?>
 							
 						<!--GO TO NEXT-->
 						 <span class="input-grp-btn btn_online_exam">
                           <a class="btn-md btn btn-default btn-raised btn-md btn-sm btn-lg"  onclick="next_only(<?php echo $question_count; ?>,<?php echo $current_question_id ; ?>);"><?php echo "NEXT >>"; ?></a>
                           </span> 
+						  <?php  }  ?>
 
 	 <span class="input-grp-btn btn_online_exam">
 <a href="#scrollme_up_<?php echo $question_count; ?>">
@@ -848,12 +863,19 @@ if($( "#static_link_"+qid).hasClass( "roundbox" )){
         var question_marks_id ="questio_marks_"+qid;
 		  document.getElementById('crntQid').value=qid;
         var final_question_marks =0;
-           if(qtype=='<?php  echo $var_single_choice; ?>'){  
-            //users_answer = $("input[name='option_choice_qid']:checked").val();
-            if((qaction=='review_submit')){
-            //$("input[name="+single_select_qid+"]").removeAttr("checked");
-            }
+           if(qtype=='<?php  echo $var_single_choice; ?>'){
 			users_answer = $("input[name='"+single_select_qid+"']:checked").val(); 
+             if((qaction=='next_submit')){
+			if(users_answer === undefined||users_answer==''){ 
+			alert("Please choose an option");
+			return false;
+			}
+            }else if(qaction=='nextreview_submit'){
+			if(users_answer === undefined||users_answer==''){ 
+			alert("Please choose an option");
+			return false;
+			}
+			}
            }   
 /*Grid single select */
            if(qtype=='<?php  echo $var_grid_single_choice; ?>'){ 
@@ -952,6 +974,9 @@ if($( "#static_link_"+qid).hasClass( "roundbox" )){
         }
 if((qaction=='review_submit')||(qaction=='review_paper_submit')){
 			//change CSS
+			 $("#static_link_"+qid).removeClass("badge-danger");
+        $("#static_link_"+qid).removeClass("badge-success"); 
+        $("#static_link_"+qid).addClass("badge-review-notsave"); 
 			}else{
 			if(users_answer === undefined||users_answer==''){ 
 			alert("Please choose an option");

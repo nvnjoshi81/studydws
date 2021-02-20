@@ -4,14 +4,13 @@
         <div class="col-lg-3 text-left">
             <h1 class="page-header">
                 <?php
-
 				if(isset($maincontent->formula_id)){
 				$exam_formula_id=$maincontent->formula_id;
 				}else{
 				$exam_formula_id='';	
 				}
                 if (isset($maincontent->name)) {
-                    echo $content_type->name . ' - ' . $maincontent->name;
+                echo $content_type->name . ' - ' . $maincontent->name;
                 }else {
                     $this->session->set_flashdata('message', 'Information not Available!');
                     redirect('admin/contents/add');

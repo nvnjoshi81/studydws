@@ -408,20 +408,22 @@ public function OnlineTests_byCategory($exam_id = null, $subject_id = null, $cha
     }
 
     public function update_user_testdata($id, $data) {
-        $this->db->update('cmsusertest', $data, array('id' => $id));
+    $this->db->update('cmsusertest', $data, array('id' => $id));
     }
 
     public function get_testinfo_by_customer($customer_id) {
-        $this->db->select('A.id,A.status,A.dt_created,A.start_time,A.end_time,B.name');
+        $this->db->select('A.id,A.status,A.dt_created,A.start_time,A.end_time,B.name,B.id as exmtestid');
         $this->db->from('cmsusertest A');
         $this->db->join('cmsonlinetest B', 'B.id=A.test_id');		
-        $this->db->limit(500,1);
+        $this->db->limit(500,0);
         $this->db->where('A.user_id', $customer_id);
         $this->db->order_by("A.id", "desc");
         $query = $this->db->get();
         //echo $this->db->last_query(); 
         return $query->result();
     }
+	
+	
 public function userpurchases($productid,$customer_id,$orderstatus=1){
         $this->db->select('cmsorders.id as mainid');
 		$this->db->from('cmsorders');
@@ -435,27 +437,25 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
 		}
 		
     public function get_testinfo_byid($id) {
-        $this->db->select('A.*,B.name');
-        $this->db->from('cmsusertest A');
-        $this->db->join('cmsonlinetest B', 'B.id=A.test_id');
-        $this->db->where('A.id', $id);
-        $this->db->order_by("A.id", "desc");
-        $query = $this->db->get();
-        //echo $this->db->last_query(); 
-        return $query->row();
+    $this->db->select('A.*,B.name,B.id as exmtestid');
+    $this->db->from('cmsusertest A');
+    $this->db->join('cmsonlinetest B', 'B.id=A.test_id');
+    $this->db->where('A.id', $id);
+    $this->db->order_by("A.id", "desc");
+    $query = $this->db->get();
+    //echo $this->db->last_query(); 
+    return $query->row();
     }
 	
     public function get_qusformula($usertestid,$question_id) {
 	$this->db->select('A.qus_formula_id,A.question_id,B.online_exam_formula_id,B.online_exam_formula_name,B.right_answer_marks,B.wrong_answer_marks');
-    
     $this->db->from('cmsonlinetest_details A');
         $this->db->join('cmsonlinetest_formula B','B.online_exam_formula_id=A.qus_formula_id');
         $this->db->where('A.onlinetest_id', $usertestid);
 		$this->db->where('A.question_id', $question_id);
 		$query = $this->db->get();
         //echo $this->db->last_query(); 
-        return $query->row();
-	
+        return $query->row();	
 	}
 	
     public function get_testdetail_byid($id,$question_id=0) {
@@ -646,6 +646,38 @@ public function userpurchases($productid,$customer_id,$orderstatus=1){
         $query = $this->db->get();
         return $query->row();
     }
+	
+	
+		public function getUt_only($usertest_id) {
+           $this->db->select('ut.id as usertestid,ut.user_id,ut.test_id,ut.exam_id,ut.subject_id,ut.chapter_id,ut.time_remaining,ut.time_taken,ut.total_marks,ut.obtain_marks,ut.formula_id,ut.right_answer_marks,ut.wrong_answer_marks,ut.reviewed_qus,ut.attampted_ques,ut.not_attampted_qus,ut.total_qus,ut.total_time,ut.correct_ans,ut.incorrect_ans,ut.status,ut.start_time,ut.end_time,ut.conducted_by,ut.conducted_in,ut.dt_created as usertestcrdate,ut.is_deleted');
+        $this->db->from('cmsusertest ut');
+        $this->db->where('ut.id', $usertest_id);
+	    $query = $this->db->get();
+        //echo $this->db->last_query(); 
+        return $query->row();
+    }
+	
+	
+	    public function getUtDetails_only($usertest_id) {
+        $this->db->select('id as detailid,usertest_id,question_id,question_type,users_answer,correct_answer,is_correct,action_type,perclick_time_spent,questionmarks,usermarks,dt_created as detailcrdate,dt_modified as detailmddate');
+        $this->db->from('cmsusertest_detail');
+        $this->db->where('usertest_id', $usertest_id);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+	
+
+	  public function getUsertestData($id){
+         $this->db->select('D.id as detailid,D.usertest_id,D.question_id,D.question_type,D.users_answer,D.correct_answer,D.is_correct,D.action_type,D.perclick_time_spent,D.questionmarks,D.usermarks,D.dt_created as detailcrdate,D.dt_modified as detailmddate,ut.id as usertestid,ut.user_id,ut.test_id,ut.exam_id,ut.subject_id,ut.chapter_id,ut.time_remaining,ut.time_taken,ut.total_marks,ut.obtain_marks,ut.formula_id,ut.right_answer_marks,ut.wrong_answer_marks,ut.reviewed_qus,ut.attampted_ques,ut.not_attampted_qus,ut.total_qus,ut.total_time,ut.correct_ans,ut.incorrect_ans,ut.status,ut.start_time,ut.end_time,ut.conducted_by,ut.conducted_in,ut.dt_created as usertestcrdate,ut.is_deleted');
+        $this->db->from('cmsusertest ut');
+		$this->db->join('cmsusertest_detail D','ut.id=D.usertest_id');
+        $this->db->where('ut.id', $id);
+	    $query = $this->db->get();
+        //echo $this->db->last_query(); 
+        return $query->result();
+    }
+	
     
      public function getDetails_bymoduleID_file($mid) {
         $this->db->select('*');

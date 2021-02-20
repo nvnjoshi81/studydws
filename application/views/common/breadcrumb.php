@@ -1,5 +1,6 @@
 <?php
 $segments = $this->uri->total_segments();
+$currentSegment=$this->uri->segment(1);
 $mainlinks = $this->config->item('toplinks');
 $breadcrumb['<i class="glyphicon glyphicon-home"></i>'] = base_url();
 $word_free_toshow = '';
@@ -121,7 +122,6 @@ if ($this->uri->segment(1) == 'online-test-result') {
     }
     if ($this->uri->segment(1) == 'articles') {
         $breadcrumb['Articles'] = base_url('articles');
-
         if ($this->uri->segment(2) == 'archives') {
             $dateObj = DateTime::createFromFormat('!m', $this->uri->segment('4'));
             $monthName = $dateObj->format('F'); // March
@@ -229,6 +229,7 @@ if ($this->router->fetch_method() == 'freevideos') {
 //$this->session->set_userdata('breadcrumb',$breadcrumb);
 ?>
 <div class="col-md-12">
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
     <div class="<?php echo ($this->router->fetch_method() != 'question' && $this->router->fetch_module() != 'articles') ? 'col-xs-12 col-sm-12 col-md-7 mobnone' : 'col-md-12' ?>">
         <ol class="breadcrumb">
             <?php $count = 1;
@@ -248,14 +249,43 @@ if ($this->router->fetch_method() == 'freevideos') {
 
         </ol>
     </div>
+	</div>
 
-        <?php if ($this->router->fetch_method() != 'question' && $this->router->fetch_module() != 'articles'&& $this->uri->segment(1) != 'featured-videos'&& $this->uri->segment(1) != 'current-affairs'&& $this->uri->segment(1) != 'articles') {  ?>
-        <div class="col-xs-12 col-sm-12 col-md-5 rht_exam_select hidden-xs">
+      
+	   <?php if ($this->router->fetch_method() != 'question' && $this->router->fetch_module() != 'articles'&& $this->uri->segment(1) != 'featured-videos'&& $this->uri->segment(1) != 'current-affairs'&& $this->uri->segment(1) != 'articles') {  ?>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 rht_exam_select hidden-xs">
+     <div class="lang_tran col-lg-4 col-md-4 col-sm-12 col-xs-12" style="display:block; margin-top:10px;">
+	 
+	 <?php
+	 $hideumod=array('cart','login','purchase-courses','exams','search','study-packages','videos','featured-videos');
+	
+if(in_array($currentSegment,$hideumod)){
+	$hideumodany='no';
+	
+}else{
+	$hideumodany='yes';	
+}
+	 if($hideumodany=='yes') {  
+?>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<?php
+	 } 
+?>
+</div>		
+
     <?php
-    if (isset($module_name)) {
+	$restrict_modularray=array('videos');
+    if (isset($module_name)&&(!in_array($module_name,$restrict_modularray))) {
 //if($module_name=='exams'){ 
         ?>            
-                <div class="btn-group">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 btn-group">
                     <a href="" data-target="#" class="btn btn-raised dropdown-toggle btn-warning" data-toggle="dropdown" aria-expanded="false">
                         Select Content
                         <span class="caret"></span>
@@ -278,7 +308,9 @@ if ($this->router->fetch_method() == 'freevideos') {
 </ul>
                 </div>
 <?php //}else{ 
-if($this->uri->segment(1) != 'featured-videos'){
+if($this->uri->segment(1) == 'featured-videos'||$this->uri->segment(1) == 'videos'){
+	
+}else{
         if(!isset($selectedexam)){
         ?>
                 <div class="btn-group">              

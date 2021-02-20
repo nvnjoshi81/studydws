@@ -1,5 +1,21 @@
 <div id="page-wrapper">
-            <div class="row">
+           	<div class="row">
+		<!--Menue bar-->
+		
+		<div class="col-lg-12">
+		<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	   <a class="navbar-brand" href="<?php echo base_url('admin/orders');?>">All Orders</a>
+    </div>
+    <ul class="nav navbar-nav">
+     <li><a href="<?php echo base_url('admin/orders/success_orderproduct');?>">Product Ordered</a></li></li>
+      <li><a href="<?php echo base_url('admin/orders/searchord');?>">Search By Date</a></li>   <li><a href="<?php echo base_url('admin/orders/success_order');?>">All Success order</a>
+	  </li>
+    </ul>
+  </div>
+</nav>
+		</div>
                 <div class="col-lg-6">
                     <h1 class="page-header">Orders (<?php echo $total?>)</h1>
                 </div>

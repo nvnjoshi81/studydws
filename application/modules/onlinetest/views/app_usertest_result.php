@@ -1,3 +1,9 @@
+<style type="text/css">
+body{
+	overflow-x:hidden;
+}
+</style>
+
 <script>
 // Select the first div for class container
 const div = document.querySelector('div');
@@ -5,26 +11,32 @@ const div = document.querySelector('div');
 div.className = '';
 </script>
 <?php
-
+foreach($purchased as $pk=>$pv){
+	foreach($pv as $productkey=>$productval){
+	$orderProduct[]=$productval;
+	}
+}
     if(!isset($isProduct->id)){
            $products_id='';
        }else{
            $products_id=$isProduct->id;
        }
+	   
 	   if(isset($isProduct->modules_item_name)&&$isProduct->modules_item_name!=''){
 		   $testnameurl=$isProduct->modules_item_name;
 	   }else{
 		   $testnameurl='all';
 	   }
-	   
 	   $testChaptername='all';
 	   $schoolid=$customer_info->schoolid;
+	   $showResult='yes';
+       if(!$orderProduct || !in_array_r($products_id,$orderProduct)){
 	   $showResult='no';
-
-	   if(isset($purchases)&&$purchases=='yes'){
-		$showResult='yes';
-       }
-	   
+	   }
+	   if($schoolid==1){
+		  $showResult='yes'; 
+	   } 
+	  
 	   if(isset($isProduct_array[0]->exam)&&$isProduct_array[0]->exam!=''){
 		$examnameurl=$isProduct_array[0]->exam;
 	   }else{
@@ -43,10 +55,9 @@ div.className = '';
 		   }
 	   ?>
 	  <div>
- <button onclick="location.reload();">Refresh Page</button>
  </div>
 <?php 
-	   if($showResult=='no'){		   
+   if($showResult=='no'){		   
 	   ?>
 <div id="wrapper">
             <?php //$this->load->view('common/breadcrumb'); 
@@ -54,6 +65,72 @@ div.className = '';
             <!-- row well well-sm well-lg-->
     <div class="viewDownMsg">                   
     <div class="col-xs-12 col-md-12 text-center">
+			<ul class="list-inline" style="font-weight:bold;" >
+			<li><?php 
+	if(isset($examInfo)){
+	if(isset($examInfo->name)&&$examInfo->name!=''){
+	$testExamname = $examInfo->name;
+	}else{
+		if(isset($examInfo[0])){
+		$testExamname = $examInfo[0]->name;	
+		}else{
+		$testExamname ='Online Test';
+		}
+	}
+	}else{
+			if(isset($examInfo[0])){
+			$testExamname = $examInfo[0]->name;
+			}else{
+			$testExamname = 'All';
+			}
+		} 
+		echo $testExamname;
+		?>
+		</li>
+		
+		<li><?php 
+		echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		if(isset($subjectsInfo)){
+			$testSubjectname = $subjectsInfo->name;
+		}else{
+			$testSubjectname='All';
+			$testSubjectname='All';
+			
+		} echo $testSubjectname; ?></li><li><?php 
+		echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		if(isset($chaptersInfo)){
+			$testChaptername= $chaptersInfo->name;
+		}else{
+			$testChaptername= 'All';
+			
+		}
+		echo $testChaptername;
+		?></li>
+		
+		<li><?php 	echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		$name=$onlinetest_info->name;
+		if(isset($name)){
+			$testname = $name;
+		}else{
+		$testname = 'N.A.';
+		} 
+		echo $testname;
+		?>
+</li>
+<li>
+<?php echo '<i class="material-icons">
+autorenew</i>'; ?>
+
+<a class="nav-item nav-link btn btn-lg btn-md btn-success btn-raised" href='<?php echo base_url('apponline-test/'.url_title($testExamname,'-',TRUE).'/'.url_title($testSubjectname,'-',TRUE).'/'.url_title($testChaptername,'-',TRUE).'/'.url_title($testname,'-',TRUE).'/'.$appcid.'/'.$onlinetest_info->id);?>'>Attampt Test Again</a>
+</li>
+
+</ul>
             <span class="ts-btn">
             <h4>In Order to view and download Result, Question paper, Answers-key, Solution and Analytical Reports.You Need To Buy This Series.</h4> 
 			<p><a onclick="sendToBuy('<?php echo $exam_id;?>','ot')" href="<?php //echo base_url('exams/'.url_title($examname,'-',TRUE).'/'.$exam_id)?>"><button type="button" 
@@ -172,6 +249,62 @@ table caption {
 <div id="wrapper">
 <!-- class="container" -->
     <div>
+	<ul class="list-inline" style="font-weight:bold;" >
+<li><?php 
+	if(isset($examInfo)){
+	if(isset($examInfo->name)&&$examInfo->name!=''){
+	$testExamname = $examInfo->name;
+	}else{
+		if(isset($examInfo[0])){
+		$testExamname = $examInfo[0]->name;	
+		}else{
+		$testExamname ='Online Test';
+		}
+	}
+	}else{
+			if(isset($examInfo[0])){
+			$testExamname = $examInfo[0]->name;
+			}else{
+			$testExamname = 'All';
+			}
+		} 
+		echo $testExamname;
+		?>
+		</li>
+		<li><?php 
+		echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		if(isset($subjectsInfo)){
+			$testSubjectname = $subjectsInfo->name;
+		}else{
+			$testSubjectname='All';
+			$testSubjectname='All';
+			
+		} echo $testSubjectname; ?></li><li><?php 
+		echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		if(isset($chaptersInfo)){
+			$testChaptername= $chaptersInfo->name;
+		}else{
+			$testChaptername= 'All';
+			
+		}
+		echo $testChaptername;
+		?></li><li><?php 	echo '<i class="material-icons">
+subdirectory_arrow_right
+</i>';
+		$name=$onlinetest_info->name;
+		if(isset($name)){
+			$testname = $name;
+		}else{
+		$testname = 'N.A.';
+		} 
+		echo $testname;
+		?>
+</li>
+</ul>
             <?php //$this->load->view('common/breadcrumb'); 
 $qus_pdf=$onlinetest_info->qus_pdf;
 $ans_pdf=$onlinetest_info->ans_pdf;
@@ -183,6 +316,8 @@ $pdf_file_path=$_SERVER['DOCUMENT_ROOT'].'/upload/pdfs/';
  <!--ReTest --> 
 	<?php 
 	if(isset($examInfo)){
+		
+		
 			$testExamname = $examInfo;
 		}else{
 		$testExamname = 'Online Test';			
@@ -215,9 +350,15 @@ subdirectory_arrow_right
 
 //echo '<i class="material-icons">subdirectory_arrow_right</i>';
 ?>
-	<ul class="list-inline" style="font-weight:bold;"><li>
-	<a class="btn btn-lg btn-md btn-success btn-raised" href='<?php echo base_url('apponline-test/'.url_title($testExamname,'-',TRUE).'/'.url_title($testSubjectname,'-',TRUE).'/'.url_title($testChaptername,'-',TRUE).'/'.url_title($testname,'-',TRUE).'/'.$appcid.'/'.$onlinetest_info->id);?>'>Test Again<i class="material-icons">autorenew</i></a>
-</li>
+
+<nav class="nav nav-pills nav-justified">
+
+	<a class=" nav-item nav-link btn btn-lg btn-md btn-info btn-raised" onclick="location.reload();">Refresh Page<i class="material-icons">autorenew</i></a>
+
+
+
+	<a class="nav-item nav-link btn btn-lg btn-md btn-success btn-raised" href='<?php echo base_url('apponline-test/'.url_title($testExamname,'-',TRUE).'/'.url_title($testSubjectname,'-',TRUE).'/'.url_title($testChaptername,'-',TRUE).'/'.url_title($testname,'-',TRUE).'/'.$appcid.'/'.$onlinetest_info->id);?>'>Attampt Test Again</a>
+
 		<?php
 if(isset($ot_filedetail->filename_one)&&$ot_filedetail->filename_one!=''){
     $common_pdf=$ot_filedetail->filename_one;
@@ -245,12 +386,12 @@ $ans_pdf_count=strlen($ans_pdf);
  }
 $solution_pdf_count=strlen($solution_pdf);
  if (($solution_pdf_count>4)&&is_readable($pdf_file_path.$solution_pdf)) {
-               echo "<li><a class='btn btn-raised btn-lg btn-info' href='".base_url('online-test/getresult/'.encrypt($solution_pdf.'c-h-e-c-k'.$this->session->userdata('customer_id')))."' target='_blank'>Download Solution File</a></li>";
+               echo "<li><a class='nav-item nav-link btn btn-raised btn-lg btn-info' href='".base_url('online-test/getresult/'.encrypt($solution_pdf.'c-h-e-c-k'.$this->session->userdata('customer_id')))."' target='_blank'>Download Solution File</a></li>";
  }
  } 
 ?>
  
-</ul>
+</nav>
 </div><br>
  <!--Error Reporting Start-->
  <?php 
@@ -360,11 +501,11 @@ echo round($groupValueObj['time_taken'] / 60, 1);
 <?php												
 							$count++;
 							if($count==4){
-								break;
+							break;
 							}
 							}
 							}
-							?>
+?>
 
 
 	  </tbody>
@@ -700,8 +841,9 @@ subdirectory_arrow_right
                     <p>&nbsp;</p>
                     <div class="col-md-12 text-center" style="border: 1px solid #ccc;" >
                         <?php
-						$showroundGraph='yes';
-						if($showroundGraph=='yes'){
+					$showroundGraph='yes';
+					if($showroundGraph=='yes'){
+					if(count($sections)>1){
 //print_r($sections);						
                         $cc=0;foreach($sections as$k=>$v){ ?>
                         <?php $secion_total=$v['correct']+$v['incorrect']+$v['not_attempted'];
@@ -856,18 +998,35 @@ subdirectory_arrow_right
                                             </script>
                     
                 <div class="clearfix"><br></div>
-			 <?php $cc++; } } ?>
+						<?php $cc++; } } } ?>
                     </div>
                 </div>
              
-                <div role="tabpanel" class="tab-pane" id="solution">
+                
+				
+				
+				<div role="tabpanel" class="tab-pane" id="solution" style="overflow-x:hidden;">
                     <?php 
 					foreach($sections as $key=>$value){
 					?>
                     <div class="col-md-12">
                         <h4><?php echo $key;?></h4>
                         <?php $cc=1;foreach($value['questions'] as $key1=>$value1){ ?>
-                        <div class="oaerror <?php if($value1['answered_correctly']==1){ echo 'success'; }elseif($value1['answered_correctly']==2){ echo '';}elseif($value1['answered_correctly']==0){ echo 'danger';}?>">
+						
+						<?php
+						if($value1['answered_correctly']==1){ 
+						$solcssname='success'; 
+						$solcolorname='green';
+						}elseif($value1['answered_correctly']==2){
+						$solcssname= '';
+						$solcolorname='green';
+						}elseif($value1['answered_correctly']==0){
+						$solcssname= 'danger';
+						$solcolorname='green';
+						}
+						?>
+						
+                      <div class="oaerror <?php echo $solcssname; ?>" style="width: 700px; border: 2px solid green; margin-bottom: 20px;">
                             <strong><?php echo $cc;?>) &nbsp;</strong>
                             <?php echo $value1['question'];?>
                             <p style="border-top: 1px dashed #8c8b8b;margin-top: 12px;">&nbsp;</p>
@@ -892,8 +1051,12 @@ subdirectory_arrow_right
 						$explanArray[]=$answer->description;
 						} $t++;
 						}
-						?><li style="border-top: 1px dashed #8c8b8b">
-						</li></ul><?php
+						?>
+						</ul>
+						 <p style="border-top: 1px dashed #8c8b8b;margin-top: 12px;">&nbsp;</p>
+						
+						
+						<?php
 //Display Answer Solution
 						if(isset($explanArray)&&count($explanArray)>0){
 						?>
@@ -904,17 +1067,23 @@ subdirectory_arrow_right
 						?>
 						</div>
             <?php 
-						unset($explanArray); }
+						unset($explanArray); 
+						}
             ?>
             </div>
-						<!--<div><hr style="border-top: 3px double #8c8b8b;"></div>-->
-                        <?php $cc++;
+			<?php $cc++;
 						} 
 						?>
             </div>
                     <?php } ?>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="student_result">
+               
+
+
+
+
+
+			   <div role="tabpanel" class="tab-pane" id="student_result">
                     <h2>Your Answers</h2>
 
 <div class="container">

@@ -4,9 +4,7 @@ exit('No direct script access allowed');
 
 class Videos_model extends CI_Model {    
     
-    public function insert_modules_package($data,$tablename){    
-        
-        $this->db->insert($tablename, $data);
+    public function insert_modules_package($data,$tablename){    $this->db->insert($tablename, $data);
         return $this->db->insert_id();
     }
     
@@ -14,7 +12,13 @@ class Videos_model extends CI_Model {
         $this->db->update($tablename, $data, array('id' => $id)); 
     }
     public function check_modules_package($exam_id='',$subject_id='',$module_type,$tablename,$level=''){
-       $this->db->select('id,total_package,total_question,module_type'); 
+if($tablename=='cmspackagesall_counter'){
+$fieldname='id,total_package,total_question,module_type';   
+}else{
+$fieldname='id,total_package,total_question,custom_total_package,custom_total_question,module_type';   
+	
+}
+   $this->db->select(); 
         $this->db->from($tablename);      
         if($exam_id>0){
         $this->db->where('exam_id', $exam_id);
@@ -46,7 +50,7 @@ class Videos_model extends CI_Model {
         $this->db->where('exam_id', $exam_id);
         $this->db->where('level','exam');
         }else{
-        $this->db->select('id,total_package,total_question,custom_total_package,custom_total_question,module_type'); 
+        $this->db->select('id,total_package,total_question,module_type'); 
         $this->db->where('level','root');
         $this->db->from('cmspackagesall_counter');
         }
@@ -248,6 +252,71 @@ v.id,v.title,v.video_source,v.video_duration,v.custom_video_duration,v.video_siz
         return array();
         }
     }
+	
+	function getVideoLive($classid=0,$id=0){		
+              $this->db->select('meet_id,image,class_id,order_id,subject_id,chapter_id,url_type,meet_name,hosted_by,description,time,date,create_url,internal_meet_id,delete_recording,use_memory');
+        $this->db->from('meeting_tbl');
+		if($id>0){
+        $this->db->where('meet_id', $id);
+		}else{
+			if($classid>0){
+	    $this->db->where('class_id', $classid);
+			}
+		$this->db->limit(1);
+        $this->db->order_by('meet_id','desc');
+		}
+		$query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->row();
+        }else{
+        return array();
+        }
+    }
+	
+	
+	function pastlivevideos(){		
+    $this->db->select('meet_id,image,class_id,order_id,subject_id,chapter_id,url_type,meet_name,hosted_by,description,time,date,create_url,internal_meet_id,delete_recording,use_memory');
+        $this->db->from('meeting_tbl');
+		//$this->db->limit(10);
+        $this->db->order_by('meet_id','desc');
+		$this->db->group_by('meet_name');
+		$query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->result();
+        }else{
+        return array();
+        }
+    }
+	
+	function pastlivevideos_examwise($examid){		
+        $this->db->select('meet_id,image,class_id,order_id,subject_id,chapter_id,url_type,meet_name,hosted_by,description,time,date,create_url,internal_meet_id,delete_recording,use_memory');
+        $this->db->from('meeting_tbl');
+		//$this->db->limit(10);
+        $this->db->order_by('meet_id','desc');
+		$this->db->group_by('meet_name');
+		$this->db->where('class_id',$examid);
+		$query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->result();
+        }else{
+        return array();
+        }
+    }
+	
+	
+		function getlivevideos_exam(){		
+        $this->db->select('meet_id,image,class_id,order_id,subject_id,chapter_id,url_type,meet_name,hosted_by,description,time,date,create_url,internal_meet_id,delete_recording,use_memory');
+        $this->db->from('meeting_tbl');
+		//$this->db->limit(10);
+		$this->db->group_by('class_id');
+		$query = $this->db->get();
+        if($query->num_rows()>0){ 
+        return $query->result();
+        }else{
+        return array();
+        }
+    }
+	
     
     function getVideoDetails_all($tempvar='youtube') {
          $this->db->select('V.id,V.video_tag,V.title,V.video_source,V.video_url_code,V.video_file_name,V.video_image,V.short_video,V.is_featured,V.description,V.video_by,V.status,V.views,V.is_free,V.video_duration,V.custom_video_duration,V.video_size,V.androidapp_link,V.amazonaws_link,V.amazon_cloudfront_domain,V.video_source')->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id as vid,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
@@ -269,7 +338,6 @@ v.id,v.title,v.video_source,v.video_duration,v.custom_video_duration,v.video_siz
         return array();
         }
     }
-
     public function getfeaturedVideoDetails() {
         $this->db->select('V.id,V.title,V.video_duration,V.video_source,V.video_url_code,V.video_file_name')->select('cmsvideoslist.name,cmsvideoslist.display_image,cmsvideoslist.id as playlist_id,cmsvideolist_relations.exam_id,cmsvideolist_relations.subject_id,cmsvideolist_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->from('cmsvideos V');

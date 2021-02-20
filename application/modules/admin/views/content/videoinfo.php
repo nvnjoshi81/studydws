@@ -19,7 +19,7 @@
    <!-- /.row -->
    <div class="row">
       <div class="panel panel-default">
-          <form method="post" action="<?php echo base_url('admin/content/updatevideos_info/'.$video_id.'/'.$module_type_id.'/'.$module_id);?>" enctype="multipart/form-data">
+          <form method="post" action="<?php echo base_url('admin/content/updatevideos_info/'.$video_id.'/'.$module_type_id.'/'.$module_id);?>" enctype="multipart/form-data" onsubmit="return edit_cont_validation();">
             <!--Video Section-->
  <div id="videos_section" >
      
@@ -202,7 +202,7 @@ if (isset($question->title))
     </div>
 	<div class="form-group">
     <label>App Full Video name</label>
-	<input class="form-control" name="androidapp_link" name="androidapp_link" value="<?php echo $question->androidapp_link; ?>" type="text" >
+	<input class="form-control" name="androidapp_link" name="androidapp_link" value="<?php echo $question->androidapp_link; ?>" id="androidapp_linkid" type="text" >
     </div>
 	
 	
@@ -279,8 +279,33 @@ if (isset($question->title))
       
 </div>
 </div>
-   
 <script type="text/javascript">
+function edit_cont_validation(){
+var alert_message ='';
+var error_exist='no';
+  var video_name_dd =$('#video_name').val();
+	var androidapp_linkid_dd =$('#androidapp_linkid').val();
+	
+
+if(video_name_dd==''){
+    error_exist='yes';
+    alert_message +='Please Enter Video Name.\n';    
+}
+
+if (!(/^\S{3,}$/.test(androidapp_linkid_dd))) {
+	error_exist='yes';
+    alert_message +='Space not allowed in App Full Video name!\n';  
+}
+
+
+if(error_exist=='yes'){    
+if(alert_message!=''){
+alert(alert_message);
+}
+return false;
+}
+}
+
   tinymce.init({
     selector: 'textarea',
     inline: false,

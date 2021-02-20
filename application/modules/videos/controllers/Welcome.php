@@ -1,5 +1,6 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php 
+ob_start();
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Welcome extends Modulecontroller {
 
     public function __construct() {
@@ -270,7 +271,121 @@ $date=time();
         $this->session->set_flashdata('message', 'Comment saved!');
 	    redirect($_SERVER['HTTP_REFERER']);
 	}
-
+    public function livevideo($name, $id=0) {
+        $this->load->model('Categories_model');
+        $this->load->model('Subjects_model');
+        $this->load->model('Chapters_model');
+		
+		if(is_numeric($name)&&$name>0){
+		$pastlivevideos = $this->Videos_model->pastlivevideos_examwise($name); 				
+	    $livedetails = $this->Videos_model->getVideoLive($name,$id); 
+		}else{
+		$pastlivevideos = $this->Videos_model->pastlivevideos(); 
+		$livedetails = $this->Videos_model->getVideoLive($id); 
+		}
+		
+	    $livevideos_exam_array = $this->Videos_model->getlivevideos_exam(); 
+		
+		foreach($livevideos_exam_array as $exk=>$exv){
+			$lvclassid=$exv->class_id;
+			$lvclass_name_array = $this->Categories_model->getCategoryDetails($lvclassid);
+			
+			$livevideos_exam[$exv->class_id]=$lvclass_name_array->name;
+		}
+		
+		$this->data['livevideos_exam'] = $livevideos_exam;
+		$this->data['commentlist'] = $commentlist;
+	
+		$meet_id=$livedetails->meet_id;	
+		$meet_name=$livedetails->meet_name;
+		
+		$create_url=$livedetails->create_url;
+		$create_url_array=explode("=",$create_url);
+		
+		if(isset($livedetails->url_type)&&$livedetails->url_type==2){
+		$url_type='youtube';
+		$videoplaycode=$create_url_array[1];
+		}else{
+		$url_type='Studyadda';
+		$videoplaycode=$create_url;
+		}
+		$image=$livedetails->image;
+		$class_id=$livedetails->class_id;
+		$subject_id=$livedetails->subject_id;
+		$chapter_id=$livedetails->chapter_id;
+		$order_id=$livedetails->order_id;
+		$hosted_by=$livedetails->hosted_by;
+		$description=$livedetails->description;
+		$time=$livedetails->time;	
+		$date=$livedetails->date;	
+		$internal_meet_id=$livedetails->internal_meet_id;
+		$delete_recording=$livedetails->delete_recording;
+        $use_memory=$livedetails->use_memory;
+		
+		if(isset($class_id)&&$class_id>0){
+		$class_name_array = $this->Categories_model->getCategoryDetails($class_id);
+		}else{
+		$class_name_array=NULL;
+		}
+		if(isset($subject_id)&&$subject_id>0){
+		$subject_name_array = $this->Subjects_model->getSubject($subject_id);
+		}else{
+		$subject_name_array =NULL;
+		}
+		if(isset($chapter_id)&&$chapter_id>0){
+		$chapter_name_array = $this->Chapters_model->getChapter($chapter_id); 
+		}else{
+		$chapter_name_array=NULL;	
+		}
+		$class_name=    $class_name_array->name; 
+		$subject_name = $subject_name_array->name;
+		$chapter_name = $chapter_name_array->name;
+		
+		
+		$livedetails_array= array ( 'id' => $meet_id, 
+		'title' => $meet_name, 
+		'video_source' => $url_type, 
+		'video_url_code' => $videoplaycode,
+		'video_file_name' => $create_url ,
+		'time' =>$time,
+		'date' => $date, 
+		'description' =>$description, 
+		'video_by' => 'Studyadda', 
+		'status' =>1,
+		'internal_meet_id' => $internal_meet_id,
+		'is_free' => 1, 
+		'video_duration' => 1,
+		'custom_video_duration' => 1,
+		'video_size' =>1, 
+		'delete_recording' =>$delete_recording,
+		'hosted_by' =>$hosted_by,
+		'order_id' =>$order_id, 
+		'use_memory' => $use_memory, 
+		'name' => $meet_name, 
+		'display_image' => $image, 
+		'vid' => $meet_id,
+		'exam_id' => $class_id,
+		'subject_id' => $subject_id,
+		'chapter_id' => $chapter_id, 
+		'exam' => $class_name, 
+		'subject' => $subject_name,
+		'chapter' => $chapter_name ) ;
+$videodetails = (object)$livedetails_array;
+        $this->data['video'] = $videodetails;
+		$is_youtubevideo=true;
+        //$this->data['relation']=$relation;		
+	
+        $scripts = array(base_url() . 'assets/frontend/js/jwplayer/jwplayer.js');
+		
+        $this->data['videolist'] = $pastlivevideos;
+        $this->data['scripts'] = $scripts;
+        $this->data['freevideos']=$videos;
+        $this->data['title']=$videodetails->title.' Live Videos';
+        $this->data['is_amazonvideo'] = $is_amazonvideo;
+        $this->data['is_youtubevideo'] = $is_youtubevideo;
+        $this->data['content'] = 'livevideo';
+        $this->load->view('template', $this->data);
+	}
     public function play($name, $id) {
 	$this->load->model('Contents_model');
 	$student_id=$this->session->userdata('customer_id');
@@ -744,8 +859,7 @@ foreach($allVideo as $vid=>$vinfo){
 		if($timeInMin>0){
 		$video_data['video_duration'] = $timeInMin;
 		}
-	}
-	
+	}	
 	
 	if(isset($vinfo->id)&&$vinfo->id>0){
 	$id=$vinfo->id;
@@ -754,12 +868,11 @@ foreach($allVideo as $vid=>$vinfo){
 	}
 if(isset($vinfo->video_size)&&$vinfo->video_size!=''){		
 	//Nothing to do
-	
-		echo $vid_path.' Size Cahnge.<br>';
+	echo $vid_path.' Size Change.<br>';
 	}else{
-		if($sizeInMb>0){
-		$video_data['video_size'] = $sizeInMb.'MB';
-		}
+	if($sizeInMb>0){
+	$video_data['video_size'] = $sizeInMb.'MB';
+	}
 	}
 	$tablename='cmsvideos';
 	$this->Videos_model->update_modules_package($id,$video_data,$tablename);
@@ -767,11 +880,10 @@ if(isset($vinfo->video_size)&&$vinfo->video_size!=''){
 }else{
 	echo $vinfo->id.' ) '.$vinfo->androidapp_link.' - Not Exist on server<br>';
 }	
-	
-	
 }	
 }	
-	
+$this->session->set_flashdata('message','Video Info Updated!.');	
+		 redirect('admin/freevid');
  }
 	
     

@@ -35,7 +35,9 @@
 
 		<div class="sp-thumbnails">
                     
-                    <?php if(isset($videolist)){ foreach($videolist as $video){ ?>
+                    <?php 
+					
+					if(isset($videolist)){ foreach($videolist as $video){ ?>
 			<div class="sp-thumbnail">
 				<div class="sp-thumbnail-image-container">
                                     <?php if($video->video_source=='youtube'){ ?>
@@ -69,8 +71,20 @@
                   <!-- video gallery -->
     <div class="row vedio_bot_gal">
     <div class="col-lg-12 col-sm-12 col-md-12">
+	<div class="row vid_list"><?php
+	
+		$countvideolist=count($videolist);
+					if(isset($countvideolist)&&$countvideolist>0){
+					echo '<b>Total Video : '.$countvideolist.'</b>';
+					
+					} 
+	?></div>
+	
     <div class="row vid_list">
-    <?php if($videolist){ foreach($videolist as $video){
+	
+    <?php 
+
+	if($videolist){ foreach($videolist as $video){
 if($video->video_source=='youtube'){ ?>
 <!---YOUTUBE VIDEO START-->
     <div class="col-lg-3 col-xs-12 col-sm-3 col-md-3">
@@ -127,12 +141,12 @@ else if($singletinfo[0]->gender=="Female") {
 	<h2><b><?php echo "<span class='multicolortextsub sub'>".$subject."</span>"; ?>
    </b></h2>
    </p>
-   
    <p>
-   <h4><b><?php echo "<span class='multicolortextexam exam'>".$exam; ?>
+   <h4><b><?php 
+   //echo "<span class='multicolortextexam exam'>".$exam; ?>
    <?php 
    if($taughtby!="") {
-	   echo "| <span class='multicolortextexam exam'>".ucwords($taughtby).''; 
+	   echo "<span class='multicolortextexam exam'>".ucwords($taughtby).''; 
    }
    else {
 	   echo "<span class='multicolortextexam exam'></span>"; 

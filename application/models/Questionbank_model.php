@@ -223,13 +223,17 @@ public function getSubSubject_indi($exam_id = null, $subexam_id=null, $subject_i
         }
     }
 
-    public function getRelations($id) {
+    public function getRelations($id,$examid=0) {
         $this->db->select('cmsquestionbank_relations.id,cmsquestionbank_relations.questionbank_id,'
                 . 'cmsquestionbank_relations.exam_id,cmsquestionbank_relations.subject_id,cmsquestionbank_relations.chapter_id')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
         $this->db->from('cmsquestionbank_relations');
         $this->db->join('categories', 'cmsquestionbank_relations.exam_id=categories.id', 'left');
         $this->db->join('cmssubjects', 'cmsquestionbank_relations.subject_id=cmssubjects.id', 'left');
         $this->db->join('cmschapters', 'cmsquestionbank_relations.chapter_id=cmschapters.id', 'left');
+		if($examid>0){			
+        $this->db->where('cmsquestionbank_relations.exam_id', $examid);
+		}
+		
         $this->db->where('cmsquestionbank_relations.questionbank_id', $id);
         $query = $this->db->get();
         return $query->result();

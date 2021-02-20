@@ -22,16 +22,27 @@ if(questions_type_dd<1){
 
 if(content_type_name_dd=='Videos'){
     
-    var video_name_dd =$('#video_name').val();
     var existing_playlist_id_dd=$('existing_playlist_id').val();
     var new_playlist_name_dd=$('new_playlist_name').val();
+	var video_name_dd =$('#video_name').val();
+	var androidapp_linkid_dd =$('#androidapp_linkid').val();
+	
+
+if(video_name_dd==''){
+    error_exist='yes';
+    alert_message +='Please Enter Video Name.\n';    
+}
 
 if((existing_playlist_id_dd=='')&&(new_playlist_name_dd=='')){
     error_exist='yes';
     alert_message +='Please Enter Playlist Name.\n';    
 }
-}
 
+if (!(/^\S{3,}$/.test(androidapp_linkid_dd))) {
+	error_exist='yes';
+    alert_message +='Space not allowed in App Full Video name!\n';  
+}
+}
 if(content_type_name_dd=='Online Tests'){
 if(exam_type_dd==''){
     error_exist='yes';
@@ -220,36 +231,31 @@ echo generateSelectBox('chapter', $chapters_arr, 'id', 'name', 1 , ' class="form
      <?php }  
      if(isset($content_type_chapter_id)){  ?>
     <input type="hidden" name="chapter_in_db"  value="<?php echo $content_type_chapter_id; ?>" >
-     <?php
-          }
-     ?>
+    <?php
+    }
+    ?>
                 </div>
             </div>
         </div> 
-	<?php 
-	if($newdata=='yes'){
-	
-	?>
-	
-	<!--sub_category-->
+<?php
+if($newdata=='yes'){
+?>
+<!--sub_category-->
 <div class="col-sm-12 col-md-12 col-xs-12 well">
 <!--subexam Display area-->
 <div style="background-color:rosybrown" class="col-sm-6" id="displaySubExam">
-               
 </div>
 </div>
-
 <div class="col-sm-12 col-md-12 col-xs-12 well">
 
 <!--subsubject Display area-->
 <div style="background-color:darkkhaki" class="col-sm-6" id="displaySubSubject">
-
 </div>
 </div>
-
 <?php
 }
-      /* <div class="form-group">
+/* 
+<div class="form-group">
 <?php  
     $content_type_exam_id=0;                 
 if (isset($maincontent->exam_id))
@@ -266,6 +272,7 @@ echo generateSelectBox('sub_category', $exams, 'id', 'name', 1 , 'class="form-co
 ?>
 </div>*/  
        // print_r($module_file_details[0]);
+	   
                 $flex_file_name='';
                 $pdf_file_name='';
                 $single_qus_display='display:none';
@@ -905,8 +912,8 @@ if (isset($module_file_details[0]->title))
     </div>
 	<!--video link path for studyadda-->
 	<div class="form-group">
-    <label>App Full Video name</label>
-	<input class="form-control" name="androidapp_link" name="androidapp_link" value="" type="text" >
+    <label>App Full Video name<font color="red">(Without Space)</font></label>
+	<input class="form-control" name="androidapp_link" name="androidapp_link"  id="androidapp_linkid" value="" type="text" >
     </div>
 	
     <div class="form-group">

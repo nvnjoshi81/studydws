@@ -181,10 +181,9 @@ if($language=="hindi") {
    if($language=='hindi') { 
    //some code
    }else{
-?>
-   
+?> 
 <script type="text/javascript">
-  tinymce.init({
+tinymce.init({
     selector: 'textarea',
     language: 'hi_IN',
     inline: false,

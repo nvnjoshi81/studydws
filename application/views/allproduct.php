@@ -124,7 +124,7 @@ if ($product->discounted_price > 0) {
 	  <!-- dummy -->
 	<!-- customize card -->
 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-	<div class="card card1">
+	<div class="card card2">
 	  <img width='80' height='80'id="base_image" src="<?php echo base_url('assets/images/weball_product/'.$image);?>" class="img-responsive lazy img-purchase"  alt="<?php echo $product_name; ?>" alt="<?php echo $product_name; ?>"  />
 	
                              
@@ -173,12 +173,12 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
 
 
 	<?php if($reduseprice>0){ ?>
-		<div class="show_price">
+		<div class="row show_price text-center">
 			<a href="#">Actual Price <span class='actual_price'><?php echo $packagesprice; ?></span></a>
 			<a href="#">Offer Price <?php echo $reduseprice; ?></a>
 		</div>
 	<?php }else{ ?>
-			<div class="show_price">
+			<div class="row show_price text-center">
 			<a href="#">Offer Price <?php echo $packagesprice; ?></a>
 		</div>
 	<?php } ?>
@@ -196,7 +196,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                         offline='0'
                         action_type="1"
                         class="btn btn-primary btn-sm addtocart cartleft"
-                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
+                        name="btnAddToCart" onclick="return showmsg();return false;"><i class="material-icons">add_shopping_cart</i>Add To Cart</button>
 						<button itemname="<?php echo $product->modules_item_name;?>" 
                         type="<?php echo $product->type ?>" 
                         itemprice="<?php echo $product->discounted_price > 0 ? $product->discounted_price : $product->price ?>" 
@@ -206,7 +206,7 @@ echo ucfirst($moduletype_array[0]).' '.ucfirst($moduletype_array[1]);
                         action_type="1" 
 						redirect="buynow"
                         class="btn btn-primary btn-sm buyright"
-                        name="btnAddToCart"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        name="btnAddToCart" onclick="return showmsg();return false;"><i class="material-icons">add_shopping_cart</i>&nbsp;Buy Now&nbsp;&nbsp;&nbsp;&nbsp;</button>
 										
 			<?php }else{
 				?>
@@ -543,7 +543,7 @@ $this->load->helper('text');
                                                         itemid="<?php echo $pist_id ?>"                                itemqty="1"
                                                         offline='0'
                                                         action_type="1"
-                                                        class="btn-lg btn-md btn-sm  btn btn-raised btn-warning addtocart" name="btnAddToCart">Buy Now</button>
+                                                        class="btn-lg btn-md btn-sm  btn btn-raised btn-warning addtocart" name="btnAddToCart" onclick="return showmsg();return false;">Buy Now</button>
                                             <?php 
 											} 
 											} else {
@@ -699,7 +699,7 @@ if(count($videoproductslist) > 0) {
                                                         itemid="<?php echo $product->productlist_id ?>"                                       itemqty="1"
                                                         offline='0'
                                                         action_type="1"
-                                                        class="btn-md btn btn-raised btn-warning addtocart" name="btnAddToCart">Buy Now</button>
+                                                        class="btn-md btn btn-raised btn-warning addtocart" name="btnAddToCart" onclick="return showmsg();return false;">Buy Now</button>
                                             <?php  } else {
                                                     ?>
                                                <div class="price"><h5 class="price-text-color"><br></h5>  </div><a href="<?php echo getProductLink($product, $type); ?>"><button class="btn-md btn btn-raised btn-success" name="btnAlreadyExist">Watch Now</button></a>
@@ -848,7 +848,7 @@ $textdownload='Go To Test';
                                                         itemid="<?php echo $product->id ?>" itemqty="1"
                                                         offline='0'
                                                         action_type="1"
-                                                        class="btn-md btn-lg btn-sm btn btn-raised btn-warning addtocart" name="btnAddToCart">Buy Now</button>
+                                                        class="btn-md btn-lg btn-sm btn btn-raised btn-warning addtocart" name="btnAddToCart" onclick="return showmsg();return false;">Buy Now</button>
                                             <?php } } else {
 												$textdownload='Go To Test';
 						                  ?>

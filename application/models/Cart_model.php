@@ -8,9 +8,33 @@ class Cart_model extends CI_Model{
         return $result->row();
         
 	}
+	
+	function getCart()
+	{
+$this->db->select('cmscart.id,cmscart.cart_price,cmscart.user_id');
+    $result=$this->db->get('cmscart');
+    return $result->result();
+	}
+	
+	function getCartsum($cart_id)
+	{
+  $this->db->select('count(id) as totalproduct ,SUM(price) AS totalamount');
+    $this->db->where('cart_id',$cart_id);
+    $result=$this->db->get('cmscart_items');
+    return $result->row();
+	}
+	
+	 public function updatecmscart($id, $data) {
+     $this->db->update('cmscart', $data, array('id' => $id));
+    }
+	
+	 public function updateProdPrice($product_id, $data) {
+     $this->db->update('cmscart_items', $data, array('product_id' => $product_id));
+    }
+	
         
         function getFrCustCart($user_id){
-        $this->db->select('uc.id,,uc.user_id,uc.cart_items,uc.cart_price,ci.quantity as qty, ci.cart_id,ci.product_id,ci.quantity,ci.price,p.modules_item_name as name,p.image');
+        $this->db->select('uc.id,uc.user_id,uc.cart_items,uc.cart_price,ci.quantity as qty, ci.cart_id,ci.product_id,ci.quantity,ci.price,p.modules_item_name as name,p.image');
         $result=$this->db->from('cmscart AS uc');
         $this->db->join('cmscart_items AS ci','uc.id = ci.cart_id','left');
         $this->db->join('cmspricelist AS p','p.id = ci.product_id','left');

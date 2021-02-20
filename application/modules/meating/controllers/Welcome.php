@@ -13,8 +13,8 @@ class Welcome extends MY_Controller {
     public function index()
     {
         $data = $this->input->get('url');
-            $ex = base64_decode($data);
-            $dd =  explode('.,.', $ex);
+        $ex = base64_decode($data);
+        $dd =  explode('.,.', $ex);
             
          //echo $ex ."<br><br>"; print_r($dd); die();      
                 

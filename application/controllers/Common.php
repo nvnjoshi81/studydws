@@ -2,7 +2,8 @@
 ob_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Common extends Modulecontroller {
-    public function __construct() {
+    
+	public function __construct() {
     parent::__construct();
     }
     public function FranchiseUser_login() {  
@@ -14,7 +15,6 @@ class Common extends Modulecontroller {
         $studentid = $this->input->post('studentid');
         $loginpassword = $this->input->post('loginpassword');
 		$loginFranId = $this->input->post('loginFranId');
-		
                 $this->session->unset_userdata('studentemail');
                 $this->session->unset_userdata('loginFranId');
                 $this->session->unset_userdata('logged_in');
@@ -565,6 +565,25 @@ if($this->session->userdata('customer_id')&&$this->session->userdata('customer_i
         $this->data['content']='faq';
         $this->load->view('template',$this->data);
     }
+	
+	
+	
+	   public function hindi($language,$cat_id=0){
+		  
+        $this->load->model('Contents_model'); 
+		$hinditext=$this->Contents_model->showhindi($cat_id,$language); 
+	print_r($hinditext[0]->catname);
+	
+	echo '<br>';
+	
+	
+	print_r($hinditext[0]->language);
+	die();
+        $this->data['content']='faq';
+        $this->load->view('template',$this->data);
+    }
+	
+	
 	
     public function meating (){
         $this->data['content']='meating';

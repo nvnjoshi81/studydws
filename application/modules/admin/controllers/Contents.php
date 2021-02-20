@@ -27,10 +27,8 @@ class Contents extends MY_Admincontroller {
         $this->data['questions_type'] = $this->Content_model->questions_type();
         $this->data['examformula_array'] = $this->Onlinetest_model->getolExamFormula();
         $this->data['olcategory_array'] = $this->Onlinetest_model->getolExamCategory();
-        $this->data['array_video_source'] = $this->Contents_model->getVideoSource();
-        
-		$this->data['array_video_by'] = $this->Contents_model->getVideoBy();
-		
+        $this->data['array_video_source'] = $this->Contents_model->getVideoSource();        
+		$this->data['array_video_by'] = $this->Contents_model->getVideoBy();		
 		$this->data['array_is_featured'] = $this->Contents_model->getIsFeatured();
         $this->data['array_status'] = $this->Contents_model->getStatus();
     }
@@ -4948,7 +4946,6 @@ NOT USEFUL
             redirect($_SERVER['HTTP_REFERER']);
             die;
         }
-
         $edit_content_type = $this->Content_model->getContentTypeDetail($type);
         $this->data['content_type'] = $edit_content_type;
         //Get relation ships Exam,subject and chapter  
@@ -5353,6 +5350,7 @@ NOT USEFUL
         } 
         if ($edit_content_type->name == 'Videos') {
             
+//echo $id.'-==-====-==-==-=-=fff$idfffff-=-=-=';die;
             $this->load->model('Pricelist_model');
             $videos = $this->Videos_model->detail($id);
             $playlist_detail = $this->Videos_model->playlist_detail($id);
@@ -5374,9 +5372,8 @@ NOT USEFUL
             } else {
                 $this->data['type_of_question'] = 0;
             }
-
+			
             for ($rcnt = 0; count($module_relation_details) > $rcnt; $rcnt++) {
-
                 $relation_exam_name = $this->Examcategory_model->getExamCatgeoryById($module_relation_details[$rcnt]->exam_id);
                 $relation_subject_name = $this->Subjects_model->getSubject($module_relation_details[$rcnt]->subject_id);
                 $relation_chapter_name = $this->Chapters_model->getChapter($module_relation_details[$rcnt]->chapter_id);
@@ -5476,9 +5473,10 @@ NOT USEFUL
             $contents = $this->Ncertsolutions_model->getNcertSolutions($examid, $subject_id, $chapter_id);
 			//$getSubSubject = $this->Ncertsolutions_model->getSubSubject($examid, $subject_id);		
         }
+		
         if($show_content_type->name == 'Notes') {
            $contents = $this->Notes_model->getNotes($examid, $subject_id, $chapter_id);
-			//$getSubSubject = $this->Notes_model->getSubSubject($examid, $subject_id);
+		//$getSubSubject = $this->Notes_model->getSubSubject($examid, $subject_id);
         }
         if ($show_content_type->name == 'Article') {
             $contents = $this->Posting_model->getArticlesForExams($examid, $subject_id, $chapter_id);

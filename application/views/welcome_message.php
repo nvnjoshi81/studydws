@@ -269,136 +269,379 @@ if($advideo_show=='yes'){ ?>
 
       <?php  } ?>
 		  <!---728x90--->
-               
-    <?php
+    <!---728x90--->
+      
+			
+<div class="serve-top">         
+<?php
 $show_index_contant='yes';
 if($show_index_contant=='yes'){ ?>
-		      <div class="serve-top">
-				 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 serve-icons">
-					<div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-danger">
-						<i class="glyphicon glyphicon-info-sign"></i>
+<!-- cards -->
+<div class="row">
+		<!-- card 1 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card1" style="">
+					
+					<i class="glyphicon glyphicon-info-sign text-danger"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Notes</b></h3>
 						</div>
-						<div class="col-md-10 serve-text">
-                                              <h3>
-                                    <a href="<?php echo base_url('notes')?>">Notes</a>
-                                              </h3>
-						<p>Theory, Short-Cuts, Formulae & Concepts Notes for Exams.</p>
-            <p>All Notes In Easy To Understand Language.</p>
-						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-					 <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-success">
-					  <i class="glyphicon glyphicon-facetime-video"></i>
-						</div>
-						<div class="col-md-10 serve-text">
-					     <h3><a href="<?php echo base_url('videos')?>">Video Lectures</a></h3>
-                                                 <p>Live & Recorded Video Lectures By Experienced Eminent Faculties.</p>
-                                                 <p>More Than 20,000 Video Lectures.</p>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Theory, Short-Cuts, Formulae & Concepts Notes for Exams.</li>
 
+								<li class="list-group-item">
+            <p>All Notes In Easy To Understand Language.</li>
+							</ul>
+							
+							<a href="<?php echo base_url('notes')?>" class="text-center">More<span></span>							
+							</a>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-					 <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-danger">
-						  <i class="glyphicon glyphicon-folder-open"></i>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			
+			
+			<!-- card 2 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card2" style="">
+				
+					<i class="glyphicon glyphicon-facetime-video text-success"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Video Lectures</b></h3>
 						</div>
-						<div class="col-md-10 serve-text">
-						 <h3><a href="<?php echo base_url('study-packages')?>">Study Packages</a></h3>
-                                                 <p>More Than 50,000 Study Packages Covering Notes, Question Banks, Sample Papers, Solved Papers.</p>
-                                                 <p>Study Packages of More Than 5 Lakh Pages.</p>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Live & Recorded Video Lectures By Experienced Eminent Faculties.</li>
+
+								<li class="list-group-item">More Than 20,000 Video Lectures.</li>
+							</ul>
+							
+							<a href="<?php echo base_url('videos')?>" class="text-center">More<span></span></a>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-                                     <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-success">
-						  <i class="glyphicon glyphicon-edit"></i>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 3 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card3" style="">
+					
+					<i class="glyphicon glyphicon-book text-success"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>NCERT Corner</b></h3>
 						</div>
-						<div class="col-md-10 serve-text">
-						 <h3><a href="<?php echo base_url('solved-papers')?>">Solved Papers</a></h3>
-						 <p>Past Year Solved Papers Of All Exams.</p>
-                                                 <p>Chapter wise, Topic wise & Year wise Solved Papers.</p>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">NCERT & Exemplar Books Solutions & Summary.</li>
+
+								<li class="list-group-item">NCERT Answers by Renowned Experts.</li>
+								
+								<li class="list-group-item">Olympiad Videos, Study Packages, Sample & Solved Papers.</li>
+								
+								<li class="list-group-item">Support For Each & Every Olympiad Held In India.</li>
+							</ul>
+							
+							<a href="<?php echo base_url('ncert-solution')?>" class="text-center">More<span></span></a>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-                                     <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-danger">
-						  <i class="glyphicon glyphicon-hourglass"></i>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 4 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card4" style="">
+					
+					 <i class="glyphicon glyphicon-globe text-danger"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Articles</b></h3>
 						</div>
-						<div class="col-md-10 serve-text">
-						  <h3><a href="<?php echo base_url('online-test')?>">Online Tests</a></h3>
-						 <p>More Than 5000 Online Tests Along with Comprehensive Analytical Reports.</p>
-                                                 <p>Chapter wise, Concept wise Topic wise & Subject wise Tests.</p>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">More Than 5000 Articles On Popular Topics.</li>
+
+								<li class="list-group-item">
+            Post Your Own Essays & Articles.</li>
+			
+			<li class="list-group-item">
+            Only Portal To Find School Based Articles.</li>
+			
+			<li class="list-group-item">
+            Various Science & Other Subjects Projects.</li>
+							</ul>
+							
+							
+							<a href="<?php echo base_url('articles')?>" class="text-center">More<span></span></a>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-				 </div>
-				 
-				 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 serve-icons">
-					<div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-success">
-						  <i class="glyphicon glyphicon-book"></i>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 5 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card5" style="">
+				
+					<i class="glyphicon glyphicon-facetime-video text-success"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase" style="font-size:23px"><b>Study Packages</b></h3>
 						</div>
-						<div class="col-md-10 serve-text">
-						<h3><a href="<?php echo base_url('ncert-solution')?>">NCERT Corner</a></h3>
-						<p>NCERT & Exemplar Books Solutions & Summary.</p>
-                                                <p>NCERT Answers by Renowned Experts.</p>
-                                                <p>Olympiad Videos, Study Packages, Sample & Solved Papers.</p>
-                                                <p>Support For Each & Every Olympiad Held In India.</p>
-                                                </div>
-					     <div class="clearfix"> </div>	
-					 </div>
-					 <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-danger">
-						  <i class="glyphicon glyphicon-globe"></i>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">More Than 50,000 Study Packages Covering Notes, Question Banks, Sample Papers, Solved Papers.</li>
+
+								<li class="list-group-item">Study Packages of More Than 5 Lakh Pages.</li>
+							</ul>
+							
+							<a href="<?php echo base_url('study-packages')?>" class="text-center">More<span></span></a>
 						</div>
-						<div class="col-md-10 serve-text">
-						  <h3><a href="<?php echo base_url('articles')?>">Articles</a></h3>
-						  <p>More Than 5000 Articles On Popular Topics</p>
-                                                  <p>Post Your Own Essays & Articles</p>
-                                                  <p>Only Portal To Find School Based Articles</p>
-                                                  <p>Various Science & Other Subjects Projects</p>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 6 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card6" style="">
+					
+					<i class="glyphicon glyphicon-book text-success"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Solved Papers</b></h3>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-                                     <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-success">
-						  <i class="glyphicon glyphicon-list-alt"></i>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Past Year Solved Papers Of All Exams.</li>
+
+								<li class="list-group-item">Chapter wise, Topic wise & Year wise Solved Papers.</li>
+
+							</ul>
+							
+							<a href="<?php echo base_url('solved-papers')?>" class="text-center">More<span></span></a>
 						</div>
-						<div class="col-md-10 serve-text">
-						  <h3><a href="<?php echo base_url('sample-papers')?>">Sample Papers</a></h3>
-						 <p>Sample/ Mock / Guess / Practice Papers For All Exams.</p>
-                                                 <p>More Than 100 Practice Papers Of Many Exams.</p>                                                 
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 7 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card7" style="">
+					
+					 <i class="glyphicon glyphicon-hourglass text-danger"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Online Tests</b></h3>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-                                        <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-danger">
-						<i class="glyphicon glyphicon-file"></i>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">More Than 5000 Online Tests Along with Comprehensive Analytical Reports.</li>
+
+								<li class="list-group-item">Chapter wise, Concept wise Topic wise & Subject wise Tests.</li>
+
+							</ul>
+							
+							<a href="<?php echo base_url('online-test')?>" class="text-center">More<span></span></a>
 						</div>
-						<div class="col-md-10 serve-text">
-						  <h3><a href="<?php echo base_url('question-bank')?>">Question Bank</a></h3>
-                                                 <p>More Than 20 Lakh Questions Of All Types.</p>
-                                                 <p>Also Includes Topic wise & Concept wise Questions</p>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 8 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card8" style="">
+					
+					 <i class="glyphicon glyphicon-list-alt text-success"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Sample Papers</b></h3>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div> 
-                                     <div class="s-sub rcorners2">
-						<div class="col-md-2 icon text-success">
-						  <i class="glyphicon glyphicon-send"></i>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Sample/ Mock / Guess / Practice Papers For All Exams.</li>
+
+								<li class="list-group-item">More Than 100 Practice Papers Of Many Exams.</li>
+
+							</ul>
+							
+							<a href="<?php echo base_url('sample-papers')?>" class="text-center">More<span></span></a>
 						</div>
-						<div class="col-md-10 serve-text">
-						  <h3><a href="<?php echo base_url('amazing-facts')?>">Amazing Facts</a></h3>
-						 <p>More Than 7 Lakh Type Of Facts</p>  
-                                                 <p>Facts For School Level & Competitive Exams</p>
-                                                 <p>Topicwise & Conceptwise Facts</p>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 9 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card9" style="">
+					
+					 <i class="glyphicon glyphicon-file text-danger"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Question Bank</b></h3>
 						</div>
-					     <div class="clearfix"> </div>	
-					 </div>
-				 </div>
-				 <div class="clearfix"> </div>		
-	          </div>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">More Than 20 Lakh Questions Of All Types.</li>
+
+								<li class="list-group-item">Also Includes Topic wise & Concept wise Questions.</li>
+
+							</ul>
+							
+							<a href="<?php echo base_url('question-bank')?>" class="text-center">More<span></span></a>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 10 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card10" style="">
+					
+					 <i class="glyphicon glyphicon-send text-success"></i>
+					
+					<div class="card-body">
+						
+						<div class="card-title text-center">
+							<h3 class="text-uppercase"><b>Amazing Facts</b></h3>
+						</div>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">More Than 7 Lakh Type Of Facts.</li>
+
+								<li class="list-group-item">Facts For School Level & Competitive Exams.</li>
+								
+								<li class="list-group-item">Topicwise & Conceptwise Facts.</li>
+
+							</ul>
+							
+							<a href="<?php echo base_url('amazing-facts')?>" class="text-center">More<span></span></a>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<!-- card 11 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				
+				<div class="card content-cat cat_card11" style="">
+					
+					 <i class="glyphicon glyphicon-file text-danger"></i>
+					
+					<div class="card-body">
+						<div class="card-title text-center">
+						<h3 class="text-uppercase"><b>Free Videos </b>
+							</h3>
+						</div>
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">Recorded Free Video Lectures By Experienced Eminent Faculties.
+								</li>
+								<li class="list-group-item">More Than 1,000 Video Lectures.</li>
+							</ul>
+							<a href="<?php echo base_url('featured-videos')?>" class="text-center">More<span></span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- card 12 -->
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<div class="card content-cat cat_card12" style="">
+				<i class="glyphicon glyphicon-send text-success">
+				</i>
+				<div class="card-body">
+				<div class="card-title text-center">
+							<h3 class="text-uppercase" style="font-size:21px"><b>Current Affairs</b></h3>
+						</div>
+						
+						<div class="card-text">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">More Than 10 Lakh Updated Current Affairs.</li>
+								<li class="list-group-item">Current Affairs For School Level & Competitive Exams.</li>
+							</ul>
+								<a href="<?php echo base_url('current-affairs')?>" class="text-center">More<span></span></a>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+
+	</div>
+	<!-- // cards -->
+
 <?php  }
 ?>
-    </div>
+    
+	</div>

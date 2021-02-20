@@ -433,7 +433,6 @@ class Pricelist_model extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
-
     function getProduct($exam_id, $subject_id, $chapter_id, $type) {
         $this->db->select('C.id,C.exam_id,C.subject_id,C.chapter_id,C.item_id,C.type,C.price,C.discounted_price'
                 . ',C.description,C.offline_status,C.image,C.app_image,C.modules_item_id,C.modules_item_name,C.no_of_dvds,C.subscription_expiry,C.no_of_lectures,C.lecture_duration,C.no_of_subscribers')->select('categories.name as exam')->select('cmssubjects.name as subject')->select('cmschapters.name as chapter');
@@ -634,6 +633,27 @@ if($contentType=='1'||$contentType=='2'||$contentType=='3'){
             return $query->result();
         } else {
             return false;
+        }
+    }
+	
+	 public function checkExamProduct_All($exam_id,$producttype='1'){
+        $this->db->select('id,type');
+        $this->db->from('cmspricelist');
+        $this->db->where('exam_id', $exam_id);
+         $this->db->where('subject_id', 0);
+          $this->db->where('chapter_id', 0);
+           $this->db->where('item_id', 0);
+		   if($producttype!='ALL'){
+			 $this->db->where('type',$producttype);
+			}
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+        $result = $query->result();
+        
+        if(isset($result)&&count($result)>0){
+        return $result; 
+        }else{
+        return 0;
         }
     }
 

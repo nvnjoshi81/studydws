@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -29,14 +28,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | 7. Models
 |
 */
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Packages
-| -------------------------------------------------------------------
-| Prototype:
+| ------------------------------------------------------------------
+|Prototype:
 |
-|  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
+|$autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
 $autoload['packages'] = array();
@@ -58,10 +56,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'email','session','cart','encryption', 'pagination');
-
-
-
+$autoload['libraries'] = array('database', 'email','session','cart','encryption', 'pagination','user_agent');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers

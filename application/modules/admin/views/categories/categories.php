@@ -123,17 +123,33 @@ $(document).ready(function() {
         <label>Category Name</label>
         <input type="text" class="form-control" id="name" name="name" value="<?php if(isset($result[0]->name)) { echo $result[0]->name; } ?>">
     </div>
+	   <div class="form-group">
+        <label>Hindi Category Name</label>
+        <input type="text" class="form-control" id="catname" name="catname" value="<?php if(isset($resulthindi[0]->name)) { echo $resulthindi[0]->name; } ?>">
+    </div>
     <div class="form-group">
         <label>Order</label>
         <input type="text" class="form-control"  id="order" name="order" value="<?php if(isset($result[0]->order)) { echo $result[0]->order; } ?>">
     </div>
     <div class="form-group">
+	<?php 
+	if(isset($result[0]->parent_id)){
+	$lavelParentid=$result[0]->parent_id;
+	}else{
+	$lavelParentid=0;
+	}
+	?>
         <label>Parent</label>
         <select class="form-control" name="cparent" id="cparent"><option value=0>Top Level</option>
-	 
 <?php
-foreach($allcategories as $cl) { ?>
-  <option value="<?php echo $cl["id"] ?>"><?php echo $cl["name"]; ?></option>
+foreach($allcategories as $cl) { 
+if($lavelParentid==$cl["id"]){
+	$selction='selected=selected';
+}else{
+	$selction='';
+}
+?>
+  <option value="<?php echo $cl["id"] ?>" <?php echo $selction ;?>><?php  echo $cl["name"]; ?></option>
 <?php } ?>
 </select>
 	</div>

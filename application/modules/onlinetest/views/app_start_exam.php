@@ -189,12 +189,12 @@ $timeresult =secondsToTime($onlinetestinfo->time);
 			$encoded = base64_encode($customer_id );
 		?><a href="<?php echo base_url('apponline-test/'.$exam_id.'/'.$subject_id.'/'.$chapter_id.'/'.$onlinetest_id.'/'.$total_time.'/'.$total_question.'/'.$formula_id.'/-encid-'.$encoded)?>">
                   <button type="button" class=" btn-md btn btn-success btn-raised btn-lg searchgo">PROCEED</button>
-              </a><?php			
-
+              </a><?php	
 }
 ?>
-        </div>
-                    <div class="col-sm-6 col-md-6 text-right"> <label class="btn btn-sm btn-primary btn-simple" id="0">
+</div>
+    <div class="col-sm-6 col-md-6 text-right"> 
+	<label class="btn btn-sm btn-primary btn-simple" id="0">
 					<?php
 					if(isset( $timeresult['h'])&& $timeresult['h']>0){
 						$hrsTomin=60* intval($timeresult['h']);
@@ -246,7 +246,13 @@ I have read and understood the instructions. All computer hardware allotted to m
 <?php 
 foreach($usertest_info as $testvalue){
    // echo "<li class='col-xs-12 col-sm-6 col-md-6'><i class='material-icons'>update</i>  <a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a></li>";
-    echo "<li class='col-xs-12 col-sm-6 col-md-6'><i class='material-icons'>update</i>  <a href='".base_url('apponline-test/userresult/'.$appcid.'/'.$testvalue->id)."' >".$testvalue->name."</a></li>";
+    echo "<li class='col-xs-12 col-sm-6 col-md-6'><i class='material-icons'>update</i>  <a href='".base_url('apponline-test/userresult/'.$appcid.'/'.$testvalue->id)."' >".$testvalue->name."</a>";
+	
+	if($testvalue->status==0){
+	echo "<a class='nav-item nav-link btn btn-lg btn-md btn-info btn-raised' href='".base_url('apponline-test/resumetest/usertestid-'.$testvalue->id.'/all/all/'.$appcid.'/'.$testvalue->exmtestid)."'>Resume Test<i class='material-icons'>autorenew</i></a>
+		";
+	}
+	echo "</li>";
 }
 ?>
                   </ul>                  

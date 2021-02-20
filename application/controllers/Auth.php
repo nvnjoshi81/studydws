@@ -6,7 +6,7 @@ class Auth extends CI_Controller {
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
+	 * http://example.com/index.php/welcome
 	 *	- or -
 	 * 		http://example.com/index.php/welcome/index
 	 *	- or -
@@ -17,7 +17,7 @@ class Auth extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct(){
+public function __construct(){
         parent::__construct();
         $this->load->model('Customer_model');
         $this->load->model('Cart_model');

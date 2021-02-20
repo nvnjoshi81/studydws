@@ -1,4 +1,63 @@
  <div id="page-wrapper">
+ 
+ 
+ 
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2 class="alert alert-success">Add New Product<h2>
+		</div>
+		
+		<div class="col-lg-offset-1 col-lg-6 col-md-offset-6 col-md-6 col-sm-6 col-xs-6">
+		<?php
+		$ord_product_type=array('complimantry','paid')
+		
+		?>
+		<form method="post" action="<?php echo base_url(); ?>admin/orders/edit_ordprd_type">
+			<div class="form-group">
+			
+			<input type="hidden" name="orderId" value="<?php echo $orderid; ?>">
+				<input type="hidden" name="orderproduct_id" value="<?php echo $orderproduct_id; ?>">
+				<input type="hidden" name="orderId" value="<?php echo $orderId; ?>">
+				<div class="col-md-12 col-sm-12 col-xs-12"><label>Edit Order Type</label>
+				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+			<select class="form-control" name="opid_type" required>
+						<option value="">Select Type</option>
+					<?php
+						foreach($ord_product_type as $valk=>$val) {
+						?>												
+						<option value="<?php echo $val; ?>">
+							<?php echo $val; ?>
+						</option>
+						
+						<?php }
+					?>
+					</select>
+</div>	
+			</div>
+			<div class="form-group alert-info text-center">
+			<button type="submit" class="btn btn-primary">Add Product</button>
+			</div>
+		</form>
+		</div>
+	</div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
             <div class="row">
                 <div class="col-lg-6">
                    <h1>Student Shopping Cart</h1> <?php 

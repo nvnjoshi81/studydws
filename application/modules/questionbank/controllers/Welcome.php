@@ -117,7 +117,36 @@ class Welcome extends Modulecontroller {
         //update View Count
         $this->Pricelist_model->update_viewcount($qbid,'cmsquestionbank');
         $qbdetails=$this->Questionbank_model->detail($qbid);
+		/*get Correct EXam name from multple*/
+		$uri = current_url();
+		$uri_link=explode('question-bank/',$uri);
+		$uri_array=explode('/',$uri_link[1]);
+		if(isset($uri_array[0])&&$uri_array[0]!=''){
+		$uri_replace=str_replace("-"," ",$uri_array[0]);
+		$urisubstr=$uri_replace;	
+$uri_classname_array=$this->Categories_model->getCatebyname($urisubstr);
+if(isset($uri_classname_array)&&count($uri_classname_array)>0){
+	$uri_classname_id=$uri_classname_array->id;
+}else{
+	$urisubstr=substr($uri_replace,0,2);
+	$uri_classname_array=$this->Categories_model->getCatebyname($urisubstr);
+	$uri_classname_id=$uri_classname_array->id;
+}
+	}else{
+		$uri_classname_id=0;
+		}
+		/*End get Correct EXam name from multple*/
+		
+       if(isset($uri_classname_id)&&$uri_classname_id>0){
+			
+        $relation=$this->Questionbank_model->getRelations($qbid,$uri_classname_id);
+		
+		}else{
+		
         $relation=$this->Questionbank_model->getRelations($qbid);
+			
+		}
+		
         $questions=$this->Questionbank_model->getQuestions($qbid);
         $questiontypes =  $this->Questionbank_model->questionTypes($qbid);
         $title=generateTitle('Question Bank for',$relation[0],$qbdetails->name);

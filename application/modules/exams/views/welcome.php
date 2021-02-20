@@ -1,4 +1,5 @@
-    <style>.subclass a {	
+<style>
+	.subclass a {	
 	display: block;
 	background: #25cfaa7a;
 	padding: 20px;
@@ -7,24 +8,42 @@
 	color: #2f2c2c;
 	text-shadow: #f4f9f4 5px 5px 5px;
 	font-size: 32px;
-}</style>
+}
+</style>
 <div id="wrapper">
-    <div class="container">
+    <div class="container">	
+	<div class="row">
+			<?php
+			$uri_segment=$this->uri->segment(3);
+			if(isset($uri_segment)&&$uri_segment>0){
+				
+				$meetclass_id=$livevideoArray[0]->class_id;
+				if($meetclass_id>0){
+			?>
+				<a title="Featured Videos" class="btn btn-sm btn-danger btn-raised mob_btn" href="<?php echo base_url('videos/livevideo/'.$livevideoArray[0]->class_id.'/'.$livevideoArray[0]->meet_id); ?>">Live Videos</a>
+			<?php
+				}			
+			}
+			
+				?> </div>
         <div class="row">
             <?php $this->load->view('common/breadcrumb');  
 			?>
             <div class="col-md-12 col-sm-12"> 
+			
+			
+			
                 <?php
 				$segment_chpterseven =  $this->uri->segment(7);
                 $totalsolvedp=0;
                 if ($isProduct) {   
-					//echo "This is product area.";
+//echo "This is product area.";
 //if($subject_id==''||$subject_id<1){                   
 				   $this->load->view('common/productdetailsnew'); 
 //}
 }
 				if($isProduct_array){
-                // $this->load->view('common/product_testseries');
+ //$this->load->view('common/product_testseries');
                 }
                     if (isset($videoproductslist) && count($videoproductslist) > 0) {
                         ?><div class="clearfix"></div>  
@@ -119,6 +138,13 @@ if(isset($subExamArray)&&count($subExamArray)>0){
          }
          }
         }
+		/*$valpassarray=array("108","115","116","117","118","119");
+		$upexamid=$this->uri->segment(3);
+		if(in_array($upexamid,$valpassarray)){
+			$showSub='yes';
+		} */
+		
+		
 		$subimage_array=array();
 		foreach($allsubject as $key=>$value){
 			$subimage_array[$value->id]=$value->imagename;

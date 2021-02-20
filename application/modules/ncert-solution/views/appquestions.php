@@ -102,7 +102,7 @@ if(isset($soldetails->language)&&$soldetails->language=='hindi') {
               <?php if(count($exmeplar_questions) > 0){ 
                     foreach($exmeplar_questions as $question){?>
                     <li  class="element-item page_exemplar" >
-                        <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?> </a></p>
+                        <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <?php echo custom_strip_tags($question->question);?> </a></p>
                         <span class="pull-right view_ans"><a href="<?php echo base_url('ncert-solution').'/'.url_title($soldetails->name,'-',TRUE).'-appapi_q'.$count.'/'.$soldetails->id.'/'.$question->id; ?>">View Answer <i class="material-icons">play_arrow</i> </a></span>
                     </li>
                     <?php $count++; } } ?>

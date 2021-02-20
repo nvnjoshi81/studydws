@@ -7,8 +7,7 @@ class Content extends MY_Admincontroller {
             
             $this->load->library("pagination");
             $this->load->library('form_validation');
-            $this->load->helper(array('form', 'url'));            
-            $this->load->model('Content_model');  
+            $this->load->helper(array('form', 'url'));$this->load->model('Content_model');  
             $this->data['content_type']=$this->Content_model->getContentType();           
         }
 		

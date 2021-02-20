@@ -8,23 +8,34 @@ class Start extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Onlinetest_model');
+		$this->load->model('Subjects_model');		
+		$this->load->model('Chapters_model');
         //$this->output->enable_profiler(TRUE);
         $this->data['loadMathJax'] = 'YES';
     }
         
     public function index() {
+		$resume_usertestpost = $this->input->post('resume_usertestid');
+		if(isset($resume_usertestpost)&&$resume_usertestpost>0){
+			//If user start (resume) same test twise
+        $onlinetest_id = 0;
+		$resume_usertestid=$resume_usertestpost;//when-online-test-zero-resume_usertestid-will-provide-onlinetestid-fromselectquery
+		}else{
+		$onlinetest_id = $this->input->post('onlinetest_id');
+		$resume_usertestid=0;
+        
+		}
         //$this->output->enable_profiler(TRUE);
         $exam_id = $this->input->post('exam_id');
         $subject_id = $this->input->post('subject_id');
         $chapter_id = $this->input->post('chapter_id');
-        $onlinetest_id = $this->input->post('onlinetest_id');
-        $total_question = $this->input->post('total_question');
+		$total_question = $this->input->post('total_question');
         $total_time = $this->input->post('total_time');
         $formula_id = $this->input->post('formula_id');
         $current_time = time();
         $customer_id = $this->session->userdata('customer_id');
 		$nta_layout = $this->input->post('nta_layout');
-		 $customer_name = $this->session->userdata('customer_name'); 
+		$customer_name = $this->session->userdata('customer_name'); 
 		     if (isset($nta_layout) && ($nta_layout == '1')) {
 				    $this->session->set_userdata('current_exam_theme', 'nta'); 
 			 }else{
@@ -35,7 +46,7 @@ class Start extends CI_Controller {
         if (!isset($current_exam_timestamp) && ($current_exam_timestamp == '')) {
             $this->session->set_userdata('current_exam_timestamp', $current_time);
         }
-        if (isset($onlinetest_id)) {
+        if (isset($onlinetest_id)&&$onlinetest_id>0) {
             $this->session->set_userdata('exam_id', $exam_id);
             $this->session->set_userdata('subject_id', $subject_id);
             $this->session->set_userdata('chapter_id', $chapter_id);
@@ -43,8 +54,9 @@ class Start extends CI_Controller {
             $this->session->set_userdata('total_question', $total_question);
             $this->session->set_userdata('total_time', $total_time);
             $this->session->set_userdata('formula_id', $formula_id);
+			$this->session->set_userdata('time_remaining', $time_remaining);
             $current_exam_timestamp = $this->session->userdata('current_exam_timestamp');
-            if (!isset($current_exam_timestamp) && ($current_exam_timestamp == '')) {
+            if(!isset($current_exam_timestamp) || ($current_exam_timestamp == '')) {
             $this->session->set_userdata('current_exam_timestamp', $current_time);
             }
             
@@ -77,20 +89,106 @@ class Start extends CI_Controller {
             $usertest_id = $this->Onlinetest_model->add_user_testdata($usertest_data);
             $this->session->set_userdata('usertest_id', $usertest_id);
         } else {
+			
+			  $usertest_data_edit = array(
+                'status'     => 0,
+                'dt_created' => $current_time,
+				'conducted_by' => 'studyadda',
+                'conducted_in' => 'web',
+				'start_time' =>date("h:i a")
+            );
+			$this->Onlinetest_model->update_user_testdata($resume_usertestid,$usertest_data_edit);
+			$resume_usertestdetails = $this->Onlinetest_model->getUtDetails_only($resume_usertestid);
+			if(isset($resume_usertestdetails->usertest_id)&&$resume_usertestdetails->usertest_id>0){
+			$this->session->set_userdata('usertest_id', $resume_usertestid);
+			$resume_usertestinfo_array = $this->Onlinetest_model->getUsertestData($resume_usertestid);
+			
+			$resume_usertestinfo=$resume_usertestinfo_array[0];
+			
+		$time_remaining = $resume_usertestinfo->time_remaining;
+			}else{
+		    $resume_usertestinfo = $this->Onlinetest_model->getUt_only($resume_usertestid);	
+			
+		$time_remaining = $resume_usertestinfo->time_remaining;
+			}	
+			
+			//$resume_usertestid
             $exam_id = $this->session->userdata('exam_id');
-            $subject_id = $this->session->userdata('subject_id');
-            $chapter_id = $this->session->userdata('chapter_id');
-            $onlinetest_id = $this->session->userdata('onlinetest_id');
-            $total_question = $this->session->userdata('total_question');
-            $total_time = $this->session->userdata('total_time');
-            $formula_id = $this->session->userdata('formula_id');
-            //get formula detail
+			if(isset($exam_id)&&$exam_id>0){
+			$exam_id = $this->session->userdata('exam_id');	
+			}else{
+			$exam_id=$resume_usertestinfo->exam_id;
+     		$this->session->set_userdata('exam_id', $exam_id);
+			}
+		//subject_id
+	    $subject_id = $this->session->userdata('subject_id');
+		if(isset($subject_id)&&$subject_id>0){
+			  $subject_id = $this->session->userdata('subject_id');	
+			}else{
+			$subject_id=$resume_usertestinfo->subject_id;
+     		$this->session->set_userdata('subject_id', $subject_id);
+			}
+			
+			//chapter_id
+			
+	$chapter_id = $this->session->userdata('chapter_id');
+	if(isset($chapter_id)&&$chapter_id>0){
+			  $chapter_id = $this->session->userdata('chapter_id');	
+			}else{
+			$chapter_id=$resume_usertestinfo->chapter_id;
+     		$this->session->set_userdata('chapter_id', $chapter_id);
+			}
+			//onlinetest_id
+			$onlinetest_id = $this->session->userdata('onlinetest_id');
+			if(isset($onlinetest_id)&&$onlinetest_id>0){
+			$onlinetest_id = $this->session->userdata('onlinetest_id');	
+			}else{
+			$onlinetest_id=$resume_usertestinfo->test_id;
+     		$this->session->set_userdata('onlinetest_id', $onlinetest_id);
+			}
+			//total_question
+			$total_question = $this->session->userdata('total_question');
+			if(isset($total_question)&&$total_question>0){
+			$total_question = $this->session->userdata('total_question');	
+			}else{
+			$total_question=$resume_usertestinfo->total_qus;
+     		$this->session->set_userdata('total_question', $total_question);
+			}
+			//total_time
+			$total_time = $this->session->userdata('total_time');
+			if(isset($total_time)&&$total_time>0){
+			$total_time = $this->session->userdata('total_time');	
+			}else{
+			$total_time=$resume_usertestinfo->total_time;
+     		$this->session->set_userdata('total_time', $total_time);
+			}
+			
+			//time_remaining
+			if(isset($time_remaining)&&$time_remaining>0){
+			$time_remaining = $time_remaining;	
+			}else{
+			$time_remaining=$resume_usertestinfo->time_remaining;
+			}
+			//time_remaining
+			$session_time_remaining = $this->session->userdata('time_remaining');
+			if(!isset($session_time_remaining)){
+     		$this->session->set_userdata('time_remaining', $time_remaining);
+			echo 'In if';
+			}
+			//formula_id
+			$formula_id = $this->session->userdata('formula_id');
+			if(isset($formula_id)&&$formula_id>0){
+			$formula_id = $this->session->userdata('formula_id');	
+			}else{
+			$formula_id=$resume_usertestinfo->formula_id;
+     		$this->session->set_userdata('formula_id', $formula_id);
+			}
+			//get formula detail
             $formula_info = $this->Onlinetest_model->formula_detail($formula_id);
             $right_answer_marks = $formula_info->right_answer_marks;
             $wrong_answer_marks = $formula_info->wrong_answer_marks;
             $total_marks=$right_answer_marks*$total_question;            
         }
-        
         $usertest_id = $this->session->userdata('usertest_id');
         
             if(isset($usertest_id)&&$usertest_id>0){
@@ -154,6 +252,8 @@ class Start extends CI_Controller {
                  foreach ($onlineanswerinfo as $answeridinfo) {
                     if (isset($answeridinfo->id)) {
                         $answerid_array[$question_id][$id_count] = $answeridinfo->id;
+						$answerid_selection_array[$question_id][$id_count]=$answeridinfo->users_answer;
+						
                         $id_count++;
                     }
                 }
@@ -173,6 +273,7 @@ class Start extends CI_Controller {
                 'answer_extra' => $questioninfo->answer_extra,
                 'answer_array' => $answer_array,
                'answerid_array' => $answerid_array,
+               'answerid_selection_array' => $answerid_selection_array,
                 'calculator' => $questioninfo->calculator
             );
             $q_count++;
@@ -187,6 +288,7 @@ class Start extends CI_Controller {
         $this->data['total_question']=$total_question;
         $this->data['test_id']=$onlinetest_id;
 		$this->data['customer_name']=$customer_name;
+		$this->data['time_remaining']=$time_remaining;
         if(is_array($question_answer_array)){
         $this->data['question_answer_array'] = $question_answer_array;
         }else{
@@ -1104,7 +1206,7 @@ $getRightMarksarray =  $this->Onlinetest_model->reportRightAns($usertest_id);
     $onlinetest_info=$this->Onlinetest_model->detail_with_relation($onlinetest_id,$usertest_info->exam_id,$usertest_info->subject_id,$usertest_info->chapter_id);
 	$exam_id=$onlinetest_info->exam_id;
 	$subject_id=$onlinetest_info->subject_id;
-	$chapter_id=$$onlinetest_info->chapter_id;
+	$chapter_id=$onlinetest_info->chapter_id;
 //$examInfoarr = $this->Examcategory_model->getExamCatgeoryById($exam_id);
 
 $examInfoarr = $this->Examcategory_model->getExamProductById($exam_id,$usertest_info->exam_id,$usertest_info->subject_id,$usertest_info->chapter_id);
@@ -1439,11 +1541,19 @@ $answers=$this->Questions_model->answers($usertest_val->question_id);
                 $exam_id=$onlinetest_info->exam_id;
             }else{
                 $exam_id=0;
-            }
-					
-			//detail_with_relation			
-			
-        if($exam_id>0){
+            }		
+	   //detail_with_relation
+$examInfo = $this->Examcategory_model->getExamCatgeoryById($exam_id);
+$subject_id=$onlinetest_info->subject_id;   
+$subjectsInfo=$this->Subjects_model->getSubject($subject_id);
+$chapter_id=$onlinetest_info->chapter_id;
+$chaptersInfo=$this->Chapters_model->getChapter($chapter_id);
+
+$this->data['chaptersInfo'] = $chaptersInfo;
+$this->data['subjectsInfo'] = $subjectsInfo;
+$this->data['examInfo'] = $examInfo[0];	 
+
+	   if($exam_id>0){
        $isProduct = $this->Pricelist_model->getProduct($exam_id, 0, 0, 1);
 	   /*Get Info for produt block Start*/
        $isProduct_array=array(); 
@@ -1500,17 +1610,38 @@ $answers=$this->Questions_model->answers($usertest_val->question_id);
 						$this->data['purchases']='no';
 						}
 					}
-       $examname=$onlinetest_info->name;
+$examname=$onlinetest_info->name;
+$products=$this->Customer_model->getCustomerProucts($user_id);
+if($products){
+                   foreach($products as $key=>$product){
+                    $subject_id=0;
+                    $exam_id=0;
+                    if(isset($product->exam_id)){
+                    $exam_id=$product->exam_id;
+                    }   
+                   $get_allproduct=$this->Pricelist_model->checkExamProduct_All($exam_id,'ALL');
+$allp1=$get_allproduct[0];
+$allp2=$get_allproduct[1];
+$allp3=$get_allproduct[2];
+$purchased[$allp1->type][]=$allp1->id;
+$purchased[$allp2->type][]=$allp2->id;
+$purchased[$allp2->type][]=$allp3->id; 
+                   }
+               }
+	  $this->data['purchased']=$purchased; 
+	/*
+	$products=$this->Customer_model->getCustomerProucts($user_id);
+	print_r($products); die;
+	*/
+	   
        if(isset($isProduct->modules_item_name)){
        $examname=$isProduct->modules_item_name;
        }//print_r($sections);
 	   $this->data['appcid']=$appcid;
         $this->data['testid']=$testid;
         $this->data['isProduct_array'] = $isProduct_array; 
-//die;		
         $this->data['exam_id'] = $exam_id;                
         $this->data['examname'] = $examname;
-              
         $this->data['examInfo'] = $examInfo;              
         $this->data['subjectsInfo'] = $subjectsInfo;              
         $this->data['chaptersInfo'] = $chaptersInfo;

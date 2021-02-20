@@ -119,7 +119,8 @@ if(isset($sdl)&&$sdl=='hindi') {
          <!--For Releted Studymaterial -->
          <div class="clearfix"></div>
          <div class="panel panel-primary rht_status_mat">
-        <?php if(isset($linktostudypackage)){ ?> 
+        <?php 
+		if(isset($linktostudypackage)){ ?> 
         <div class="col-xs-12 col-sm-12 col-md-12 rht_pdf_box">
             <div class="col-item">
               <div class="photo"> 

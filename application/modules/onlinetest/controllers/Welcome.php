@@ -13,9 +13,10 @@ class Welcome extends Modulecontroller {
 		$this->load->model('Subjects_model');     
 		$this->load->model('Chapters_model');
         $this->load->helper('utility_functions');
-		
     }
+	
     public function index($examname = null, $exam_id = 0, $subjectname = null, $subject_id = 0, $chapter_name = null, $chapter_id = 0) {
+		
 	   $customer_id = $this->session->userdata('customer_id');
        $isProduct_array=array();
        $ts_categories=$this->Examcategory_model->getExamCatgeories();
@@ -26,7 +27,7 @@ class Welcome extends Modulecontroller {
        $testseries_Product = $this->Pricelist_model->getProduct($ts_exam_id, $ts_subject_id, $ts_chapter_id, 3);
        if(isset($testseries_Product)){
        if(count($testseries_Product)>0){
-                   $isProduct_array[]= $testseries_Product;
+       $isProduct_array[]= $testseries_Product;
        }
        }
        }
@@ -181,7 +182,7 @@ class Welcome extends Modulecontroller {
         $this->data['content'] = 'welcome';
         $this->load->view('template', $this->data);
     }
-     public function exampaper($exam_id = 0, $page_id = 0) {
+     public function exampaper($exam_id = 0, $page_id = 0) { 
          $examname = null; $subjectname = null; $subject_id = 0; $chapter_name = null; $chapter_id = 0;
          $this->load->library('pagination');
         $examdata = array();
@@ -381,8 +382,24 @@ class Welcome extends Modulecontroller {
     
     }
 	 public function start_exam($examname, $subjectname, $chaptername, $testname, $examid) {
+	$customer_id = $this->session->userdata('customer_id');
+	if(isset($examname)&&$examname=='resumetest'){
+	if(isset($subjectname)&&$subjectname!=''){
+		$subjectname_resume=explode('usertestid-',$subjectname);
+		$resume_usertestid=$subjectname_resume[1];
+		 }
+ $this->data['resume_usertestid'] = $resume_usertestid;	
+		 
+		 $resumetestinfo=$this->Onlinetest_model->get_testinfo_byid($resume_usertestid);
+		 $time_remaining=$resumetestinfo->time_remaining;
+		 $resume_exam_id=$resumetestinfo->exam_id;
+		 }else{
+$this->data['resume_usertestid'] = 0;	
 
-        $customer_id = $this->session->userdata('customer_id');
+$this->data['time_remaining'] = 0;
+
+		 }
+		
         $this->data['examname'] = $examname;
         $this->data['subjectname'] = $subjectname;
         $this->data['chaptername'] = $chaptername;
@@ -390,12 +407,19 @@ class Welcome extends Modulecontroller {
         $onlinetestinfo = $this->Onlinetest_model->detail($examid);
         $onlinequestioninfo = $this->Onlinetest_model->getolQuestion($examid);
         $this->data['usertest_info'] = $this->Onlinetest_model->get_testinfo_by_customer($customer_id);
-        
-    if(isset($onlinetestinfo->exam_id)){
-      $exam_id = $onlinetestinfo->exam_id;
-    }else{
-      $exam_id=0;  
-    }
+		 $examname_replaced=str_replace("-"," ",$examname);
+		
+        $catid_byname=$this->Categories_model->getCategoriesbyname($examname_replaced);
+
+		$catidbyname=$catid_byname[0]->id;
+	    if(isset($catidbyname)&&$catidbyname>0){
+		$exam_id = $catidbyname;
+		}elseif(isset($onlinetestinfo->exam_id)&&$onlinetestinfo->exam_id>0){
+        $exam_id = $onlinetestinfo->exam_id;
+       }else{
+        $exam_id=$resume_exam_id;  
+       }
+	   
     $isProduct = $this->Pricelist_model->getProduct($exam_id, '', '', 3);
        /*Get Info for produt block Start*/
              $isProduct_array=array();    
@@ -410,6 +434,8 @@ class Welcome extends Modulecontroller {
         }else{
         $this->data['total_question'] = 0;
         }
+		 $this->data['exam_id'] = $exam_id;
+		$this->data['time_remaining'] = $time_remaining;
         $this->data['onlinetestinfo'] = $onlinetestinfo;
         $this->data['content'] = 'start_exam';
         $this->load->view('template', $this->data);
@@ -476,8 +502,8 @@ $usersOfGroup=$this->Onlinetest_model->getUsersOfGroup($groupid);
         $this->load->view('template_mid', $this->data);
 	 }
 	 
-public function androidstart_exam($examname, $subjectname, $chaptername, $testname, $appcid, $examid) {
-	$onlinetest_id=$examid;
+public function androidstart_exam($examname, $subjectname, $chaptername, $testname, $appcid, $testid) {
+$onlinetest_id=$testid;
 $urlcust_array=explode('-encid-',$appcid);
 			if(isset($urlcust_array[1])){
 				$urlcustid=base64_decode($urlcust_array[1]);
@@ -490,18 +516,32 @@ $urlcust_array=explode('-encid-',$appcid);
         $this->data['examname'] = $examname;
         $this->data['subjectname'] = $subjectname;
         $this->data['chaptername'] = $chaptername;
-        $this->data['testname'] = $testname;
+        $this->data['testname'] = $testname;		
+		//echo 'EXAM NAME->'.$examname.'<-->TESTNAME->'.$testname;
+		$examname_replaced=str_replace("-"," ",$examname);
+		
+        $catid_byname=$this->Categories_model->getCategoriesbyname($examname_replaced);
+
+		$catidbyname=$catid_byname[0]->id;
+	    if(isset($catidbyname)&&$catidbyname>0){
+		$exam_id = $catidbyname;
+		}elseif(isset($onlinetestinfo->exam_id)&&$onlinetestinfo->exam_id>0){
+        $exam_id = $onlinetestinfo->exam_id;
+       }
+				
         $this->data['appcid'] = $appcid;
 		$this->data['onlinetest_id'] =$onlinetest_id;
         $this->data['customer_id'] = $urlcustid;
-        $onlinetestinfo = $this->Onlinetest_model->detail_with_relation($examid);
-        $onlinequestioninfo = $this->Onlinetest_model->getolQuestion($examid);
+        $onlinetestinfo = $this->Onlinetest_model->detail_with_relation($testid);
+        $onlinequestioninfo = $this->Onlinetest_model->getolQuestion($testid);
         $this->data['usertest_info'] = $this->Onlinetest_model->get_testinfo_by_customer($urlcustid);
+		
     if(isset($onlinetestinfo->exam_id)){
       $exam_id = $onlinetestinfo->exam_id;
     }else{
       $exam_id=0;  
     }
+	
     $isProduct = $this->Pricelist_model->getProduct($exam_id, '', '', 3);
        /*Get Info for produt block Start*/
        $isProduct_array=array();    
@@ -522,6 +562,7 @@ $urlcust_array=explode('-encid-',$appcid);
     }
 	
 	public function attempt_history($testid,$chart_type='bar') {
+		
     $user_id = $this->session->userdata('customer_id');
 	$usertest_info = $this->Onlinetest_model->get_testinfo_byid($testid);
 	if(isset($usertest_info->test_id)&&$usertest_info->test_id>0){
@@ -638,10 +679,10 @@ $this->data['total_qus'] = $total_qus;
 	 
 	
     public function test_result($testid) {
-		
         $this->load->model('Questions_model');
         $usertest_info = $this->Onlinetest_model->get_testinfo_byid($testid);
 		$onlinetest_id=0;
+		
 $exam_id=0;
 $subject_id=0;
 $chapter_id=0;       
@@ -660,7 +701,6 @@ $chapter_id=0;
             $chapter_id=$usertest_info->chapter_id;
         }
 		
-		
         $onlinetest_info=$this->Onlinetest_model->detail_with_relation($onlinetest_id,$exam_id,$subject_id,$chapter_id);
 		
 		/*Get PDF file infornmation */
@@ -673,14 +713,12 @@ $chapter_id=0;
             redirect('/customer');
         }
 		$attempts=$this->Onlinetest_model->getAttempts($usertest_info->test_id,$user_id); 
+		
         $sections=array();
         $this->data['attempts']=$attempts;  
         $this->data['ot_filedetail']=$ot_filedetail; 
-     
         if (isset($usertest_info)) { 
-		
-          
-			/*Get All questions from test id and user id 28-12-2019*/
+		/*Get All questions from test id and user id 28-12-2019*/
 			  $usertest_detail = $this->Onlinetest_model->get_testdetail_byid($testid);
 			
 			$mMarks=0;
@@ -1129,13 +1167,39 @@ $chapter_id=0;
                 $exam_id=$onlinetest_info->exam_id;
             }else{
                 $exam_id=0;
-            }
-            
-       $isProduct = $this->Pricelist_model->getProduct($exam_id, '', '', 3);
-       /*Get Info for produt block Start*/
+            }	
+        if($exam_id>0){
+       $isProduct = $this->Pricelist_model->getProduct($exam_id, 0, 0, 1);
+	   /*Get Info for produt block Start*/
        $isProduct_array=array(); 
-       
-        if(isset($isProduct)){
+       $products_id=0;
+       if(isset($isProduct)){
+       if(count($isProduct)>0){
+       $isProduct_array[]= $isProduct;
+	   if(isset($isProduct->id)){
+       $products_id=$isProduct->id;
+       }
+       }
+	   }else{  
+        $isProduct = $this->Pricelist_model->getProduct($exam_id, 0, 0, 3);
+	   if(isset($isProduct)){
+       if(count($isProduct)>0){
+       $isProduct_array[]= $isProduct;
+	   if(isset($isProduct->id)){
+        $products_id_two=$isProduct->id;
+       }
+       }
+	   }else{ 
+	   $isProduct_array[]=NULL;   
+	   }
+       }
+	   }else{
+		$isProduct=array();	
+		} 
+	   
+	   /*Get Info for produt block Start*/
+       $isProduct_array=array(); 
+       if(isset($isProduct)){
        if(count($isProduct)>0){
        $isProduct_array[]= $isProduct;
                     }
@@ -1172,7 +1236,6 @@ foreach($usersOfGroup as $groupvalue){
 	}
 }
 foreach($totalInGroup as $grpKey=>$grpValue){
- 
 							if(count($grpValue)>0){	
 							$grpValueObj=$grpValue;
 								if(isset($grpValueObj->lastname)){
@@ -1202,9 +1265,7 @@ foreach($totalInGroup as $grpKey=>$grpValue){
 }
 sortBy('obtain_marks',$existInGroup,'desc');
 }
-
 /*Start Test info for retest*/
-
 $examInfo = $this->Examcategory_model->getExamCatgeoryById($exam_id);
 $subject_id=$onlinetest_info->subject_id;   
 $subjectsInfo=$this->Subjects_model->getSubject($subject_id);
@@ -1215,10 +1276,27 @@ $this->data['chaptersInfo'] = $chaptersInfo;
 $this->data['subjectsInfo'] = $subjectsInfo;
 $this->data['examInfo'] = $examInfo[0];
 /*Ends Test info for retest*/
-$cust =  $this->session->userdata('customer_id');
-	 $this->data['testid']=$testid;
-        $this->data['isProduct_array'] = $isProduct_array;        
-        $this->data['exam_id'] = $exam_id; 
+$cust = $this->session->userdata('customer_id');
+$products=$this->Customer_model->getCustomerProucts($cust);
+	if($products){
+    foreach($products as $key=>$product){
+    $subject_id=0;
+    $exam_id=0;
+    if(isset($product->exam_id)){
+    $exam_id=$product->exam_id;
+    }
+$get_allproduct=$this->Pricelist_model->checkExamProduct_All($exam_id,'ALL');
+$allp1=$get_allproduct[0];
+$allp2=$get_allproduct[1];
+$allp3=$get_allproduct[2];
+$purchased[$allp1->type][]=$allp1->id;
+$purchased[$allp2->type][]=$allp2->id;
+$purchased[$allp2->type][]=$allp3->id; 
+                }
+               }
+	    $this->data['purchased']=$purchased; 
+	    $this->data['testid']=$testid;
+        $this->data['isProduct_array'] = $isProduct_array;$this->data['exam_id'] = $exam_id; 
 		$this->data['customer_info'] = $customer_info;$this->data['examname'] = $examname;       
         $this->data['isProduct']=$isProduct;
         $this->data['onlinetest_info']=$onlinetest_info;

@@ -31,20 +31,35 @@
                   <div class="col-sm-12 col-md-12">
                   <div class="panel panel-success">
                   <div class="panel-heading">
-                 	 <h4><i class="material-icons">folder</i> Test Attempted By Me </h4>
-                     </div>
-                     <ul class="row startexampanel">
+                 	 <h4><i class="material-icons">folder</i> Test Attempted By Me</h4>
+                    </div>
+                    <ul class="row startexampanel">
 <?php 
+$testvaluecnt=1;
 foreach($usertest_info as $testvalue){
-    echo "<li class='col-xs-12 col-sm-6 col-md-6'><i class='material-icons'>update</i>  <a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a></li>";
-    
+	if(isset($testvalue->start_time)&&$testvalue->start_time!=''){
+	//$start_time=$testvalue->start_time;
+	}else{
+	//$start_time=0;
+	}
+	if(isset($testvalue->dt_created)&&$testvalue->dt_created!=''){			
+	$dt_created=$testvalue->dt_created;
+	$dt_created =  date("F j, Y, g:i a",$dt_created);   
+	}else{
+	$dt_created=0;
+	}
+    echo "<li class='col-xs-12 col-sm-6 col-md-6 text-primary'>";
+	echo "<i class='material-icons'>update</i>";
+	echo "(".$testvaluecnt.")";
+	$testvaluecnt++;
+	echo "<a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a><br>[Attampted On : ".$dt_created." ]</li>";
 }
 ?>
-                  </ul>                  </div>
+</ul>                  </div>
                   </div>   
-                 <?php }else{
-					 ?>
-					    <div class="col-sm-12 col-md-12">
+                <?php }else{
+				?>
+				<div class="col-sm-12 col-md-12">
                   <div class="panel panel-success">
                   <div class="panel-heading">
                  	 <h4><i class="material-icons">folder</i>You have not attempted Any Test.</h4>

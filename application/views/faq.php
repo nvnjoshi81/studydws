@@ -5,15 +5,12 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div id="page-inner">
           <div class="module_panel row">
-          
             <!-- content panel start here -->
             <!-- left panel 
 $('#msg_waiting').show(); -->
-            
-            
               <div class="container ">
     <div class="panel-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="faqAccordion">
-        <div class="panel panel-default ">
+        <div class="panel panel-default">
             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
                  <h4 class="panel-title">
                     <a href="#" class="ing">Q: What is Studyadda?</a>

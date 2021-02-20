@@ -1,5 +1,110 @@
-<body class="mainwrapper">
+<style>
+ .badge-notans {	
+	//background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo2.png); 
+	background-color: red;  
+	/*padding: 4px 10px 10px;
+  width: 10px;
+  height: 10px;
+	border-radius: 25px;
+	*/
+}
+ .badge-answered {
+	 background-color: green;  	 
+	 /*background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo3.png); 
+	 padding: 4px 10px 10px;
+  width: 10px;
+  height: 10px;
+	border-radius: 25px;*/
+}
+ .badge-markreview {	 
+  background-color: SlateBlue;
+  /*  
+  background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo4.png);  
+  padding: 4px 10px 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+  */
+}
+ .badge-ansreview {
+  background-color: Violet;
+/*
+background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo5.png); 
+padding: 4px 10px 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+*/
+}
 
+.olbadge { //padding: 2px 10px 10px;
+	 //background-color: gray;
+}
+
+.freshbadge{ 
+}
+
+.roundbox{ 
+  background: #DCDCDC;
+}
+
+ .btn span.glyphicon {    			
+	opacity: 0;	 display:inline;			
+}
+.btn.active span.glyphicon {				
+	opacity: 1;	 display:inline;			
+}
+span[aria-label]:after {
+  opacity:0;
+  content: attr(aria-label);
+  padding: 4px 8px;
+  position: absolute;
+  right: 0;
+  top: 120%;
+  white-space: nowrap;
+  z-index: 20;
+  background: #edffb3;
+  transition: opacity 0.5s;
+  pointer-events:none;
+}
+span[aria-label]:hover:after {
+  opacity:1;
+  transition-delay:1.5s;
+}
+.badge-review-save {
+/*Pink color//background-color: fe79ea !important;*/
+background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo5.png); 
+padding: 5px 15px 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+}
+
+.badge-danger {
+	/*RED//background-color: f63f1c !important; */
+background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo2.png); 
+padding: 5px 15px 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;	
+}
+.badge-review-notsave { 
+	/*Voilat color //background-color: 783aab !important;*/
+	background: url(<?php echo base_url();?>/assets/images/QuizIcons/Logo4.png); 
+padding: 5px 15px 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+}
+  .green{
+        background-color:  #00CE6F
+    }
+    
+    .blue{
+        background-color:  #0081C2 
+    }
+</style>
+<body class="mainwrapper">
 <?php
 if(isset($onlinetestinfo->calculater)){
               $calculater = $onlinetestinfo->calculater;
@@ -14,12 +119,13 @@ if(isset($onlinetestinfo->calculater)){
         <img alt="" width="134" height="74" src="<?php echo get_assets('assets/frontend/images/logo_new.png');?>" class="img-responsive img-center mainpadding">
       </div>
 	  -->
-	  <div class="col-lg-12 nopadding  pull-right"  style="background: url(<?php echo base_url();?>/assets/images/texture-frozen-window.jpg) center center;">
-                                        <table class="nta-top-right-head">
-                                            <tbody><tr>
-                                                <td style="padding: 5px 15px; border: 2px solid #666"><i class="fa fa-user fa-4x"></i></td>
-                                                <td>
-                                                    <table>
+	<div class="col-lg-12 nopadding  pull-right"  style="background: url(<?php echo base_url();?>/assets/images/texture-frozen-window.jpg) center center;">
+    <table class="nta-top-right-head">
+    <tbody>
+	<tr>
+	<td style="padding: 5px 15px; border: 2px solid #666"><i class="fa fa-user fa-4x"></i></td>
+	<td>
+<table>
                                                         <tbody><tr>
                                                             <td style="padding: 0px 5px;">Name : </td>
                                                             <td>  <span class="nta-color" style="font-weight: bold">[<?php echo " ".$customer_name; ?>]</span></td>
@@ -111,16 +217,17 @@ span[aria-label]:hover:after {
 }
 </style>
 <?php 
-          $pqrs_array=array('P','Q','R','S','T','U','V','W','X','Y','Z');
-		  $abcd_array=array('1','A','B','C','D','E','F','G','H','I','J','K');
+$pqrs_array=array('P','Q','R','S','T','U','V','W','X','Y','Z');
+$abcd_array=array('1','A','B','C','D','E','F','G','H','I','J','K');
 $timestamp = time();
 $usertest_id =$this->session->userdata('usertest_id');
-$total_time=$this->session->userdata('total_time');
+$total_time=$this->session->userdata('time_remaining');
 $diff = $total_time ; // <-Time of countdown in seconds.  ie. 3600 = 1 hr. or 86400 = 1 day.
 
 //MODIFICATION BELOW THIS LINE IS NOT REQUIRED.
 $hld_diff = $diff;
 $time_spent = $this->session->userdata('ts');
+
 if(isset($time_spent)) {
 	$slice = ($timestamp - $time_spent);	
 	$diff = $diff - $slice;
@@ -157,7 +264,7 @@ $onlinetest_id=0;
             $onlinetest_id = $onlinetestinfo->id;
     }
   $total_question_count = count($question_answer_array);
-  $nta_layout = $this->session->userdata('current_exam_theme');   
+  $nta_layout = $this->session->userdata('current_exam_theme');
 ?>
 <div id="wrapper">
     <div class="container">
@@ -228,7 +335,6 @@ padding-bottom: 12px;"><?php if(isset($question_answer_array[$question_count]['s
 		$section_disp=$section_dispv[0];	
 		echo '&nbsp;('.$section_disp.')'; 	
 		}else{
-			
 		$section_disp='';
 		}
 	    ?>
@@ -245,7 +351,8 @@ padding-bottom: 12px;"><?php if(isset($question_answer_array[$question_count]['s
                           <?php
                            $answer_array = $question_answer_array[$question_count]['answer_array'];
                            $answerid_array = $question_answer_array[$question_count]['answerid_array'];
-                           
+                           $answerid_selection_array = $question_answer_array[$question_count]['answerid_selection_array'];
+						 // print_r($answerid_selection_array);
                            if(isset($question_answer_array[$question_count]['type_extra'])){
                                $mtb_answer_string = $question_answer_array[$question_count]['type_extra'];            
                                $mtb_answer_array =explode(',',$mtb_answer_string);
@@ -453,32 +560,59 @@ $single_gridans=$answer_array[$question_id][$answer_count];
                         <span class="input-grp-btn btn_online_exam">
                               <a class="btn-md btn-sm btn-lg btn btn-success btn-raised" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','next_submit');"  title="Save and go to Next Question">SAVE & NEXT</a>
                       </span> 
-                        <span class="input-grp-btn btn_online_exam">
-                              <a class="btn-md btn-sm btn-lg btn btn-primary btn-raised" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','review_submit');" title="Mark for Review and go to Next Question" >MARK FOR REVIEW & NEXT</a>
-                        </span>
-						<span class="input-grp-btn btn_online_exam">
-                              <a class="btn-md btn-sm btn-lg btn btn-success btn-raised" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','nextreview_submit');"  title="Save & Mark for Review and Submit">SAVE & MARK FOR REVIEW</a>
+					  
+					  <span class="input-grp-btn btn_online_exam">
+                              <a  class="btn-md btn-sm btn-lg btn btn-raised" style="color: #fff;
+background-color: #ec971f;
+border-color: #d58512;" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','nextreview_submit');"  title="Save & Mark for Review and Submit">SAVE & MARK FOR REVIEW</a>
                       </span> 
-                                 
+					  
+                        <span class="input-grp-btn btn_online_exam">
+                              <a style="color: #fff;background-color: #286090;border-color: #204d74;" class="btn-md btn-sm btn-lg btn btn-raised" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','review_submit');" title="Mark for Review and go to Next Question" >MARK FOR REVIEW & NEXT</a>
+                        </span>
                     <?php  }else{ ?>  
                   <span class="input-grp-btn">
                   <a class="btn-md btn-sm btn btn-defaul btn-raised btn-lg" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','next_paper_submit');"  title="Save and go to Next Question">SAVE</a>
                   </span>
+				    <span class="input-grp-btn">
+                  <a class="btn-md btn-sm btn btn-raised btn-lg" href="#" style="color: #fff;
+background-color: #ec971f;
+border-color: #d58512;" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','nextreview_paper_submit');"  title="Save & Mark for Review and Submit">SAVE & MARK FOR REVIEW</a>
+                  </span>
+				  
                               <span class="input-grp-btn">
-                              <a class="btn-md btn-sm btn btn-primary btn-raised btn-lg" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','review_paper_submit');" title="Mark for Review and Submit Online Exam">MARK FOR REVIEW</a> <!--review_paper_submit next_paper_submit-->
+                              <a class="btn-md btn-sm btn  btn-raised btn-lg" style="color: #fff;background-color: #286090;border-color: #204d74;" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','review_paper_submit');" title="Mark for Review and Submit Online Exam">MARK FOR REVIEW</a> <!--review_paper_submit next_paper_submit-->
                   </span>
-				  <span class="input-grp-btn">
-                  <a class="btn-md btn-sm btn btn-defaul btn-raised btn-lg" href="#" onclick="next_submit(<?php echo $question_count; ?>,'<?php echo $type; ?>',<?php echo $current_question_id ; ?>,<?php echo $onlinetest_id; ?>,<?php echo $usertest_id; ?>,<?php echo $answer_option_count ; ?>,'<?php echo $mtb_answer_count ; ?>','nextreview_paper_submit');"  title="Save & Mark for Review and Submit">SAVE & MARK FOR REVIEW</a>
-                  </span>
+				
 				  <?php         
                   } 
 				  ?>
-							<span style="padding-left: 25px;" class="input-grp-btn btn_online_exam" onclick="opt_clicked('<?php echo $current_question_id; ?>','hide')" >
+							<span style="padding-left:12px;" id="scrollme_<?php echo $question_count; ?>">
+						<div class="clearfix"></div>
+						
+						<!--GO TO BACK Previouse-->
+                        <?php if($question_count>1){
+                        ?>
+                          <span class="input-grp-btn btn_online_exam">
+                          <a class="btn-md btn btn-default btn-raised btn-md btn-sm btn-lg" onclick="previous_only(<?php echo $question_count; ?>,<?php echo $current_question_id ; ?>);"><?php echo "<< BACK"; ?></a>
+                          </span>
+                          <?php  } 
+						  if($total_question_count>$question_count){
+						  ?>
+						<!--GO TO NEXT-->
+						 <span class="input-grp-btn btn_online_exam">
+                          <a class="btn-md btn btn-default btn-raised btn-md btn-sm btn-lg"  onclick="next_only(<?php echo $question_count; ?>,<?php echo $current_question_id ; ?>);"><?php echo "NEXT >>"; ?></a>
+                          </span> 
+					<?php } ?>						  
+                        </span>
+							
+							<span style="padding-left: 12px;" class="input-grp-btn btn_online_exam" onclick="opt_clicked('<?php echo $current_question_id; ?>','hide')" >
                              <span style="display:<?php echo $cleare_status; ?>" id="span_clear_btn_<?php echo $current_question_id; ?>" >
                                       <a id="clear_btn" class="btn-md btn-sm btn btn-default btn-raised btn-lg" href="#" onclick="clear_response('<?php echo $current_question_id; ?>','<?php echo $mtb_answer_count ; ?>','<?php echo $type; ?>','<?php echo $usertest_id; ?>');" title="Clear Response or Answer Online Exam" >CLEAR RESPONSE</a>
 							</span>
                         </span>
-		                  </div>
+						
+						  </div>
                           
                           </div>
                             <?php 
@@ -535,7 +669,7 @@ $single_gridans=$answer_array[$question_id][$answer_count];
                                         <td>Marked for Review</td>
                                     </tr>
                                     <tr>
-                                        <td> <img src="<?php //echo base_url('assets/images/QuizIcons/Logo5.png');?>"> </td>
+                                        <td> <img src="<?php echo base_url('assets/images/QuizIcons/Logo5.png');?>"> </td>
                                         <td colspan="3">Answered &amp; Marked for Review (will be considered for evaluation)</td>
                                     </tr>
                                 </thead>
@@ -590,7 +724,7 @@ $single_gridans=$answer_array[$question_id][$answer_count];
                             }
                             ?>
                             <a href="#" onclick="static_clicked(<?php echo $static_count; ?>,<?php echo $question_answer_array[$static_count]['question_id']; ?>);" > 
-                                <span class="badge"  id="static_link_<?php echo $question_answer_array[$static_count]['question_id']; ?>" >
+                                <span class="badge freshbadge"  id="static_link_<?php echo $question_answer_array[$static_count]['question_id']; ?>" >
                           <?php echo $static_count ; ?>
                         </span></a>
                             <?php
@@ -620,6 +754,10 @@ $single_gridans=$answer_array[$question_id][$answer_count];
 <script>
     
     function static_clicked(question_count,qid=0){
+		if($( "#static_link_"+qid).hasClass("freshbadge")){	
+        $("#static_link_"+qid).removeClass("freshbadge");	
+        $("#static_link_"+qid).addClass("badge-notans");
+    }
         var question_count;
 		 document.getElementById('crntQid').value=qid;
         $('.question_answer_body').hide();
@@ -680,6 +818,35 @@ $single_gridans=$answer_array[$question_id][$answer_count];
         } 
     });
     }
+	
+		//Only next and previouse
+	
+	    function previous_only(question_count,qid){			
+        var question_count;
+        var question_count_minus=question_count-1;
+        $("#panel-body-"+question_count).hide();
+        $("#panel-body-"+question_count_minus).show();
+
+if($( "#static_link_"+qid).hasClass("freshbadge")){	
+        $("#static_link_"+qid).removeClass("freshbadge");	
+        $("#static_link_"+qid).addClass("badge-notans");
+    }
+	
+    }
+	 function next_only(question_count,qid){
+		 
+	    var question_count;
+        var question_count_plus=question_count+1;
+        $("#panel-body-"+question_count).hide();
+        $("#panel-body-"+question_count_plus).show();
+if($( "#static_link_"+qid).hasClass("freshbadge")){
+	
+        $("#static_link_"+qid).removeClass("freshbadge");	
+        $("#static_link_"+qid).addClass("badge-notans");
+    }		
+    }
+	
+	
     //for per question click 
     var totalSeconds = 0;
     function next_submit(question_count,qtype,qid,test_id,usertest_id,answer_total,ans_id,qaction){
@@ -703,12 +870,22 @@ $single_gridans=$answer_array[$question_id][$answer_count];
 		  document.getElementById('crntQid').value=qid;
         var final_question_marks =0;
            if(qtype=='<?php  echo $var_single_choice; ?>'){  
-            //users_answer = $("input[name='option_choice_qid']:checked").val();
-            if((qaction=='review_submit')){
-            //$("input[name="+single_select_qid+"]").removeAttr("checked");
-            }
-			users_answer = $("input[name='"+single_select_qid+"']:checked").val();             
+           	users_answer = $("input[name='"+single_select_qid+"']:checked").val(); 
+           if((qaction=='next_submit')){
+			if(users_answer === undefined||users_answer==''){ 
+			alert("Please choose an option");
+			return false;
+			}
+            }else if(qaction=='nextreview_submit'){
+			if(users_answer === undefined||users_answer==''){ 
+			alert("Please choose an option");
+			return false;
+			}
+			}
+			
+			            
            }   
+		  
 /*Grid single select */
            if(qtype=='<?php echo $var_grid_single_choice; ?>'){ 
             if((qaction=='review_submit')){
@@ -795,15 +972,18 @@ $single_gridans=$answer_array[$question_id][$answer_count];
         
         }      
         if((qaction=='review_submit')||(qaction=='review_paper_submit')){
-            
+             $("#static_link_"+qid).removeClass("freshbadge");
+		   $("#static_link_"+qid).removeClass("badge-notans"); 
         $("#static_link_"+qid).removeClass("badge-danger");
         $("#static_link_"+qid).removeClass("badge-success"); 
-        $("#static_link_"+qid).addClass("badge-review-save");  
+        $("#static_link_"+qid).addClass("badge-review-notsave");  
         }else if((qaction=='next_submit')||(qaction=='next_paper_submit')||(qaction=='nextreview_submit')||(qaction=='nextreview_paper_submit')){
         if(users_answer === undefined||users_answer==''){ 
         //nothin to do
         
         //$("#static_link_"+qid).removeClass("badge-review-save");
+		$("#static_link_"+qid).removeClass("freshbadge");
+		$("#static_link_"+qid).removeClass("badge-notans"); 
         $("#static_link_"+qid).removeClass("badge-success");
         if($( "#static_link_"+qid).hasClass( "badge-review-save" )){
         $("#static_link_"+qid).addClass("badge-review-save");
@@ -814,6 +994,8 @@ $single_gridans=$answer_array[$question_id][$answer_count];
         //Check for answer checked or not 
         $("#static_link_"+qid).removeClass("badge-danger");
         $("#static_link_"+qid).removeClass("badge-review-save");
+		 $("#static_link_"+qid).removeClass("freshbadge");
+		   $("#static_link_"+qid).removeClass("badge-notans"); 
 		if((qaction=='nextreview_submit')||(qaction=='nextreview_paper_submit')){ 
 		
         $("#static_link_"+qid).addClass("badge-review-save");
@@ -1045,9 +1227,9 @@ var totalSeconds=0;
     }
     }
     
-</script>
+
 <!--For range slider self assessment functionality -->
-<script>
+
 <?php 
 if($flag_show_slider=='yes'){ 
 ?>
@@ -1132,9 +1314,8 @@ function changeAnsView(tm=0){
     $('#text_fill_blanks_'+crntQidValue).val(cloutpt); 
 	// <-- reverse your selectors here 
  }
-</script>
-<script>
-					function changeCSS(cssFile, cssLinkIndex,cssfor='nta') {
+
+function changeCSS(cssFile, cssLinkIndex,cssfor='nta') {
 if(cssfor=='std'){						document.getElementById("marks-status-lft1").style.display = "none";
 }else{
 	document.getElementById("marks-status-lft1").style.display = "block";
@@ -1150,13 +1331,3 @@ if(cssfor=='std'){						document.getElementById("marks-status-lft1").style.displ
     document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
 }
 					</script>
-
-<style>
-    .green{
-        background-color:  #00CE6F
-    }
-    
-    .blue{
-        background-color:  #0081C2 
-    }
-</style>

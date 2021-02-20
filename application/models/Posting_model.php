@@ -224,7 +224,7 @@ class Posting_Model extends CI_Model {
     public function getca_List($id = 0, $limit = 0, $start = 0, $status = NULL) {
 
         $this->db->limit($limit, $start);
-        $this->db->select('postings.id,title,postings.description,adtype,external_url,external_link,hits,published,dt_created,dt_modified,name');
+        $this->db->select('postings.id,title,postings.description,postings.adtype,postings.external_url,postings.external_link,postings.hits,postings.published,postings.dt_created,postings.dt_modified,categories.name');
         $this->db->from('postings,categories');
         if ($id > 0) {
             $this->db->where('postings.top_category_id', $id);
@@ -233,7 +233,7 @@ class Posting_Model extends CI_Model {
         if ($status === 0) {
             $this->db->where('postings.published', 0);
         }
-        $this->db->order_by('dt_created', 'desc');
+        $this->db->order_by('postings.dt_created', 'desc');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -273,9 +273,6 @@ class Posting_Model extends CI_Model {
     }
 
     public function get_filter_Posting($limit = 0, $start = 0, $id) {
-
-
-
         $this->db->limit($limit, $start);
         $this->db->select('postings.id,title,postings.description,adtype,external_url,external_link,hits,published,dt_created,dt_modified,name');
         $this->db->from('postings,categories');
@@ -576,7 +573,7 @@ class Posting_Model extends CI_Model {
         }
     }
     
-    public function getExamArticleInfo($article_id) {
+    public function getExamArticleInfo($article_id,$examid=0) {
         $this->db->select('a.*')
                 ->select('categories.name as exam,categories.id as exam_id')
                 ->select('cmssubjects.name as subject,cmssubjects.id as subject_id')
@@ -584,6 +581,9 @@ class Posting_Model extends CI_Model {
         $this->db->join('categories', 'a.category_id=categories.id', 'left');
         $this->db->join('cmssubjects', 'a.subject_id=cmssubjects.id', 'left');
         $this->db->join('cmschapters', 'a.chapter_id=cmschapters.id', 'left');
+		if($examid>0){			
+        $this->db->where('categories.id', $examid);
+		}
         $this->db->where('a.id', $article_id);
         $this->db->from('postings a');
         $this->db->order_by('a.dt_created', 'desc');

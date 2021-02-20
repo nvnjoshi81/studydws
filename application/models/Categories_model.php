@@ -4,7 +4,7 @@ class Categories_model extends CI_Model
     
     function __construct()
     {
-        parent::__construct();
+    parent::__construct();
         
     }
     
@@ -43,6 +43,17 @@ class Categories_model extends CI_Model
         $query = $this->db->get();
 		return $query->result();
     }
+	
+	  public function getCatebyname($name)
+    {
+        $this->db->select('id,name,order');
+        $this->db->from('categories');
+        $this->db->like('LOWER(name)',strtolower($name),'after');
+        $this->db->or_like('name',strtoupper($name),'after');
+        $query = $this->db->get();
+		return $query->row();
+    }
+    
     
     public function getCategoryDetails($id)
     {
@@ -68,6 +79,16 @@ class Categories_model extends CI_Model
         $this->db->select('id,name,order,parent_id,description,tagline');
         $this->db->from('categories');
         $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+	
+	 public function getPrentNamehindi($id,$language='english')
+    {
+        $this->db->select('id,catname as name');
+        $this->db->from('categories_language');
+        $this->db->where('categories_id', $id);
+        $this->db->where('language', $language);
         $query = $this->db->get();
         return $query->result();
     }
@@ -186,10 +207,19 @@ class Categories_model extends CI_Model
 	
     public function update_categories($data, $id)
     {
-        $this->db->where('id', $id);
-        $this->db->update('categories', $data);
+    $this->db->where('id', $id);
+    $this->db->update('categories', $data);
+    return;
+    }
+	
+    public function update_langcategories($data, $id,$lang)
+    {
+		$this->db->where('id', $id);
+        $this->db->where('language', $lang);
+        $this->db->update('categories_language', $data);
         return;
     }
+	
     public function deleteCategory($id)
     {
         $this->db->delete('categories', array(

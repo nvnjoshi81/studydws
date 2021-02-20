@@ -1,17 +1,20 @@
 <style>
-		#heading-breadcrumbs {
+	#heading-breadcrumbs {
     background: url(<?php echo base_url();?>/assets/images/texture-frozen-window.jpg) center center;
     padding: 2px 0;
 }
 </style> 
 		<?php
+		
         $this->session->unset_userdata('exam_id');
         $this->session->unset_userdata('subject_id');
         $this->session->unset_userdata('chapter_id');
         $this->session->unset_userdata('onlinetest_id');
         $this->session->unset_userdata('total_time');
         $this->session->unset_userdata('current_user_id');
+        $this->session->unset_userdata('time_remaining');
         $this->session->unset_userdata('current_exam_timestamp');
+		
         $this->session->unset_userdata('ts'); 
         $usertest_session_value=$this->session->userdata('usertest_id');
         if(isset($usertest_session_value)){
@@ -21,13 +24,15 @@
             redirect($resultUrl);            
             }
         }  
-$exam_id=0;
-$subject_id=0;
-$chapter_id=0;
+
+
 $onlinetest_id=0;
-    if(isset($onlinetestinfo->exam_id)){
+    if(isset($onlinetestinfo->exam_id)&&$onlinetestinfo->exam_id>0){
             $exam_id = $onlinetestinfo->exam_id;
-    }
+    }else{
+		$exam_id = $exam_id;
+	}
+	
     if(isset($onlinetestinfo->subject_id)){
             $subject_id = $onlinetestinfo->subject_id;
     }
@@ -42,6 +47,10 @@ $onlinetest_id=0;
     }
     if(isset($onlinetestinfo->formula_id)){
             $formula_id = $onlinetestinfo->formula_id;
+}
+
+    if(isset($time_remaining)){
+            $time_remaining = $time_remaining;
 }
 $timeresult =secondsToTime($onlinetestinfo->time); 
 ?>
@@ -200,22 +209,35 @@ margin-top: 0px;" >
 <form action="/online-test/start" id="startoltest" name="startoltest" method="POST" target="_blank">
 <ul style="list-style:none">
 <li>
-              <input  type="hidden" name="exam_id"        value="<?php echo $exam_id; ?>">
+<input  type="hidden" name="exam_id"        value="<?php echo $exam_id; ?>">
               <input  type="hidden" name="subject_id"     value="<?php echo $subject_id; ?>">
               <input  type="hidden" name="chapter_id"     value="<?php echo $chapter_id; ?>">
               <input  type="hidden" name="onlinetest_id"  value="<?php echo $onlinetest_id; ?>">
               <input  type="hidden" name="total_time"     value="<?php echo $total_time; ?>" >
               <input  type="hidden" name="total_question" value="<?php echo $total_question; ?>" >
               <input  type="hidden" name="formula_id"     value="<?php echo $formula_id; ?>">
-              <span   style="align:center;">
+			  <input  type="hidden" name="resume_usertestid"     value="<?php echo $resume_usertestid; ?>">
+			  <input  type="hidden" name="time_remaining"     value="<?php echo $time_remaining; ?>">
+			  <span   style="align:center;">
 			  <?php 
 			if(isset($teststart_time)&&($teststart_time>0)&&($teststart_time>$current_time)){ ?>			  
 			<font color="red">Test will be strated at - <?php echo date("d/m/Y H:i:s",$teststart_time); ?></font>
 			<?php   
 			}else{
+				if(isset($resume_usertestid)&&$resume_usertestid>0){ 	
+if(isset($time_remaining)&&$time_remaining>0){				
 			?>
+			<button onclick="return check_instruction();" type="submit" class="btn btn-success btn- btn-raised btn-lg searchgo">RESUME TEST</button>
+			<?php
+}else{
+	?><button type="button" class="btn btn-danger btn- btn-raised btn-lg searchgo">This is Already Complited!</button>
+			<?php
+}
+			}else{
+				?>
 			<button onclick="return check_instruction();" type="submit" class="btn btn-success btn- btn-raised btn-lg searchgo">PROCEED</button>
 			<?php
+			}
 			}
             $customer_id=$this->session->userdata('customer_id');	
 			?>
@@ -295,17 +317,17 @@ foreach($usertest_info as $testvalue){
 	}else{
 		$dt_created=0;
 	}
-	
-
     echo "<li class='col-xs-12 col-sm-6 col-md-6 text-primary'>";
-	
 	echo "<i class='material-icons'>update</i>";
 	echo "(".$testvaluecnt.")";
 	$testvaluecnt++;
-	echo "<a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a><br>[Attampted On : ".$dt_created." ]</li>";
+	echo "<a href='".base_url('online-test/result/'.$testvalue->id)."' >".$testvalue->name."</a><br>[Attampted On : ".$dt_created." ]";
 	
-
-    
+	if($testvalue->status==0){
+		echo "<a class='nav-item nav-link btn btn-lg btn-md btn-info btn-raised' href='".base_url('online-test/resumetest/usertestid-'.$testvalue->id.'/missing-character/inserting-the-missing-character/'.$testvalue->exmtestid)."'>Resume Test<i class='material-icons'>autorenew</i></a>
+		";
+	}
+	echo "</li>";
 }
 ?>
                   </ul>                  </div>

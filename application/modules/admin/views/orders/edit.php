@@ -20,27 +20,25 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            <div class="row">
-                          
+<div class="row">
 <?php
-
-
-//print_r($orders_products_array);
 //Array ( [0] => stdClass Object ( [product_price] => 5400 [quantity] => 1 [name] => All JEE Physics Videos [price] => 6300 ) ) 
-?>
-                
-                <div class="col-lg-12" >
-                
+?>   
+                <div class="col-lg-12">
                 <div class="box-account box-info">
-        
-                   
     <table class="table ">
-
     <tbody>
         <?php //foreach($my_orders as $orders){ ?>
         <tr>
-            <td colspan="2"><strong>Order # : <?php echo $order->order_no; ?>  | Order Date : <?php echo formatDate($order->created_dt); ?></strong>
-            </td>
+            <td colspan="2"><strong>Order # : <?php echo $order->order_no; ?>  | Order Date : <?php echo formatDate($order->created_dt); ?></strong><br>
+			<?php
+			if(isset($order->txn_number)&&$order->txn_number!=''){ 
+			echo ' | Paytm TXN Id : '.$order->txn_number;
+			} 
+			if(isset($order->paytmorderid)&&$order->paytmorderid!=''){ 
+			echo '<br> | Paytm Order Id : '.$order->paytmorderid;
+			}?>
+			</td>
             
             <td>
                  <b>Order Status</b> : <?php 
@@ -54,7 +52,11 @@
 					echo '<span>'.$order_status->value.'</span>';
 				}  
                  }
-                 
+                 if($order->app_order==1){
+					echo '<span> By Android</span>';
+				}else{
+					echo '<span> By Website</span>';
+				}
                                 
                                 ?>
             </td>
@@ -73,7 +75,7 @@
             <td><address>
 		<?php if($shipping_addresses){ ?>
     <a target="_blank" href="<?php echo base_url(); ?>/admin/customers/edit/<?php echo $order->user_id; ?>">
-		<?php echo $shipping_addresses->address_name; ?></a><br>
+		<?php echo $shipping_addresses->address_name.'('.$order->user_id.')'; ?></a><br>
 		<?php echo $shipping_addresses->address; ?> <br>
 		<?php echo $shipping_addresses->city_name; ?><br>
 		<?php echo $shipping_addresses->state_name; ?><br>
@@ -139,18 +141,26 @@
 	$total_purchase_qty=0;
         
 	foreach($order_details as $myorders){ 
+$orderprod_id=$myorders->odid; 
 		$total_purchase_price+=$myorders->product_price;
 		$total_purchase_qty+=$myorders->quantity;
-
-
-	?>
+?>
 		<tr>
-		 <td><a target="_blank" href="<?php echo base_url('admin/customers/prdcustcart/'.$myorders->product_id); ?>"><?php echo $myorders->name; ?></a></td>		 
-		 <td><i class="fa fa-inr"></i> <?php 
-                  echo get_orgprice($myorders->price,$myorders->discounted_price); ?></td>
+		 <td><a target="_blank" href="<?php echo base_url('admin/customers/prdcustcart/'.$myorders->product_id); ?>"><?php echo $myorders->name; ?></a><br>
+		 <?php 
+		  //'paytype'=>'complimantry'
+		  if(isset($myorders->paytype)&&$myorders->paytype!=''){
+		 echo $myorders->paytype; 
+		  }else{
+			  echo 'Paid';
+		  }
+		 ?>
+		</td>		 
+		<td><i class="fa fa-inr"></i> <?php 
+        echo get_orgprice($myorders->price,$myorders->discounted_price); ?></td>
 		 <td><?php echo $myorders->quantity; ?></td>
 		 <td><i class="fa fa-inr"></i>  <a target="_blank" href="<?php echo base_url(); ?>admin/orders/editOrdPrd/<?php echo $order->id.'/'.$order->user_id.'/'.$myorders->product_id;?>"><?php echo $myorders->product_price;  ?></a>&nbsp;
-										 <a href="<?php echo base_url(); ?>admin/orders/deleteOrdPrd/<?php echo $order->id.'/'.$order->user_id.'/'.$myorders->product_id;?>">
+										 <a href="<?php echo base_url(); ?>admin/orders/deleteordprd/<?php echo $order->id.'/'.$order->user_id.'/'.$myorders->product_id.'/'.$orderprod_id;?>">
                                             <i class="fa fa-trash cat-del"></i>
                                         </a><?php  ?></td>
 		 <!--<td>&#8377; 7,000</td>-->

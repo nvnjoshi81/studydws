@@ -21,7 +21,7 @@
       
         <div class="form-group col-md-6">
   <label for="sel1">Select Class:</label>
-  <select class="form-control" id ="my_class" name ="my_class"  required="">
+  <select class="form-control" id ="my_class" name ="my_class" z required="">
          <option value = "" >Select Class</option>
   <?php
             if(isset($class_list))

@@ -74,7 +74,7 @@ $hindicss_text='class="hindicss_text"';
                 <ul class="grid">
             <?php $count=1;foreach($questions as $question){  ?>
                 <li  class="element-item <?php echo url_title($question->type,'', TRUE)?>" >
-                    <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <span  <?php echo $hindicss ; ?>><?php echo  iconv('UTF-8', 'ASCII//TRANSLIT',custom_strip_tags($question->question));?></span></a></p>
+                    <p> <a  href="#"><i class="material-icons">question_answer</i><?php echo $count;?>) <span  <?php echo $hindicss ; ?>><?php echo  custom_strip_tags($question->question);?></span></a></p>
                    
                 <?php 
                 $answers=$this->Questions_model->answers($question->id);
@@ -91,7 +91,7 @@ $hindicss_text='class="hindicss_text"';
                         ?><p><?php echo $letters[$ac]?>) <?php if($questions_type=='Single Choice'){ ?><span><input onclick="checkSingleQus('<?php echo $answer->id; ?>','<?php echo $answer->is_correct; ?>')" type="radio" value="" name="q_opt" id="q_opt_<?php echo $answer->id; ?>"></span> <?php } ?>
 						<span  <?php echo $hindicss ; ?>>
 <?php						
-						echo iconv('UTF-8', 'ASCII//TRANSLIT', custom_strip_tags($answer->answer));   ?> 
+						echo custom_strip_tags($answer->answer);   ?> 
 						</span>						
 						<span class="ansblock"> <i id="ansright_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:green;font-size: 22px; font-weight: bolder;  margin-bottom: 2px;" >done</i>
         <i id="answrong_<?php echo $answer->id; ?>" class="material-icons" style="display:none;color:red; font-size: 22px; font-weight: bolder; margin-bottom: 2px;" >clear</i> </span></p><?php

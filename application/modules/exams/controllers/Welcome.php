@@ -1,4 +1,5 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php ob_start();
+ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Welcome extends Modulecontroller {
     public function __construct() {
         parent:: __construct();
@@ -40,6 +41,14 @@ class Welcome extends Modulecontroller {
     }
     
     public function index(){ 
+	
+	            $studentid=$this->session->userdata('customer_id');
+			if(isset($studentid)&&$studentid>0){
+				$studentid=$this->session->userdata('customer_id');
+			}else{
+				redirect('login');
+			}
+				
         $this->data['path']='';
         $qb=$this->Questionbank_model->getQuestionBank();
         $this->data['qb']=$qb;
@@ -147,7 +156,13 @@ class Welcome extends Modulecontroller {
     }
 	
 	/*for subject and chapters*/
-    public function main($examname,$examid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){        
+    public function main($examname,$examid,$subjectname=null,$subject_id=0,$chapter_name=null,$chapter_id=0){ 
+	$studentid=$this->session->userdata('customer_id');
+			if(isset($studentid)&&$studentid>0){
+				//$studentid=$this->session->userdata('customer_id');
+			}else{
+				//redirect('login');
+			}  
         $urlChapter_name=NULL;
          $isProduct_array=array();
         $testseries_Product = $this->Pricelist_model->getProduct($examid, $subject_id, $chapter_id, 3);
@@ -255,9 +270,7 @@ $chkcount=$chkcount+1;
 		
 		$sub_chkcount=0;
 		
-		
-		
-		/*for getting sub Exam list for category table*/
+/*for getting sub Exam list for category table*/
 $this->data['sub_chaptersubjects'] = array();
 $this->data['subSubjectArray'] = array();
 
@@ -272,10 +285,11 @@ $subExamId=$subExamArray[0]->id;
 }else{
 $subExamId=0;
 }
+
 $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId); 
 	if(count($sub_chaptersubjects) > 0){
             foreach($sub_chaptersubjects as $sub_record){
-
+				
 	if (!in_array($sub_record->sname, $sub_subjects_array)) {
                     $sub_subjects_array[$sub_record->sid] = array('name' => $sub_record->sname);
                     }
@@ -301,10 +315,7 @@ $sub_chaptersubjects = $this->Examcategory_model->getExamChapters($subExamId);
 	}
 	}
 }
-
 /*End sub exam list*/
-
-
 	if(isset($sub_chaptersubjects)&&count($sub_chaptersubjects)>0){ 
         $this->data['sub_chaptersubjects'] = $sub_data_array;
 		$this->data['subExamArray'] = $subExamArray;
@@ -718,6 +729,14 @@ if($subject_id>0){
 			$teacherInfo[$v_Id] = $this->Customer_model->teacherbytid($techerid);
 		}
 		
+		
+		$livevideoArray=$this->Videos_model->pastlivevideos_examwise($examid);
+if(count($livevideoArray)>0){
+	$this->data['livevideoArray'] = $livevideoArray;
+}else{
+	$this->data['livevideoArray'] = array();
+}
+		
 		$this->data['teacherInfo'] = $teacherInfo;
 		$this->data['videoId'] = $videoId;
         $this->data['content']='welcome';
@@ -1006,22 +1025,34 @@ if(count($isProduct)>0){
         echo "All record saved!";
          }
     
-    public function cron_update_packagecnt_byexamid(){       
+    public function cron_update_packagecnt_byexamid(){
+	
+	echo "Please Wait ....."
+	?>
+	
+	<img src="<?php echo base_url('assets/images/msg-gif.gif'); ?>" alt="Please Wait....">
+	
+	<?php
     //die("Temporarily Off....in welcome exam");	 
     ini_set('memory_limit', '-1');
     ini_set('max_execution_time', 300); //300 seconds = 5 minutes
     $examid_array = $this->Examcategory_model->getExamCatgeories();
     $type=1;//For study-package
-    echo "Total Exam -".count($examid_array)."<br><brgetCronQCount>";
+    echo "Total Exam -".count($examid_array)."<br><br>Please wait ......";
     
     foreach($examid_array as $examinfo){
         $exam_id=$examinfo->id;
         $exam_name=$examinfo->name;
         
-        echo "<br><br>For Exam Id - ".$exam_id."<br><br>";
+       // echo "<br><br>For Exam Id - ".$exam_id."<br><br>";
         if($exam_id>0){
          //Start For Question Bank count update
        $qb_packages_count=$this->Videos_model->check_modules_package($exam_id,'','question-bank','cmspackages_counter','exam');
+	    /*
+			if(isset(count($qb))){	 
+			$qb_update_array['total_package']=count($qb);
+			}	$qb_update_array['total_question']=count($qbquestions);
+			*/
         $qb=$this->Questionbank_model->getQuestionBank($exam_id);
         $qbquestions=$this->Questionbank_model->getQuestionCount($exam_id);
          $qb_update_array=array(
@@ -1032,16 +1063,36 @@ if(count($isProduct)>0){
              'module_type'=>'question-bank',
              'level'=>'exam'
          );
+		 
          if(count($qb_packages_count)>0){
+			 /*
+			 if(isset($qb_packages_count[0]->custom_total_package)&&$qb_packages_count[0]->custom_total_package>0){
+				 
+			 }else{
+				 
+			$qb_update_array['custom_total_package']=count($qb); 
+			 }
+			 
+			 if(isset($qb_packages_count[0]->custom_total_question)&&$qb_packages_count[0]->custom_total_question>0){
+				 
+			 }else{
+				$qb_update_array['custom_total_question']=count($qbquestions); 
+				 
+			 }
+			 
+			 */
              //update entry
              $qb_update_id = $qb_packages_count[0]->id;
              $this->Videos_model->update_modules_package($qb_update_id,$qb_update_array,'cmspackages_counter');
          }else{
+			 
+			 if(count($qb)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($qb_update_array,'cmspackages_counter');         
+			 $this->Videos_model->insert_modules_package($qb_update_array,'cmspackages_counter');        
+			 }
          }         
          //End For Question Bank count update
-           echo "Question Bank saved!<br>";
+           //echo "Question Bank saved!<br>";
             //Start For Sample Papers count update
          $sampap_packages_count=$this->Videos_model->check_modules_package($exam_id,'','sample-papers','cmspackages_counter','exam');
         $sampap=$this->Samplepapers_model->getSamplePapers($exam_id);
@@ -1059,11 +1110,13 @@ if(count($isProduct)>0){
              $sampap_update_id = $sampap_packages_count[0]->id;
              $this->Videos_model->update_modules_package($sampap_update_id,$sampap_update_array,'cmspackages_counter');
          }else{
+			 	 if(count($sampap)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($sampap_update_array,'cmspackages_counter');         
+				 $this->Videos_model->insert_modules_package($sampap_update_array,'cmspackages_counter');  
+				 }       
          }
          //End For Sample Papers count update
-           echo "Sample paper saved!<br>";
+           //echo "Sample paper saved!<br>";
     //Start For Solved Papers count update
          $solpap_packages_count=$this->Videos_model->check_modules_package($exam_id,'','solved-papers','cmspackages_counter','exam');
         $solpap=$this->Solvedpapers_model->getSolvedPapers($exam_id);        
@@ -1086,11 +1139,13 @@ if(count($isProduct)>0){
              $solpap_update_id = $solpap_packages_count[0]->id;
              $this->Videos_model->update_modules_package($solpap_update_id,$solpap_update_array,'cmspackages_counter','exam');
          }else{
+			 if(count($solpap)>0){
              //Insert Entry
-        $this->Videos_model->insert_modules_package($solpap_update_array,'cmspackages_counter');         
+			 $this->Videos_model->insert_modules_package($solpap_update_array,'cmspackages_counter');        
+			 } 
          }
          //End For solved Papers count update
-           echo "Solved paper saved!<br>";
+           //echo "Solved paper saved!<br>";
          //Start For Video count update
          $video_packages_count=$this->Videos_model->check_modules_package($exam_id,'','videos','cmspackages_counter');
         $video=$this->Videos_model->getVideos($exam_id);
@@ -1108,11 +1163,13 @@ if(count($isProduct)>0){
              $video_update_id = $video_packages_count[0]->id;
              $this->Videos_model->update_modules_package($video_update_id,$video_update_array,'cmspackages_counter');
          }else{
+			 if(count($video)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($video_update_array,'cmspackages_counter');         
+			 $this->Videos_model->insert_modules_package($video_update_array,'cmspackages_counter');         
+			 }
          }
          //End For Video count update
-           echo "Video saved!<br>";
+           //echo "Video saved!<br>";
          
     
     //Start For online Test count update
@@ -1138,11 +1195,13 @@ if(count($isProduct)>0){
              $ot_update_id = $ot_packages_count[0]->id;
              $this->Videos_model->update_modules_package($ot_update_id,$ot_update_array,'cmspackages_counter');
          }else{
+			  if(count($ot)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($ot_update_array,'cmspackages_counter');         
+			  $this->Videos_model->insert_modules_package($ot_update_array,'cmspackages_counter');         
+			  }
          }
          //End For Online Test count update    
-         echo "Onliner test saved!<br>";
+         //echo "Onliner test saved!<br>";
          
           //Start For Study Material count update
          $sm_packages_count=$this->Videos_model->check_modules_package($exam_id,'','study-packages','cmspackages_counter','exam');
@@ -1176,8 +1235,10 @@ if(count($isProduct)>0){
              $sm_update_id = $sm_packages_count[0]->id;
              $this->Videos_model->update_modules_package($sm_update_id,$sm_update_array,'cmspackages_counter');
          }else{
+			  if($smpackage_count>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($sm_update_array,'cmspackages_counter');         
+         $this->Videos_model->insert_modules_package($sm_update_array,'cmspackages_counter');
+			  }         
          }
          //Update product pricelist table
          if($exam_id>0){
@@ -1201,7 +1262,7 @@ if(count($isProduct)>0){
           
          }
 //End For Study Material count update
-   echo "Study Material saved!<br>";
+   //echo "Study Material saved!<br>";
     //Start For Notes count update
          $notes_packages_count=$this->Videos_model->check_modules_package($exam_id,'','notes','cmspackages_counter','exam');
         //$notes=$this->Posting_model->getArticlesForExams($exam_id);
@@ -1231,11 +1292,13 @@ if(count($isProduct)>0){
              $notes_update_id = $notes_packages_count[0]->id;
              $this->Videos_model->update_modules_package($notes_update_id,$notes_update_array,'cmspackages_counter');
          }else{
+			   if($notes_package_count>0){
              //Insert Entry
          $this->Videos_model->insert_modules_package($notes_update_array,'cmspackages_counter');         
-         }
+			   }
+			   }
          //End For Notes count update 
-         echo "Notes saved!<br>";
+         //echo "Notes saved!<br>";
           //Start For NCERT Solutions count update
          $ns_packages_count=$this->Videos_model->check_modules_package($exam_id,'','ncert-solution','cmspackages_counter','exam');
         //$ns=$this->Ncertsolutions_model->getNcertSolutions($exam_id);
@@ -1261,17 +1324,21 @@ if(count($isProduct)>0){
              //update entry
              $ns_update_id = $ns_packages_count[0]->id;
              $this->Videos_model->update_modules_package($ns_update_id,$ns_update_array,'cmspackages_counter');
-         }else{
-             //Insert Entry
-         $this->Videos_model->insert_modules_package($ns_update_array,'cmspackages_counter');         
+        }else{
+	    if($ns_count>0){
+        //Insert Entry
+         $this->Videos_model->insert_modules_package($ns_update_array,'cmspackages_counter');
+		}         
          }
          //End For Ncert Solution count update
-         echo "Ncert Solutions saved!<br>";
+         //echo "Ncert Solutions saved!<br>";
          }
-    }    
-   echo "All Record saved!<br>";
+    }  	
+	$this->session->set_flashdata('message','Saved all informaton.');	
+    redirect('admin/freevid');
+	die;	
+    echo "All Record saved!<br>";
     }
-    
     //Update module count for subject.    
     public function cron_update_packagecnt_bysubjectid(){
         
@@ -1288,7 +1355,8 @@ if(count($isProduct)>0){
            foreach( $subjectid_array as  $subjectinfo){
                 $subject_id=$subjectinfo->id;
                 $subject_name=$subjectinfo->name;
-                echo "<br><b>exam_id-(".$exam_id.") subject_id-(".$subject_id.")!<br></b>";
+                echo "<br><b>exam_id-(".$exam_id.") subject_id-(".$subject_id.")<br></b>";
+				
             //Start For Question Bank count update
        $qb_packages_count=$this->Videos_model->check_modules_package($exam_id,$subject_id,'question-bank','cmspackages_counter','subject');
         $qb=$this->Questionbank_model->getQuestionBank($exam_id,$subject_id);
@@ -1304,15 +1372,19 @@ if(count($isProduct)>0){
              'level'=>'subject'
          );
          
+				
+	
          if(count($qb_packages_count)>0){
              //update entry
              $qb_update_id = $qb_packages_count[0]->id;
              $this->Videos_model->update_modules_package($qb_update_id,$qb_update_array,'cmspackages_counter');
          }else{
+			 if(count($qb)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($qb_update_array,'cmspackages_counter');         
-         }     
-         
+			 $this->Videos_model->insert_modules_package($qb_update_array,'cmspackages_counter');         
+			 }
+         }    
+   
          echo "<br>Question Bank Added!<br>";
          //End For Question Bank count update
          
@@ -1335,8 +1407,10 @@ if(count($isProduct)>0){
              $sampap_update_id = $sampap_packages_count[0]->id;
              $this->Videos_model->update_modules_package($sampap_update_id,$sampap_update_array,'cmspackages_counter');
          }else{
+			 if(count($sampap)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($sampap_update_array,'cmspackages_counter');         
+			 $this->Videos_model->insert_modules_package($sampap_update_array,'cmspackages_counter');     
+			 }    
          }
          //End For Sample Papers count update
                   echo "<br>Sanple paper Added!<br>";
@@ -1361,8 +1435,10 @@ if(count($isProduct)>0){
              $solpap_update_id = $solpap_packages_count[0]->id;
              $this->Videos_model->update_modules_package($solpap_update_id,$solpap_update_array,'cmspackages_counter');
          }else{
+			 if(count($solpap)>0){
              //Insert Entry
-        $this->Videos_model->insert_modules_package($solpap_update_array,'cmspackages_counter');         
+        $this->Videos_model->insert_modules_package($solpap_update_array,'cmspackages_counter');
+			 }		
          }
          //End For solved Papers count update
                   echo "<br>Solved paper Added!<br>";
@@ -1385,8 +1461,10 @@ if(count($isProduct)>0){
              $video_update_id = $video_packages_count[0]->id;
              $this->Videos_model->update_modules_package($video_update_id,$video_update_array,'cmspackages_counter');
          }else{
+			 if(count($video)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($video_update_array,'cmspackages_counter');         
+         $this->Videos_model->insert_modules_package($video_update_array,'cmspackages_counter');
+			 }         
          }
          //End For Video count update
                   echo "<br>Video Added!<br>";
@@ -1412,11 +1490,14 @@ if(count($isProduct)>0){
              $ot_update_id = $ot_packages_count[0]->id;
              $this->Videos_model->update_modules_package($ot_update_id,$ot_update_array,'cmspackages_counter');
          }else{
+			 if(count($ot)>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($ot_update_array,'cmspackages_counter');         
+         $this->Videos_model->insert_modules_package($ot_update_array,'cmspackages_counter');
+			 }         
          }
          //End For Online Test count update  
-                  echo "<br>Online Teat Added!<br>"; 
+		 echo $exam_id.'---ot----'.$subject_id;
+                  echo count($ot_packages_count)."<br>Online Teat Added!.......<br>".count($ot); 
           //Start For Study Material count update
          $sm_packages_count=$this->Videos_model->check_modules_package($exam_id,$subject_id,'study-packages','cmspackages_counter','subject');
         //$sm=$this->Studymaterial_model->getStudyMaterial($exam_id,$subject_id);
@@ -1444,9 +1525,11 @@ if(count($isProduct)>0){
              $sm_update_id = $sm_packages_count[0]->id;
              $this->Videos_model->update_modules_package($sm_update_id,$sm_update_array,'cmspackages_counter');
          }else{
+			 if($smpackage_count>0){
              //Insert Entry
          $this->Videos_model->insert_modules_package($sm_update_array,'cmspackages_counter');         
-         }
+			 }
+			 }
                   echo "<br>Study Packages Added!<br>";
             // Update Subject product price
           
@@ -1493,8 +1576,10 @@ if(count($isProduct)>0){
              $notes_update_id = $notes_packages_count[0]->id;
              $this->Videos_model->update_modules_package($notes_update_id,$notes_update_array,'cmspackages_counter');
          }else{
+			 	 if($notes_package_count>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($notes_update_array,'cmspackages_counter');         
+				 $this->Videos_model->insert_modules_package($notes_update_array,'cmspackages_counter');
+				 }         
          }
                   echo "<br>Notes Added!<br>";
          //End For Notes count update 
@@ -1521,27 +1606,736 @@ if(count($isProduct)>0){
              $ns_update_id = $ns_packages_count[0]->id;
              $this->Videos_model->update_modules_package($ns_update_id,$ns_update_array,'cmspackages_counter');
          }else{
+			 if($ns_count>0){
              //Insert Entry
-         $this->Videos_model->insert_modules_package($ns_update_array,'cmspackages_counter');         
+			 $this->Videos_model->insert_modules_package($ns_update_array,'cmspackages_counter');  
+			 }       
          }
+		$this->session->set_flashdata('message','Subject level Entry Done.');	
+		 //redirect('admin/freevid');
+	
          //End For Ncert Solution count update
           echo "<br>Ncert Solution!<br>";
-        }
     }
     }
     }
-    
+	$this->session->set_flashdata('message','Saved all informaton for Subject level.');
+	 redirect('admin/freevid');
+	die;
+    }
    public function cron_update_orderstatus(){
 	  /* 
-	   //SELECT * FROM `cmsorders` WHERE `created_dt` >1601487238 and `app_order`='1' and `status`='1' and `txn_number`=''
-	   
-	     $ord_update_array=array(
-             'status'=>0
-         );
-	   */
+	  //SELECT * FROM `cmsorders` WHERE `created_dt` >1601487238 and `app_order`='1' and `status`='1' and `txn_number`=''
+	  $ord_update_array=array(
+      'status'=>0
+	  );
+	  */
 	   
 	   echo 'done';
    }
-    
+   
+   public function copyrelation($classid,$modtype){
+	   
+	   //die("Contact with devloper.");
+	   $insertclassid='134';
+	   if(isset($modtype)&&$modtype!=''){
+		if($modtype=='notes'){
+	  	 $classrel_data=$this->Admin_model->showclassrel($classid); 
+		 if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'article_id'=>$relval->article_id,
+		'category_id'=>$insertclassid,
+		'top_category_id'=>$relval->top_category_id,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->Admin_model->copyinsertrelation($relval_insert); 
+$icnt++;
+	}
+}
+		}else if($modtype=='question-bank'){
+			  $query = $this->db->query('SELECT * FROM cmsquestionbank_relations where exam_id="'.$classid.'"');
+			  
+			  $classrel_data=$query->result();
+			  
+			  
+			  
+			  
+			  
+			  	 if(count($classrel_data)>0){
+	$icnt=1;
+	 $countcheck=0;
+	 $sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmsquestionbank_relations where questionbank_id="'.$relval->questionbank_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+			  
+		if($countcheck>0){
+		echo $sqlcheck.'<br>';
+		echo $icnt.'Already Exist.<br><br>';
+		}else{
+		$relval_insert=array(
+		'questionbank_id'=>$relval->questionbank_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+	$this->db->insert('cmsquestionbank_relations',$relval_insert);
+	}
+$icnt++;
+	}
+		}
+		}elseif($modtype=='sample-papers'){
+			  $query = $this->db->query('SELECT * FROM cmssamplepapers_relations where exam_id="'.$classid.'"');
+			  
+			  
+			  $classrel_data=$query->result();
+			  
+			  	 if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'samplepaper_id'=>$relval->samplepaper_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmssamplepapers_relations',$relval_insert);
+$icnt++;
+	}
+		}	
+			
+			
+		}elseif($modtype=='study-packages'){
+			 $query = $this->db->query('SELECT * FROM cmsstudymaterial_relations where exam_id="'.$classid.'"');
+			  
+			  
+			  $classrel_data=$query->result();
+			  
+			  	 if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'studymaterial_id'=>$relval->studymaterial_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsstudymaterial_relations',$relval_insert);
+$icnt++;
+	}
+		}
+	    }elseif($modtype=='online-test'){
+			 $query = $this->db->query('SELECT * FROM cmsonlinetest_relations where exam_id="'.$classid.'"');
+			  $classrel_data=$query->result();
+			  
+	if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'onlinetest_id'=>$relval->onlinetest_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsonlinetest_relations',$relval_insert);
+$icnt++;
+	}
+		}
+		
+			//
+			
+		}elseif($modtype=='videos'){
+			 $query = $this->db->query('SELECT * FROM cmsvideolist_relations where exam_id="'.$classid.'"');
+			  $classrel_data=$query->result();
+			  
+	if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'videolist_id'=>$relval->videolist_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsvideolist_relations',$relval_insert);
+$icnt++;
+	}
+		}
+		
+			//
+			
+		}elseif($modtype=='solved-papers'){
+			 $query = $this->db->query('SELECT * FROM cmssolvedpapers_relations where exam_id="'.$classid.'"');
+			  $classrel_data=$query->result();
+			  
+	if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'solvedpapers_id'=>$relval->solvedpapers_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmssolvedpapers_relations',$relval_insert);
+$icnt++;
+	}
+		}
+		
+			//
+			
+		}elseif($modtype=='ncert-solution'){
+			 $query = $this->db->query('SELECT * FROM cmsncertsolutions_relations where exam_id="'.$classid.'"');
+			  $classrel_data=$query->result();
+			  
+	if(count($classrel_data)>0){
+	$icnt=1;
+	foreach($classrel_data as $relkey=>$relval){
+		$relval_insert=array(
+		'ncertsolutions_id'=>$relval->ncertsolutions_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsncertsolutions_relations',$relval_insert);
+$icnt++;
+	}
+		}
+		
+			//
+			
+		}else{
+		die("Module Type Does not Exist!");
+		}
+	    }else{
+		die("Please Enter Module Type!");
+	    }
+		
+
+echo 'Total - '. $icnt.' Records Added!';		 
+}
+/*For Super exam to other exam*/
+
+public function copyfromsuper($classid='134',$modtype='8'){
+$classid='134';
+
+
+//"8"=>"Article","4"=>"Books",
+$modtype_array=array(9=>"Ncert Solutions",5=>"Notes",3=>"Online Tests",7=>"Question Bank",6=>"Sample Papers",10=>"Solved Papers",1=>"Study Material",2=>"Videos");
+
+$exampasteArray=array(79,102,78,77,132,108,112,115,116,117,118,119,125,126,127,128,129,130,131);
+
+print_r($modtype_array);
+if(isset($modtype)&&$modtype>0){
+if($modtype=='8'||$modtype=='4'){
+die('Module Type '. $modtype.' not Allowed for copy!');	
+}
+
+if(!array_key_exists($modtype,$modtype_array)) {
+	die('Module Type '. $modtype.' not Allowed for copy!');	
+	
+}
+
+
+}else{
+$modtype='NULL';
+die('Module Type not selected!');
+}
+	
+
+$check=1;
+	foreach($exampasteArray as $pkey=>$pateval){
+		echo '->'.$check.'<-<br>';
+		$check++;
+	if($pateval>0){
+    /*Loop for each module type like SM,QB,SP */
+	$error='';
+	$success='';		
+	$insertclassid=$pateval;
+if(isset($modtype)&&$modtype!=''){
+/*****************5 Notes*********************/
+if($modtype=='5'){ 
+	 $error='';
+	 $success='';
+	$query = $this->db->query('SELECT * FROM relatedpostings where category_id="'.$classid.'"');
+	$classrel_data=$query->result();
+	if(count($classrel_data)>0){
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$classrel_datacheck=array();
+		$sqlcheck .='SELECT * FROM relatedpostings where article_id="'.$relval->article_id.'" and category_id="'.$insertclassid.'"';
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and subject_id="'.$relval->subject_id.'"';
+		}
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and chapter_id="'.$relval->chapter_id.'"';
+		}
+		$querycheck = $this->db->query($sqlcheck);
+		$classrel_datacheck=$querycheck->result();
+		$countcheck=count($classrel_datacheck);
+		if($countcheck>0){
+		
+		$error = 'Already Exist. Notes.'.$pateval.'<br><br>';
+		
+		}else{
+		$relval_insert=array(
+		'article_id'=>$relval->article_id,
+		'category_id'=>$insertclassid,
+		'top_category_id'=>$relval->top_category_id,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+	$this->db->insert('relatedpostings',$relval_insert);
+	$success = 'Copied Notes<br><br>';
+$icnt++;
+	}
+	}
+}
+echo $error;
+echo $success;
+}
+/*****7 questionbank********/	 
+if($modtype=='7'){ 
+$error='';
+$success='';
+			
+  
+			  $query = $this->db->query('SELECT * FROM cmsquestionbank_relations where exam_id="'.$classid.'"');
+			  $classrel_data=$query->result();
+	if(count($classrel_data)>0){
+	$icnt=1;
+	 $countcheck=0;
+	 $sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmsquestionbank_relations where questionbank_id="'.$relval->questionbank_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+			  
+		if($countcheck>0){
+		 $error='Already Exist 2questionbank.<br><br>';
+		}else{
+		$relval_insert=array(
+		'questionbank_id'=>$relval->questionbank_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+	$this->db->insert('cmsquestionbank_relations',$relval_insert);
+	$success = 'Copied cmsquestionbank<br><br>';
+	}
+$icnt++;
+	}
+		}
+	echo $error;
+	echo $success;	
+		
+		}
+		
+		
+/*****************6 samplepapers**********/	
+		if($modtype=='6'){
+			 $error='';
+	 $success='';
+			 
+			  $query = $this->db->query('SELECT * FROM cmssamplepapers_relations where exam_id="'.$classid.'"');
+			  
+			  
+			  $classrel_data=$query->result();
+			  
+			  	 if(count($classrel_data)>0){
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+	
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmssamplepapers_relations where samplepaper_id="'.$relval->samplepaper_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+		
+		if($countcheck>0){
+			echo $sqlcheck.'<br>';
+		echo $icnt.'Already Exist 3samplepapers'; 
+		}else{
+		$relval_insert=array(
+		'samplepaper_id'=>$relval->samplepaper_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmssamplepapers_relations',$relval_insert);
+$success = 'Copied sample paper<br><br>';
+$icnt++;
+	}
+		}	
+				 }	
+			echo $error;
+	echo $success;		
+		}
+		
+		
+/*********1 studymaterial***********/
+		if($modtype=='1'){
+			 $error='';
+	 $success='';
+			
+			 $query = $this->db->query('SELECT * FROM cmsstudymaterial_relations where exam_id="'.$classid.'"');
+			  
+			  
+			  $classrel_data=$query->result();
+			  
+			  	 if(count($classrel_data)>0){
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmsstudymaterial_relations where studymaterial_id="'.$relval->studymaterial_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+		
+			if($countcheck>0){
+		 $error ='Already Exist. 4studymaterial<br><br>';
+		}else{
+		$relval_insert=array(
+		'studymaterial_id'=>$relval->studymaterial_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsstudymaterial_relations',$relval_insert);
+$success = 'Copied studymaterial<br><br>';
+$icnt++;
+		}
+	}
+		}
+			echo $error;
+	echo $success;	
+	    }
+		
+		
+/*****3onlinetest*****/
+		
+		if($modtype=='3'){
+			 $error='';
+	 $success='';
+			
+			 $query = $this->db->query('SELECT * FROM cmsonlinetest_relations where exam_id="'.$classid.'"');
+			  
+			  
+			  $classrel_data=$query->result();
+			  
+			  	 if(count($classrel_data)>0){
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmsonlinetest_relations where onlinetest_id="'.$relval->onlinetest_id.'" and exam_id="'.$insertclassid.'"';
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&($relval->chapter_id>0)){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+			if($countcheck>0){
+		echo '-->'.$sqlcheck.'<br>';
+		echo $icnt.'Already Exist. 5onlinetest<br><br>';
+		}else{
+		$relval_insert=array(
+		'onlinetest_id'=>$relval->onlinetest_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsonlinetest_relations',$relval_insert);
+$success = 'Copied online test<br><br>';
+$icnt++;
+		}
+	}
+		}
+	echo $error;
+	echo $success;	
+		}
+		
+/******2Videos********/
+		if($modtype=='2'){
+			 $error='';
+	 $success='';
+$query = $this->db->query('SELECT * FROM cmsvideolist_relations where exam_id="'.$classid.'"');
+	 $classrel_data=$query->result();
+	//videolist_id
+	if(count($classrel_data)>0){
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmsvideolist_relations where videolist_id="'.$relval->videolist_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+			if($countcheck>0){
+		echo '-->'.$sqlcheck.'<br>';
+		echo $icnt.'Already Exist. 6Videos<br><br>';
+		}else{
+			
+		$relval_insert=array(
+		'videolist_id'=>$relval->videolist_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsvideolist_relations',$relval_insert);
+$success = 'Copied videos<br><br>';
+$icnt++;
+		}
+	}
+	}
+		echo $error;
+	echo $success;	
+	
+	}
+	
+/*******9NCERT SOlution********/
+	if($modtype=='9'){
+		 $error='';
+	 $success='';
+		
+$query = $this->db->query('SELECT * FROM cmsncertsolutions_relations where exam_id="'.$classid.'"');
+	 $classrel_data=$query->result();
+	//videolist_id
+	if(count($classrel_data)>0){
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmsncertsolutions_relations where ncertsolutions_id="'.$relval->ncertsolutions_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+			if($countcheck>0){
+		echo '-->'.$sqlcheck.'<br>';
+		echo $icnt.'Already Exist. 6Videos<br><br>';
+		}else{
+			
+		$relval_insert=array(
+		'ncertsolutions_id'=>$relval->ncertsolutions_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmsncertsolutions_relations',$relval_insert);
+$icnt++;
+$success = 'Copied ncertsolution<br><br>';
+		}
+	}
+	}
+		echo $error;
+	echo $success;	
+	}
+	
+/*****10Solved Paper******/
+	if($modtype=='10'){
+     $error='';
+	 $success='';
+
+$query = $this->db->query('SELECT * FROM cmssolvedpapers_relations where exam_id="'.$classid.'"');
+	 $classrel_data=$query->result();
+	//videolist_id
+	if(count($classrel_data)>0){
+		
+	$icnt=1;
+	$countcheck=0;
+	$sqlcheck='';
+	foreach($classrel_data as $relkey=>$relval){
+		$sqlcheck='';
+		$sqlcheck .='SELECT * FROM cmssolvedpapers_relations where solvedpapers_id="'.$relval->solvedpapers_id.'" and exam_id="'.$insertclassid.'"';
+		
+		if(isset($relval->subject_id)&&$relval->subject_id>0){
+		$sqlcheck .=' and  subject_id="'.$relval->subject_id.'"';
+		}
+		
+		if(isset($relval->chapter_id)&&$relval->chapter_id>0){
+		$sqlcheck .=' and  chapter_id="'.$relval->chapter_id.'"';
+		}
+		
+		 $querycheck = $this->db->query($sqlcheck);
+		
+			  $classrel_datacheck=$querycheck->result();
+			  $countcheck=count($classrel_datacheck);
+		
+			if($countcheck>0){
+		echo '-->'.$sqlcheck.'<br>';
+		echo $icnt.'Already Exist. 6Videos<br><br>';
+		}else{
+			
+		$relval_insert=array(
+		'solvedpapers_id'=>$relval->solvedpapers_id,
+		'exam_id'=>$insertclassid,
+		'subexam_id'=>$relval->subexam_id,
+		'subject_id'=>$relval->subject_id,
+		'chapter_id'=>$relval->chapter_id,
+		'created_by'=>$relval->created_by,
+		'dt_created'=>$relval->dt_created,
+		'dt_modified'=>$relval->dt_created
+		);
+$this->db->insert('cmssolvedpapers_relations',$relval_insert);
+$success = 'Copied solved paper<br><br>';
+$icnt++;
+		}
+	}
+	}
+	echo $error;
+	echo $success;
+	}	
+	
+	}
+	}else{
+		die("Module Type Does not Exist!");
+		}
+	    }
+echo 'Total - '. $icnt.' Records Added!';
+	}
 }
 ?>

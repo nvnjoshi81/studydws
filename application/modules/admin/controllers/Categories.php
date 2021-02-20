@@ -145,7 +145,26 @@ class Categories extends MY_Admincontroller {
               $this->index();
 
         }else{
-            
+           $hindicatname= $this->input->post('catname');
+		   
+		   if(isset($hindicatname)&&$hindicatname!=''){
+		/*Save for hindi font*/
+		
+			 $update_id=$this->input->post("update");
+        $hindidata = array(
+            'categories_id' => $update_id,
+            'catname' => $this->input->post('catname')
+			);
+			
+            $this->categories_model->update_langcategories($hindidata,$update_id,'hindi');
+				  
+			$englishdata = array(
+            'categories_id' => $update_id,
+            'catname' => $this->input->post('name')
+			);	
+				   $this->categories_model->update_langcategories($englishdata,$update_id,'english');
+		   }
+		   
          $this->data = array(
             'name' => $this->input->post('name'),
             'order' => $this->input->post('order'),
@@ -159,7 +178,7 @@ class Categories extends MY_Admincontroller {
                   $this->categories_model->update_categories($this->data,$update_id);
                   echo "<h3>Successfull Update Category Thanks</h3>";
              }else{
-             echo  $result = $this->categories_model->add_categories($this->data);
+             $this->categories_model->add_categories($this->data);
                
             echo "<h3>Successfull Add Category Thanks</h3>";
         //    redirect('admin/categories');
@@ -171,7 +190,6 @@ class Categories extends MY_Admincontroller {
        //   $this->loade->view("categories");
         }
         public function edit_categories($id){
-           
             
                if(isset($_GET['cid']) && $_GET['cid']> 0){
                  echo $selected_cat=$_GET['cid'];
@@ -188,6 +206,8 @@ class Categories extends MY_Admincontroller {
             /*    edit categories */             
             $result=$this->categories_model->getPrentName($id);
             $this->data['result']=$result;
+			$resulthindi=$this->categories_model->getPrentNamehindi($id,'hindi');
+			$this->data['resulthindi']=$resulthindi;
             $this->data['content']='categories/categories';
             $this->load->view('common/template',$this->data);
                             
